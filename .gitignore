@@ -194,3 +194,16 @@ GitHub.sublime-settings
 .ionide
 
 # End of https://www.gitignore.io/api/git,java,maven,windows,eclipse,sublimetext, visualstudiocode
+
+#Server-files
+Servers/
+
+#OS generated
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
