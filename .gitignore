@@ -194,3 +194,6 @@ GitHub.sublime-settings
 .ionide
 
 # End of https://www.gitignore.io/api/git,java,maven,windows,eclipse,sublimetext, visualstudiocode
+
+#Server-files
+Servers/
