@@ -117,7 +117,7 @@
 		<div id="btn">
 			<button  class="memberBtn" id="common">개인 회원</button>
 			<button  class="memberBtn" id="business">사업자 회원</button>
-			<form accept="login();">
+			<form accept="login()">
 				<input type="text" class="input-info" placeholder="아이디" id="userId" name="userId"><br>
 				<input type="password" class="input-info" placeholder="비밀번호" id="userPwd" name="userPwd">
 			</form>
@@ -147,6 +147,7 @@
 			});
 		});
 		
+		
 		function enterLogin(){
 			var userId = $('#userId');
 			var userPwd = $('#userPwd');
@@ -163,6 +164,7 @@
 		function login(){
 			location.href="<%=request.getContextPath()%>/login";
 		}
+		
 	</script>
 </body>
 </html>

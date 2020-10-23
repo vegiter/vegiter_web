@@ -5,7 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
-<script src="../js/jquery-3.5.1.min.js"></script>
 <style>
 	* { box-sizing: border-box;}
 	
@@ -193,6 +192,7 @@
 </style>
 </head>
 <body>
+	<%@ include file="../common/gnb.jsp" %>
 		<section>
 		<div id="section-header">
 			<div class="member-header" id="common"><h4>일반회원</h4></div>
@@ -201,28 +201,28 @@
 		<article id="social-enroll">
 			<div class="social" id="social">
 				<p>소셜로 간편하게 로그인하세요.</p>
-				<a href="#"><img src="../images/naver.PNG" id="naver"></a>
-				<a href="#"><img src="../images/kakao.PNG" id="kakao"></a>
+				<a href="#"><img src="<%= request.getContextPath() %>/images/common/naver.png" id="naver"></a>
+				<a href="#"><img src="<%= request.getContextPath() %>/images/common/kakao.png" id="kakao"></a>
 			</div>
 		</article>
 		<article>
-			<form method="post" accept="enroll();">
+			<form method="post" id="insertMember" action="<%=request.getContextPath() %>/insert.me" onsubmit="return enroll();">
 				<div id="input-boxes">
 					<p><b>*</b>은 필수 입력칸입니다.</p>
 					<h4>아이디(6자리이상 영문, 숫자 1개 이상)<b>*</b></h4>
-					<div class="input-info"><input type="text" name="userId" id="userId" onblur="idConfirm();"></div>
+					<div class="input-info"><input type="text" name="userId" id="userId"></div>
 					<div class="error" id="id-error"></div>
 					<h4>비밀번호(6자리이상 영문, 숫자, 특수문자 1개 이상)<b>*</b></h4>
-					<div class="input-info"><input type="password" name="userPwd" id="password" onblur="passwordConfirm();"></div>
+					<div class="input-info"><input type="password" name="userPwd" id="password"></div>
 					<div class="error"></div>
 					<h4>비밀번호 확인<b>*</b></h4>
-					<div class="input-info"><input type="password" name="userPwd2" id="password2" onblur="password2Confirm();"></div>
+					<div class="input-info"><input type="password" name="userPwd2" id="password2"></div>
 					<div class="error"></div>
 					<h4>이름<b>*</b></h4>
-					<div class="input-info"><input type="text" name="userName" id="userName" onblur="nameConfirm();"></div>
+					<div class="input-info"><input type="text" name="userName" id="userName"></div>
 					<div class="error"></div>
 					<h4>이메일<b>*</b></h4>
-					<div class="input-info"><input type="email" name="email" id="email" onblur="emailConfirm();"></div>
+					<div class="input-info"><input type="email" name="email" id="email"></div>
 					<div class="error"></div>
 					<h4>성별</h4>
 					<div class="input-info">
@@ -235,7 +235,7 @@
 					</div>
 					<h4>휴대폰 번호<b>*</b></h4>
 					<div class="input-info" id="phone-msg">
-						<input type="number" class="phone" name="phone" id="phone" onblur="inputPhone();">
+						<input type="number" class="phone" name="phone" id="phone">
 						<button class="phone-btn" id="sendMsg" onclick="sendConfirm();">인증번호 전송</button>
 					</div>
 					<div class="input-info" id="phone-ok">
@@ -258,15 +258,9 @@
 					</div>
 					<div class="error" id="style-info"><a onclick="info();">푸드스타일이란?</a></div>
 				</div>
-				<div id="div-btn-enroll"><button id="enrollBtn" onclick="enterEnroll();">회원가입</button></div>
+				<div id="div-btn-enroll"><input type="submit" id="enrollBtn" value="회원가입"></div>
 			</form>
 			<script>
-				var idCheck = true;
-				var pwdCheck = true;
-				var nameCheck = true;
-				var emailCheck = true;
-				var phoneCheck = true;
-				
 				var regExp1 = /[a-zA-Z]/; //문자
 				var regExp2 = /[0-9]/;	//숫자
 				var regExp3 = /\S/; //공백여부
@@ -274,7 +268,6 @@
 				var regExp5 = /[가-힣]/; //한글
 				
 				$(function(){
-					
 					$('input').focusin(function(){
 						$(this).css({'border':'2px solid green', 'box-shadow':'0px 0px 5px green'});
 					}).focusout(function(){
@@ -282,21 +275,60 @@
 					});
 					
 				});
-				function idConfirm(){
-					// id 입력시 
+				
+				var idCheck = false;  // pk
+				var pwdCheck = false;
+				var pwd2Check = false;
+				var nameCheck = false;
+				var emailCheck = false; //unique
+				var phoneCheck = false; //인증
+				var checked = false; //전체 체크
+				
+				$("#userId").on('change paste keyup', function(){
+					var idCheck = false;
+				});
+				$("#userPwd").on('change paste keyup', function(){
+					var pwdCheck = false;
+				});
+				$("#userPwd2").on('change paste keyup', function(){
+					var pwd2Check = false;
+				});
+				$("#email").on('change paste keyup', function(){
+					var emailCheck = false;
+				});
+				$("#phone").on('change paste keyup', function(){
+					var phoenCheck = false;
+				});
+				
+				$('#userId').change(function(){
 					var inputId = $('#userId').val();
-					
+
 					if(inputId.length == 0){
 						$('.error').eq(0).text('아이디를 입력해주세요').css('color','red');
-						idCheck = false;
 					}else if(!regExp1.test(inputId) || !regExp2.test(inputId) || !regExp3.test(inputId) || inputId.length < 6 ){
 						$('.error').eq(0).text('아이디는 6자리 이상, 문자, 숫자로 구성하여야 합니다.').css('color','red');
-						idCheck = false;
 					}else{
 						// 중복 체크!
-						$('.error').eq(0).text('사용가능한 아이디입니다.').css('color','green');
+						$.ajax({
+							url: '<%= request.getContextPath()%>/checkId.me',
+							data: {userId: inputId},
+							success: function(data){
+								console.log(data);
+								
+								if(data == 'success'){
+									$('.error').eq(0).text('사용가능한 아이디입니다.').css('color','green');
+									idCheck = true;
+								}else{
+									$('.erro').eq(0).text('중복된 아이디입니다.').css('color','red');
+									idCheck = false;
+								}
+							}
+						});
 					}
-				}
+					
+				})
+				
+			
 				function passwordConfirm(){
 					// 비번 입력시
 					var inputPwd = $('#password').val();
@@ -360,20 +392,22 @@
 						$('.error').eq(5).text('');
 					}
 				}
-				function enterEnroll(){
-					if(!idCheck){
-						alert('아이디를 올바르게 입력해주세요');
-						$('#userId').focuse();
-					}
-					if(!pwdCheck){
-						alert('비밀번호를 올바르게 입력해주세요');
-						$('#userPwd').focus();
-					}
-				}
 				function enroll(){
-					
+					// 넘어가서 값이 없어짐 >> updatePWD참고하기
+					if(idCheck == false || $('#userId').val() == ''){
+						$('.error').eq(0).text('아이디를 올바르게 입력해주세요').css('color','red');
+						$('#userId').focus();
+					}else if(!pwdCheck || $('#userPwd').val() == ''){
+						$('#userPwd').focus();
+					}else if(!phoneCheck || $('#phone').val() == ''){
+						$('#phone').focus();
+					}else if(nameCheck){
+						
+					}else{
+						return true;
+					}
+					return false;
 				}
-				
 				function sendConfirm(){
 					
 				}

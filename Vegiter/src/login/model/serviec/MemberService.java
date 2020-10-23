@@ -19,5 +19,14 @@ public class MemberService {
 		
 		return loginUser;
 	}
+
+	public int checkId(String userId) {
+		Connection conn = getConnection();
+		
+		int result = new MemberDAO().checkId(conn, userId);
+		close(conn);
+		
+		return result;
+	}
 	
 }
