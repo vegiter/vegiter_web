@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -191,7 +193,7 @@
 </style>
 </head>
 <body>
-	<section>
+		<section>
 		<div id="section-header">
 			<div class="member-header" id="common"><h4>일반회원</h4></div>
 			<div class="member-header" id="business"><h4><a href="businessEnroll.html">사업자 회원</a></h4></div>
@@ -385,8 +387,5 @@
 			</script>
 		</article>
 	</section>
-	
-	<footer>
-	</footer>
 </body>
 </html>

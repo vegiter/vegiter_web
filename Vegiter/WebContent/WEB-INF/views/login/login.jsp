@@ -117,7 +117,7 @@
 		<div id="btn">
 			<button  class="memberBtn" id="common">개인 회원</button>
 			<button  class="memberBtn" id="business">사업자 회원</button>
-			<form accept="return check();">
+			<form accept="login();">
 				<input type="text" class="input-info" placeholder="아이디" id="userId" name="userId"><br>
 				<input type="password" class="input-info" placeholder="비밀번호" id="userPwd" name="userPwd">
 			</form>
@@ -128,9 +128,9 @@
 			<button id="login-btn" onclick="enterLogin();">로그인</button>
 		</div>
 		<div id="other-div">
-			<span class="other" id="findId"><a href="<%=request.getContextPath() %>/findId">아이디 찾기</a></span>
+			<span class="other" id="findId"><a href="<%=request.getContextPath() %>/findId.me">아이디 찾기</a></span>
 			<span class="other" id="findPwd"><a href="findPwd.html">비밀번호 찾기</a></span>
-			<span class="other" id="enroll"><a href="enroll.html">회원가입</a></span>
+			<span class="other" id="enroll"><a href="<%=request.getContextPath()%>/enrollForm.me">회원가입</a></span>
 		</div>
 	</section>
 	<script>
@@ -146,7 +146,6 @@
 				$('#common').removeClass('selectedBtn');
 			});
 		});
-		check = true;
 		
 		function enterLogin(){
 			var userId = $('#userId');
@@ -157,7 +156,12 @@
 			}else if(userPwd.val() == ''){
 				$('#login-error').html('비밀번호를 입력해주세요').css('color','red');
 				userPwd.focus();
+			}else{
+				login();
 			}
+		}
+		function login(){
+			location.href="<%=request.getContextPath()%>/login";
 		}
 	</script>
 </body>
