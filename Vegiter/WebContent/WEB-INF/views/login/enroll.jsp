@@ -196,7 +196,7 @@
 		<section>
 		<div id="section-header">
 			<div class="member-header" id="common"><h4>일반회원</h4></div>
-			<div class="member-header" id="business"><h4><a href="businessEnroll.html">사업자 회원</a></h4></div>
+			<div class="member-header" id="business"><h4><a href="<%= request.getContextPath()%>/businessEnroll">사업자 회원</a></h4></div>
 		</div>
 		<article id="social-enroll">
 			<div class="social" id="social">
@@ -218,6 +218,7 @@
 					<h4>비밀번호 확인<b>*</b></h4>
 					<div class="input-info"><input type="password" name="userPwd2" id="password2"></div>
 					<div class="error"></div>
+					<input type="hidden" name="code" value="1">
 					<h4>이름<b>*</b></h4>
 					<div class="input-info"><input type="text" name="userName" id="userName"></div>
 					<div class="error"></div>
@@ -227,10 +228,10 @@
 					<h4>성별</h4>
 					<div class="input-info">
 						<select name="gender">
-							<option selected value="NULL">성별</option>
+							<option selected value=null>성별</option>
 							<option value="F">남자</option>
 							<option value="M">여자</option>
-							<option value="Not">선택 안함</option>
+							<option value=null>선택 안함</option>
 						</select>
 					</div>
 					<h4>휴대폰 번호<b>*</b></h4>
@@ -287,10 +288,10 @@
 				$("#userId").on('change paste keyup', function(){
 					var idCheck = false;
 				});
-				$("#userPwd").on('change paste keyup', function(){
+				$("#password").on('change paste keyup', function(){
 					var pwdCheck = false;
 				});
-				$("#userPwd2").on('change paste keyup', function(){
+				$("#passwor2").on('change paste keyup', function(){
 					var pwd2Check = false;
 				});
 				$("#email").on('change paste keyup', function(){
@@ -328,11 +329,8 @@
 					
 				})
 				
-			
-				function passwordConfirm(){
-					// 비번 입력시
+				$('#password').change(function(){
 					var inputPwd = $('#password').val();
-					
 					if(inputPwd.length ==  0){
 						$('.error').eq(1).text('비밀번호를 입력해주세요').css('color','red');
 						pwdCheck = false;
@@ -341,26 +339,28 @@
 						pwdCheck = false;
 					}else{
 						$('.error').eq(1).text('사용가능한 비밀번호입니다.').css('color','green');
+						pwdCheck = true;
 					}
-				}
+				});
 				
-				function password2Confirm(){
-					var pwd1 = $('#password').val();
-					var pwd2 = $('#password2').val();
-					if(pwd1 == pwd2){
-						if(pwd2.length == 0){
+				$('#password2').change(function(){
+					var inputPwd2 = $('#password2').val();
+					var inputPwd = $('#password').val();
+					if(inputPwd == inputPwd2){
+						if(inputPwd2.length == 0){
 							$('.error').eq(2).text('');
-							pwdCheck = false;
+							pwd2Check = false;
 						}else{
 							$('.error').eq(2).text('비밀번호가 일치합니다.').css('color','green');
+							pwd2Check = true;
 						}
 					}else{
 						$('.error').eq(2).text('비밀번호가 일치하지 않습니다.').css('color','red');
-						pwdCheck = false;
+						pwd2Check = false;
 					}
-				}
+				});
 				
-				function nameConfirm(){
+				$('#userName').change(function(){
 					var name = $('#userName').val();
 					if(name.length == 0){
 						$('.error').eq(3).text('이름을 입력해주세요').css('color','red');
@@ -370,51 +370,71 @@
 						nameCheck = false;
 					}else{
 						$('.error').eq(3).text('');
+						nameCheck = true;
 					}
-				}
+				});
 				
-				function emailConfirm(){
+				$('#email').change(function(){
 					var email = $('#email').val();
 					if(email.length == 0){
 						$('.error').eq(4).text('이메일을 입력해주세요').css('color','red');
 						emailCheck = false;
 					}else{
-						// 중복체크 >> ajax사용?
-						// unique로 만들기
 						$('.error').eq(4).text('사용가능한 이메일입니다.').css('color','green');
+						emailCheck = true;
 					}
-				}
-				function inputPhone(){
+				});
+				
+				$('#phone').change(function(){
 					var phone = $('#phone').val();
 					if(phone.length == 0){
 						$('.error').eq(5).text('휴대폰 번호를 입력해주세요').css('color','red');
 					}else{
 						$('.error').eq(5).text('');
 					}
-				}
-				function enroll(){
-					// 넘어가서 값이 없어짐 >> updatePWD참고하기
-					if(idCheck == false || $('#userId').val() == ''){
-						$('.error').eq(0).text('아이디를 올바르게 입력해주세요').css('color','red');
-						$('#userId').focus();
-					}else if(!pwdCheck || $('#userPwd').val() == ''){
-						$('#userPwd').focus();
-					}else if(!phoneCheck || $('#phone').val() == ''){
-						$('#phone').focus();
-					}else if(nameCheck){
-						
-					}else{
-						return true;
-					}
-					return false;
-				}
+				});
 				function sendConfirm(){
+					
 					
 				}
 				function confirm(){
 					// 확인문자까지 해야 true
 					$('.error').eq(5).text('인증이 완료되었습니다.').css('color','green');
+					phoneCheck = true;
 				}
+				
+				function enroll(){
+					// 넘어가서 값이 없어짐 >> updatePWD참고하기
+					if(!idCheck){
+						alert('아이디를 확인해주세요');
+						$('#userId').focus();
+						return false;
+					}else if(!pwdCheck){
+						alert('비밀번호를 입력해주세요');
+						$('#password').focus();
+						return false;
+					}else if(!pwd2Check){
+						alert('비밀번호가 일치하지 않습니다.');
+						$('#password2').focus();
+						return false;
+					}else if(!nameCheck){
+						alert('이름을 바르게 입력해주세요');
+						$('#userName').focus();
+						return false;
+					}else if(!emailCheck){
+						alert('이메일을 입력해주세요');
+						$('#email').focus();
+						return false;
+					}else if(!phoneCheck){
+						alert('휴대폰 인증확인을 해주세요');
+						$('#phone').focus();
+						return false;
+					}else{
+						alert('회원가입이 되었습니다.');
+						return true;
+					}
+				}
+				
 				function info(){
 					window.open('foodStyle.html','푸드스타일이란?','width=600,height=450');
 				}

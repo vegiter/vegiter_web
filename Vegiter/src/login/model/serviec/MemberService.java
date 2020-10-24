@@ -1,7 +1,7 @@
 package login.model.serviec;
 
-import static common.JDBCTemplate.getConnection;
 import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
 
@@ -27,6 +27,14 @@ public class MemberService {
 		close(conn);
 		
 		return result;
+	}
+
+	public int insertMember(Member m) {
+		Connection conn = getConnection();
+				
+		int result = new MemberDAO().insertMember(conn, m);
+		
+		return 0;
 	}
 	
 }

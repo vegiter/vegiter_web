@@ -1,9 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
-<script src="../js/jquery-3.5.1.min.js"></script>
 <style>
 	* { 
 		box-sizing: border-box;
@@ -207,21 +208,8 @@
 </style>
 </head>
 <body>
-	<header class="header">
-		<a href="../main.html"><img id="logo" src="../images/logo.PNG"></a>
-		<nav>
-			<div class="wrap">
-				<ul>
-					<li><a href="#1">About us</a></li>
-					<li><a href="#">식당검색</a></li>
-					<li><a href="#">레시피</a></li>
-					<li><a href="#">Vegi talk</a></li>
-					<li><a href="login.html">My Info</a></li>
-				</ul>
-			</div>
-		</nav>
-	</header>
-	<section>
+	<%@include file="../common/gnb.jsp" %>
+		<section>
 		<div id="section-header">
 			<div class="member-header" id="common"><h4><a href="enroll.html">일반회원</a></h4></div>
 			<div class="member-header" id="business"><h4>사업자 회원</h4></div>
@@ -313,8 +301,5 @@
 			</script>
 		</article>
 	</section>
-	
-	<footer>
-	</footer>
 </body>
 </html>

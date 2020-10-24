@@ -1,6 +1,7 @@
 package login.model.dao;
 
 import static common.JDBCTemplate.close;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -85,6 +86,32 @@ public class MemberDAO {
 			close(pstmt);
 		}
 		
+		return result;
+	}
+
+	public int insertMember(Connection conn, Member m) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("insertMember");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, m.getMemId());
+			pstmt.setString(2, m.getMemPwd());
+			pstmt.setInt(3, m.getMemCode());
+			pstmt.setString(4, m.getMemName());
+			pstmt.setString(5, m.getMemGender()+"");
+			pstmt.setString(6, m.getMemPhone());
+			pstmt.setString(7, m.getMemEmail());
+			pstmt.setString(8, m.getMemStyle());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
 		return result;
 	}
 
