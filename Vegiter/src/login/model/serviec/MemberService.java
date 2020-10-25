@@ -1,5 +1,7 @@
 package login.model.serviec;
 
+import static common.JDBCTemplate.rollback;
+import static common.JDBCTemplate.commit;
 import static common.JDBCTemplate.close;
 import static common.JDBCTemplate.getConnection;
 
@@ -33,8 +35,13 @@ public class MemberService {
 		Connection conn = getConnection();
 				
 		int result = new MemberDAO().insertMember(conn, m);
-		
-		return 0;
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
 	}
 	
 }

@@ -151,6 +151,8 @@
 		height: 20px;
 		width: 400px;
 		margin: auto;
+		margin-top: 2px;
+		font-size: 12px;
 	}
 	select{
 		width: 400px;
@@ -186,7 +188,7 @@
 		min-width: 180px;
 		min-height: 200px;
 		background: white;
-		border: 5px solid lightgray;
+		border: 3px solid lightgray;
 	}
 	
 	#div-btn-enroll{
@@ -211,7 +213,7 @@
 	<%@include file="../common/gnb.jsp" %>
 		<section>
 		<div id="section-header">
-			<div class="member-header" id="common"><h4><a href="enroll.html">일반회원</a></h4></div>
+			<div class="member-header" id="common"><h4><a href="<%=request.getContextPath()%>/enrollForm.me">일반회원</a></h4></div>
 			<div class="member-header" id="business"><h4>사업자 회원</h4></div>
 		</div>
 		
@@ -248,12 +250,14 @@
 					<div class="error"></div>
 					<div class="file">
 						<div><h4>대표이미지</h4>
-							<input type="file" onchange="loadImg(event);" name="image" accept="image/jpg, image/jpeg, image/png">
-							<div id="topImg"><img src="../images/diagonal.PNG" id="diagonal1"></div>
+							<input type="file" onchange="loadImg(this);" name="image" accept="image/jpg, image/jpeg, image/png">
+							<div id="topImg"><img src="<%= request.getContextPath() %>/images/common/diagonal.png" id="diagonal1"></div>
 						</div>
 						<div><h4>메뉴이미지</h4>
-							<input type="file" onchange="loadImg2(event);" name="image" accept="image/jpg, image/jpeg, image/png" multiple>
-							<div id="menuImg"><img src="../images/diagonal.PNG" id="diagonal2"></div>
+							<input type="file" onchange="loadImg2(this);" name="image" accept="image/jpg, image/jpeg, image/png" multiple>
+							<div id="menuImg">
+								<img src="<%= request.getContextPath() %>/images/common/diagonal.png" id="diagonal2">
+							</div>
 						</div>
 					</div>
 				</form>
@@ -261,40 +265,177 @@
 			<div id="div-btn-enroll"><button id="enrollBtn" onclick="enroll();">회원가입</button></div>
 			<script>
 				$(function(){
-					
+					$('input').focusin(function(){
+						$(this).css({'border':'2px solid green', 'box-shadow':'0px 0px 5px green'});
+					}).focusout(function(){
+						$(this).css({'border':'2px solid lightgray', 'box-shadow':'none'})
+					});
+				});
+				// input error
+				var regExp1 = /[a-zA-Z]/; //문자
+				var regExp2 = /[0-9]/;	//숫자
+				var regExp3 = /\S/; //공백여부
+				var regExp4 = /[~!@#$%^&*()_+|<>?:{}]/; //특수문자
+				var regExp5 = /[가-힣]/g; //한글
+				
+				var idCheck = false;  // pk
+				var pwdCheck = false;
+				var pwd2Check = false;
+				var nameCheck = false;
+				var emailCheck = false; //unique
+				var ownNumberCheck = false;
+				var phoneCheck = false;
+				var addressCheck = false;
+				var urlCheck = false;
+				var checked = false; 
+				
+				$("#userId").on('change paste keyup', function(){
+					var idCheck = false;
+				});
+				$("#password").on('change paste keyup', function(){
+					var pwdCheck = false;
+				});
+				$("#passwor2").on('change paste keyup', function(){
+					var pwd2Check = false;
+				});
+				
+				$('#userId').change(function(){
+					var inputId = $('#userId').val();
+					if(inputId == ""){
+						$('.error').eq(0).text('아이디를 입력해주세요').css('color','red');
+					}else if(!regExp1.test(inputId) || !regExp2.test(inputId) || !regExp3.test(inputId) || inputId.length < 6 ){
+						$('.error').eq(0).text('아이디는 6자리 이상, 문자, 숫자로 구성하여야 합니다.').css('color','red');
+					}else{
+						// 중복 체크!
+						$.ajax({
+							url: '<%= request.getContextPath()%>/checkId.me',
+							data: {userId: inputId},
+							success: function(data){
+								console.log(data);
+								
+								if(data == 'success'){
+									$('.error').eq(0).text('사용가능한 아이디입니다.').css('color','green');
+									idCheck = true;
+								}else{
+									$('.erro').eq(0).text('중복된 아이디입니다.').css('color','red');
+									idCheck = false;
+								}
+							}
+						});
+					}
+				});
+				$('#password').change(function(){
+					var inputPwd = $('#password').val();
+					if(inputPwd.length ==  0){
+						$('.error').eq(1).text('비밀번호를 입력해주세요').css('color','red');
+						pwdCheck = false;
+					}else if(!regExp1.test(inputPwd) || !regExp2.test(inputPwd) || !regExp3.test(inputPwd) || !regExp4.test(inputPwd) || inputPwd.length < 6 ){
+						$('.error').eq(1).text('비밀번호는 6자리 이상, 문자, 숫자로 구성하여야 합니다.').css('color','red');
+						pwdCheck = false;
+					}else{
+						$('.error').eq(1).text('사용가능한 비밀번호입니다.').css('color','green');
+						pwdCheck = true;
+					}
+				});
+				
+				$('#password2').change(function(){
+					var inputPwd2 = $('#password2').val();
+					var inputPwd = $('#password').val();
+					if(inputPwd == inputPwd2){
+						if(inputPwd2.length == 0){
+							$('.error').eq(2).text('');
+							pwd2Check = false;
+						}else{
+							$('.error').eq(2).text('비밀번호가 일치합니다.').css('color','green');
+							pwd2Check = true;
+						}
+					}else{
+						$('.error').eq(2).text('비밀번호가 일치하지 않습니다.').css('color','red');
+						pwd2Check = false;
+					}
+				});
+				$('#userName').change(function(){
+					var name = $('#userName').val();
+					if(name.length == 0){
+						$('.error').eq(3).text('이름을 입력해주세요').css('color','red');
+						nameCheck = false;
+					}else if(!regExp5.test(name) || regExp2.test(name) || regExp4.test(name)){
+						$('.error').eq(3).text('이름을 올바르게 입력해주세요').css('color','red');
+						nameCheck = false;
+					}else{
+						$('.error').eq(3).text('');
+						nameCheck = true;
+					}
+				});
+				
+				$('#email').change(function(){
+					var email = $('#email').val();
+					if(email.length == 0){
+						$('.error').eq(5).text('이메일을 입력해주세요').css('color','red');
+						emailCheck = false;
+					}else{
+						$('.error').eq(5).text('사용가능한 이메일입니다.').css('color','green');
+						emailCheck = true;
+					}
+				});
+				
+				$('#phone').change(function(){
+					var phone = $('#phone').val();
+					if(phone.length == 0){
+						$('.error').eq(6).text('전화번호를 입력해주세요').css('color','red');
+					}else{
+						$('.error').eq(6).text('');
+					}
+				});
+				$('#ownNumber').change(function(){
+					var own = $('#ownNumber').val();
+					if(own.length < 4){
+						$('.error').eq(4).text('사업자 번호를 입력해주세요').css('color','red');
+						ownNumberCheck = false;
+					}else{
+						$('.error').eq(4).text('');
+						ownNumberCheck = true;
+					}
+				});
+				$('#address').change(function(){
+					var address = $('#address').val();
+					if(address.length < 4){
+						$('.error').eq(7).text('주소를 입력해주세요').css('color','red');
+						addressCheck = false;
+					}else{
+						$('.error').eq(7).text('');
+						addressCheck = true;
+					}
 				});
 				
 				// 이미지 미리보기
-				function loadImg(event){
-					var reader = new FileReader();
-					
-					reader.onload = function(e){
-						var img = document.createElement('img');
-						document.getElementById("diagonal1").remove();
-						img.setAttribute("src", e.target.result);
-						img.width="150";
-						img.height="100";
-						document.querySelector("div#topImg").appendChild(img);
-					};
-					reader.readAsDataURL(event.target.files[0]);
+				function loadImg(value){
+					if(value.files[0]){
+						var reader = new FileReader();
+						
+						reader.onload = function(e){
+							$('#diagonal1').attr('src', e.target.result).css('width','150px');
+						}
+						reader.readAsDataURL(value.files[0]);
+					}
 				}
-				function loadImg2(event) { 
-					document.getElementById("diagonal2").remove();
-					
-					for (var image of event.target.files) { 
-						var reader = new FileReader(); 
-						reader.onload = function(event) { 
-							var img = document.createElement("img");
-							img.setAttribute("src", event.target.result);
-							img.width="150";
-							img.height="120";
-							document.querySelector("div#menuImg").appendChild(img); 
-							}; 
-						console.log(image); 
-						reader.readAsDataURL(image); 
-					} 
+				
+				function loadImg2(value) { 
+					if(value.files){
+						$div = $('#menuImg');
+						$div.find('img').remove();
+						
+						for(var i = 0; i < value.files.length; i++){
+							var reader = new FileReader();
+							reader.onload = function(e){
+								$img = $('<img>');
+								$img.attr("src", e.target.result).css('width','150px');
+								$div.append($img);
+							}
+							reader.readAsDataURL(value.files[i]); 
+						}
+					}
 				}
-
 				function enroll(){
 					
 				}

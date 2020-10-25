@@ -266,7 +266,7 @@
 				var regExp2 = /[0-9]/;	//숫자
 				var regExp3 = /\S/; //공백여부
 				var regExp4 = /[~!@#$%^&*()_+|<>?:{}]/; //특수문자
-				var regExp5 = /[가-힣]/; //한글
+				var regExp5 = /[가-힣]/g; //한글
 				
 				$(function(){
 					$('input').focusin(function(){
@@ -347,7 +347,7 @@
 					var inputPwd2 = $('#password2').val();
 					var inputPwd = $('#password').val();
 					if(inputPwd == inputPwd2){
-						if(inputPwd2.length == 0){
+						if(inputPwd2 == ""){
 							$('.error').eq(2).text('');
 							pwd2Check = false;
 						}else{

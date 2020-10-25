@@ -53,7 +53,9 @@ public class InsertMemberServlet extends HttpServlet {
 		m.setMemCode(code);
 		m.setMemName(name);
 		m.setMemEmail(email);
-		m.setMemGender(gender.charAt(0));
+		if(gender != null) {
+			m.setMemGender(gender.charAt(0));
+		}
 		m.setMemPhone(phone);
 		m.setMemStyle(style);
 		
