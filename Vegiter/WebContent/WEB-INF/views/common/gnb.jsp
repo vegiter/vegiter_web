@@ -9,6 +9,7 @@
 <style>
 
 header {
+	display: block;
 	width: 100%;
 	background: rgba(255, 255, 255, 0.8);
 	border-bottom: 1px solid lightgray;
@@ -19,7 +20,6 @@ header {
 }
 
 nav {
-	display: inline-block;
 	float: right;
 	padding: 0;
 	height: 40px;
@@ -77,7 +77,7 @@ nav li:hover {
 		<nav>
 			<div class="wrap">
 				<ul>
-					<li><a href="#">About</a></li>
+					<li><a onclick="aboutPage();">About</a></li>
 					<li><a href="#">식당검색</a></li>
 					<li><a href="#">레시피</a></li>
 					<li><a href="#">Vegi talk</a></li>
@@ -86,5 +86,11 @@ nav li:hover {
 			</div>
 		</nav>
 	</header>
+	
+	<script>
+		function aboutPage(){
+			location.href = '<%= request.getContextPath() %>/aboutPage.me';
+		}
+	</script>
 </body>
 </html>
