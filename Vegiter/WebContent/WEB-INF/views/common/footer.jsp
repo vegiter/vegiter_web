@@ -17,7 +17,8 @@
 		padding-top: 16px;
 		width: 100%;
 		height: 100px;
-		background: #41A693;
+		background: black;
+/* 		#41A693 */
 		min-width: 500px;
 	}
 	
