@@ -73,7 +73,7 @@ nav li:hover {
 </head>
 <body>
 	<header class="header">
-		<a href="#"><img id="logo" src="<%= request.getContextPath() %>/images/common/logo.png"></a>
+		<a onclick="mainPage();"><img id="logo" src="<%= request.getContextPath() %>/images/common/logo.png"></a>
 		<nav>
 			<div class="wrap">
 				<ul>
@@ -88,6 +88,10 @@ nav li:hover {
 	</header>
 	
 	<script>
+		function mainPage(){
+			location.href = '<%= request.getContextPath() %>';
+		}
+	
 		function aboutPage(){
 			location.href = '<%= request.getContextPath() %>/aboutPage.me';
 		}
