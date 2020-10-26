@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import login.model.serviec.MemberService;
 import login.model.vo.Member;
@@ -14,7 +15,7 @@ import login.model.vo.Member;
 /**
  * Servlet implementation class LoginServlet
  */
-@WebServlet("/login")
+@WebServlet(urlPatterns="/login", name="LoginServlet")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -39,6 +40,16 @@ public class LoginServlet extends HttpServlet {
 		
 		Member loginUser = new MemberService().loginMember(member);
 		
+		if(loginUser != null) {
+			HttpSession session = request.getSession();
+			session.setAttribute("loginUser", loginUser);
+			session.setMaxInactiveInterval(1000);
+			
+			response.sendRedirect(request.getContextPath());
+		}else {
+			request.setAttribute("msg", "로그인 실패");
+			request.getRequestDispatcher("WEB-INF/view/common/errorPage.jsp").forward(request, response);
+		}
 	}
 
 	/**

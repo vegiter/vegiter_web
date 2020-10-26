@@ -228,15 +228,15 @@
 					<h4>성별</h4>
 					<div class="input-info">
 						<select name="gender">
-							<option selected value=null>성별</option>
+							<option selected value="N">성별</option>
 							<option value="F">남자</option>
 							<option value="M">여자</option>
-							<option value=null>선택 안함</option>
+							<option value="N">선택 안함</option>
 						</select>
 					</div>
 					<h4>휴대폰 번호<b>*</b></h4>
 					<div class="input-info" id="phone-msg">
-						<input type="number" class="phone" name="phone" id="phone">
+						<input type="number" class="phone" name="phone" id="phone" placeholder="(-)미포함">
 						<button class="phone-btn" id="sendMsg" onclick="sendConfirm();">인증번호 전송</button>
 					</div>
 					<div class="input-info" id="phone-ok">
@@ -274,7 +274,6 @@
 					}).focusout(function(){
 						$(this).css({'border':'2px solid lightgray', 'box-shadow':'none'})
 					});
-					
 				});
 				
 				var idCheck = false;  // pk
@@ -394,7 +393,7 @@
 					}
 				});
 				function sendConfirm(){
-					
+					console.log('askdasdfas');
 					
 				}
 				function confirm(){
@@ -404,7 +403,6 @@
 				}
 				
 				function enroll(){
-					// 넘어가서 값이 없어짐 >> updatePWD참고하기
 					if(!idCheck){
 						alert('아이디를 확인해주세요');
 						$('#userId').focus();

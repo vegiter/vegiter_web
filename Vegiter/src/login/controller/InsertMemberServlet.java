@@ -1,6 +1,9 @@
 package login.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,13 +11,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
+import com.oreilly.servlet.MultipartRequest;
+
+import common.MyFileRenamePolicy;
 import login.model.serviec.MemberService;
 import login.model.vo.Member;
 
 /**
  * Servlet implementation class InsertMemberServlet
  */
-@WebServlet("/insert.me")
+@WebServlet(urlPatterns="/insert.me", name="InsertMemberServlet")
 public class InsertMemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -38,9 +46,6 @@ public class InsertMemberServlet extends HttpServlet {
 		String name = request.getParameter("userName");
 		String email = request.getParameter("email");
 		String gender = request.getParameter("gender");
-		if(gender.equals("null")) {
-			gender = null;
-		}
 		String phone = request.getParameter("phone");
 		String style = request.getParameter("style");
 		if(style.equals("null")) {
@@ -58,6 +63,35 @@ public class InsertMemberServlet extends HttpServlet {
 		}
 		m.setMemPhone(phone);
 		m.setMemStyle(style);
+		
+		if(code == 2) {
+			if(ServletFileUpload.isMultipartContent(request)) {
+				int maxSize = 1024 * 1024 * 10;
+				String root = request.getSession().getServletContext().getRealPath("/");
+				String savePath = root + "owner_uploadFiles/";
+				
+				File f = new File(savePath);
+				if(!f.exists()) {
+					f.mkdir();
+				}
+				
+				MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
+				
+				String ownNo = request.getParameter("ownNumber");
+				String ownName = request.getParameter("userName");
+				
+				// 파일 원본 이름/ 바뀐이름 저장
+				ArrayList<String> saveFiles = new ArrayList<String>();
+				ArrayList<String> originFiles = new ArrayList<String>();
+				
+				Enumeration<String> files = multiRequest.getFileNames();
+				while(files.hasMoreElements()) {
+					
+				}
+				
+			}
+			
+		}
 		
 		int result = new MemberService().insertMember(m);
 		

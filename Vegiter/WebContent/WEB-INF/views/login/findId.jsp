@@ -6,58 +6,6 @@
 <meta charset="UTF-8">
 <title>아이디 찾기</title>
 <style>
-	header{
-		position: fixed;
-		top: 0;
-		z-index: 10;
-		width: 100%;
-		background: rgba(255,255,255, 0.8);
-		border-bottom: 1px solid lightgray;
-	}
-	nav{
-		diplay: inline-block;
-		float: right;
-		padding: 0;
-		height: 40px;
-		margin-right: 10%;
-	}
-	div, ul, li{
-		padding: 0;
-		margin: 0;
-	}
-	#logo{
-		width: 150px;
-		margin-left: 10%
-	}
-	nav li{
-		float: left;
-		position: relative;
-		padding: 0;
-		line-height: 40px; /*굵기*/
-	}
-	.header nav .wrap > ul{
-		display: inline-block;
-		position : relative;
-	}
-	.wrap>ul>li{
-		width: 100px;
-		height: 63px;
-	}
-	.wrap>ul>li>a{
-		display: block;
-		width: 100%;
-		text-decoration : none;
-		color: black;
-		text-align: center;
-		margin-top: 10px;
-	}
-	ol, ul{
-		list-style:none;
-	}
-	nav li:hover{
-		font-weight: bolder;
-		border-bottom: 3px solid rgb(45,115,102);
-	}
 	/* 내용부분 */
 	#section-header{
 		width: 70%;
@@ -177,31 +125,18 @@
 </style>
 </head>
 <body>
-	<header class="header">
-		<a href="../main.html"><img id="logo" src="../images/logo.PNG"></a>
-		<nav>
-			<div class="wrap">
-				<ul>
-					<li><a href="#1">About us</a></li>
-					<li><a href="#">식당검색</a></li>
-					<li><a href="#">레시피</a></li>
-					<li><a href="#">Vegi talk</a></li>
-					<li><a href="login.html">My Info</a></li>
-				</ul>
-			</div>
-		</nav>
-	</header>
+<%@include file=""%>
 	<section>
 		<div id="section-header">
 			<div class="find-header" id="find-id"><h4>아이디 찾기</h4></div>
 			<div class="find-header" id="find-pwd"><h4><a href="findPwd.html">비밀번호 찾기</a></h4></div>
 		</div>
 		<article id="content">
+			<form onsubmit="return findId();" method="post" action="<%=request.getContextPath() %>/findId.me">
 			<div id="input-boxes">
 				<div class="input-box" id="common">
 					<div class="input-header" id="common-header"><h4>일반회원</h4></div>
-					<div id="common-input">
-						<form>
+						<div id="common-input">
 							<table>
 								<tr>
 									<td class="confirm"><input type="radio" name="confirm" onclick="emailConfirm();" id="confirm-email">이메일 인증</td>
@@ -225,24 +160,22 @@
 									</td>
 								</tr>
 							</table>
-						</form>
+						</div>
 					</div>
-				</div>
-				<script>
-					function emailConfirm(){
-						$('#change-name').html("이메일 주소");
-						$('#change-input').html('<input type="email" name="email">');
-					};
-					function phoneConfirm(){
-						$('#change-name').html("휴대폰 번호");
-						$('#change-input').html('<select name="phone-first"><option selected value="010">010</option><option value="011">011</option></select> - <input type="number" class="phone" name="phone-middle"> - <input type="number" class="phone" name="phone-last">');
-					};
+					<script>
+						function emailConfirm(){
+							$('#change-name').html("이메일 주소");
+							$('#change-input').html('<input type="email" name="email">');
+						};
+						function phoneConfirm(){
+							$('#change-name').html("휴대폰 번호");
+							$('#change-input').html('<select name="phone-first"><option selected value="010">010</option><option value="011">011</option></select> - <input type="number" class="phone" name="phone-middle"> - <input type="number" class="phone" name="phone-last">');
+						};
 				
-				</script>
-				<div class="input-box" id="business">
-					<div class="input-header" id="business-header"><h4>사업자 회원</h4></div>
-					<div id="business-input">
-						<form>
+					</script>
+					<div class="input-box" id="business">
+						<div class="input-header" id="business-header"><h4>사업자 회원</h4></div>
+						<div id="business-input">
 							<table>
 								<tr>
 									<td>사업주</td>
@@ -253,13 +186,13 @@
 									<td><input type="number" name="ownNumber"></td>
 								</tr>
 							</table>
-						</form>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div id="div-btn-id"><button id="IdBtn" onclick="resultId();">아이디 찾기</button></div>
+				<div id="div-btn-id"><input type="submit" id="IdBtn" value="아이디 찾기"></div>
+			</form>
 			<script>
-				function resultId(){
+				function findId(){
 					var name = $('#userName');
 					var own = $('#ownName');
 					var phone = $('.phone');
@@ -270,10 +203,14 @@
 					console.log("name.val : "  + name.val);
 					console.log("name.focus : " + name.focus());
 					
-					if((name.val == 0 || name.length == 0)|| (own.val == 0 || own.length == 0)){
-						alert('이름 또는 사업주를 입력해주세요');
+					if(name.val == "" || name.length == 0){
+						alert('이름을 입력해주세요');
 						name.focus();
 						$('#userName').focus();
+						return false;
+					}else if(own.val == 0 || own.length == 0){
+					}else{
+						return true;
 					}
 				}
 			</script>

@@ -114,19 +114,20 @@
 				<img src="<%= request.getContextPath() %>/images/common/logo.png">
 			</a>
 		</div>
-		<div id="btn">
-			<button  class="memberBtn" id="common">개인 회원</button>
-			<button  class="memberBtn" id="business">사업자 회원</button>
-			<form accept="login()">
+		<form onsubmit="return login()" action="<%=request.getContextPath()%>/login">
+			<div id="btn">
+				<button  class="memberBtn" id="common">개인 회원</button>
+				<button  class="memberBtn" id="business">사업자 회원</button>
+			
 				<input type="text" class="input-info" placeholder="아이디" id="userId" name="userId"><br>
 				<input type="password" class="input-info" placeholder="비밀번호" id="userPwd" name="userPwd">
-			</form>
-		</div>
-		<div id="login-error">
-		</div>
-		<div id="login-div">
-			<button id="login-btn" onclick="enterLogin();">로그인</button>
-		</div>
+			</div>
+			<div id="login-error">
+			</div>
+			<div id="login-div">
+				<input type="submit" id="login-btn" value="로그인">
+			</div>
+		</form>
 		<div id="other-div">
 			<span class="other" id="findId"><a href="<%=request.getContextPath() %>/findId.me">아이디 찾기</a></span>
 			<span class="other" id="findPwd"><a href="findPwd.html">비밀번호 찾기</a></span>
@@ -148,23 +149,22 @@
 		});
 		
 		
-		function enterLogin(){
+		function login(){
 			var userId = $('#userId');
 			var userPwd = $('#userPwd');
+			
 			if(userId.val() == ''){
 				$('#login-error').html('아이디를 입력해주세요').css('color','red');
 				userId.focus();
+				return false;
 			}else if(userPwd.val() == ''){
 				$('#login-error').html('비밀번호를 입력해주세요').css('color','red');
 				userPwd.focus();
+				return false;
 			}else{
-				login();
+				return true;
 			}
 		}
-		function login(){
-			location.href="<%=request.getContextPath()%>/login";
-		}
-		
 	</script>
 </body>
 </html>

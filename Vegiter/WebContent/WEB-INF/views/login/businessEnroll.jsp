@@ -219,7 +219,7 @@
 		
 		<article>
 			<div id="input-boxes">
-				<form>
+				<form method="post" id="insertMember" action="<%=request.getContextPath()%>/insert.me" onsubmit="return enroll();" encType="multipart/form-data">
 					<p><b>*</b>은 필수 입력칸입니다.</p>
 					<h4>아이디(6~16자리 영문소문자, 숫자만 사용가능)<b>*</b></h4>
 					<div class="input-info"><input type="text" name="userId" id="userId"></div>
@@ -230,11 +230,12 @@
 					<h4>비밀번호 확인<b>*</b></h4>
 					<div class="input-info"><input type="password" name="userPwd2" id="password2"></div>
 					<div class="error"></div>
+					<input type="hidden" name="code" value="2">
 					<h4>사업주<b>*</b></h4>
 					<div class="input-info"><input type="text" name="userName" id="userName"></div>
 					<div class="error"></div>
 					<h4>사업자 번호<b>*</b></h4>
-					<div class="input-info"><input type="number" name="ownNumber" id="ownNumber"></div>
+					<div class="input-info"><input type="number" name="ownNumber" id="ownNumber" placeholder="-포함"></div>
 					<div class="error"></div>
 					<h4>이메일<b>*</b></h4>
 					<div class="input-info"><input type="email" name="email" id="email"></div>
@@ -262,7 +263,7 @@
 					</div>
 				</form>
 			</div>
-			<div id="div-btn-enroll"><button id="enrollBtn" onclick="enroll();">회원가입</button></div>
+			<div id="div-btn-enroll"><input type="submit" id="enrollBtn" value="회원가입"></div>
 			<script>
 				$(function(){
 					$('input').focusin(function(){
@@ -286,7 +287,6 @@
 				var ownNumberCheck = false;
 				var phoneCheck = false;
 				var addressCheck = false;
-				var urlCheck = false;
 				var checked = false; 
 				
 				$("#userId").on('change paste keyup', function(){
@@ -317,7 +317,7 @@
 									$('.error').eq(0).text('사용가능한 아이디입니다.').css('color','green');
 									idCheck = true;
 								}else{
-									$('.erro').eq(0).text('중복된 아이디입니다.').css('color','red');
+									$('.error').eq(0).text('중복된 아이디입니다.').css('color','red');
 									idCheck = false;
 								}
 							}
@@ -388,13 +388,27 @@
 					}
 				});
 				$('#ownNumber').change(function(){
+					// pk 중복체크
 					var own = $('#ownNumber').val();
 					if(own.length < 4){
 						$('.error').eq(4).text('사업자 번호를 입력해주세요').css('color','red');
 						ownNumberCheck = false;
 					}else{
-						$('.error').eq(4).text('');
-						ownNumberCheck = true;
+						$.ajax({
+							url: '<%=request.getContextPath()%>/checkOwnNumber',
+							data : {ownNo:own},
+							success: function(data){
+								console.log(data);
+								
+								if(data== 'success2'){
+									$('.error').eq(4).text('사용가능한 사업자 번호입니다.').css('color','green');
+									ownNumberCheck = true;
+								}else{
+									$('.error').eq(4).text('중복된 사업자 번호입니다.').css('color','red');
+									ownNumberCheck = false;
+								}
+							}
+						});
 					}
 				});
 				$('#address').change(function(){
@@ -437,7 +451,42 @@
 					}
 				}
 				function enroll(){
-					
+					if(!idCheck){
+						alert('아이디를 확인해주세요');
+						$('#userId').focus();
+						return false;
+					}else if(!pwdCheck){
+						alert('비밀번호를 입력해주세요');
+						$('#password').focus();
+						return false;
+					}else if(!pwd2Check){
+						alert('비밀번호가 일치하지 않습니다.');
+						$('#password2').focus();
+						return false;
+					}else if(!nameCheck){
+						alert('이름을 바르게 입력해주세요');
+						$('#userName').focus();
+						return false;
+					}else if(!emailCheck){
+						alert('이메일을 입력해주세요');
+						$('#email').focus();
+						return false;
+					}else if(!phoneCheck){
+						alert('전화번호를 입력 해주세요');
+						$('#phone').focus();
+						return false;
+					}else if(!ownNumberCheck){
+						alert('사업자번호를 확인해주세요');
+						$('#ownNumber').focus();
+						return false;
+					}else if(!addressCheck){
+						alert('주소를 확인해주세요');
+						$('#address').focus();
+						return false;
+					}else{
+						alert('회원가입이 되었습니다.');
+						return true;
+					}
 				}
 			</script>
 		</article>
