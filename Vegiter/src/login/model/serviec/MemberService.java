@@ -6,7 +6,9 @@ import static common.JDBCTemplate.close;
 import static common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
+import board.model.vo.Attachment;
 import login.model.dao.MemberDAO;
 import login.model.vo.Member;
 
@@ -41,6 +43,21 @@ public class MemberService {
 			rollback(conn);
 		}
 		close(conn);
+		return result;
+	}
+
+	public int insertMember(Member m, ArrayList<Attachment> fileList) {
+		Connection conn = getConnection();
+		
+		int result = new MemberDAO().insertMember(conn, m, fileList);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
 		return result;
 	}
 	

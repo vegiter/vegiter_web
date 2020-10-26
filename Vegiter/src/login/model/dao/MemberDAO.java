@@ -9,8 +9,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
+import board.model.vo.Attachment;
 import login.model.vo.Member;
 
 public class MemberDAO {
@@ -112,6 +114,14 @@ public class MemberDAO {
 		}finally {
 			close(pstmt);
 		}
+		return result;
+	}
+
+	public int insertMember(Connection conn, Member m, ArrayList<Attachment> fileList) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		
 		return result;
 	}
 

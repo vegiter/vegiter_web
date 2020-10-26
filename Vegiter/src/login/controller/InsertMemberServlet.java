@@ -103,20 +103,31 @@ public class InsertMemberServlet extends HttpServlet {
 				
 				for(int i = originFiles.size()-1; i >= 0; i--) {
 					Attachment at = new Attachment();
+					at.setAtcPath(savePath);
+					at.setAtcOrigin(originFiles.get(i));
+					at.setAtcType(4);
+					at.setAtcName(saveFiles.get(i));
 					
+					// 역순으로 저장되어 있음
+					if(i == originFiles.size() - 1) {
+						at.setAtcLevel(0);
+					}else {
+						at.setAtcLevel(1);
+					}
+					fileList.add(at);
 				}
-				
+				int result = new MemberService().insertMember(m, fileList);
 			}
 			
-		}
-		
-		int result = new MemberService().insertMember(m);
-		
-		if(result > 0) {
-			response.sendRedirect(request.getContextPath());
 		}else {
-			request.setAttribute("msg", "회원가입에 실패하였습니다.");
-			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp");
+			int result = new MemberService().insertMember(m);
+			
+			if(result > 0) {
+				response.sendRedirect(request.getContextPath());
+			}else {
+				request.setAttribute("msg", "회원가입에 실패하였습니다.");
+				request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp");
+			}
 		}
 	}
 
