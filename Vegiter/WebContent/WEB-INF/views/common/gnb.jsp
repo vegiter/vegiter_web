@@ -36,7 +36,7 @@ div, ul, li {
 	margin-left: 5%
 }
 
-nav li {
+nav li, button {
 	float: left;
 	padding: 0;
 	line-height: 40px; /*굵기*/
@@ -77,11 +77,12 @@ nav li:hover {
 		<nav>
 			<div class="wrap">
 				<ul>
-					<li><a onclick="aboutPage();">About</a></li>
+					<li><a href="#" onclick="aboutPage();">About</a></li>
 					<li><a href="#">식당검색</a></li>
 					<li><a href="#">레시피</a></li>
 					<li><a href="#">Vegi talk</a></li>
 					<li><a href="#">My Info</a></li>
+					<li><a href="#">Login</a></button></li>
 				</ul>
 			</div>
 		</nav>
