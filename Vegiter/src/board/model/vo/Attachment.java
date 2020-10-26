@@ -5,21 +5,23 @@ import java.sql.Date;
 public class Attachment {
 	private int atcNo;
 	private String memId;
+	private int atcType;
 	private String atcOrigin;
 	private String atcName;
-	private Date atcPath;
-	private int atcDate;
-	private String atcLevel;
-	private int atcStatus;
+	private String atcPath;
+	private Date atcDate;
+	private int atcLevel;
+	private char atcStatus;
 	private int boardNo;
 	
 	public Attachment() {}
-	
-	public Attachment(int atcNo, String memId, String atcOrigin, String atcName, Date atcPath, int atcDate,
-			String atcLevel, int atcStatus, int boardNo) {
+
+	public Attachment(int atcNo, String memId, int atcType, String atcOrigin, String atcName, String atcPath,
+			Date atcDate, int atcLevel, char atcStatus, int boardNo) {
 		super();
 		this.atcNo = atcNo;
 		this.memId = memId;
+		this.atcType = atcType;
 		this.atcOrigin = atcOrigin;
 		this.atcName = atcName;
 		this.atcPath = atcPath;
@@ -45,6 +47,14 @@ public class Attachment {
 		this.memId = memId;
 	}
 
+	public int getAtcType() {
+		return atcType;
+	}
+
+	public void setAtcType(int atcType) {
+		this.atcType = atcType;
+	}
+
 	public String getAtcOrigin() {
 		return atcOrigin;
 	}
@@ -61,35 +71,35 @@ public class Attachment {
 		this.atcName = atcName;
 	}
 
-	public Date getAtcPath() {
+	public String getAtcPath() {
 		return atcPath;
 	}
 
-	public void setAtcPath(Date atcPath) {
+	public void setAtcPath(String atcPath) {
 		this.atcPath = atcPath;
 	}
 
-	public int getAtcDate() {
+	public Date getAtcDate() {
 		return atcDate;
 	}
 
-	public void setAtcDate(int atcDate) {
+	public void setAtcDate(Date atcDate) {
 		this.atcDate = atcDate;
 	}
 
-	public String getAtcLevel() {
+	public int getAtcLevel() {
 		return atcLevel;
 	}
 
-	public void setAtcLevel(String atcLevel) {
+	public void setAtcLevel(int atcLevel) {
 		this.atcLevel = atcLevel;
 	}
 
-	public int getAtcStatus() {
+	public char getAtcStatus() {
 		return atcStatus;
 	}
 
-	public void setAtcStatus(int atcStatus) {
+	public void setAtcStatus(char atcStatus) {
 		this.atcStatus = atcStatus;
 	}
 
@@ -103,9 +113,9 @@ public class Attachment {
 
 	@Override
 	public String toString() {
-		return "Attachment [atcNo=" + atcNo + ", memId=" + memId + ", atcOrigin=" + atcOrigin + ", atcName=" + atcName
-				+ ", atcPath=" + atcPath + ", atcDate=" + atcDate + ", atcLevel=" + atcLevel + ", atcStatus="
-				+ atcStatus + ", boardNo=" + boardNo + "]";
+		return "Attachment [atcNo=" + atcNo + ", memId=" + memId + ", atcType=" + atcType + ", atcOrigin=" + atcOrigin
+				+ ", atcName=" + atcName + ", atcPath=" + atcPath + ", atcDate=" + atcDate + ", atcLevel=" + atcLevel
+				+ ", atcStatus=" + atcStatus + ", boardNo=" + boardNo + "]";
 	}
 	
 }

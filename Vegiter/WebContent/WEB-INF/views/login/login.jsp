@@ -130,7 +130,7 @@
 		</form>
 		<div id="other-div">
 			<span class="other" id="findId"><a href="<%=request.getContextPath() %>/findId.me">아이디 찾기</a></span>
-			<span class="other" id="findPwd"><a href="findPwd.html">비밀번호 찾기</a></span>
+			<span class="other" id="findPwd"><a href="<%=request.getContextPath()%>/findPwd.me">비밀번호 찾기</a></span>
 			<span class="other" id="enroll"><a href="<%=request.getContextPath()%>/enrollForm.me">회원가입</a></span>
 		</div>
 	</section>
@@ -146,8 +146,13 @@
 				$(this).addClass('selectedBtn');
 				$('#common').removeClass('selectedBtn');
 			});
+			
+			$('input').focusin(function(){
+				$(this).css({'border':'2px solid green', 'box-shadow':'0px 0px 5px green'});
+			}).focusout(function(){
+				$(this).css({'border':'2px solid lightgray', 'box-shadow':'none'})
+			});
 		});
-		
 		
 		function login(){
 			var userId = $('#userId');

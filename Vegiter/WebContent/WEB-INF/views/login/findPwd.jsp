@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>아이디 찾기</title>
+<title>비밀번호 찾기</title>
 <style>
-/* 내용부분 */
+/* 	*{border: 1px solid green;} */
 #section-header {
 	width: 70%;
 	height: 100%;
@@ -25,11 +25,14 @@
 
 #find-pwd {
 	float: right;
-	background: rgb(65, 166, 147);
 	margin-left: -10px;
 }
 
-#find-pwd a {
+#find-id {
+	background: rgb(65, 166, 147);
+}
+
+#find-id a {
 	text-decoration: none;
 	color: white;
 }
@@ -41,11 +44,11 @@
 	height: 100%;
 }
 
-#find-pwd h4:hover {
+#find-id h4:hover {
 	font-weight: bolder;
 }
 
-#find-pwd:hover {
+#find-id:hover {
 	background: rgb(53, 154, 135);
 }
 
@@ -101,7 +104,7 @@ table {
 }
 
 table tr {
-	height: 45px;
+	height: 40px;
 }
 
 table td {
@@ -143,20 +146,21 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 </style>
 </head>
 <body>
+	<%@ include file="../common/gnb.jsp"%>
 	<section>
 		<div id="section-header">
 			<div class="find-header" id="find-id">
-				<h4>아이디 찾기</h4>
+				<h4>
+					<a href="<%=request.getContextPath()%>/findId.me">아이디 찾기</a>
+				</h4>
 			</div>
 			<div class="find-header" id="find-pwd">
-				<h4>
-					<a href="<%=request.getContextPath()%>/findPwd.me">비밀번호 찾기</a>
-				</h4>
+				<h4>비밀번호 찾기</h4>
 			</div>
 		</div>
 		<article id="content">
-			<form onsubmit="return findId();" method="post"
-				action="<%=request.getContextPath()%>/findId">
+			<form onsubmit="return findPwd();"
+				action="<%=request.getContextPath()%>/findPwd">
 				<div id="input-boxes">
 					<div class="input-box" id="common">
 						<div class="input-header" id="common-header">
@@ -166,21 +170,24 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 							<table>
 								<tr>
 									<td class="confirm"><input type="radio" name="confirm"
-										onclick="emailConfirm();" id="confirm-email">이메일 인증</td>
-									<td></td>
-									<td class="confirm"><input type="radio" name="confirm"
 										onclick="phoneConfirm();" checked="checked" id="confirm-phone">휴대폰
 										인증</td>
+									<td></td>
+									<td class="confirm"><input type="radio" name="confirm"
+										onclick="emailConfirm();" id="confirm-email">이메일 인증</td>
 								</tr>
 								<tr>
 									<td>이름</td>
-									<td colspan="2"><input type="text" name="userName"
-										id="userName"></td>
+									<td colspan="2"><input type="text" name="userName" id="userName"></td>
+								</tr>
+								<tr>
+									<td>아이디</td>
+									<td colspan="2"><input type="text" name="userId" id="userId"></td>
 								</tr>
 								<tr>
 									<td id="change-name">휴대폰 번호</td>
-									<td id="change-input" colspan="2"><select
-										name="phone-first">
+									<td id="change-input" colspan="2">
+									<select name="phone-first">
 											<option selected value="010">010</option>
 											<option value="011">011</option>
 									</select> - <input type="number" class="phone" name="phone-middle">
@@ -211,25 +218,41 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 							<table>
 								<tr>
 									<td>사업주</td>
-									<td colspan="2"><input type="text" name="ownName"
-										id="ownName"></td>
+									<td colspan="2"><input type="text" name="ownName" id="ownName"></td>
+								</tr>
+								<tr>
+									<td>아이디</td>
+									<td colspan="2"><input type="text" name="ownId" id="ownId"></td>
 								</tr>
 								<tr>
 									<td>사업자 등록번호</td>
-									<td><input type="number" name="ownNumber"></td>
+									<td><input type="number" name="ownNumber" id="ownNumber"></td>
 								</tr>
 							</table>
 						</div>
 					</div>
 				</div>
 				<div id="div-btn-id">
-					<input type="submit" id="IdBtn" value="아이디 찾기">
+					<input type="submit" id="IdBtn" value="비밀번호 찾기">
 				</div>
 			</form>
 			<script>
-				function findId() {
+				$(function() {
+					$('input').focusin(function() {
+						$(this).css({
+							'border' : '2px solid green',
+							'box-shadow' : '0px 0px 5px green'
+						});
+					}).focusout(function() {
+						$(this).css({
+							'border' : '1px solid black',
+							'box-shadow' : 'none'
+						})
+					});
+				});
+
+				function resultId() {
 					var name = $('#userName');
-					var own = $('#ownName');
 					var phone = $('.phone');
 
 					console.log(name);
@@ -238,18 +261,15 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 					console.log("name.val : " + name.val);
 					console.log("name.focus : " + name.focus());
 
-					if (name.val == "" || name.length == 0) {
+					if (name.val == 0 || name.length == 0) {
 						alert('이름을 입력해주세요');
 						name.focus();
 						$('#userName').focus();
-						return false;
-					} else if (own.val == 0 || own.length == 0) {
-					} else {
-						return true;
 					}
 				}
 			</script>
 		</article>
 	</section>
+<%-- 		<%@ include file="../common/footer.jsp" %> --%>
 </body>
 </html>

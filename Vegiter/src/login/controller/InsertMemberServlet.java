@@ -15,6 +15,7 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.oreilly.servlet.MultipartRequest;
 
+import board.model.vo.Attachment;
 import common.MyFileRenamePolicy;
 import login.model.serviec.MemberService;
 import login.model.vo.Member;
@@ -86,6 +87,22 @@ public class InsertMemberServlet extends HttpServlet {
 				
 				Enumeration<String> files = multiRequest.getFileNames();
 				while(files.hasMoreElements()) {
+					String fName = files.nextElement();
+					
+					if(multiRequest.getFilesystemName(fName) != null) {
+						saveFiles.add(multiRequest.getFilesystemName(fName));
+						originFiles.add(multiRequest.getOriginalFileName(fName));
+					}
+					
+					System.out.println(saveFiles);
+					System.out.println(originFiles);
+					
+				}
+				
+				ArrayList<Attachment> fileList = new ArrayList<Attachment>();
+				
+				for(int i = originFiles.size()-1; i >= 0; i--) {
+					Attachment at = new Attachment();
 					
 				}
 				
