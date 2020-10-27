@@ -19,6 +19,7 @@ import board.model.vo.Attachment;
 import common.MyFileRenamePolicy;
 import login.model.serviec.MemberService;
 import login.model.vo.Member;
+import login.model.vo.Owner;
 
 /**
  * Servlet implementation class InsertMemberServlet
@@ -65,8 +66,18 @@ public class InsertMemberServlet extends HttpServlet {
 		m.setMemPhone(phone);
 		m.setMemStyle(style);
 		
+		int result = 0;
+		
+		// 사업자 회원 시
 		if(code == 2) {
-			if(ServletFileUpload.isMultipartContent(request)) {
+			String ownNo = request.getParameter("ownNumber");
+			String ownName = request.getParameter("userName");
+			String memId = request.getParameter("userId");
+			
+			Owner own = new Owner(ownNo, ownName, memId);
+			
+			// 파일이 있을 시에
+			if(ServletFileUpload.isMultipartContent(request)) { 
 				int maxSize = 1024 * 1024 * 10;
 				String root = request.getSession().getServletContext().getRealPath("/");
 				String savePath = root + "owner_uploadFiles/";
@@ -78,8 +89,6 @@ public class InsertMemberServlet extends HttpServlet {
 				
 				MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 				
-				String ownNo = request.getParameter("ownNumber");
-				String ownName = request.getParameter("userName");
 				
 				// 파일 원본 이름/ 바뀐이름 저장
 				ArrayList<String> saveFiles = new ArrayList<String>();
@@ -103,6 +112,7 @@ public class InsertMemberServlet extends HttpServlet {
 				
 				for(int i = originFiles.size()-1; i >= 0; i--) {
 					Attachment at = new Attachment();
+					at.setMemId(memId);
 					at.setAtcPath(savePath);
 					at.setAtcOrigin(originFiles.get(i));
 					at.setAtcType(4);
@@ -116,17 +126,34 @@ public class InsertMemberServlet extends HttpServlet {
 					}
 					fileList.add(at);
 				}
-				int result = new MemberService().insertMember(m, fileList);
+				result = new MemberService().insertMember(m,own, fileList);
+				
+				if(result > 0) {
+					response.sendRedirect(request.getContextPath());
+				}else {
+					request.setAttribute("msg", "사업자 회원가입(파일 업로드)에 실패하셨습니다.");
+					request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
+				}
+			}else {
+			// 파일이 없을 시
+				result = new MemberService().insertMember(m, own);
+				
+				if(result > 0) {
+					response.sendRedirect(request.getContextPath());
+				}else {
+					request.setAttribute("msg", "사업자 회원가입에 실패하였습니다.");
+					request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);;
+				}
 			}
-			
 		}else {
-			int result = new MemberService().insertMember(m);
+		// 일반회원인경우
+			result = new MemberService().insertMember(m);
 			
 			if(result > 0) {
 				response.sendRedirect(request.getContextPath());
 			}else {
 				request.setAttribute("msg", "회원가입에 실패하였습니다.");
-				request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp");
+				request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);;
 			}
 		}
 	}

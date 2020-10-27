@@ -14,6 +14,7 @@ import java.util.Properties;
 
 import board.model.vo.Attachment;
 import login.model.vo.Member;
+import login.model.vo.Owner;
 
 public class MemberDAO {
 	private Properties prop = new Properties();
@@ -117,10 +118,48 @@ public class MemberDAO {
 		return result;
 	}
 
-	public int insertMember(Connection conn, Member m, ArrayList<Attachment> fileList) {
+	public int insertOwner(Connection conn, Owner own) {
 		PreparedStatement pstmt = null;
 		int result = 0;
+		String query = prop.getProperty("insertOwner");
 		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, own.getOwnNo());
+			pstmt.setString(2,  own.getOwnName());
+			pstmt.setString(3, own.getMemId());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int checkOwnNumber(Connection conn, String ownNumber) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("checkOwnNumber");
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, ownNumber);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
 		
 		return result;
 	}

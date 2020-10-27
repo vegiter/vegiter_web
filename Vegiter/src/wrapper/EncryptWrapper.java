@@ -18,9 +18,12 @@ public class EncryptWrapper extends HttpServletRequestWrapper{
 		
 		String value = "";
 		
-		if(name != null && (name.equals("userPwd") || name.equals("joinUserPwd") || name.equals("newPwd"))) {
-			// 암호화 (비밀번호 변경 시/ 로그인시/ 회원가입 시)
+		if(name != null && (name.equals("userPwd") || name.equals("newPwd"))) {
+			// 암호화 ( 로그인 시/ 회원가입 시/ 비밀번호 변경시)
+			
+			System.out.println("super.getParameter : " + super.getParameter(name));
 			value = getSha512(super.getParameter(name));
+			
 		}else {
 			value = super.getParameter(name);
 		}

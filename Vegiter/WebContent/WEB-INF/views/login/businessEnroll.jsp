@@ -218,8 +218,8 @@
 		</div>
 		
 		<article>
-			<div id="input-boxes">
-				<form method="post" id="insertMember" action="<%=request.getContextPath()%>/insert.me" onsubmit="return enroll();" encType="multipart/form-data">
+			<form method="post" id="insertMember" action="<%=request.getContextPath()%>/insert.me" onsubmit="return enroll();" encType="multipart/form-data">
+				<div id="input-boxes">
 					<p><b>*</b>은 필수 입력칸입니다.</p>
 					<h4>아이디(6~16자리 영문소문자, 숫자만 사용가능)<b>*</b></h4>
 					<div class="input-info"><input type="text" name="userId" id="userId"></div>
@@ -261,9 +261,9 @@
 							</div>
 						</div>
 					</div>
-				</form>
-			</div>
-			<div id="div-btn-enroll"><input type="submit" id="enrollBtn" value="회원가입"></div>
+				</div>
+				<div id="div-btn-enroll"><input type="submit" id="enrollBtn" value="회원가입"></div>
+			</form>
 			<script>
 				$(function(){
 					$('input').focusin(function(){
@@ -383,8 +383,10 @@
 					var phone = $('#phone').val();
 					if(phone.length == 0){
 						$('.error').eq(6).text('전화번호를 입력해주세요').css('color','red');
+						phoneCheck = false;
 					}else{
 						$('.error').eq(6).text('');
+						phoneCheck = true;
 					}
 				});
 				$('#ownNumber').change(function(){
