@@ -19,7 +19,8 @@ import wrapper.EncryptWrapper;
 @WebFilter(
 		servletNames = { 
 				"LoginServlet", 
-				"InsertMemberServlet"
+				"InsertMemberServlet",
+				"InsertOwnerServlet"
 		})
 public class EncryptFilter implements Filter {
 
@@ -43,6 +44,11 @@ public class EncryptFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest hsr = (HttpServletRequest)request;
 		EncryptWrapper ew = new EncryptWrapper(hsr);
+		
+		String password = request.getParameter("userPwd1");
+		String userId = request.getParameter("userId");
+		System.out.println("password Filter: " + password);
+		System.out.println("id Filter: " + userId);
 		
 		// pass the request along the filter chain
 		chain.doFilter(ew, response);

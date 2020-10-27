@@ -43,8 +43,9 @@ public class InsertMemberServlet extends HttpServlet {
 		// null값으로 넣기
 		
 		String userId = request.getParameter("userId");
-		String userPwd = request.getParameter("userPwd");
+	
 		int code = Integer.parseInt(request.getParameter("code"));
+		String userPwd = request.getParameter("userPwd");
 		String name = request.getParameter("userName");
 		String email = request.getParameter("email");
 		String gender = request.getParameter("gender");
@@ -68,94 +69,17 @@ public class InsertMemberServlet extends HttpServlet {
 		
 		int result = 0;
 		
-		// 사업자 회원 시
-		if(code == 2) {
-			String ownNo = request.getParameter("ownNumber");
-			String ownName = request.getParameter("userName");
-			String memId = request.getParameter("userId");
-			
-			Owner own = new Owner(ownNo, ownName, memId);
-			
-			// 파일이 있을 시에
-			if(ServletFileUpload.isMultipartContent(request)) { 
-				int maxSize = 1024 * 1024 * 10;
-				String root = request.getSession().getServletContext().getRealPath("/");
-				String savePath = root + "owner_uploadFiles/";
-				
-				File f = new File(savePath);
-				if(!f.exists()) {
-					f.mkdir();
-				}
-				
-				MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
-				
-				
-				// 파일 원본 이름/ 바뀐이름 저장
-				ArrayList<String> saveFiles = new ArrayList<String>();
-				ArrayList<String> originFiles = new ArrayList<String>();
-				
-				Enumeration<String> files = multiRequest.getFileNames();
-				while(files.hasMoreElements()) {
-					String fName = files.nextElement();
-					
-					if(multiRequest.getFilesystemName(fName) != null) {
-						saveFiles.add(multiRequest.getFilesystemName(fName));
-						originFiles.add(multiRequest.getOriginalFileName(fName));
-					}
-					
-					System.out.println(saveFiles);
-					System.out.println(originFiles);
-					
-				}
-				
-				ArrayList<Attachment> fileList = new ArrayList<Attachment>();
-				
-				for(int i = originFiles.size()-1; i >= 0; i--) {
-					Attachment at = new Attachment();
-					at.setMemId(memId);
-					at.setAtcPath(savePath);
-					at.setAtcOrigin(originFiles.get(i));
-					at.setAtcType(4);
-					at.setAtcName(saveFiles.get(i));
-					
-					// 역순으로 저장되어 있음
-					if(i == originFiles.size() - 1) {
-						at.setAtcLevel(0);
-					}else {
-						at.setAtcLevel(1);
-					}
-					fileList.add(at);
-				}
-				result = new MemberService().insertMember(m,own, fileList);
-				
-				if(result > 0) {
-					response.sendRedirect(request.getContextPath());
-				}else {
-					request.setAttribute("msg", "사업자 회원가입(파일 업로드)에 실패하셨습니다.");
-					request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
-				}
-			}else {
-			// 파일이 없을 시
-				result = new MemberService().insertMember(m, own);
-				
-				if(result > 0) {
-					response.sendRedirect(request.getContextPath());
-				}else {
-					request.setAttribute("msg", "사업자 회원가입에 실패하였습니다.");
-					request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);;
-				}
-			}
-		}else {
+	
 		// 일반회원인경우
-			result = new MemberService().insertMember(m);
+		result = new MemberService().insertMember(m);
 			
-			if(result > 0) {
-				response.sendRedirect(request.getContextPath());
-			}else {
-				request.setAttribute("msg", "회원가입에 실패하였습니다.");
-				request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);;
-			}
+		if(result > 0) {
+			response.sendRedirect(request.getContextPath());
+		}else {
+			request.setAttribute("msg", "회원가입에 실패하였습니다.");
+			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);;
 		}
+		
 	}
 
 	/**

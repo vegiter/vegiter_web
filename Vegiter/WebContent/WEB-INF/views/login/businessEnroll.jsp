@@ -218,14 +218,14 @@
 		</div>
 		
 		<article>
-			<form method="post" id="insertMember" action="<%=request.getContextPath()%>/insert.me" onsubmit="return enroll();" encType="multipart/form-data">
+			<form method="post" id="insertMember" action="<%=request.getContextPath()%>/insert.ow" onsubmit="return enroll();" encType="multipart/form-data">
 				<div id="input-boxes">
 					<p><b>*</b>은 필수 입력칸입니다.</p>
 					<h4>아이디(6~16자리 영문소문자, 숫자만 사용가능)<b>*</b></h4>
 					<div class="input-info"><input type="text" name="userId" id="userId"></div>
 					<div class="error"></div>
 					<h4>비밀번호(6~16자리 영문소문자, 숫자, 특수문가 사용가능)<b>*</b></h4>
-					<div class="input-info"><input type="password" name="userPwd" id="password"></div>
+					<div class="input-info"><input type="password" name="userPwd1" id="password"></div>
 					<div class="error"></div>
 					<h4>비밀번호 확인<b>*</b></h4>
 					<div class="input-info"><input type="password" name="userPwd2" id="password2"></div>
@@ -336,6 +336,7 @@
 						$('.error').eq(1).text('사용가능한 비밀번호입니다.').css('color','green');
 						pwdCheck = true;
 					}
+					console.log(inputPwd);
 				});
 				
 				$('#password2').change(function(){
