@@ -130,7 +130,7 @@
 					</div> </span>
 		</form>
 		
-		<form action="<%= request.getContextPath() %>/findOwnerId.me" method="post" id="findOwnerId" name="findOwnerId" onsubmit="return findOwnerId();">
+		<form action="<%= request.getContextPath() %>/findOwnerId.me" method="post" id="findOwnerId" name="findOwnerId" onsubmit="return findOwner();">
 		<br><br>
 			<span id="owner"><p class="pTitle">사업자 회원 아이디 찾기</p>
 				<p class="text">사업주 :</p>
@@ -152,7 +152,7 @@
 			var name = $('#nameInput').val();
 			var email = $('#emailInput').val();
 			
-			console.log(name);
+			console.log(1);
 			console.log(email);
 			
 			if(name.length < 3 || email.length < 3){
@@ -163,7 +163,7 @@
 			}
 		}
 		
-		function findOwnerId(){
+		function findOwner(){
 			var ownerName = $('#ownerName').val();
 			var ownerNum = $('#ownerNum').val();
 			
@@ -176,6 +176,8 @@
 			} else {
 				return true;
 			}
+			
+			return false;
 		}
 		</script>
 	
