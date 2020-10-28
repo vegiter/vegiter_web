@@ -125,20 +125,22 @@
 					<input type="email" class="input" id="emailInput" name="emailInput"><br>
 					<div class="text-center">
 						<input type="submit" class="btn btn-secondary findBtn" id="btn1"
-							value="일반 회원 아이디 찾기" onclick="findId();">
+							value="일반 회원 아이디 찾기" >
+<!-- 							onclick="findId();" -->
 					</div> </span>
 		</form>
 		
 		<form action="<%= request.getContextPath() %>/findOwnerId.me" method="post" id="findOwnerId" name="findOwnerId" onsubmit="return findOwnerId();">
 		<br><br>
-		<span id="owner"><p class="pTitle">사업자 회원 아이디 찾기</p>
-			<p class="text">사업주 :</p>
-			<input type="text" class="input" id="ownerName" name="ownerName"><br>
-			<p class="text">사업자 번호 :</p>
-			<input type="text" class="input" id="ownerNum" name="ownerNum"><br>
-			<div class="text-center">
-				<input type="submit" class="btn btn-secondary findBtn"
-					value="사업자 회원 아이디 찾기" id="btn2" onclick="findOwnerId();">
+			<span id="owner"><p class="pTitle">사업자 회원 아이디 찾기</p>
+				<p class="text">사업주 :</p>
+				<input type="text" class="input" id="ownerName" name="ownerName"><br>
+				<p class="text">사업자 번호 :</p>
+				<input type="text" class="input" id="ownerNum" name="ownerNum"><br>
+				<div class="text-center">
+					<input type="submit" class="btn btn-secondary findBtn" id="btn2"
+						value="사업자 회원 아이디 찾기" >
+<!-- 						onclick="findOwnerId();" -->
 			</div> </span>
 		</form>
 	</div>
@@ -153,7 +155,7 @@
 			console.log(name);
 			console.log(email);
 			
-			if(name.length < 1 || email.length < 1){
+			if(name.length < 3 || email.length < 3){
 				alert('다시 입력해주세요');
 				return false;
 			} else {
@@ -168,13 +170,14 @@
 			console.log(ownerName);
 			console.log(ownerNum);
 			
-			if(name.length < 1 || email.length < 1){
+			if(ownerName.length < 3 || ownerNum.length < 4){
 				alert('다시 입력해주세요');
 				return false;
 			} else {
 				return true;
 			}
 		}
-	</script>
+		</script>
+	
 </body>
 </html>
