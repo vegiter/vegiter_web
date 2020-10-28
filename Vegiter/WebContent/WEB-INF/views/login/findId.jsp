@@ -251,5 +251,6 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 			</script>
 		</article>
 	</section>
+	<%@ include file="../common/footer.jsp" %>
 </body>
 </html>

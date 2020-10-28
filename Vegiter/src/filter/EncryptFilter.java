@@ -22,7 +22,7 @@ import wrapper.EncryptWrapper;
 				"InsertMemberServlet",
 				"InsertOwnerServlet"
 		})
-public class EncryptFilter implements Filter {
+public class EncryptFilter implements Filter{
 
     /**
      * Default constructor. 
