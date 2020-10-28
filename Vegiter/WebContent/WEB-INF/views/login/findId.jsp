@@ -36,7 +36,7 @@
 	border: 1px solid lightgray;
 	background: white;
 	width: 90%;
-	height: 850px;
+	height: 1000px;
 	margin: 50px auto;
 }
 
@@ -64,7 +64,7 @@
 #owner {
 	display: inline;
 	width: 49.5%;
-	height: 700px;
+	height: 800px;
 	margin-top: 30px;
 }
 
