@@ -197,6 +197,7 @@ GitHub.sublime-settings
 
 #Server-files
 Servers/
+apache-tomcat-9.0.38/
 
 #OS generated
 .DS_Store
