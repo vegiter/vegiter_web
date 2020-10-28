@@ -36,7 +36,7 @@
 	border: 1px solid lightgray;
 	background: white;
 	width: 90%;
-	height: 800px;
+	height: 850px;
 	margin: 50px auto;
 }
 
@@ -55,14 +55,14 @@
 }
 
 #member {
-	display: inline-block;
+	display: inline;
 	width: 49.5%;
-	height: 700px;
+	height: 800px;
 	margin-top: 30px;
 }
 
 #owner {
-	display: inline-block;
+	display: inline;
 	width: 49.5%;
 	height: 700px;
 	margin-top: 30px;
@@ -78,8 +78,8 @@
 	display: inline-block;
 	font-family: 'Noto Sans KR', sans-serif;
 	font-size: 18px;
-	margin-top: 10%;
-	margin-left: 20%;
+	margin-top: 5%;
+	margin-left: 23%;
 }
 
 .input {
@@ -87,21 +87,21 @@
 }
 
 #nameInput {
-	margin-left: 40px;
-}
-
-#emailInput {
-	margin-left: 25px;
-	margin-bottom: 150px;
-}
-
-#ownerName {
 	margin-left: 60px;
 }
 
+#emailInput {
+	margin-left: 45px;
+	margin-bottom: 50px;
+}
+
+#ownerName {
+	margin-left: 80px;
+}
+
 #ownerNum {
-	margin-left: 25px;
-	margin-bottom: 150px;
+	margin-left: 45px;
+	margin-bottom: 50px;
 }
 </style>
 </head>
@@ -116,32 +116,31 @@
 			<p class="title">아이디 찾기</p>
 		</div>
 
-		<form action="<%= request.getContextPath() %>/findMemberId.me"
-			method="post" id="findMemberId" name="findMemberId"
-			onsubmit="return findId();">
-			<div id="g">
+		<form action="<%= request.getContextPath() %>/findMemberId.me" method="post" id="findMemberId" name="findMemberId" onsubmit="return findId();">
+		<br><br>
 				<span id="member"><p class="pTitle">일반 회원 아이디 찾기</p>
 					<p class="text">이름 :</p>
 					<input type="text" class="input" id="nameInput" name="nameInput"><br>
 					<p class="text">이메일 :</p>
 					<input type="email" class="input" id="emailInput" name="emailInput"><br>
 					<div class="text-center">
-						<input type="submit" class="btn btn-success findBtn" id="btn1"
+						<input type="submit" class="btn btn-secondary findBtn" id="btn1"
 							value="일반 회원 아이디 찾기" onclick="findId();">
 					</div> </span>
 		</form>
-
+		
+		<form action="<%= request.getContextPath() %>/findOwnerId.me" method="post" id="findOwnerId" name="findOwnerId" onsubmit="return findOwnerId();">
+		<br><br>
 		<span id="owner"><p class="pTitle">사업자 회원 아이디 찾기</p>
 			<p class="text">사업주 :</p>
-			<input type="text" class="input" id="ownerName"><br>
+			<input type="text" class="input" id="ownerName" name="ownerName"><br>
 			<p class="text">사업자 번호 :</p>
-			<input type="text" class="input" id="ownerNum"><br>
+			<input type="text" class="input" id="ownerNum" name="ownerNum"><br>
 			<div class="text-center">
-				<input type="submit" class="btn btn-success findBtn"
-					value="사업자 회원 아이디 찾기" id="btn2">
+				<input type="submit" class="btn btn-secondary findBtn"
+					value="사업자 회원 아이디 찾기" id="btn2" onclick="findOwnerId();">
 			</div> </span>
-	</div>
-
+		</form>
 	</div>
 
 	<%@ include file="../common/footer.jsp"%>
@@ -153,6 +152,21 @@
 			
 			console.log(name);
 			console.log(email);
+			
+			if(name.length < 1 || email.length < 1){
+				alert('다시 입력해주세요');
+				return false;
+			} else {
+				return true;
+			}
+		}
+		
+		function findOwnerId(){
+			var ownerName = $('#ownerName').val();
+			var ownerNum = $('#ownerNum').val();
+			
+			console.log(ownerName);
+			console.log(ownerNum);
 			
 			if(name.length < 1 || email.length < 1){
 				alert('다시 입력해주세요');

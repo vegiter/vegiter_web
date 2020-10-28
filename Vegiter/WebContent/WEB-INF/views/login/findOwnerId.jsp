@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="login.model.vo.Member"%>
-<%
-	Member member = (Member)request.getAttribute("member");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -106,7 +103,7 @@
 		<br>
 		<br>
 		<p id="pText">회원님의 아이디 조회 결과 입니다</p>
-		<div class="result"><input class="form-control result" type="text" placeholder="Readonly input here..." readonly value="<%= member.getMemId() %>"></div>
+		<div class="result"><input class="form-control result" type="text" placeholder="Readonly input here..." readonly value="ex"></div>
 		<br><br>
 		<div class="text-center"><input type="submit" class="btn btn-secondary findBtn" id="btn1" value="로그인" onclick="loginPage();"></div>
 		<br><br>

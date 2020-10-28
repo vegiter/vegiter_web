@@ -23,6 +23,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
 	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
 	crossorigin="anonymous">
+
 <style>
 	#zeroArea { display: block; height: 70px; }
 	#main_arti_1{
@@ -50,6 +51,7 @@
 <body>
 	<%@ include file="WEB-INF/views/common/gnb.jsp" %>
 	<div id="zeroArea"></div>
+	
 	
 	<section>
 		<article class="arti" id="arti_1">
