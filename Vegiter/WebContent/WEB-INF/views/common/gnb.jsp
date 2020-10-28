@@ -78,11 +78,11 @@ nav li:hover {
 </head>
 <body>
 	<header class="header">
-		<a href="#"><img id="logo" src="<%= request.getContextPath() %>/images/common/logo.png"></a>
+		<a href="#" onclick="mainPage();"><img id="logo" src="<%= request.getContextPath() %>/images/common/logo.png"></a>
 		<nav>
 			<div class="wrap">
 				<ul>
-					<li><a href="#">About</a></li>
+					<li><a href="#" onclick="aboutPage();">About</a></li>
 					<li><a href="#">식당검색</a></li>
 					<li><a href="#">레시피</a></li>
 					<li><a href="#">Vegi talk</a></li>
@@ -97,5 +97,15 @@ nav li:hover {
 			</div>
 		</nav>
 	</header>
+	
+	<script>
+		function mainPage(){
+			location.href = '<%= request.getContextPath() %>';
+		}
+	
+		function aboutPage(){
+			location.href = '<%= request.getContextPath() %>/aboutPage.me';
+		}
+	</script>
 </body>
 </html>

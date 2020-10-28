@@ -92,5 +92,15 @@ public class MemberService {
 		close(conn);
 		return result;
 	}
+
+	public Member findId(String name, String email) {
+		Connection conn = getConnection();
+		
+		Member m = new MemberDAO().findMember(conn, name, email);
+		
+		close(conn);
+		
+		return m;
+	}
 	
 }
