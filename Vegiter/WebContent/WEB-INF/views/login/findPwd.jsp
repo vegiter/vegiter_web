@@ -6,7 +6,6 @@
 <meta charset="UTF-8">
 <title>비밀번호 찾기</title>
 <style>
-/* 	*{border: 1px solid green;} */
 #section-header {
 	width: 70%;
 	height: 100%;
@@ -66,15 +65,15 @@
 }
 
 #input-boxes {
-	min-width: 400px;
+	width: 430px;
 	margin: auto;
-	padding-left: 20%;
 }
 
 .input-box {
 	display: inline-block;
-	width: 400px;
+	width: 430px;
 	height: 230px;
+	margin: auto;
 	background: white;
 	margin-top: 50px;
 	border: 2px solid gray;
@@ -128,7 +127,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 }
 
 #div-btn-id {
-	width: 400px;
+	width: 430px;
 	height: 40px;
 	margin: auto;
 	margin-top: 30px;
