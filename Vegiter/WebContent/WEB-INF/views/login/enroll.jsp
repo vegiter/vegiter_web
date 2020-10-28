@@ -213,7 +213,7 @@
 				var naverLogin = new naver.LoginWithNaverId(
 				{
 					clientId: "w3sXDEgZtjtnF9AcUJSw",
-					callbackUrl: "http://127.0.0.1:9981/Vegiter/login",
+					callbackUrl: "http://127.0.0.1:9981/Vegiter",
 					isPopup: true, /* 팝업을 통한 연동처리 여부 */
 					loginButton: {color: "white", type:3, height:40} /* 로그인 버튼의 타입을 지정 */
 				}
