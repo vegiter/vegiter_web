@@ -5,6 +5,7 @@
 <%
 	Member loginUser  = (Member)session.getAttribute("loginUser");
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
