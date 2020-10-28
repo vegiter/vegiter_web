@@ -8,6 +8,8 @@ import static common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import javax.xml.ws.Response;
+
 import board.model.dao.BoardDAO;
 import board.model.vo.Attachment;
 import login.model.dao.MemberDAO;
@@ -48,26 +50,6 @@ public class MemberService {
 		return result;
 	}
 
-	public int insertMember(Member m, Owner own, ArrayList<Attachment> fileList) {
-		Connection conn = getConnection();
-		
-		MemberDAO mDAO = new MemberDAO();
-		
-		int result1 = mDAO.insertMember(conn, m);
-		int result2 = mDAO.insertOwner(conn, own);
-		int result3 = new BoardDAO().insertAttachment(conn, fileList);
-		
-		if(result1 > 0 && result2 > 0 && result3 >0) {
-			commit(conn);
-			
-		}else {
-			rollback(conn);
-		}
-		close(conn);
-		
-		return result1;
-	}
-
 	public int insertMember(Member m, Owner own) {
 		Connection conn = getConnection();
 		MemberDAO mDAO = new MemberDAO();
@@ -89,6 +71,20 @@ public class MemberService {
 		Connection conn = getConnection();
 		int result = new MemberDAO().checkOwnNumber(conn, ownNumber);
 		
+		close(conn);
+		return result;
+	}
+
+	public int insertMember(ArrayList<Attachment> fileList) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDAO().insertAttachment(conn, fileList);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
 		close(conn);
 		return result;
 	}

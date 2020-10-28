@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>회원가입</title>
 <style>
-	* { box-sizing: border-box; border: 1px solid green;}
+	* { box-sizing: border-box;}
 	
 	/* 내용부분 */
 	section{

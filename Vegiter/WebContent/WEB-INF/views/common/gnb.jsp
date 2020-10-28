@@ -18,17 +18,16 @@
 	.gnb{width: 100%; height:62px; border-bottom: 1px solid lightgray; min-width: 800px; position: fixed; top: 0; background-color: #fff; text-align: center;}
 	.gnb-nav ul{width: 80%; max-width: 1000px;  min-width: 800px; margin: auto; display: flex; flex-direction : row; text-align: center;}
 	#logo {width: 130px;}
-	.gnb-nav-list{left: 0; width: 90px; cursor: pointer; margin: auto; text-align: center; line-height: 50px; border: 1px solid white;}
+	.gnb-nav-list{left: 0; width: 90px; cursor: pointer; margin: auto; text-align: center; line-height: 50px; border: 1px solid white; border-bottom: 1px solid lightgray;}
 	.gnb-nav-list:nth-child(1){margin-right: 200px;}
-	.gnb-nav-list:nth-child(1):hover{border: none; margin-right: 200px;}
-	.gnb-nav-list:hover {font-weight: bold; border-bottom: 3px solid #41A693;}
+	.gnb-nav-list:hover{font-weight: bold; border-bottom: 3px solid #41A693;}
 </style>
 </head>
 <body>
 	<header class="gnb">
 		<nav class="gnb-nav">
 			<ul>
-				<li class="gnb-nav-list" onclick="location.href='<%= request.getContextPath() %>'"><img id="logo" onclick="location.href='<%= request.getContextPath() %>'" src="<%= request.getContextPath() %>/images/common/logo.png" style="cursor: pointer;"></li>
+				<li id="logo-li" onclick="location.href='<%= request.getContextPath() %>'"><img id="logo" onclick="location.href='<%= request.getContextPath() %>'" src="<%= request.getContextPath() %>/images/common/logo.png" style="cursor: pointer;"></li>
 				<li class="gnb-nav-list">About</li>
 				<li class="gnb-nav-list">식당검색</li>
 				<li class="gnb-nav-list">레시피</li>
@@ -41,5 +40,8 @@
 			</ul>
 		</nav>
 	</header>
+	<script>
+		
+	</script>
 </body>
 </html>

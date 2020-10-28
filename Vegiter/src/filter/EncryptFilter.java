@@ -47,8 +47,6 @@ public class EncryptFilter implements Filter{
 		
 		String password = request.getParameter("userPwd1");
 		String userId = request.getParameter("userId");
-		System.out.println("password Filter: " + password);
-		System.out.println("id Filter: " + userId);
 		
 		// pass the request along the filter chain
 		chain.doFilter(ew, response);
