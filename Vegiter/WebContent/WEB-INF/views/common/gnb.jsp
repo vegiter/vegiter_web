@@ -1,89 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>GNB</title>
 <style>
-
-header {
-	width: 100%;
-	background: rgba(255, 255, 255, 0.8);
-	border-bottom: 1px solid lightgray;
-	min-width: 800px;
-	position: fixed;
-	top: 0;
-	
-}
-
-nav {
-	display: inline-block;
-	float: right;
-	padding: 0;
-	height: 40px;
-	margin-right: 10%;
-}
-
-div, ul, li {
-	padding: 0;
-	margin: 0;
-}
-
-#logo {
-	width: 150px;
-	margin-left: 5%
-}
-
-nav li {
-	float: left;
-	padding: 0;
-	line-height: 40px; /*굵기*/
-}
-
-.header nav .wrap>ul {
-	display: inline-block;
-	position: relative;
-}
-
-.wrap>ul>li {
-	width: 100px;
-	height: 63px;
-}
-
-.wrap>ul>li>a {
-	display: block;
-	width: 100%;
-	text-decoration: none;
-	color: black;
-	text-align: center;
-	margin-top: 10px;
-}
-
-ol, ul {
-	list-style: none;
-}
-
-nav li:hover {
-	font-weight: bolder;
-	border-bottom: 3px solid rgb(45, 115, 102);
-}
+	html, body, div, span, img, header, nav{margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline; text-decoration: none; border-style: none; color: #000000;}
+	body{line-height: 1;}
+	ol, ul {list-style: none;}
+	.gnb{width: 100%; height:62px; border-bottom: 1px solid lightgray; min-width: 800px; position: fixed; top: 0; text-align:center; background-color: #fff;}
+	.gnb nav{margin: 0 auto;}
+	.gnb ul{margin: 0; max-width: 1000px; display: inline-block; min-width: 800px;}
+	#logo {width: 130px;}
+	.gnb-nav{display: inline-block; width: 90px; line-height:60px; cursor: pointer;}
+	.gnb-nav.logo{border: none; margin-right: 200px;}
+	nav li:hover {font-weight: bold; border-bottom: 3px solid rgb(45, 115, 102);}
 </style>
 </head>
 <body>
-	<header class="header">
-		<a href="#"><img id="logo" src="<%= request.getContextPath() %>/images/common/logo.png"></a>
+	<header class="gnb">
 		<nav>
-			<div class="wrap">
-				<ul>
-					<li><a href="#">About</a></li>
-					<li><a href="#">식당검색</a></li>
-					<li><a href="#">레시피</a></li>
-					<li><a href="#">Vegi talk</a></li>
-					<li><a href="#">My Info</a></li>
-				</ul>
-			</div>
+			<ul>
+				<li class="gnb-nav logo" onclick="location.href='<%= request.getContextPath() %>'"><img id="logo" onclick="location.href='<%= request.getContextPath() %>'" src="<%= request.getContextPath() %>/images/common/logo.png" style="cursor: pointer;"></li>
+				<li class="gnb-nav">About</li>
+				<li class="gnb-nav">식당검색</li>
+				<li class="gnb-nav">레시피</li>
+				<li class="gnb-nav" onclick="location.href='<%= request.getContextPath() %>/vegiTalk'">VegiTalk</li>
+				<li class="gnb-nav">My Info</li>
+			</ul>
 		</nav>
 	</header>
 </body>
