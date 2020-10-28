@@ -1,11 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
+<%@ page import="login.model.vo.Member" %>
+<%
+	Member loginUser  = (Member)session.getAttribute("loginUser");
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Vegiter</title>
+<script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.5.1.min.js"></script>
 <style>
 
 header {
@@ -81,7 +86,13 @@ nav li:hover {
 					<li><a href="#">식당검색</a></li>
 					<li><a href="#">레시피</a></li>
 					<li><a href="#">Vegi talk</a></li>
-					<li><a href="#">My Info</a></li>
+					<li><a 
+					<%if(loginUser == null){ %>
+					href="<%= request.getContextPath() %>/login.me"
+					<%}else{ %>
+					href="<%=request.getContextPath() %>/myPage"
+					<%} %>
+					>My Info</a></li>
 				</ul>
 			</div>
 		</nav>
