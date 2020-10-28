@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>vegi Write</title>
+<link rel="stylesheet" href="styles/vegitalkWriteDietDetail.css"></link>
+<script src="https://kit.fontawesome.com/34238d14b4.js" crossorigin="anonymous"></script>
+<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+</head>
+<body>
+
+<div class="wrapper">
+	<form class="write">
+		<div class="write-my">
+			<button id="delete">삭제</button>
+			<button id="modify">수정</button>
+		</div>
+
+		<table class="dietList">
+			<tr>
+				<th>아침</th>
+				<th>점심</th>
+				<th>저녁</th>
+			</tr>
+			<tr>
+				<td><a href="#">아침 메뉴</td>
+				<td>점심메뉴</td>
+				<td>저녁메뉴</td>
+			</tr>
+			<tr>
+				<td><a href="#">아침 메뉴</td>
+				<td>점심메뉴</td>
+				<td>저녁메뉴</td>
+			</tr>
+			<tr>
+				<td><a href="#">아침 메뉴</td>
+				<td>점심메뉴</td>
+				<td>저녁메뉴</td>
+			</tr>
+		</table>
+		
+		<div class="header">
+			<div class="header-info">
+			<span id="userId">아이디</span>
+				<span id="date">2020-10-10</span>
+			</div>
+			<i class="far fa-bookmark"></i>
+		</div>
+		
+		<textarea name="write" id="wirte-area" cols="40" rows="10" readonly>안녕하세요, 작성자입니다.</textarea>
+		
+		<div class="social">
+			<span><i class="far fa-comment-dots"></i>
+			100+</span>
+			<span class="social-item checked"><i class="far fa-heart"></i>
+			100+</span>
+		</div>
+
+		<div class="comment">
+			<ul class="comment-list">
+				<li class="comment-list-item" id="comUserId">작성자</li>
+				<li class="comment-list-item" id="comContent">댓글이다</li>
+				<li class="comment-list-item" id="comDate">2020.10.10</li>
+			</ul>
+			<div class="comment-input">
+				<input type="text" class="comment-input-field" placeholder="댓글을 입력하세요.">
+				<button type="submit" class="comment-input-submit">등록</button>
+			</div>
+		</div>
+	</form>
+</div>
+
+</body>
+</html>
