@@ -1,11 +1,15 @@
 package login.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import login.model.serviec.OwnerService;
+import login.model.vo.Owner;
 
 /**
  * Servlet implementation class FindOwnerIdServlet
@@ -28,9 +32,20 @@ public class FindOwnerIdServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String ownerName = request.getParameter("ownerName");
 		String ownerNum = request.getParameter("ownerNum");
-		System.out.println(ownerName +"," + ownerNum);
+		System.out.println(ownerNum + "," + ownerName);
 		
-		request.getRequestDispatcher("WEB-INF/views/login/findOwnerId.jsp").forward(request, response);
+		Owner owner = new OwnerService().findId(ownerName, ownerNum);
+		
+		String page = null;
+		if(owner != null) {
+			page = "WEB-INF/views/login/findOwnerId.jsp";
+			request.setAttribute("owner", owner);
+		} else {
+			page = "WEB-INF/views/common/errorPage.jsp";
+			request.setAttribute("msg", "일치하는 회원이 없습니다.");
+		}
+		
+		request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	/**

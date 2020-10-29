@@ -112,8 +112,8 @@
 					<p class="text">아이디 :</p>
 					<input type="text" class="input" id="idInput" name="idInput"><br>
 					<p class="text">이메일 :</p>
-					<input type="email" class="input" id="emailInput" name="emailInput"><button type="button" id="btn0" class="btn btn-secondary" onclick="auth();">인증</button>
-					<p class="text">인증번호 :</p>
+					<input type="email" class="input" id="emailInput" name="emailInput">
+					<p class="text">전화번호 :</p>
 					<input type="text" class="input" id="numInput" name="numInput"><br>
 					
 					<div class="text-center">
@@ -127,12 +127,17 @@
 	</div>
 
 	<script>
-		function auth(){
+		function findPwd(){
 			var id = $('#idInput').val();
 			var email = $('#emailInput').val();
+			var num = $('#numInput').val();
 			
-			console.log(id);
-			console.log(email);
+			if(id.length < 5 || email.length < 4 || num.length < 7){
+				alert('다시 입력해주세요');
+				return false;
+			} else {
+				return true;
+			}
 		}
 	</script>
 	

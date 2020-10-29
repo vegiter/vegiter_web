@@ -1,11 +1,15 @@
 package login.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import login.model.serviec.MemberService;
+import login.model.vo.Member;
 
 /**
  * Servlet implementation class FindPwdServlet
@@ -26,7 +30,22 @@ public class FindPwdServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("WEB-INF/views/login/findPwdForm.jsp").forward(request, response);
+		String id = request.getParameter("idInput");
+		String email = request.getParameter("emailInput");
+		String phone = request.getParameter("numInput");
+		
+		Member member = new MemberService().findPwd(id, email, phone);
+		
+		String page = null;
+		if(member != null) {
+			page = "WEB-INF/views/login/changePwd.jsp";
+			request.setAttribute("member", member);
+		} else {
+			page = "WEB-INF/views/common/errorPage.jsp";
+			request.setAttribute("msg", "일치하는 회원이 없습니다.");
+		}
+		
+		request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	/**

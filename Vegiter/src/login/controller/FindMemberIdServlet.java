@@ -32,7 +32,6 @@ public class FindMemberIdServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("nameInput");
 		String email = request.getParameter("emailInput");
-		System.out.println(name + "," + email);
 		
 		Member member = new MemberService().findId(name, email);
 		

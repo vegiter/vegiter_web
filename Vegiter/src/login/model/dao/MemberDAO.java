@@ -2,6 +2,7 @@ package login.model.dao;
 
 import static common.JDBCTemplate.close;
 
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -189,6 +190,41 @@ public class MemberDAO {
 								rset.getDate("mem_deldate"));
 			}
 			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return m;
+	}
+
+	public Member findPwd(Connection conn, String id, String email, String phone) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member m = null;
+		
+		String query = prop.getProperty("findPwd");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, id);
+			pstmt.setString(2, email);
+			pstmt.setString(3, phone);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				m = new Member(rset.getString("mem_id"),
+								rset.getString("mem_pwd"),
+								rset.getInt("mem_code"),
+								rset.getString("mem_name"),
+								rset.getString("mem_gender").charAt(0),
+								rset.getString("mem_phone"),
+								rset.getString("mem_email"),
+								String.valueOf(rset.getInt("mem_style")),
+								rset.getString("mem_status"),
+								rset.getDate("mem_deldate"));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
