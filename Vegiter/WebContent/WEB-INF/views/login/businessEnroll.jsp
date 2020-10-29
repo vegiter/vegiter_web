@@ -121,7 +121,7 @@
 	
 	#input-boxes{
 		width: 656px;
-		min-height: 1500px;
+		min-height: 800px;
 		margin: auto;
 		background: white;
 	}
@@ -218,14 +218,14 @@
 		</div>
 		
 		<article>
-			<form method="post" id="insertMember" action="<%=request.getContextPath()%>/insert.ow" onsubmit="return enroll();" encType="multipart/form-data">
+			<form method="post" id="insertMember" action="<%=request.getContextPath()%>/insert.me" onsubmit="return enroll();">
 				<div id="input-boxes">
 					<p><b>*</b>은 필수 입력칸입니다.</p>
 					<h4>아이디(6~16자리 영문소문자, 숫자만 사용가능)<b>*</b></h4>
 					<div class="input-info"><input type="text" name="userId" id="userId"></div>
 					<div class="error"></div>
 					<h4>비밀번호(6~16자리 영문소문자, 숫자, 특수문가 사용가능)<b>*</b></h4>
-					<div class="input-info"><input type="password" name="userPwd1" id="password"></div>
+					<div class="input-info"><input type="password" name="userPwd" id="password"></div>
 					<div class="error"></div>
 					<h4>비밀번호 확인<b>*</b></h4>
 					<div class="input-info"><input type="password" name="userPwd2" id="password2"></div>
@@ -249,18 +249,6 @@
 					<h4>홈페이지</h4>
 					<div class="input-info"><input type="url" name="url" id="url"></div>
 					<div class="error"></div>
-					<div class="file">
-						<div><h4>대표이미지</h4>
-							<input type="file" onchange="loadImg(this);" name="image" accept="image/jpg, image/jpeg, image/png">
-							<div id="topImg"><img src="<%= request.getContextPath() %>/images/common/diagonal.png" id="diagonal1"></div>
-						</div>
-						<div><h4>메뉴이미지</h4>
-							<input type="file" onchange="loadImg2(this);" name="image" accept="image/jpg, image/jpeg, image/png" multiple>
-							<div id="menuImg">
-								<img src="<%= request.getContextPath() %>/images/common/diagonal.png" id="diagonal2">
-							</div>
-						</div>
-					</div>
 				</div>
 				<div id="div-btn-enroll"><input type="submit" id="enrollBtn" value="회원가입"></div>
 			</form>
@@ -354,6 +342,8 @@
 						$('.error').eq(2).text('비밀번호가 일치하지 않습니다.').css('color','red');
 						pwd2Check = false;
 					}
+					
+					console.log("pwd2 : " + inputPwd2);
 				});
 				$('#userName').change(function(){
 					var name = $('#userName').val();
@@ -425,34 +415,6 @@
 					}
 				});
 				
-				// 이미지 미리보기
-				function loadImg(value){
-					if(value.files[0]){
-						var reader = new FileReader();
-						
-						reader.onload = function(e){
-							$('#diagonal1').attr('src', e.target.result).css('width','150px');
-						}
-						reader.readAsDataURL(value.files[0]);
-					}
-				}
-				
-				function loadImg2(value) { 
-					if(value.files){
-						$div = $('#menuImg');
-						$div.find('img').remove();
-						
-						for(var i = 0; i < value.files.length; i++){
-							var reader = new FileReader();
-							reader.onload = function(e){
-								$img = $('<img>');
-								$img.attr("src", e.target.result).css('width','150px');
-								$div.append($img);
-							}
-							reader.readAsDataURL(value.files[i]); 
-						}
-					}
-				}
 				function enroll(){
 					if(!idCheck){
 						alert('아이디를 확인해주세요');

@@ -50,7 +50,9 @@
 	#business:hover{
 		background: rgb(53, 154, 135);
 	}
-	
+	#naverIdLogin{
+		display: inline-block;
+	}
 	.input-header{
 		margin: 0;
 		height: 40px;
@@ -190,6 +192,9 @@
 		font-size: 18px;
 	}
 </style>
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="<%= request.getContextPath() %>/js/naveridlogin_js_sdk_2.0.0.js"></script>
 </head>
 <body>
 	<%@ include file="../common/gnb.jsp" %>
@@ -201,9 +206,23 @@
 		<article id="social-enroll">
 			<div class="social" id="social">
 				<p>소셜로 간편하게 로그인하세요.</p>
-				<a href="#"><img src="<%= request.getContextPath() %>/images/common/naver.png" id="naver"></a>
+				<div id="naverIdLogin"></div>
 				<a href="#"><img src="<%= request.getContextPath() %>/images/common/kakao.png" id="kakao"></a>
 			</div>
+			<script type="text/javascript">
+				var naverLogin = new naver.LoginWithNaverId(
+				{
+					clientId: "w3sXDEgZtjtnF9AcUJSw",
+					callbackUrl: "http://127.0.0.1:9981/Vegiter",
+					isPopup: true, /* 팝업을 통한 연동처리 여부 */
+					loginButton: {color: "white", type:3, height:40} /* 로그인 버튼의 타입을 지정 */
+				}
+				);
+	
+				/* 설정정보를 초기화하고 연동을 준비 */
+				naverLogin.init();
+	
+			</script>
 		</article>
 		<article>
 			<form method="post" id="insertMember" action="<%=request.getContextPath() %>/insert.me" onsubmit="return enroll();">
@@ -229,8 +248,8 @@
 					<div class="input-info">
 						<select name="gender">
 							<option selected value="N">성별</option>
-							<option value="M">남자</option>
-							<option value="F">여자</option>
+							<option value="F">남자</option>
+							<option value="M">여자</option>
 							<option value="N">선택 안함</option>
 						</select>
 					</div>
@@ -436,6 +455,7 @@
 				function info(){
 					window.open('foodStyle.html','푸드스타일이란?','width=600,height=450');
 				}
+				
 			</script>
 		</article>
 	</section>

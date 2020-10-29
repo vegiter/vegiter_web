@@ -35,10 +35,11 @@ public class MemberService {
 		return result;
 	}
 
-	public int insertMember(Member m) {
+	public int insertMember(ArrayList<Attachment> fileList) {
 		Connection conn = getConnection();
-				
-		int result = new MemberDAO().insertMember(conn, m);
+		
+		int result = new BoardDAO().insertAttachment(conn, fileList);
+		
 		if(result > 0) {
 			commit(conn);
 		}else {
@@ -67,7 +68,7 @@ public class MemberService {
 		
 		return result1;
 	}
-
+	
 	public int insertMember(Member m, Owner own) {
 		Connection conn = getConnection();
 		MemberDAO mDAO = new MemberDAO();
@@ -83,6 +84,19 @@ public class MemberService {
 		
 		close(conn);
 		return result1;
+	}
+
+	public int insertMember(Member m) {
+		Connection conn = getConnection();
+				
+		int result = new MemberDAO().insertMember(conn, m);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
 	}
 
 	public int checkOwnNumber(String ownNumber) {
