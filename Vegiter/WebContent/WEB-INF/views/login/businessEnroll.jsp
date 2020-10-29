@@ -342,6 +342,8 @@
 						$('.error').eq(2).text('비밀번호가 일치하지 않습니다.').css('color','red');
 						pwd2Check = false;
 					}
+					
+					console.log("pwd2 : " + inputPwd2);
 				});
 				$('#userName').change(function(){
 					var name = $('#userName').val();

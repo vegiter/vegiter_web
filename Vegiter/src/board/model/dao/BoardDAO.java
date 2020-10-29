@@ -38,7 +38,7 @@ public class BoardDAO {
 				
 				pstmt = conn.prepareStatement(query);
 				pstmt.setString(1, at.getMemId());
-				pstmt.setInt(2, 1);
+				pstmt.setInt(2, at.getBoardNo());
 				pstmt.setInt(3, at.getAtcType());
 				pstmt.setString(4, at.getAtcOrigin());
 				pstmt.setString(5, at.getAtcName());

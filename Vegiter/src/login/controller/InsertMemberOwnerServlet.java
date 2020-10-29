@@ -86,6 +86,7 @@ public class InsertMemberOwnerServlet extends HttpServlet {
 				at.setAtcOrigin(originFiles.get(i));
 				at.setAtcType(4);
 				at.setAtcName(saveFiles.get(i));
+				at.setBoardNo(-1);
 				
 				// 역순으로 저장되어 있음
 				if(i == originFiles.size() - 1) {

@@ -224,9 +224,11 @@ form p {
 	</section>
 	<script>
 		var fileCheck = false;
+		var closeBtn = false;
+		
 		console.log("<%=memId%>");
 		$('#close').click(function(){
-			fileCheck = false;
+			closeBtn = true;
 			location.href="<%=request.getContextPath()%>";
 		});
 		// 이미지 미리보기
@@ -264,6 +266,8 @@ form p {
 			if(fileCheck){
 				alert('저장되었습니다.');
 				return true;
+			}else if(closeBtn){
+				return false;
 			}else{
 				alert('사진파일을 올려주세요');
 				return false;
