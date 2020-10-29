@@ -35,20 +35,20 @@
 #findArea {
 	border: 1px solid lightgray;
 	background: white;
-	width: 90%;
-	height: 1000px;
+	width: 60%;
+	height: 900px;
 	margin: 50px auto;
 }
 
 .titleArea {
 	width: 100%;
-	height: 80px;
+	height: 60px;
 	background: #41A693;
 }
 
 .title {
 	font-family: 'Noto Sans KR', sans-serif;
-	font-size: 34px;
+	font-size: 28px;
 	color: white;
 	text-align: center;
 	transform: translate(0%, 20%);
@@ -70,7 +70,7 @@
 
 .pTitle {
 	font-family: 'Noto Sans KR', sans-serif;
-	font-size: 32px;
+	font-size: 24px;
 	text-align: center;
 }
 
@@ -129,7 +129,7 @@
 <!-- 							onclick="findId();" -->
 					</div> </span>
 		</form>
-		
+		<br><br>
 		<form action="<%= request.getContextPath() %>/findOwnerId.me" method="post" id="findOwnerId" name="findOwnerId" onsubmit="return findOwner();">
 		<br><br>
 			<span id="owner"><p class="pTitle">사업자 회원 아이디 찾기</p>
@@ -145,7 +145,7 @@
 		</form>
 	</div>
 
-	<%@ include file="../common/footer.jsp"%>
+<%-- 	<%@ include file="../common/footer.jsp"%> --%>
 
 	<script>
 		function findId(){ 
