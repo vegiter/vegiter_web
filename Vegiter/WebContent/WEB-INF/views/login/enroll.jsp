@@ -201,7 +201,7 @@
 		<article id="social-enroll">
 			<div class="social" id="social">
 				<p>소셜로 간편하게 로그인하세요.</p>
-				<a href="#"><img src="<%= request.getContextPath() %>/images/common/naver.png" id="naver"></a>
+				<a href="/naverLogin"><img src="<%= request.getContextPath() %>/images/common/naver.png" id="naver"></a>
 				<a href="#"><img src="<%= request.getContextPath() %>/images/common/kakao.png" id="kakao"></a>
 			</div>
 		</article>
