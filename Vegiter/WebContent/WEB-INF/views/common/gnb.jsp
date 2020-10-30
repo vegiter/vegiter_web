@@ -10,6 +10,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Vegiter</title>
+
 <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.5.1.min.js"></script>
 <style>
 

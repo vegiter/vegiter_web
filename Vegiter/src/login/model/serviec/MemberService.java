@@ -126,5 +126,20 @@ public class MemberService {
 		
 		return m;
 	}
+
+	public int changePwd(String id, String pwd) {
+		Connection conn = getConnection();
+		
+		int result = new MemberDAO().changePwd(conn, id, pwd);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
 	
 }

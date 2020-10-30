@@ -20,7 +20,8 @@ import wrapper.EncryptWrapper;
 		servletNames = { 
 				"LoginServlet", 
 				"InsertMemberServlet",
-				"InsertOwnerServlet"
+				"InsertOwnerServlet",
+				"ChangePwdServlet"
 		})
 public class EncryptFilter implements Filter{
 

@@ -19,7 +19,7 @@ public class EncryptWrapper extends HttpServletRequestWrapper{
 		
 		String value = "";
 		
-		if(name != null && (name.equals("userPwd")|| name.equals("userPwd1") || name.equals("newPwd"))) {
+		if(name != null && (name.equals("userPwd")|| name.equals("userPwd1") || name.equals("newPwd") || name.equals("password"))) {
 			// 암호화 ( 로그인 시/ 회원가입 시/ 비밀번호 변경시)
 			
 			System.out.println("name :" + name);
