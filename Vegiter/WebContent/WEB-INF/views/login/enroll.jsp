@@ -99,7 +99,7 @@ section {
 
 #input-boxes {
 	width: 656px;
-	min-height: 700px;
+	min-height: 500px;
 	margin: auto;
 	margin-top: 20px;
 	background: white;
@@ -157,39 +157,7 @@ form p {
 	float: right;
 }
 
-.phone-btn {
-	background: rgb(45, 115, 102);
-	color: white;
-	height: 38px;
-	border-radius: 0;
-	border: none;
-	margin: auto;
-	float: right;
-}
 
-#phone-msg, #phone-ok {
-	border: 1px solid white;
-}
-
-#phone {
-	width: 70%;
-}
-
-#phoneConfirm {
-	width: 80%;
-}
-
-#phone-ok {
-	margin-top: 20px;
-}
-
-#sendMsg {
-	width: 30%;
-}
-
-#msgOk {
-	width: 20%;
-}
 
 /* 푸드스타일 */
 #style-info {
@@ -223,12 +191,11 @@ form p {
 }
 </style>
 <script type="text/javascript"
-	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
-	charset="utf-8"></script>
-<script type="text/javascript"
 	src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script
 	src="<%=request.getContextPath()%>/js/naveridlogin_js_sdk_2.0.0.js"></script>
+
+<script src="<%=request.getContextPath()%>/js/naverLogin_implicit-1.0.2.js"></script>
 </head>
 <body>
 	<%@ include file="../common/gnb.jsp"%>
@@ -246,87 +213,43 @@ form p {
 		<article id="social-enroll">
 			<div class="social" id="social">
 				<p>소셜로 간편하게 로그인하세요.</p>
-				<a href="/naverLogin"><img src="<%= request.getContextPath() %>/images/common/naver.png" id="naver"></a>
 				<a href="#"><img src="<%= request.getContextPath() %>/images/common/kakao.png" id="kakao"></a>
-				<div id="naverIdLogin"><a id="naverIdLogin_loginButton" href="#" role="button"><img src="https://static.nid.naver.com/oauth/big_g.PNG" width=320></a>
-				</div>
-				<a href="#"><img
-					src="<%=request.getContextPath()%>/images/common/kakao.png"
-					id="kakao"></a>
+				<div id="naverIdLogin"></div>
 			</div>
-			<script type="text/javascript">
-				var naverLogin = new naver.LoginWithNaverId(
-				{
-					clientId: "w3sXDEgZtjtnF9AcUJSw",
-					callbackUrl: "http://localhost:9981/Vegiter/enroll.jsp",
-					isPopup: true, /* 팝업을 통한 연동처리 여부 */
-					loginButton: {color: "white", type:3, height:40} /* 로그인 버튼의 타입을 지정 */
-				}
-				);
-	
-				/* 설정정보를 초기화하고 연동을 준비 */
-				naverLogin.init();
-
-				/* (5) 현재 로그인 상태를 확인 */
-				window.addEventListener('load', function () {
-					naverLogin.getLoginStatus(function (status) {
-						if (status) {
-						/* (6) 로그인 상태가 "true" 인 경우 로그인 버튼을 없애고 사용자 정보를 출력합니다. */
-							console.log(naverLogin.accessToken.accessToken)
-							setLoginStatus();
-						}
-					});
-				});
-
-				/* (6) 로그인 상태가 "true" 인 경우 로그인 버튼을 없애고 사용자 정보를 출력합니다. */
-				function setLoginStatus() {
-				var email = naverLogin.user.getEmail();
-				var name = naverLogin.user.getName();
-				var uniqId = naverLogin.user.getId();
-
-
-				/* 필수적으로 받아야하는 프로필 정보가 있다면 callback처리 시점에 체크 */
-					if( name == undefined || name == null ) {
-						alert("이름은 필수정보입니다. 정보제공을 동의해주세요.");
-						/* 사용자 정보 재동의를 위하여 다시 네아로 동의페이지로 이동함 */
-						naverLogin.reprompt();
-						return;
-					}
-					window.location.replace("https://nid.naver.com/oauth2.0/authorize");
-				}
-
-			</script>
 		</article>
 		<article>
 			<form method="post" id="insertMember"
 				action="<%=request.getContextPath()%>/insert.me"
 				onsubmit="return enroll();">
 				<div id="input-boxes">
+				<div id="social-del">
 					<p>
 						<b>*</b>은 필수 입력칸입니다.
 					</p>
-					<h4>
+					<h4 id="id-header">
 						아이디(6자리이상 영문, 숫자 1개 이상)<b>*</b>
 					</h4>
 					<div class="input-info">
 						<input type="text" name="userId" id="userId">
 					</div>
 					<div class="error" id="id-error"></div>
-					<h4>
+					<h4 class="pwd-header">
 						비밀번호(6자리이상 영문, 숫자, 특수문자 1개 이상)<b>*</b>
 					</h4>
 					<div class="input-info">
 						<input type="password" name="userPwd" id="password">
 					</div>
 					<div class="error"></div>
-					<h4>
+					<h4 class="pwd-header">
 						비밀번호 확인<b>*</b>
 					</h4>
 					<div class="input-info">
 						<input type="password" name="userPwd2" id="password2">
 					</div>
 					<div class="error"></div>
+				</div>
 					<input type="hidden" name="code" value="1">
+					<input type="hidden" name="userId2" id="userId2">
 					<h4>
 						이름<b>*</b>
 					</h4>
@@ -345,9 +268,9 @@ form p {
 					<div class="input-info">
 						<select name="gender">
 							<option selected value="N">성별</option>
-							<option value="F">남자</option>
-							<option value="M">여자</option>
-							<option value="N">선택 안함</option>
+							<option value="F" id="gender-m">남자</option>
+							<option value="M" id="gender-f">여자</option>
+							<option value="N" id="gender-n">선택 안함</option>
 						</select>
 					</div>
 					<h4>
@@ -356,13 +279,6 @@ form p {
 					<div class="input-info" id="phone-msg">
 						<input type="number" class="phone" name="phone" id="phone"
 							placeholder="(-)미포함">
-						<button class="phone-btn" id="sendMsg" onclick="sendConfirm();">인증번호
-							전송</button>
-					</div>
-					<div class="input-info" id="phone-ok">
-						<input type="number" class="phone" name="phoneConfirm"
-							id="phoneConfirm">
-						<button class="phone-btn" id="msgOk" onclick="confirm();">확인</button>
 					</div>
 					<div class="error"></div>
 					<h4>푸드스타일</h4>
@@ -386,6 +302,84 @@ form p {
 					<input type="submit" id="enrollBtn" value="회원가입">
 				</div>
 			</form>
+			<script type="text/javascript">
+				var idCheck = false;  // pk
+				var pwdCheck = false;
+				var pwd2Check = false;
+				var nameCheck = false;
+				var emailCheck = false; //unique
+				var phoneCheck = false; //인증
+				var checked = false; //전체 체크
+			
+				var naverLogin = new naver.LoginWithNaverId(
+						{
+							clientId : "w3sXDEgZtjtnF9AcUJSw",
+							callbackUrl : "http://localhost:9981/Vegiter/enrollForm.me",
+							isPopup : false,
+							loginButton : {color : "green",type : 3,height : 40}
+				});
+				naverLogin.init();
+				
+				
+				window.addEventListener('load', function() {
+					naverLogin.getLoginStatus(function(status) {
+						if (status) {
+							/* (6) 로그인 상태가 "true" 인 경우 로그인 버튼을 없애고 사용자 정보를 출력합니다. */
+							setLoginStatus();
+						}
+					});
+				});
+				
+				
+				function setLoginStatus() {
+					var email = naverLogin.user.getEmail();
+					var name = naverLogin.user.getName();
+					var uniqId = naverLogin.user.getId();
+					var gender = naverLogin.user.getGender();
+					/* 필수적으로 받아야하는 프로필 정보가 있다면 callback처리 시점에 체크 */
+					if (name == undefined || name == null) {
+						alert("이름은 필수정보입니다. 정보제공을 동의해주세요.");
+						/* 사용자 정보 재동의를 위하여 다시 네아로 동의페이지로 이동함 */
+						naverLogin.reprompt();
+						return;
+					}
+					if (email == undefined || email == null) {
+						alert("이름은 필수정보입니다. 정보제공을 동의해주세요.");
+						/* 사용자 정보 재동의를 위하여 다시 네아로 동의페이지로 이동함 */
+						naverLogin.reprompt();
+						return;
+					}
+					
+					$.ajax({
+						url:'<%=request.getContextPath()%>/checkId.me',
+						data: {userId: uniqId},
+						success: function(data){
+							console.log(data);
+							if (data == 'success') {
+								$('#social-enroll').remove();
+								$('#social-del').remove();
+								$('#email').val(email);
+								$('#userName').val(name);
+								$('#userId2').val(uniqId);
+								switch(gender){
+								case 'F': $('#gender-f').attr('selected','selected'); break;
+								case 'M': $('#gender-m').attr('selected','selected'); break;
+								case 'U': $('#gender-n').attr('selected','selected'); break;
+								}
+								$('#enrollBtn').val('네이버로 회원가입');
+								idCheck = true;
+								pwdCheck = true;
+								pwd2Check = true;
+								nameCheck = true;
+								emailCheck = true;
+							} else {
+								alert(uniqId + '로 이미 등록되어 있습니다.');
+							}
+						}
+					});
+				}
+				
+			</script>
 			<script>
 				var regExp1 = /[a-zA-Z]/; //문자
 				var regExp2 = /[0-9]/;	//숫자
@@ -400,14 +394,6 @@ form p {
 						$(this).css({'border':'2px solid lightgray', 'box-shadow':'none'})
 					});
 				});
-				
-				var idCheck = false;  // pk
-				var pwdCheck = false;
-				var pwd2Check = false;
-				var nameCheck = false;
-				var emailCheck = false; //unique
-				var phoneCheck = false; //인증
-				var checked = false; //전체 체크
 				
 				$("#userId").on('change paste keyup', function(){
 					var idCheck = false;
@@ -534,23 +520,15 @@ form p {
 				$('#phone').change(
 						function() {
 							var phone = $('#phone').val();
-							if (phone.length == 0) {
+							if (phone.length == 0 || phone.length < 11) {
 								$('.error').eq(5).text('휴대폰 번호를 입력해주세요').css(
 										'color', 'red');
+								phoneCheck = false;
 							} else {
 								$('.error').eq(5).text('');
+								phoneCheck = true;
 							}
-						});
-				function sendConfirm() {
-					console.log('askdasdfas');
-
-				}
-				function confirm() {
-					// 확인문자까지 해야 true
-					$('.error').eq(5).text('인증이 완료되었습니다.')
-							.css('color', 'green');
-					phoneCheck = true;
-				}
+				});
 
 				function enroll() {
 					if (!idCheck) {
@@ -574,7 +552,7 @@ form p {
 						$('#email').focus();
 						return false;
 					} else if (!phoneCheck) {
-						alert('휴대폰 인증확인을 해주세요');
+						alert('휴대폰번호를 입력 해주세요');
 						$('#phone').focus();
 						return false;
 					} else {

@@ -43,6 +43,9 @@ public class InsertMemberServlet extends HttpServlet {
 		// null값으로 넣기
 		
 		String userId = request.getParameter("userId");
+		if(userId == null) {
+			userId = request.getParameter("userId2");
+		}
 		int code = Integer.parseInt(request.getParameter("code"));
 		String userPwd = request.getParameter("userPwd");
 		String name = request.getParameter("userName");

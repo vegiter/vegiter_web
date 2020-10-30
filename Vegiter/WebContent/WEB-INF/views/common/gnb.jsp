@@ -18,8 +18,8 @@
 	.gnb{width: 100%; height:62px; border-bottom: 1px solid lightgray; min-width: 800px; position: fixed; top: 0; background-color: #fff; text-align: center;}
 	.gnb-nav ul{width: 80%; max-width: 1000px;  min-width: 800px; margin: auto; display: flex; flex-direction : row; text-align: center;}
 	#logo {width: 130px;}
-	.gnb-nav-list{left: 0; width: 90px; cursor: pointer; margin: auto; text-align: center; line-height: 50px; border: 1px solid white; border-bottom: 1px solid lightgray;}
-	.gnb-nav-list:nth-child(1){margin-right: 200px;}
+	.gnb-nav-list{left: 0; width: 90px; cursor: pointer; margin: auto; margin-bottom: -9px;text-align: center; line-height: 50px; border: 1px solid white; border-bottom: 1px solid lightgray;}
+	#logo-li{margin-right: 200px;}
 	.gnb-nav-list:hover{font-weight: bold; border-bottom: 3px solid #41A693;}
 </style>
 </head>
