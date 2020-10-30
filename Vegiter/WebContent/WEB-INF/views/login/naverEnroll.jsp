@@ -1,11 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원가입</title>
+<title>소셜로 회원가입</title>
 <style>
 * {
 	box-sizing: border-box;
@@ -235,97 +234,14 @@ form p {
 	<section>
 		<div id="section-header">
 			<div class="member-header" id="common">
-				<h4>일반회원</h4>
-			</div>
-			<div class="member-header" id="business">
-				<h4>
-					<a href="<%=request.getContextPath()%>/businessEnroll">사업자 회원</a>
-				</h4>
+				<h4>네이버로 간편 회원가입</h4>
 			</div>
 		</div>
-		<article id="social-enroll">
-			<div class="social" id="social">
-				<p>소셜로 간편하게 로그인하세요.</p>
-				<a href="/naverLogin"><img src="<%= request.getContextPath() %>/images/common/naver.png" id="naver"></a>
-				<a href="#"><img src="<%= request.getContextPath() %>/images/common/kakao.png" id="kakao"></a>
-				<div id="naverIdLogin"><a id="naverIdLogin_loginButton" href="#" role="button"><img src="https://static.nid.naver.com/oauth/big_g.PNG" width=320></a>
-				</div>
-				<a href="#"><img
-					src="<%=request.getContextPath()%>/images/common/kakao.png"
-					id="kakao"></a>
-			</div>
-			<script type="text/javascript">
-				var naverLogin = new naver.LoginWithNaverId(
-				{
-					clientId: "w3sXDEgZtjtnF9AcUJSw",
-					callbackUrl: "http://localhost:9981/Vegiter/enroll.jsp",
-					isPopup: true, /* 팝업을 통한 연동처리 여부 */
-					loginButton: {color: "white", type:3, height:40} /* 로그인 버튼의 타입을 지정 */
-				}
-				);
-	
-				/* 설정정보를 초기화하고 연동을 준비 */
-				naverLogin.init();
-
-				/* (5) 현재 로그인 상태를 확인 */
-				window.addEventListener('load', function () {
-					naverLogin.getLoginStatus(function (status) {
-						if (status) {
-						/* (6) 로그인 상태가 "true" 인 경우 로그인 버튼을 없애고 사용자 정보를 출력합니다. */
-							console.log(naverLogin.accessToken.accessToken)
-							setLoginStatus();
-						}
-					});
-				});
-
-				/* (6) 로그인 상태가 "true" 인 경우 로그인 버튼을 없애고 사용자 정보를 출력합니다. */
-				function setLoginStatus() {
-				var email = naverLogin.user.getEmail();
-				var name = naverLogin.user.getName();
-				var uniqId = naverLogin.user.getId();
-
-
-				/* 필수적으로 받아야하는 프로필 정보가 있다면 callback처리 시점에 체크 */
-					if( name == undefined || name == null ) {
-						alert("이름은 필수정보입니다. 정보제공을 동의해주세요.");
-						/* 사용자 정보 재동의를 위하여 다시 네아로 동의페이지로 이동함 */
-						naverLogin.reprompt();
-						return;
-					}
-					window.location.replace("https://nid.naver.com/oauth2.0/authorize");
-				}
-
-			</script>
-		</article>
 		<article>
 			<form method="post" id="insertMember"
 				action="<%=request.getContextPath()%>/insert.me"
 				onsubmit="return enroll();">
 				<div id="input-boxes">
-					<p>
-						<b>*</b>은 필수 입력칸입니다.
-					</p>
-					<h4>
-						아이디(6자리이상 영문, 숫자 1개 이상)<b>*</b>
-					</h4>
-					<div class="input-info">
-						<input type="text" name="userId" id="userId">
-					</div>
-					<div class="error" id="id-error"></div>
-					<h4>
-						비밀번호(6자리이상 영문, 숫자, 특수문자 1개 이상)<b>*</b>
-					</h4>
-					<div class="input-info">
-						<input type="password" name="userPwd" id="password">
-					</div>
-					<div class="error"></div>
-					<h4>
-						비밀번호 확인<b>*</b>
-					</h4>
-					<div class="input-info">
-						<input type="password" name="userPwd2" id="password2">
-					</div>
-					<div class="error"></div>
 					<input type="hidden" name="code" value="1">
 					<h4>
 						이름<b>*</b>
@@ -401,11 +317,6 @@ form p {
 					});
 				});
 				
-				var idCheck = false;  // pk
-				var pwdCheck = false;
-				var pwd2Check = false;
-				var nameCheck = false;
-				var emailCheck = false; //unique
 				var phoneCheck = false; //인증
 				var checked = false; //전체 체크
 				
@@ -425,112 +336,7 @@ form p {
 					var phoenCheck = false;
 				});
 				
-				$('#userId').change(function(){
-					var inputId = $('#userId').val();
-
-					if(inputId.length == 0){
-						$('.error').eq(0).text('아이디를 입력해주세요').css('color','red');
-					}else if(!regExp1.test(inputId) || !regExp2.test(inputId) || !regExp3.test(inputId) || inputId.length < 6 ){
-						$('.error').eq(0).text('아이디는 6자리 이상, 문자, 숫자로 구성하여야 합니다.').css('color','red');
-					}else{
-						// 중복 체크!
-						$.ajax({
-							url: '<%=request.getContextPath()%>/checkId.me',
-							data : {userId : inputId},
-							success : function(data) {
-							console.log(data);
-
-							if (data == 'success') {
-									$('.error').eq(0).text('사용가능한 아이디입니다.').css('color','green');
-									idCheck = true;
-									} else {
-										$('.erro').eq(0).text('중복된 아이디입니다.').css('color','red');
-											idCheck = false;
-									}
-							}
-						});
-					}
-
-				});
-
-				$('#password').change(
-						function() {
-							var inputPwd = $('#password').val();
-							if (inputPwd.length == 0) {
-								$('.error').eq(1).text('비밀번호를 입력해주세요').css(
-										'color', 'red');
-								pwdCheck = false;
-							} else if (!regExp1.test(inputPwd)
-									|| !regExp2.test(inputPwd)
-									|| !regExp3.test(inputPwd)
-									|| !regExp4.test(inputPwd)
-									|| inputPwd.length < 6) {
-								$('.error').eq(1).text(
-										'비밀번호는 6자리 이상, 문자, 숫자로 구성하여야 합니다.')
-										.css('color', 'red');
-								pwdCheck = false;
-							} else {
-								$('.error').eq(1).text('사용가능한 비밀번호입니다.').css(
-										'color', 'green');
-								pwdCheck = true;
-							}
-						});
-
-				$('#password2').change(
-						function() {
-							var inputPwd2 = $('#password2').val();
-							var inputPwd = $('#password').val();
-							if (inputPwd == inputPwd2) {
-								if (inputPwd2 == "") {
-									$('.error').eq(2).text('');
-									pwd2Check = false;
-								} else {
-									$('.error').eq(2).text('비밀번호가 일치합니다.').css(
-											'color', 'green');
-									pwd2Check = true;
-								}
-							} else {
-								$('.error').eq(2).text('비밀번호가 일치하지 않습니다.').css(
-										'color', 'red');
-								pwd2Check = false;
-							}
-						});
-
-				$('#userName')
-						.change(
-								function() {
-									var name = $('#userName').val();
-									if (name.length == 0) {
-										$('.error').eq(3).text('이름을 입력해주세요')
-												.css('color', 'red');
-										nameCheck = false;
-									} else if (!regExp5.test(name)
-											|| regExp2.test(name)
-											|| regExp4.test(name)) {
-										$('.error').eq(3).text(
-												'이름을 올바르게 입력해주세요').css('color',
-												'red');
-										nameCheck = false;
-									} else {
-										$('.error').eq(3).text('');
-										nameCheck = true;
-									}
-								});
-
-				$('#email').change(
-						function() {
-							var email = $('#email').val();
-							if (email.length == 0) {
-								$('.error').eq(4).text('이메일을 입력해주세요').css(
-										'color', 'red');
-								emailCheck = false;
-							} else {
-								$('.error').eq(4).text('사용가능한 이메일입니다.').css(
-										'color', 'green');
-								emailCheck = true;
-							}
-						});
-
+				
 				$('#phone').change(
 						function() {
 							var phone = $('#phone').val();
