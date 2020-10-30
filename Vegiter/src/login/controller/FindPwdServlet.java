@@ -38,7 +38,7 @@ public class FindPwdServlet extends HttpServlet {
 		
 		String page = null;
 		if(member != null) {
-			page = "WEB-INF/views/login/changePwd.jsp";
+			page = "WEB-INF/views/login/findPwdForm.jsp";
 			request.setAttribute("member", member);
 		} else {
 			page = "WEB-INF/views/common/errorPage.jsp";
