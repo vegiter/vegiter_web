@@ -31,8 +31,6 @@ public class ChangePwdServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String pwd = request.getParameter("password");
 		String id = request.getParameter("hiddenId");
-		System.out.println(pwd);
-		System.out.println(id);
 		
 		int result = new MemberService().changePwd(id, pwd); 
 		

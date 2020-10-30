@@ -35,8 +35,6 @@ public class OwnerDAO {
 		Owner o = null;
 		
 		String query = prop.getProperty("findOwner");
-		System.out.println(ownerNum);
-		System.out.println(ownerName);
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, ownerNum);

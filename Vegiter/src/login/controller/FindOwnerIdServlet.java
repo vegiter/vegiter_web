@@ -32,7 +32,6 @@ public class FindOwnerIdServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String ownerName = request.getParameter("ownerName");
 		String ownerNum = request.getParameter("ownerNum");
-		System.out.println(ownerNum + "," + ownerName);
 		
 		Owner owner = new OwnerService().findId(ownerName, ownerNum);
 		
