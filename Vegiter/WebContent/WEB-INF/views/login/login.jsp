@@ -84,6 +84,11 @@
 		margin: auto;
 		padding-top: 8px;
 	}
+	#social-login{
+		width: 75%;
+		margin: auto;
+		margin-top: 10px;
+	}
 	div#other-div{
 		width : 240px;
 		margin: auto;
@@ -105,7 +110,11 @@
 		background: rgb(45,115,102);
 		cursor: default;
 	}
+	
 </style>
+<script src="<%=request.getContextPath()%>/js/naveridlogin_js_sdk_2.0.0.js"></script>
+<script src="<%=request.getContextPath()%>/js/naverLogin_implicit-1.0.2.js"></script>
+
 </head>
 <body>
 		<section id="login">
@@ -124,16 +133,44 @@
 			</div>
 			<div id="login-error">
 			</div>
+			<input type="hidden" name="social" id="social">
 			<div id="login-div">
 				<input type="submit" id="login-btn" value="로그인">
 			</div>
 		</form>
+		<div id="social-login">
+			<div id="naverIdLogin"></div>
+		</div>
 		<div id="other-div">
 			<span class="other" id="findId"><a href="<%=request.getContextPath() %>/findId.me">아이디 찾기</a></span>
 			<span class="other" id="findPwd"><a href="<%=request.getContextPath()%>/findPwd.me">비밀번호 찾기</a></span>
 			<span class="other" id="enroll"><a href="<%=request.getContextPath()%>/enrollForm.me">회원가입</a></span>
 		</div>
 	</section>
+	<script type="text/javascript">
+		var naverLogin = new naver.LoginWithNaverId(
+			{
+				clientId : "w3sXDEgZtjtnF9AcUJSw",
+				callbackUrl : "http://localhost:9981/Vegiter/",
+				isPopup : false,
+				loginButton : {color : "white",type : 2, height : 40}
+		});
+		naverLogin.init();
+		window.addEventListener('load', function() {
+			naverLogin.getLoginStatus(function(status) {
+				if (status) {
+					/* (6) 로그인 상태가 "true" 인 경우 로그인 버튼을 없애고 사용자 정보를 출력합니다. */
+					setLoginStatus();
+				}
+			});
+		});
+		function setLoginStatus() {
+			var uniqId = naverLogin.user.getId();
+			$('#userId').val(uniqId);
+			$('#social').val(true);
+			login();
+		}
+	</script>
 	<script>
 		$(function(){
 			$('#common').addClass('selectedBtn');
@@ -163,9 +200,13 @@
 				userId.focus();
 				return false;
 			}else if(userPwd.val() == ''){
-				$('#login-error').html('비밀번호를 입력해주세요').css('color','red');
-				userPwd.focus();
-				return false;
+				if($('#social').val()){
+					return true;
+				}else{
+					$('#login-error').html('비밀번호를 입력해주세요').css('color','red');
+					userPwd.focus();
+					return false;
+				}
 			}else{
 				return true;
 			}
