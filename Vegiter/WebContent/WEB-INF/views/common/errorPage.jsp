@@ -11,6 +11,7 @@
 <meta charset="UTF-8">
 <title><%= msg %></title>
 <style type="text/css">
+	body{line-height: 1; font-family: 'Open Sans', sans-serif;}
 	.wrap{ width: 100%; height: 100%; margin: 200px auto; text-align: center; }
 	h1{ color: #41A693; font-weight: bold; font-size: 60px; line-height: 1; }
 	h2{ font-weight: none; }

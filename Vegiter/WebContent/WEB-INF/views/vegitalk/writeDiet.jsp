@@ -50,6 +50,7 @@
 			<button id="type-two">#식단</button>
 		</div>
 	<form class="write" action="<%= request.getContextPath() %>/insert.do" method="post">
+		<input type="hidden" name="board-type" value="2">
 		<table class="dietList">
 			<tr>
 				<th>아침</th>

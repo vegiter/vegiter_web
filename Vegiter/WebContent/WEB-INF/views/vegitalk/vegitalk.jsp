@@ -5,10 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Vegitalk</title>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
 <style>
 	html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video{margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline; text-decoration: none; border-style: none; color: #000000;}
 	article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {display: block;}
-	body{line-height: 1;}
+	body{line-height: 1; font-family: 'Open Sans', sans-serif;}
 	ol, ul{list-style: none;}
 	blockquote, q {quotes: none;}
 	blockquote:before, blockquote:after,
@@ -46,6 +47,8 @@
 	
 	.writeBtn{position: fixed; bottom: 50px; right: 10%;color: #fff; cursor: pointer; border-radius: 50%; background-color: #41A693; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;}
 	.writeBtn i{color: #fff;}
+	.writeBtn.onHeight{position: absolute; bottom: -40px;}
+}
 </style>
 <script src="https://kit.fontawesome.com/34238d14b4.js" crossorigin="anonymous"></script>
 <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
@@ -101,6 +104,21 @@
 	<div class="writeBtn" onclick="location.href='writePost'"><i class="fas fa-pen"></i></div>
 	
 	<%@ include file="../common/footer.jsp" %>
-	
+	<script>
+		$(function() {
+			var $w = $(window),
+				fHeight = $('footer').outerHeight();
+			
+			$w.on('scroll', function(){
+				var sT = $w.scrollTop();
+				var hVal = $(document).height() - $w.height() - fHeight;
+				
+				if(sT >= hVal)
+					$('.writeBtn').addClass('onHeight');
+				else
+					$('.writeBtn').removeClass('onHeight');
+			});
+		});
+	</script>
 </body>
 </html>
