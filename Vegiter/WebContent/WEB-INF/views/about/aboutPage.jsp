@@ -19,6 +19,8 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
 	integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
 	crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
 	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
@@ -86,10 +88,10 @@ p {
 	margin-top: -10px;
 }
 </style>
+
 </head>
 <body>
 	<%@ include file="../common/gnb.jsp"%>
-
 
 	<div id="zeroArea"></div>
 
@@ -174,6 +176,133 @@ p {
 		</article>
 	</section>
 
+	<div class="container" id="research-form">
+		<div class="row">
+			<div class="col-4">
+				<div class="list-group" id="list-tab" role="tablist">
+					<a class="list-group-item list-group-item-action active" id="research-list-1" data-toggle="list"
+						href="#list-home" role="tab" aria-controls="home">비건</a>
+
+					<a class="list-group-item list-group-item-action" id="research-list-2" data-toggle="list"
+						href="#list-profile" role="tab" aria-controls="profile">락토</a>
+
+					<a class="list-group-item list-group-item-action" id="research-list-3" data-toggle="list"
+						href="#list-messages" role="tab" aria-controls="messages">오보</a>
+
+					<a class="list-group-item list-group-item-action" id="research-list-4" data-toggle="list"
+						href="#list-settings" role="tab" aria-controls="settings">락토 오보</a>
+
+					<a class="list-group-item list-group-item-action" id="research-list-5" data-toggle="list"
+						href="#list-settings" role="tab" aria-controls="settings">페스코</a>
+
+					<a class="list-group-item list-group-item-action" id="research-list-6" data-toggle="list"
+						href="#list-settings" role="tab" aria-controls="settings">폴로</a>
+
+					<a class="list-group-item list-group-item-action" id="research-list-7" data-toggle="list"
+						href="#list-settings" role="tab" aria-controls="settings">플렉시리언</a>
+				</div>
+			</div>
+			<div class="col-8">
+				<div class="tab-content text-center" id="nav-tabContent">
+					<div class="tab-pane fade show active" id="list-home">
+						비건
+					</div>
+					<div class="tab-pane fade" id="list-profile">
+						락토
+					</div>
+					<div class="tab-pane fade" id="list-messages">
+						오보
+					</div>
+					<div class="tab-pane fade" id="list-settings">
+						락토 오보
+					</div>
+					<div class="tab-pane fade" id="list-settings">
+						페스코
+					</div>
+					<div class="tab-pane fade" id="list-settings">
+						폴로
+					</div>
+					<div class="tab-pane fade" id="list-settings">
+						플렉시리언
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<button class="btn btn-outline-info btn-block" id="btn-research">결과 제출</button>
+			</div>
+		</div>
+	</div>
+
+	<div id="research-chart" style="width: 900px; height: 500px;">
+	</div>
+
+
+<script>
+$(()=>{
+
+	let selected = 1;
+	let resultList;
+	google.charts.load('current', {'packages':['corechart']});
+
+	// 선택한 값 대입
+	$('#list-tab > a').click((e)=>{
+		var $obj = $(e.target);
+		var no = $obj.prop("id").split('-')[2];
+		selected = no;
+		console.log(selected);
+	});
+
+	// function(data)
+
+	$('#btn-research').click(()=>{
+
+		$.ajax({
+			url:"<%=request.getContextPath()%>/research",
+			type: "get",
+			data: {selected:selected},
+			dataType: "json",
+			success: data => {
+				$('#research-form').hide();
+				google.charts.setOnLoadCallback(drawChart(data));
+
+			},
+			error: (jqxhr, textStatus, errorThrown)=>{
+				console.log(jqxhr, textStatus, errorThrown);
+			}
+		});
+
+	});
+
+	function drawChart(list) {
+
+		console.log(list[0].cnt);
+
+		var data = google.visualization.arrayToDataTable([
+			['Title', 'Title'],
+			['비건', list[0].cnt],
+			['락토', list[1].cnt],
+			['오보', list[2].cnt],
+			['락토 오보', list[3].cnt],
+			['페스코', list[4].cnt],
+			['폴로', list[5].cnt],
+			['플렉', list[6].cnt]
+		]);
+
+		var options = {
+			title: '결과',
+			is3D: true
+		};
+
+		var chart = new google.visualization.PieChart(document.getElementById('research-chart'));
+
+		chart.draw(data, options);
+	}
+
+});
+	
+</script>
 
 	<%@ include file="../common/footer.jsp"%>
 </body>
