@@ -15,7 +15,7 @@ public class Attachment {
 	private int boardNo;
 	
 	public Attachment() {}
-
+	
 	public Attachment(int atcNo, String memId, int atcType, String atcOrigin, String atcName, String atcPath,
 			Date atcDate, int atcLevel, char atcStatus, int boardNo) {
 		super();
@@ -117,5 +117,5 @@ public class Attachment {
 				+ ", atcName=" + atcName + ", atcPath=" + atcPath + ", atcDate=" + atcDate + ", atcLevel=" + atcLevel
 				+ ", atcStatus=" + atcStatus + ", boardNo=" + boardNo + "]";
 	}
-	
+
 }

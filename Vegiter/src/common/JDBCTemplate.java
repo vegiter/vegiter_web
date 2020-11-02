@@ -27,16 +27,12 @@ public class JDBCTemplate {
 			conn = DriverManager.getConnection(prop.getProperty("url"),
 										       prop.getProperty("username"),
 											   prop.getProperty("password"));
-			
 			conn.setAutoCommit(false);
-			
 		} catch (IOException | ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
-		
 		return conn;
 	}
-	
 	
 	/* 자원 반납 메소드 */
 	public static void close(Connection conn) {

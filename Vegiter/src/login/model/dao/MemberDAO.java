@@ -56,6 +56,7 @@ public class MemberDAO {
 										rset.getString("mem_style"),
 										rset.getString("mem_status"),
 										rset.getDate("mem_deldate"));
+				System.out.println(loginUser);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
