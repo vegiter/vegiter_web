@@ -38,6 +38,7 @@
 				<%}else{ %>
 				<li class="gnb-nav-list" onclick="location.href='<%= request.getContextPath() %>/myPage'">My Info</li>
 				<%} %>
+				<li class="gnb-nav-list" onclick="location.href='<%= request.getContextPath() %>/logout'">로그아웃</li>
 			</ul>
 		</nav>
 	</header>

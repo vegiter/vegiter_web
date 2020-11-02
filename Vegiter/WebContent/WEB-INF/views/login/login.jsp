@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Vegiter 로그인</title>
 <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.5.1.min.js"></script>
+
 <style>
 	body{
 		background: rgb(242, 242, 242);
@@ -151,8 +152,6 @@
 		var social = false;
 		$(function(){
 			$('#common').addClass('selectedBtn');
-			$('#social').val('1');
-			
 			$('#common').click(function(){
 				$(this).addClass('selectedBtn');
 				$('#business').removeClass('selectedBtn');
@@ -196,16 +195,21 @@
 				{
 					clientId : "w3sXDEgZtjtnF9AcUJSw",
 					callbackUrl : "http://localhost:9981/Vegiter/login.me",
-					isPopup : true,
+					isPopup : false,
 					loginButton : {color : "white",type : 2, height : 40}
 			});
 			naverLogin.init();
 			
 			window.addEventListener('load', function() {
+				$('#userId').val('');
+				$('#social').val('1');
+				
 				naverLogin.getLoginStatus(function(status) {
 					if (status) {
 						/* (6) 로그인 상태가 "true" 인 경우 로그인 버튼을 없애고 사용자 정보를 출력합니다. */
-						setLoginStatus();
+						$('#naverIdLogin').click(function(){
+							setLoginStatus();
+						});
 					}
 // 	 				window.location.replace("http://" + window.location.hostname + ( (location.port==""||location.port==undefined)?"":":" + location.port) + "/Vegiter/login");
 					
