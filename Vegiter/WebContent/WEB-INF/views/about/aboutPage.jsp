@@ -33,6 +33,7 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap"
 	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
 <style>
 #zeroArea {
 	display: block;
@@ -95,6 +96,7 @@ p {
 	margin: 30px auto;
 	margin-top: -10px;
 }
+body{line-height: 1.4; font-family: 'Open Sans', sans-serif;}
 </style>
 
 </head>
@@ -106,9 +108,6 @@ p {
 	<section>
 		<article>
 			<div id="main_div1">
-				<div id="title_div">
-					<h3 id="title">Vegiter</h3>
-				</div>
 				<br>
 
 				<div id="about_div1" class="about">
@@ -186,8 +185,7 @@ p {
 	<div id="about_div4" class="about"
 		style="width: 80%; height: 600px; text-align: center; margin: 30px auto; margin-top: -10px;">
 		<h3>비건 성향 설문조사</h3>
-		<br>
-		<br>
+		<br> <br>
 		<div class="container" id="research-form">
 			<div class="row">
 				<div class="col-4">
@@ -219,21 +217,26 @@ p {
 					<div class="tab-content text-center" id="nav-tabContent">
 						<div class="tab-pane fade show active" id="list-1"
 							style="padding-top: 50px;">
-							<img src="<%= request.getContextPath() %>/images/about/비건.png">
+							<img src="<%=request.getContextPath()%>/images/about/비건.png">
 						</div>
 						<div class="tab-pane fade" id="list-2" style="padding-top: 50px;">
-							<img src="<%= request.getContextPath() %>/images/about/락토.png">
+							<img src="<%=request.getContextPath()%>/images/about/락토.png">
 						</div>
 						<div class="tab-pane fade" id="list-3" style="padding-top: 50px;">
-							<img src="<%= request.getContextPath() %>/images/about/오보.png"></div>
+							<img src="<%=request.getContextPath()%>/images/about/오보.png">
+						</div>
 						<div class="tab-pane fade" id="list-4" style="padding-top: 50px;">
-							<img src="<%= request.getContextPath() %>/images/about/락토 오보.png"></div>
+							<img src="<%=request.getContextPath()%>/images/about/락토 오보.png">
+						</div>
 						<div class="tab-pane fade" id="list-5" style="padding-top: 50px;">
-							<img src="<%= request.getContextPath() %>/images/about/페스코.png"></div>
+							<img src="<%=request.getContextPath()%>/images/about/페스코.png">
+						</div>
 						<div class="tab-pane fade" id="list-6" style="padding-top: 50px;">
-							<img src="<%= request.getContextPath() %>/images/about/폴로.png"></div>
+							<img src="<%=request.getContextPath()%>/images/about/폴로.png">
+						</div>
 						<div class="tab-pane fade" id="list-7" style="padding-top: 50px;">
-							<img src="<%= request.getContextPath() %>/images/about/플렉.png"></div>
+							<img src="<%=request.getContextPath()%>/images/about/플렉.png">
+						</div>
 					</div>
 				</div>
 			</div>
@@ -245,45 +248,57 @@ p {
 			</div>
 		</div>
 
-		<div id="research-chart" style="width: 700px; height: 450px; margin: auto;"></div>
+		<div id="research-chart"
+			style="width: 700px; height: 450px; margin: auto;"></div>
 	</div>
 
 
 	<script>
-$(()=>{
-
-	let selected = 1;
-	let resultList;
-	google.charts.load('current', {'packages':['corechart']});
-
-	// 선택한 값 대입
-	$('#list-tab > a').click((e)=>{
-		var $obj = $(e.target);
-		var no = $obj.prop("id").split('-')[2];
-		selected = no;
-		console.log(selected);
+	
+	$(document).ready(function () {
+		$('div#research-chart').hide();
 	});
+	
+	$('#btn-research').on('click', function(e){
+		$('div#research-chart').show();
+	}); 
 
-	// function(data)
 
-	$('#btn-research').click(()=>{
-
-		$.ajax({
-			url:"<%=request.getContextPath()%>/research",
-			type: "get",
-			data: {selected:selected},
-			dataType: "json",
-			success: data => {
-				$('#research-form').hide();
-				google.charts.setOnLoadCallback(drawChart(data));
-
-			},
-			error: (jqxhr, textStatus, errorThrown)=>{
-				console.log(jqxhr, textStatus, errorThrown);
-			}
+	
+	$(()=>{
+	
+		let selected = 1;
+		let resultList;
+		google.charts.load('current', {'packages':['corechart']});
+	
+		// 선택한 값 대입
+		$('#list-tab > a').click((e)=>{
+			var $obj = $(e.target);
+			var no = $obj.prop("id").split('-')[2];
+			selected = no;
+			console.log(selected);
 		});
-
-	});
+	
+		// function(data)
+	
+		$('#btn-research').click(()=>{
+	
+			$.ajax({
+				url:"<%=request.getContextPath()%>/research",
+				type: "get",
+				data: {selected:selected},
+				dataType: "json",
+				success: data => {
+					$('#research-form').hide();
+					google.charts.setOnLoadCallback(drawChart(data));
+	
+				},
+				error: (jqxhr, textStatus, errorThrown)=>{
+					console.log(jqxhr, textStatus, errorThrown);
+				}
+			});
+	
+		});
 
 	function drawChart(list) {
 
