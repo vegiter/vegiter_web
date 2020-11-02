@@ -6,9 +6,11 @@ import static common.JDBCTemplate.rollback;
 import static common.JDBCTemplate.close;
 
 import java.sql.Connection;
+import java.util.Arrays;
 
 import board.model.vo.Attachment;
 import board.model.vo.Board;
+import board.model.vo.DietList;
 import vegitalk.model.dao.VegitalkDAO;
 
 public class VegitalkService {
@@ -31,18 +33,20 @@ public class VegitalkService {
 		return pResult;
 	}
 
-	public int test(String st, int i) {
+	public int insertDiet(DietList dl, Board b) {
 		Connection conn = getConnection();
+		VegitalkDAO vd = new VegitalkDAO();
+		int pResult = vd.insertPost(conn, b);
+		int dResult = vd.insertDiet(conn, dl);
 		
-		int result = new VegitalkDAO().insertPost(conn, st, i);
-	
-		if(result > 0) {
+				
+		if(dResult > 0 && pResult > 0) {
 			commit(conn);
-		} else {
+		} else{
 			rollback(conn);
 		}
 		close(conn);
-		return result;
+		return pResult;
 	}
 
 }

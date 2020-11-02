@@ -89,6 +89,17 @@
 	            reader.readAsDataURL(input.files[0]);
 	        }
 	    }
+		
+		$(function(){
+			$('#write-submit-btn').click(function(){
+				var content = $('textarea').val();
+				if(content.length == 0) {
+					alert('게시글을 작성해주세요.');
+					return false;
+				}
+				return true;
+			});
+		});
 	</script>
 </body>
 </html>

@@ -13,6 +13,7 @@ import java.util.Properties;
 
 import board.model.vo.Attachment;
 import board.model.vo.Board;
+import board.model.vo.DietList;
 
 public class VegitalkDAO {
 	private Properties prop = new Properties();
@@ -66,16 +67,39 @@ public class VegitalkDAO {
 		}
 		return result;
 	}
+	
+	public String arrToStr(String[] arr) {
+		String str = "";
+		for(int i = 0; i < arr.length; i++) {
+			if(i == arr.length - 1){
+				str += arr[i];
+			} else {
+				str += arr[i]+ ",";
+			}
+		}
+		return str;
+	}
 
-	public int insertPost(Connection conn, String st, int i) {
-		String query = prop.getProperty("test");
+	public int insertDiet(Connection conn, DietList dl) {
 		PreparedStatement pstmt = null;
 		int result = 0;
+		String query = prop.getProperty("insertDiet");
+		
+		String mfStr = arrToStr(dl.getmFood());
+		String muStr = arrToStr(dl.getmUrl());
+		String lfStr = arrToStr(dl.getlFood());
+		String luStr = arrToStr(dl.getlUrl());
+		String efStr = arrToStr(dl.geteFood());
+		String euStr = arrToStr(dl.geteUrl());
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, st);
-			pstmt.setInt(2, i);
+			pstmt.setString(1, mfStr);
+			pstmt.setString(2, muStr);
+			pstmt.setString(3, lfStr);
+			pstmt.setString(4, luStr);
+			pstmt.setString(5, efStr);
+			pstmt.setString(6, euStr);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
