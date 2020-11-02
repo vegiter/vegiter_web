@@ -13,7 +13,7 @@ public class MyFileRenamePolicy implements FileRenamePolicy{
 		long currentTime = System.currentTimeMillis();
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-		int ranNum = (int)(Math.random()*100000);
+		int ranNum = (int)(Math.random() * 100000);
 		
 		String name = originFile.getName();
 		String ext = null;

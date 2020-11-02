@@ -16,8 +16,8 @@
 	q:before, q:after {content: ''; content: none;}
 	table{border-collapse: collapse; border-spacing: 0;}
 	button{outline: none; background-color: white;border-style: none;}
-	textarea{outline: none;padding: 1rem;border-style: none;}
-	.wrapper{width: 600px;min-width: 600px;margin: auto;margin-top: 150px;margin-bottom: 100px;overflow: hidden;}
+	textarea{outline: none;padding: 1rem; border-style: none;}
+	.wrapper{width: 550px;min-width: 550px;margin: auto;margin-top: 150px; margin-bottom: 100px; overflow: hidden;}
 	.write-type {margin: 20px 0; font-size: 14px; color: #ACB5BD; font-weight: bold;}
 	.write-type button{margin-right: 2px; color: #ACB5BD; font-size: 14px; cursor: pointer;}
 	.write-type button:hover{background-color: #F0F3F5; border-radius: 5px;}
@@ -27,10 +27,10 @@
 	#uploadLabel{font-size: 50px; padding: 30px 40px;}
 	#uploadLabel>i{color: #858E96;}
 	#post-img{width: 100%; height: 100%;}
-	#boardContent {width: 570px; min-height: 200px; margin: 20px 0; padding: 15px; line-height: 1.5;resize: none;}
+	#boardContent{width: 520px; min-height: 200px; margin: 20px 0; padding: 15px; line-height: 1.5;resize: none;}
 
-	#write-submit-btn{width: 600px; color: #41A693; background-color: #F2F2F2; max-height: 70%;}
-	#write-submit-btn:hover{color: white;background-color: #41A693;}
+	#write-submit-btn{width: 550px; line-height: 3; color: #41A693; background-color: #F2F2F2; max-height: 70%; margin: 0 auto;
+	#write-submit-btn:hover{color: white; background-color: #41A693;}
 </style>
 <script src="https://kit.fontawesome.com/34238d14b4.js" crossorigin="anonymous"></script>
 <script src="<%= request.getContextPath()%>/js/jquery-3.5.1.min.js"></script>
@@ -45,7 +45,11 @@
 		</div>
 		
 		<form class="write" method="post" encType="multipart/form-data" action="<%= request.getContextPath() %>/insertTalk">
-			<input type="hidden" name="boardCode" id="boardCode" value="1">
+			<% if(loginUser.getMemCode() == 0){ %>
+				<input type="hidden" name="boardCode" id="boardCode" value="3">
+			<% } else { %>
+				<input type="hidden" name="boardCode" id="boardCode" value="1">
+			<% } %>
 			
 			<div class="write-img" id="uploadImg">
 				<label id="uploadLabel" style=""><i class="far fa-file-image"></i></label>

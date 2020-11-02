@@ -5,10 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>식단 작성</title>
-<script src="https://kit.fontawesome.com/34238d14b4.js" crossorigin="anonymous"></script>
-<script src="<%= request.getContextPath()%>/js/jquery-3.5.1.min.js"></script>
 <style>
-	/* http://meyerweb.com/eric/tools/css/reset/ v2.0 | 20110126 Li cense: none (public domain) */
 	html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video{margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline; text-decoration: none; border-style: none; color: #000000;}
 	article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {display: block;}
 	body{line-height: 1;}
@@ -38,6 +35,9 @@
 	#write-submit-btn{width: 600px;line-height: 3;color: #41A693;background-color: #F2F2F2;}
 	#write-submit-btn:hover{color: white;background-color: #41A693;}
 </style>
+<script src="https://kit.fontawesome.com/34238d14b4.js" crossorigin="anonymous"></script>
+<script src="<%= request.getContextPath()%>/js/jquery-3.5.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/resources/css/writeDiet.css">
 </head>
 <body>
 
@@ -49,7 +49,7 @@
 			<button id="type-one" onclick="writePost();">#도란도란</button>
 			<button id="type-two">#식단</button>
 		</div>
-	<form class="write" action="<%= request.getContextPath() %>/insert.do" method="post">
+	<form class="write" action="<%= request.getContextPath() %>/insertDiet" method="post">
 		<input type="hidden" name="board-type" value="2">
 		<table class="dietList">
 			<tr>
@@ -57,39 +57,25 @@
 				<th>점심</th>
 				<th>저녁</th>
 			</tr>
-			<tr>
+			<tr name="diet">
 				<td>
-					<input class="a" type="text" placeholder="아침 메뉴 입력">
-					<input type="url" placeholder="레시피 링크 입력">
+					<input type="text" name="morning" placeholder="아침 메뉴 입력">
+					<input type="url" name="mUrl" placeholder="레시피 링크 입력">
 				</td>
 				<td>
-					<input class="a" type="text" placeholder="점심 메뉴 입력">
-					<input type="url" placeholder="레시피 링크 입력">
+					<input type="text" name="lunch" placeholder="점심 메뉴 입력">
+					<input type="url" name="lUrl" placeholder="레시피 링크 입력">
 				</td>
 				<td>
-					<input class="a" type="text" placeholder="저녁 메뉴 입력">
-					<input type="url" placeholder="레시피 링크 입력">
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<input class="a" type="text" placeholder="아침 메뉴 입력">
-					<input type="url" placeholder="레시피 링크 입력">
-				</td>
-				<td>
-					<input class="a" type="text" placeholder="점심 메뉴 입력">
-					<input type="url" placeholder="레시피 링크 입력">
-				</td>
-				<td>
-					<input class="a" type="text" placeholder="저녁 메뉴 입력">
-					<input type="url" placeholder="레시피 링크 입력">
+					<input  type="text" name="dinner" placeholder="저녁 메뉴 입력">
+					<input type="url" name="eUrl"placeholder="레시피 링크 입력">
 				</td>
 			</tr>
 		</table>
 
 		<div class="listBtn">
-			<span><i class="far fa-plus-square"></i></span>&nbsp;
-			<span><i class="far fa-minus-square"></i></span>
+			<span id="addRow"><i class="far fa-plus-square"></i></span>&nbsp;
+			<span id="removeRow"><i class="far fa-minus-square"></i></span>
 		</div>
 
 		<textarea name="write" id="wirte-area" placeholder="게시글을 작성해주세요."></textarea>
@@ -101,6 +87,52 @@
 	function writePost(){
 		$('body').load("writePost");
 	}
+	
+	$(function(){
+		$('#addRow').click(function(){
+			var addRow = '<tr name="diet">' +
+						 '	<td>' +
+						 '		<input type="text" name="morning" placeholder="아침 메뉴 입력">' +
+						 '		<input type="url" name="mUrl" placeholder="레시피 링크 입력">' +
+						 '	</td>' +
+						 '	<td>' +
+						 '		<input type="text" name="lunch" placeholder="점심 메뉴 입력">' +
+						 '		<input type="url" name="lUrl" placeholder="레시피 링크 입력">' +
+						 '	</td>' +
+						 '	<td>' +
+						 '		<input  type="text" name="dinner" placeholder="저녁 메뉴 입력">' +
+						 '		<input type="url" name="eUrl"placeholder="레시피 링크 입력">' +
+						 '	</td>' +
+						 '</tr>';
+			$('tr[name="diet"]:last').after(addRow);
+		});
+	});
+	
+	$(function(){
+		$('#addRow').click(function(){
+			var addRow = '<tr name="diet">' +
+						 '	<td>' +
+						 '		<input type="text" name="morning" placeholder="아침 메뉴 입력">' +
+						 '		<input type="url" name="mUrl" placeholder="레시피 링크 입력">' +
+						 '	</td>' +
+						 '	<td>' +
+						 '		<input type="text" name="lunch" placeholder="점심 메뉴 입력">' +
+						 '		<input type="url" name="lUrl" placeholder="레시피 링크 입력">' +
+						 '	</td>' +
+						 '	<td>' +
+						 '		<input  type="text" name="dinner" placeholder="저녁 메뉴 입력">' +
+						 '		<input type="url" name="eUrl"placeholder="레시피 링크 입력">' +
+						 '	</td>' +
+						 '</tr>';
+			$('tr[name="diet"]:last').remove(addRow);
+		});
+	});
+	
+	$(function(){
+		$('#addRow').click(function(){
+			var table = $('#dietList');
+		});
+	});
 </script>
 </body>
 </html>

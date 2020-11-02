@@ -101,7 +101,10 @@
 		</div>
 		
 	</div>
+	
+	<% if(loginUser != null) { %>
 	<div class="writeBtn" onclick="location.href='writePost'"><i class="fas fa-pen"></i></div>
+	<% } %>
 	
 	<%@ include file="../common/footer.jsp" %>
 	<script>

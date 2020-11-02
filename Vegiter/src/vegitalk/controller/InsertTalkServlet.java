@@ -2,7 +2,6 @@ package vegitalk.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Enumeration;
 
 import javax.servlet.ServletException;
@@ -19,6 +18,7 @@ import board.model.vo.Attachment;
 import board.model.vo.Board;
 import login.model.vo.Member;
 import vegitalk.common.MyFileRenamePolicy;
+import vegitalk.model.Service.VegitalkService;
 
 @WebServlet("/insertTalk")
 public class InsertTalkServlet extends HttpServlet {
@@ -27,6 +27,8 @@ public class InsertTalkServlet extends HttpServlet {
     public InsertTalkServlet() {}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Board b = new Board();
+		Attachment atc = new Attachment();
 		int result = 0;
 		
 		if(ServletFileUpload.isMultipartContent(request)) {
@@ -46,25 +48,27 @@ public class InsertTalkServlet extends HttpServlet {
 			String originAtcName = new String();
 			Enumeration<String> files = multiRequest.getFileNames();
 			
-			Attachment atc = new Attachment();
 			if(files.hasMoreElements()) {
 				String name = files.nextElement();
 				
 				if(multiRequest.getFilesystemName(name) != null) {
 					atc.setAtcName(multiRequest.getFilesystemName(name));
 					atc.setAtcOrigin(multiRequest.getOriginalFileName(name));
+					atc.setAtcPath(savePath);
+					atc.setMemId(writer);
+					atc.setAtcType(boardCode);
 					atc.setAtcLevel(0);
 				}
 			}
 			
-			Board b = new Board();
 			b.setBoard_code(boardCode);
 			b.setBoard_content(boardContent);
 			b.setMem_id(writer);
 			
 			
 			System.out.println("Servlet: "+ boardCode + boardContent + writer + atc);
-		
+			
+			result = new VegitalkService().insertPost(b, atc);
 		}
 		
 		if(result > 0) {
