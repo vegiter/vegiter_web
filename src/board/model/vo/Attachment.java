@@ -15,6 +15,18 @@ public class Attachment {
 	private int boardNo;
 	
 	public Attachment() {}
+	
+	
+	
+
+	public Attachment(int atcNo, String atcName) {
+		super();
+		this.atcNo = atcNo;
+		this.atcName = atcName;
+	}
+
+
+
 
 	public Attachment(int atcNo, String memId, int atcType, String atcOrigin, String atcName, String atcPath,
 			Date atcDate, int atcLevel, char atcStatus, int boardNo) {

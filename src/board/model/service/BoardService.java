@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import board.model.dao.BoardDAO;
+import board.model.vo.Attachment;
 import board.model.vo.Board;
 
 public class BoardService {
@@ -49,6 +50,35 @@ public class BoardService {
 		
 		close(conn);
 		
+		
+		return list;
+	}
+
+	public int insertRecipe(Board b, ArrayList<Attachment> fileList) {
+		Connection conn=getConnection();
+		BoardDAO dao=new BoardDAO();
+		
+		int result1=dao.insertBoard(conn,b);
+		int result2=dao.insertAttachment(conn, fileList);
+		
+		
+		
+		
+		return 0;
+	}
+
+	public ArrayList<Board> selectTList(int i, String text) {		//검색
+		Connection conn=getConnection();
+		BoardDAO dao=new BoardDAO();
+		ArrayList list=null;
+		
+		if(i==1) {
+			list=dao.selectBList(conn, text);
+		}else {
+			list=dao.selectTList(conn,text);
+		}
+		
+		close(conn);
 		
 		return list;
 	}
