@@ -2,6 +2,7 @@ package login.model.dao;
 
 import static common.JDBCTemplate.close;
 
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -64,6 +65,37 @@ public class MemberDAO {
 			close(pstmt);
 		}
 		
+		return loginUser;
+	}
+
+	public Member loginSocialMember(Connection conn, Member member) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member loginUser = null;
+
+		String query = prop.getProperty("loginSocial");
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, member.getMemId());
+
+			rset = pstmt.executeQuery();
+
+			if (rset.next()) {
+				loginUser = new Member(rset.getString("mem_id"), 
+						rset.getString("mem_pwd"), rset.getInt("mem_code"),
+						rset.getString("mem_name"), rset.getString("mem_gender").charAt(0), rset.getString("mem_phone"),
+						rset.getString("mem_email"), rset.getString("mem_style"), rset.getString("mem_status"),
+						rset.getDate("mem_deldate"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
 		return loginUser;
 	}
 
@@ -163,5 +195,97 @@ public class MemberDAO {
 		
 		return result;
 	}
+
+	public Member findMember(Connection conn, String name, String email) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member m = null;
+		
+		String query = prop.getProperty("findMember");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, name);
+			pstmt.setString(2, email);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				m = new Member(rset.getString("mem_id"),
+								rset.getString("mem_pwd"),
+								rset.getInt("mem_code"),
+								rset.getString("mem_name"),
+								rset.getString("mem_gender").charAt(0),
+								rset.getString("mem_phone"),
+								rset.getString("mem_email"),
+								String.valueOf(rset.getInt("mem_style")),
+								rset.getString("mem_status"),
+								rset.getDate("mem_deldate"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return m;
+	}
+
+	public Member findPwd(Connection conn, String id, String email, String phone) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member m = null;
+		
+		String query = prop.getProperty("findPwd");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, id);
+			pstmt.setString(2, email);
+			pstmt.setString(3, phone);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				m = new Member(rset.getString("mem_id"),
+								rset.getString("mem_pwd"),
+								rset.getInt("mem_code"),
+								rset.getString("mem_name"),
+								rset.getString("mem_gender").charAt(0),
+								rset.getString("mem_phone"),
+								rset.getString("mem_email"),
+								String.valueOf(rset.getInt("mem_style")),
+								rset.getString("mem_status"),
+								rset.getDate("mem_deldate"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return m;
+	}
+
+	public int changePwd(Connection conn, String id, String pwd) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("changePwd");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, pwd);
+			pstmt.setString(2, id);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 
 }

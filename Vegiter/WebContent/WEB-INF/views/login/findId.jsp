@@ -5,252 +5,181 @@
 <head>
 <meta charset="UTF-8">
 <title>아이디 찾기</title>
+<!-- jquery -->
+<script src="js/jquery-3.5.1.min.js"></script>
+<!-- 부트스트랩 -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+	integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+	integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+	crossorigin="anonymous"></script>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+	crossorigin="anonymous">
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap"
+	rel="stylesheet">
 <style>
-/* 내용부분 */
-#section-header {
-	width: 70%;
-	height: 100%;
-	margin: auto;
-	margin-top: 100px;
+#zeroArea {
+	display: block;
+	height: 70px;
 }
 
-.find-header {
-	width: 50%;
-	display: inline-block;
-	height: 50px;
-	background: rgb(45, 115, 102);
-	font-size: 18px;
-	color: white;
-}
-
-#find-pwd {
-	float: right;
-	background: rgb(65, 166, 147);
-	margin-left: -10px;
-}
-
-#find-pwd a {
-	text-decoration: none;
-	color: white;
-}
-
-#find-id h4, #find-pwd h4 {
-	margin-left: 40px;
-	margin-top: 12px;
-	font-weight: normal;
-	height: 100%;
-}
-
-#find-pwd h4:hover {
-	font-weight: bolder;
-}
-
-#find-pwd:hover {
-	background: rgb(53, 154, 135);
-}
-
-#content {
-	background: rgb(242, 242, 242);
-	width: 70%;
-	min-height: 400px;
-	margin: auto;
-	clear: both;
-	border: 1px solid rgb(242, 242, 242);
-}
-
-#common {
-	margin-right: 30px;
-}
-
-#input-boxes {
-	min-width: 400px;
-	margin: auto;
-	padding-left: 20%;
-}
-
-.input-box {
-	display: inline-block;
-	width: 400px;
-	height: 230px;
+#findArea {
+	border: 1px solid lightgray;
 	background: white;
-	margin-top: 50px;
-	border: 2px solid gray;
+	width: 60%;
+	height: 900px;
+	margin: 50px auto;
 }
 
-.input-header {
-	margin: 0;
-	height: 40px;
+.titleArea {
 	width: 100%;
-	box-shadow: 0px 5px 5px 0px lightgray;
+	height: 60px;
+	background: #41A693;
 }
 
-.input-header h4 {
-	margin: auto;
-	margin-left: 10px;
-	margin-top: 10px;
-}
-
-/* 일반회원 */
-#common-input {
-	width: 300px;
-	margin: auto;
-}
-
-table {
-	font-size: 12px;
-}
-
-table tr {
-	height: 45px;
-}
-
-table td {
-	min-width: 30px;
-}
-
-.phone {
-	width: 50px;
-}
-
-input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button
-	{
-	-webkit-appearance: none;
-	margin: 0;
-}
-/* 사업자 회원 */
-#business-input {
-	width: 300px;
-	margin: auto;
-	margin-top: 30px;
-}
-
-#div-btn-id {
-	width: 400px;
-	height: 40px;
-	margin: auto;
-	margin-top: 30px;
-	margin-bottom: 30px;
-}
-
-#IdBtn {
-	width: 100%;
-	height: 100%;
-	background: rgb(45, 115, 102);
+.title {
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 28px;
 	color: white;
-	border: none;
+	text-align: center;
+	transform: translate(0%, 20%);
+}
+
+#member {
+	display: inline;
+	width: 49.5%;
+	height: 800px;
+	margin-top: 30px;
+}
+
+#owner {
+	display: inline;
+	width: 49.5%;
+	height: 800px;
+	margin-top: 30px;
+}
+
+.pTitle {
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 24px;
+	text-align: center;
+}
+
+.text {
+	display: inline-block;
+	font-family: 'Noto Sans KR', sans-serif;
 	font-size: 18px;
+	margin-top: 5%;
+	margin-left: 23%;
+}
+
+.input {
+	width: 40%;
+}
+
+#nameInput {
+	margin-left: 60px;
+}
+
+#emailInput {
+	margin-left: 45px;
+	margin-bottom: 50px;
+}
+
+#ownerName {
+	margin-left: 80px;
+}
+
+#ownerNum {
+	margin-left: 45px;
+	margin-bottom: 50px;
 }
 </style>
 </head>
 <body>
-	<section>
-		<div id="section-header">
-			<div class="find-header" id="find-id">
-				<h4>아이디 찾기</h4>
-			</div>
-			<div class="find-header" id="find-pwd">
-				<h4>
-					<a href="<%=request.getContextPath()%>/findPwd.me">비밀번호 찾기</a>
-				</h4>
-			</div>
+	<%@ include file="../common/gnb.jsp"%>
+
+	<div id="zeroArea"></div>
+
+	<div id="findArea">
+
+		<div class="titleArea">
+			<p class="title">아이디 찾기</p>
 		</div>
-		<article id="content">
-			<form onsubmit="return findId();" method="post"
-				action="<%=request.getContextPath()%>/findId">
-				<div id="input-boxes">
-					<div class="input-box" id="common">
-						<div class="input-header" id="common-header">
-							<h4>일반회원</h4>
-						</div>
-						<div id="common-input">
-							<table>
-								<tr>
-									<td class="confirm"><input type="radio" name="confirm"
-										onclick="emailConfirm();" id="confirm-email">이메일 인증</td>
-									<td></td>
-									<td class="confirm"><input type="radio" name="confirm"
-										onclick="phoneConfirm();" checked="checked" id="confirm-phone">휴대폰
-										인증</td>
-								</tr>
-								<tr>
-									<td>이름</td>
-									<td colspan="2"><input type="text" name="userName"
-										id="userName"></td>
-								</tr>
-								<tr>
-									<td id="change-name">휴대폰 번호</td>
-									<td id="change-input" colspan="2"><select
-										name="phone-first">
-											<option selected value="010">010</option>
-											<option value="011">011</option>
-									</select> - <input type="number" class="phone" name="phone-middle">
-										- <input type="number" class="phone" name="phone-last">
-									</td>
-								</tr>
-							</table>
-						</div>
-					</div>
-					<script>
-						function emailConfirm() {
-							$('#change-name').html("이메일 주소");
-							$('#change-input').html(
-									'<input type="email" name="email">');
-						};
-						function phoneConfirm() {
-							$('#change-name').html("휴대폰 번호");
-							$('#change-input')
-									.html(
-											'<select name="phone-first"><option selected value="010">010</option><option value="011">011</option></select> - <input type="number" class="phone" name="phone-middle"> - <input type="number" class="phone" name="phone-last">');
-						};
-					</script>
-					<div class="input-box" id="business">
-						<div class="input-header" id="business-header">
-							<h4>사업자 회원</h4>
-						</div>
-						<div id="business-input">
-							<table>
-								<tr>
-									<td>사업주</td>
-									<td colspan="2"><input type="text" name="ownName"
-										id="ownName"></td>
-								</tr>
-								<tr>
-									<td>사업자 등록번호</td>
-									<td><input type="number" name="ownNumber"></td>
-								</tr>
-							</table>
-						</div>
-					</div>
-				</div>
-				<div id="div-btn-id">
-					<input type="submit" id="IdBtn" value="아이디 찾기">
-				</div>
-			</form>
-			<script>
-				function findId() {
-					var name = $('#userName');
-					var own = $('#ownName');
-					var phone = $('.phone');
 
-					console.log(name);
-					console.log(phone);
+		<form action="<%= request.getContextPath() %>/findMemberId.me" method="post" id="findMemberId" name="findMemberId" onsubmit="return findId();">
+		<br><br>
+				<span id="member"><p class="pTitle">일반 회원 아이디 찾기</p>
+					<p class="text">이름 :</p>
+					<input type="text" class="input" id="nameInput" name="nameInput"><br>
+					<p class="text">이메일 :</p>
+					<input type="email" class="input" id="emailInput" name="emailInput"><br>
+					<div class="text-center">
+						<input type="submit" class="btn btn-secondary findBtn" id="btn1"
+							value="일반 회원 아이디 찾기" >
+<!-- 							onclick="findId();" -->
+					</div> </span>
+		</form>
+		<br><br>
+		<form action="<%= request.getContextPath() %>/findOwnerId.me" method="post" id="findOwnerId" name="findOwnerId" onsubmit="return findOwner();">
+		<br><br>
+			<span id="owner"><p class="pTitle">사업자 회원 아이디 찾기</p>
+				<p class="text">사업주 :</p>
+				<input type="text" class="input" id="ownerName" name="ownerName"><br>
+				<p class="text">사업자 번호 :</p>
+				<input type="text" class="input" id="ownerNum" name="ownerNum"><br>
+				<div class="text-center">
+					<input type="submit" class="btn btn-secondary findBtn" id="btn2"
+						value="사업자 회원 아이디 찾기" >
+<!-- 						onclick="findOwnerId();" -->
+			</div> </span>
+		</form>
+	</div>
 
-					console.log("name.val : " + name.val);
-					console.log("name.focus : " + name.focus());
+<%-- 	<%@ include file="../common/footer.jsp"%> --%>
 
-					if (name.val == "" || name.length == 0) {
-						alert('이름을 입력해주세요');
-						name.focus();
-						$('#userName').focus();
-						return false;
-					} else if (own.val == 0 || own.length == 0) {
-					} else {
-						return true;
-					}
-				}
-			</script>
-		</article>
-	</section>
-	<%@ include file="../common/footer.jsp" %>
+	<script>
+		function findId(){ 
+			var name = $('#nameInput').val();
+			var email = $('#emailInput').val();
+			
+			console.log(1);
+			console.log(email);
+			
+			if(name.length < 3 || email.length < 3){
+				alert('다시 입력해주세요');
+				return false;
+			} else {
+				return true;
+			}
+		}
+		
+		function findOwner(){
+			var ownerName = $('#ownerName').val();
+			var ownerNum = $('#ownerNum').val();
+			
+			console.log(ownerName);
+			console.log(ownerNum);
+			
+			if(ownerName.length < 3 || ownerNum.length < 4){
+				alert('다시 입력해주세요');
+				return false;
+			} else {
+				return true;
+			}
+			
+			return false;
+		}
+		</script>
+	
 </body>
 </html>

@@ -21,8 +21,15 @@ public class MemberService {
 	public Member loginMember(Member member) {
 		Connection conn = getConnection();
 		
-		Member loginUser = new MemberDAO().loginMember(conn, member);
+		Member loginUser =  new MemberDAO().loginMember(conn, member);
+		close(conn);
 		
+		return loginUser;
+	}
+	public Member loginSocialMember(Member member) {
+		Connection conn = getConnection();
+		
+		Member loginUser =  new MemberDAO().loginSocialMember(conn, member);
 		close(conn);
 		
 		return loginUser;
@@ -37,10 +44,11 @@ public class MemberService {
 		return result;
 	}
 
-	public int insertMember(Member m) {
+	public int insertMember(ArrayList<Attachment> fileList) {
 		Connection conn = getConnection();
-				
-		int result = new MemberDAO().insertMember(conn, m);
+		
+		int result = new BoardDAO().insertAttachment(conn, fileList);
+		
 		if(result > 0) {
 			commit(conn);
 		}else {
@@ -50,6 +58,7 @@ public class MemberService {
 		return result;
 	}
 
+	
 	public int insertMember(Member m, Owner own) {
 		Connection conn = getConnection();
 		MemberDAO mDAO = new MemberDAO();
@@ -67,19 +76,10 @@ public class MemberService {
 		return result1;
 	}
 
-	public int checkOwnNumber(String ownNumber) {
+	public int insertMember(Member m) {
 		Connection conn = getConnection();
-		int result = new MemberDAO().checkOwnNumber(conn, ownNumber);
-		
-		close(conn);
-		return result;
-	}
-
-	public int insertMember(ArrayList<Attachment> fileList) {
-		Connection conn = getConnection();
-		
-		int result = new BoardDAO().insertAttachment(conn, fileList);
-		
+				
+		int result = new MemberDAO().insertMember(conn, m);
 		if(result > 0) {
 			commit(conn);
 		}else {
@@ -88,5 +88,48 @@ public class MemberService {
 		close(conn);
 		return result;
 	}
-	
+
+	public int checkOwnNumber(String ownNumber) {
+		Connection conn = getConnection();
+		int result = new MemberDAO().checkOwnNumber(conn, ownNumber);
+		
+		close(conn);
+		return result;
+	}
+ 
+	public Member findId(String name, String email) {
+		Connection conn = getConnection();
+		
+		Member m = new MemberDAO().findMember(conn, name, email);
+		
+		close(conn);
+		
+		return m;
+	}
+
+	public Member findPwd(String id, String email, String phone) {
+		Connection conn = getConnection();
+		
+		Member m = new MemberDAO().findPwd(conn, id, email, phone);
+		
+		close(conn);
+		
+		return m;
+	}
+
+	public int changePwd(String id, String pwd) {
+		Connection conn = getConnection();
+		
+		int result = new MemberDAO().changePwd(conn, id, pwd);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
+
 }

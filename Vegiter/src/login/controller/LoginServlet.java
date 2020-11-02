@@ -31,14 +31,23 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		String userId = request.getParameter("userId");
 		String userPwd = request.getParameter("userPwd");
+		int social = Integer.parseInt(request.getParameter("social"));
 		
 		Member member = new Member();
 		member.setMemId(userId);
 		member.setMemPwd(userPwd);
 		
-		Member loginUser = new MemberService().loginMember(member);
+		MemberService mService = new MemberService();
+		
+		Member loginUser = null;
+		if(social == 1) {
+			loginUser = mService.loginMember(member);
+		}else {
+			loginUser = mService.loginSocialMember(member);
+		}
 		
 		if(loginUser != null) {
 			HttpSession session = request.getSession();
@@ -48,7 +57,7 @@ public class LoginServlet extends HttpServlet {
 			response.sendRedirect(request.getContextPath());
 		}else {
 			request.setAttribute("msg", "로그인 실패");
-			request.getRequestDispatcher("WEB-INF/view/common/errorPage.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
 		}
 	}
 

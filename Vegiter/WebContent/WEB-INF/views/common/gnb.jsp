@@ -9,7 +9,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>GNB</title>
+<title>Vegiter</title>
+
 <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.5.1.min.js"></script>
 <style>
 	
@@ -41,7 +42,13 @@
 		</nav>
 	</header>
 	<script>
-		
+		function mainPage(){
+			location.href = '<%= request.getContextPath() %>';
+		}
+		console.log(<%=loginUser%>);
+		function aboutPage(){
+			location.href = '<%= request.getContextPath() %>/aboutPage.me';
+		}
 	</script>
 </body>
 </html>

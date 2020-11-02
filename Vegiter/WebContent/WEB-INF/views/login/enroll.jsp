@@ -373,7 +373,7 @@ form p {
 								nameCheck = true;
 								emailCheck = true;
 							} else {
-								alert(uniqId + '로 이미 등록되어 있습니다.');
+								alert('네이버회원으로 이미 등록되어 있습니다.');
 							}
 						}
 					});

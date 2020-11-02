@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Vegitor 로그인</title>
+<title>Vegiter 로그인</title>
 <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.5.1.min.js"></script>
 <style>
 	body{
@@ -119,7 +119,7 @@
 <body>
 		<section id="login">
 		<div class="login-header" id="login-header">
-			<a href="index.jsp">
+			<a href="/Vegiter">
 				<img src="<%= request.getContextPath() %>/images/common/logo.png">
 			</a>
 		</div>
@@ -127,13 +127,13 @@
 			<div id="btn">
 				<button  class="memberBtn" id="common">개인 회원</button>
 				<button  class="memberBtn" id="business">사업자 회원</button>
-			
+				
+				<input type="hidden" id="social" name="social" value='1'><br>
 				<input type="text" class="input-info" placeholder="아이디" id="userId" name="userId"><br>
 				<input type="password" class="input-info" placeholder="비밀번호" id="userPwd" name="userPwd">
 			</div>
 			<div id="login-error">
 			</div>
-			<input type="hidden" name="social" id="social">
 			<div id="login-div">
 				<input type="submit" id="login-btn" value="로그인">
 			</div>
@@ -148,32 +148,10 @@
 		</div>
 	</section>
 	<script type="text/javascript">
-		var naverLogin = new naver.LoginWithNaverId(
-			{
-				clientId : "w3sXDEgZtjtnF9AcUJSw",
-				callbackUrl : "http://localhost:9981/Vegiter/",
-				isPopup : false,
-				loginButton : {color : "white",type : 2, height : 40}
-		});
-		naverLogin.init();
-		window.addEventListener('load', function() {
-			naverLogin.getLoginStatus(function(status) {
-				if (status) {
-					/* (6) 로그인 상태가 "true" 인 경우 로그인 버튼을 없애고 사용자 정보를 출력합니다. */
-					setLoginStatus();
-				}
-			});
-		});
-		function setLoginStatus() {
-			var uniqId = naverLogin.user.getId();
-			$('#userId').val(uniqId);
-			$('#social').val(true);
-			login();
-		}
-	</script>
-	<script>
+		var social = false;
 		$(function(){
 			$('#common').addClass('selectedBtn');
+			$('#social').val('1');
 			
 			$('#common').click(function(){
 				$(this).addClass('selectedBtn');
@@ -195,12 +173,15 @@
 			var userId = $('#userId');
 			var userPwd = $('#userPwd');
 			
+			console.log("login()함수 실행");
+			
 			if(userId.val() == ''){
 				$('#login-error').html('아이디를 입력해주세요').css('color','red');
 				userId.focus();
 				return false;
 			}else if(userPwd.val() == ''){
-				if($('#social').val()){
+				if($('#social').val() == '2'){
+					console.log("social: true");
 					return true;
 				}else{
 					$('#login-error').html('비밀번호를 입력해주세요').css('color','red');
@@ -211,6 +192,31 @@
 				return true;
 			}
 		}
+		var naverLogin = new naver.LoginWithNaverId(
+				{
+					clientId : "w3sXDEgZtjtnF9AcUJSw",
+					callbackUrl : "http://localhost:9981/Vegiter/login.me",
+					isPopup : true,
+					loginButton : {color : "white",type : 2, height : 40}
+			});
+			naverLogin.init();
+			
+			window.addEventListener('load', function() {
+				naverLogin.getLoginStatus(function(status) {
+					if (status) {
+						/* (6) 로그인 상태가 "true" 인 경우 로그인 버튼을 없애고 사용자 정보를 출력합니다. */
+						setLoginStatus();
+					}
+// 	 				window.location.replace("http://" + window.location.hostname + ( (location.port==""||location.port==undefined)?"":":" + location.port) + "/Vegiter/login");
+					
+				});
+			});
+			function setLoginStatus() {
+				var uniqId = naverLogin.user.getId();
+				$('#social').val('2');
+				$('#userId').val(uniqId);
+				$('#login-btn').click();
+			}
 	</script>
 </body>
 </html>
