@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>About</title>
 <!-- jquery -->
 <script src="js/jquery-3.5.1.min.js"></script>
 <!-- 부트스트랩 -->
@@ -19,8 +19,9 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
 	integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
 	crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-	
+<script type="text/javascript"
+	src="https://www.gstatic.com/charts/loader.js"></script>
+
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
 	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
@@ -47,7 +48,7 @@
 #main_div1 {
 	/*  		border: 1px solid lightgray;  */
 	margin-top: 50px;
-	width: 85%;
+	width: 80%;
 	margin: 50px auto;
 }
 
@@ -71,7 +72,7 @@ p {
 
 #about_arti_1 {
 	display: block;
-	width: 80%;
+	width: 70%;
 	margin: 30px auto;
 }
 
@@ -82,6 +83,13 @@ p {
 }
 
 #about_arti_3 {
+	display: block;
+	width: 70%;
+	margin: 30px auto;
+	margin-top: -10px;
+}
+
+#about_arti_4 {
 	display: block;
 	width: 70%;
 	margin: 30px auto;
@@ -109,7 +117,7 @@ p {
 
 					<article class="arti" id="arti_1">
 						<img
-							src="<%= request.getContextPath() %>/images/about/about_arti1.jpg"
+							src="<%=request.getContextPath()%>/images/about/about_arti1.jpg"
 							id="about_arti_1">
 					</article>
 
@@ -146,7 +154,7 @@ p {
 					<h4 class="sub_title">비건의 시대, 마이너에서 메이저로 ! 비거니즘</h4>
 					<article class="arti" id="arti_1">
 						<img
-							src="<%= request.getContextPath() %>/images/about/about_arti2.png"
+							src="<%=request.getContextPath()%>/images/about/about_arti2.png"
 							id="about_arti_2">
 					</article>
 					<br>
@@ -168,78 +176,80 @@ p {
 
 					<article class="arti" id="arti_1">
 						<img
-							src="<%= request.getContextPath() %>/images/about/about_arti3.png"
+							src="<%=request.getContextPath()%>/images/about/about_arti3.png"
 							id="about_arti_3">
 					</article>
 				</div>
 			</div>
 		</article>
 	</section>
-
-	<div class="container" id="research-form">
-		<div class="row">
-			<div class="col-4">
-				<div class="list-group" id="list-tab" role="tablist">
-					<a class="list-group-item list-group-item-action active" id="research-list-1" data-toggle="list"
-						href="#list-home" role="tab" aria-controls="home">비건</a>
-
-					<a class="list-group-item list-group-item-action" id="research-list-2" data-toggle="list"
-						href="#list-profile" role="tab" aria-controls="profile">락토</a>
-
-					<a class="list-group-item list-group-item-action" id="research-list-3" data-toggle="list"
-						href="#list-messages" role="tab" aria-controls="messages">오보</a>
-
-					<a class="list-group-item list-group-item-action" id="research-list-4" data-toggle="list"
-						href="#list-settings" role="tab" aria-controls="settings">락토 오보</a>
-
-					<a class="list-group-item list-group-item-action" id="research-list-5" data-toggle="list"
-						href="#list-settings" role="tab" aria-controls="settings">페스코</a>
-
-					<a class="list-group-item list-group-item-action" id="research-list-6" data-toggle="list"
-						href="#list-settings" role="tab" aria-controls="settings">폴로</a>
-
-					<a class="list-group-item list-group-item-action" id="research-list-7" data-toggle="list"
-						href="#list-settings" role="tab" aria-controls="settings">플렉시리언</a>
+	<div id="about_div4" class="about"
+		style="width: 80%; height: 600px; text-align: center; margin: 30px auto; margin-top: -10px;">
+		<h3>비건 성향 설문조사</h3>
+		<br>
+		<br>
+		<div class="container" id="research-form">
+			<div class="row">
+				<div class="col-4">
+					<div class="list-group" id="list-tab" role="tablist">
+						<a class="list-group-item list-group-item-action active"
+							id="research-list-1" data-toggle="list" href="#list-1" role="tab"
+							aria-controls="home">비건</a> <a
+							class="list-group-item list-group-item-action"
+							id="research-list-2" data-toggle="list" href="#list-2" role="tab"
+							aria-controls="profile">락토 베지터리언</a> <a
+							class="list-group-item list-group-item-action"
+							id="research-list-3" data-toggle="list" href="#list-3" role="tab"
+							aria-controls="messages">오보 베지터리언</a> <a
+							class="list-group-item list-group-item-action"
+							id="research-list-4" data-toggle="list" href="#list-4" role="tab"
+							aria-controls="settings">락토 오보 베지터리언</a> <a
+							class="list-group-item list-group-item-action"
+							id="research-list-5" data-toggle="list" href="#list-5" role="tab"
+							aria-controls="settings">페스코 베지터리언</a> <a
+							class="list-group-item list-group-item-action"
+							id="research-list-6" data-toggle="list" href="#list-6" role="tab"
+							aria-controls="settings">폴로 베지터리언</a> <a
+							class="list-group-item list-group-item-action"
+							id="research-list-7" data-toggle="list" href="#list-7" role="tab"
+							aria-controls="settings">플렉시리언</a>
+					</div>
+				</div>
+				<div class="col-8">
+					<div class="tab-content text-center" id="nav-tabContent">
+						<div class="tab-pane fade show active" id="list-1"
+							style="padding-top: 50px;">
+							<img src="<%= request.getContextPath() %>/images/about/비건.png">
+						</div>
+						<div class="tab-pane fade" id="list-2" style="padding-top: 50px;">
+							<img src="<%= request.getContextPath() %>/images/about/락토.png">
+						</div>
+						<div class="tab-pane fade" id="list-3" style="padding-top: 50px;">
+							<img src="<%= request.getContextPath() %>/images/about/오보.png"></div>
+						<div class="tab-pane fade" id="list-4" style="padding-top: 50px;">
+							<img src="<%= request.getContextPath() %>/images/about/락토 오보.png"></div>
+						<div class="tab-pane fade" id="list-5" style="padding-top: 50px;">
+							<img src="<%= request.getContextPath() %>/images/about/페스코.png"></div>
+						<div class="tab-pane fade" id="list-6" style="padding-top: 50px;">
+							<img src="<%= request.getContextPath() %>/images/about/폴로.png"></div>
+						<div class="tab-pane fade" id="list-7" style="padding-top: 50px;">
+							<img src="<%= request.getContextPath() %>/images/about/플렉.png"></div>
+					</div>
 				</div>
 			</div>
-			<div class="col-8">
-				<div class="tab-content text-center" id="nav-tabContent">
-					<div class="tab-pane fade show active" id="list-home">
-						비건
-					</div>
-					<div class="tab-pane fade" id="list-profile">
-						락토
-					</div>
-					<div class="tab-pane fade" id="list-messages">
-						오보
-					</div>
-					<div class="tab-pane fade" id="list-settings">
-						락토 오보
-					</div>
-					<div class="tab-pane fade" id="list-settings">
-						페스코
-					</div>
-					<div class="tab-pane fade" id="list-settings">
-						폴로
-					</div>
-					<div class="tab-pane fade" id="list-settings">
-						플렉시리언
-					</div>
+			<br>
+			<div class="row">
+				<div class="col">
+					<button class="btn btn-outline-info btn-block" id="btn-research">결과보기</button>
 				</div>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col">
-				<button class="btn btn-outline-info btn-block" id="btn-research">결과 제출</button>
-			</div>
-		</div>
-	</div>
 
-	<div id="research-chart" style="width: 900px; height: 500px;">
+		<div id="research-chart" style="width: 700px; height: 450px; margin: auto;"></div>
 	</div>
 
 
-<script>
+	<script>
 $(()=>{
 
 	let selected = 1;
@@ -291,7 +301,7 @@ $(()=>{
 		]);
 
 		var options = {
-			title: '결과',
+			title: '',
 			is3D: true
 		};
 
@@ -299,7 +309,6 @@ $(()=>{
 
 		chart.draw(data, options);
 	}
-
 });
 	
 </script>
