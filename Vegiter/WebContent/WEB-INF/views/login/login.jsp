@@ -113,9 +113,11 @@
 	}
 	
 </style>
+<!-- API -->
 <script src="<%=request.getContextPath()%>/js/naveridlogin_js_sdk_2.0.0.js"></script>
 <script src="<%=request.getContextPath()%>/js/naverLogin_implicit-1.0.2.js"></script>
-
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<meta name = "google-signin-client_id"content = "474954666713-ekaotga6objgkdvabl55n6t1rch4dkcu.apps.googleusercontent.com">
 </head>
 <body>
 		<section id="login">
@@ -141,6 +143,7 @@
 		</form>
 		<div id="social-login">
 			<div id="naverIdLogin"></div>
+			<div class="g-signin2" data-onsuccess="onSignIn"></div>
 		</div>
 		<div id="other-div">
 			<span class="other" id="findId"><a href="<%=request.getContextPath() %>/findId.me">아이디 찾기</a></span>
@@ -221,6 +224,13 @@
 				$('#userId').val(uniqId);
 				$('#login-btn').click();
 			}
+			function onSignIn(googleUser) {
+				  var profile = googleUser.getBasicProfile();
+				  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+				  console.log('Name: ' + profile.getName());
+				  console.log('Image URL: ' + profile.getImageUrl());
+				  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+				}
 	</script>
 </body>
 </html>

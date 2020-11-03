@@ -99,7 +99,7 @@ public class InsertMemberOwnerServlet extends HttpServlet {
 			result = new MemberService().insertMember(fileList);
 			
 			if(result > 0) {
-				response.sendRedirect("index.jsp");
+				response.sendRedirect(request.getContextPath());
 			}else {
 				request.setAttribute("msg", "사업자 파일 업로드에 실패하셨습니다.");
 				request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);

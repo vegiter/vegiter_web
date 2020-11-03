@@ -325,7 +325,9 @@ form p {
 					naverLogin.getLoginStatus(function(status) {
 						if (status) {
 							/* (6) 로그인 상태가 "true" 인 경우 로그인 버튼을 없애고 사용자 정보를 출력합니다. */
-							setLoginStatus();
+							$('#naverIdLogin').click(function(){
+								setLoginStatus();
+							});
 						}
 					});
 				});
@@ -373,7 +375,8 @@ form p {
 								nameCheck = true;
 								emailCheck = true;
 							} else {
-								alert('네이버회원으로 이미 등록되어 있습니다.');
+								promt('네이버회원으로 이미 등록되어 있습니다.');
+								location.href="<%=request.getContextPath()%>/Vegiter";
 							}
 						}
 					});
