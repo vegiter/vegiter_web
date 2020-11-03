@@ -107,10 +107,10 @@ public class MemberService {
 		return m;
 	}
 
-	public Member findPwd(String id, String email, String phone) {
+	public Member findPwd(String name, String id, String email) {
 		Connection conn = getConnection();
 		
-		Member m = new MemberDAO().findPwd(conn, id, email, phone);
+		Member m = new MemberDAO().findPwd(conn, name, id, email);
 		
 		close(conn);
 		
@@ -130,6 +130,24 @@ public class MemberService {
 		
 		close(conn);
 		return result;
+	}
+	public Member findIdByPhone(String name, String phone) {
+		Connection conn = getConnection();
+		Member mem = new MemberDAO().findMemberByPhone(conn, name, phone);
+		close(conn);
+		return mem;
+	}
+	public Member findPwdByPhone(String name, String id, String phone) {
+		Connection conn = getConnection();
+		Member mem = new MemberDAO().findPwdByPhone(conn, name, id, phone);
+		close(conn);
+		return mem;
+	}
+	public Member findPwdOwner(String name, String id, String number) {
+		Connection conn = getConnection();
+		Member mem = new MemberDAO().findPwdOwner(conn, name, id, number);
+		close(conn);
+		return mem;
 	}
 
 }

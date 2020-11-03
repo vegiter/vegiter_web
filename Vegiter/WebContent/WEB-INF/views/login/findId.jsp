@@ -183,7 +183,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 								</tr>
 								<tr>
 									<td>이름</td>
-									<td colspan="2"><input type="text" name="" id="userName"></td>
+									<td colspan="2"><input type="text" name="userName" id="userName"></td>
 								</tr>
 								<tr>
 									<td id="change-name">휴대폰 번호</td>
@@ -193,8 +193,8 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 											<option value="011">011</option>
 										</select>
 										-
-										<input type="number" class="phone" name="phone-middle" id="phone-middle" > -
-										<input type="number" class="phone" name="phone-last" id="phone-last">
+										<input type="number" class="phone" name="phone-middle" id="phone-middle" maxlength="4" oninput="maxLengthCheck(this)"> -
+										<input type="number" class="phone" name="phone-last" id="phone-last"  maxlength="4" oninput="maxLengthCheck(this)">
 									</td>
 								</tr>
 							</table>
@@ -202,16 +202,23 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 						</form>
 					</div>
 				</div>
+				<script type="text/javascript">
+					function maxLengthCheck(object){
+				   	 if (object.value.length > object.maxLength){
+				    	  object.value = object.value.slice(0, object.maxLength);
+				  	  }    
+				 	 }
+				</script>
 				<script>
 					function emailConfirm(){
 						$('#change-name').html("이메일 주소");
-						$('#change-input').html('<input type="email" name="email" id="email">');
+						$('#change-input').html('<input type="email" name="email" id="email" required>');
 					};
 					function phoneConfirm(){
 						$('#change-name').html("휴대폰 번호");
-						$('#change-input').html('<select name="phone-first"><option selected value="010">010</option><option value="011">011</option></select> - <input type="number" class="phone" name="phone-middle" id="phone-middle"> - <input type="number" class="phone" name="phone-last" id="phone-last">');
+						$('#change-input').html('<select name="phone-first"><option selected value="010">010</option><option value="011">011</option></select> - <input type="number" class="phone" name="phone-middle" id="phone-middle"  maxlength="4" oninput="maxLengthCheck(this)"> - <input type="number" class="phone" name="phone-last" id="phone-last"  maxlength="4" oninput="maxLengthCheck(this)">');
 					};
-				
+					
 				</script>
 				<div class="input-box" id="business">
 					<div class="input-header" id="business-header"><h4>사업자 회원</h4></div>
@@ -236,13 +243,6 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 				</div>
 			</div>
 			<script>
-				$('#phone-middle').change(function(){
-					console.log($(this).val());
-				});
-			
-				$('#phone-first').change(function(){
-					console.log($(this).val());
-				});
 				$('input').focusin(function(){
 					$(this).css({'border':'2px solid green', 'box-shadow':'0px 0px 5px green'});
 				}).focusout(function(){
@@ -270,16 +270,13 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 							alert('이름을 입력해주세요');
 							$('#userName').focus();
 							return false;
-						}else if($('#email').val().length < 2){
-							alert('이메일을 입력해주세요');
-							$('#email').focus();
-							return false;
 						}else{
 							return true;
 						}
 					}
 					
 				}
+				
 				function findOwner() {
 					var ownerName = $('#ownerName').val();
 					var ownerNum = $('#ownerNum').val();
