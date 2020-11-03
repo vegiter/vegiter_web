@@ -1,22 +1,33 @@
 package vegitalk.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/SelectPost")
-public class SelectPost extends HttpServlet {
+import vegitalk.model.Service.VegitalkService;
+
+@WebServlet("/VegitalkListServlet")
+public class VegitalkListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public SelectPost() {
-        super();
-    }
+    public VegitalkListServlet() {}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		VegitalkService vs = new VegitalkService();
+		//int postCount = vs.getPostCount();
+		int currentPage = 1;
+		int pageLimit = 5;
+		int postLimit = 12;
+		int maxPage;
+		int startPage;
+		int endPage;
+		int boardCode;
+	
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

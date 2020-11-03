@@ -6,11 +6,13 @@ import static common.JDBCTemplate.rollback;
 import static common.JDBCTemplate.close;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import board.model.vo.Attachment;
 import board.model.vo.Board;
 import board.model.vo.DietList;
+import board.model.vo.PageInfo;
 import vegitalk.model.dao.VegitalkDAO;
 
 public class VegitalkService {
@@ -48,5 +50,15 @@ public class VegitalkService {
 		close(conn);
 		return pResult;
 	}
+	
+	public int getPostCountAll() {
+		Connection conn = getConnection();
+		int postCount = new VegitalkDAO().getPostCountAll(conn);
+		return postCount;
+	}
 
+	public ArrayList<Board> selectPList(PageInfo pi) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
