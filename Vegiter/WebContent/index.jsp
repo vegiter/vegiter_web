@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,81 +25,87 @@
 	crossorigin="anonymous">
 
 <style>
-	#zeroArea { display: block; height: 70px; }
-	#main_arti_1{
-		display: block;
-		width: 100%;
-		margin-top: 1px;
-	}
-	
-	.carousel{
-		display: block;
-		margin-top: 20px;
-	}
-	
-	#main_arti_3{
-	 	clear: both;
-	 	display: block;
- 		margin-left: auto;
- 		margin-right: auto;
-		width: 100%;
-		margin-top: 20px;
-		position:relative;
-	}
+#zeroArea {
+	display: block;
+	height: 70px;
+}
+
+#main_arti_1 {
+	display: block;
+	width: 100%;
+	margin-top: 10px;
+}
+
+.carousel {
+	display: block;
+	margin-top: 20px;
+}
+
+#main_arti_3 {
+	clear: both;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+	margin-top: 20px;
+	position: relative;
+}
+
+.mainDiv {
+	margin: auto;
+	width: 90%;
+}
 </style>
 </head>
 <body>
-	<%@ include file="WEB-INF/views/common/gnb.jsp" %>
+	<%@ include file="WEB-INF/views/common/gnb.jsp"%>
 	<div id="zeroArea"></div>
-	
-	
-	<section>
-		<article class="arti" id="arti_1">
-			<img src="images/main/main_arti_1.jpg" id="main_arti_1">
-		</article>
-				
-		<article>
-			<div id="carouselExampleIndicators" class="carousel slide"
-				data-ride="carousel">
-				<ol class="carousel-indicators">
-					<li data-target="#carouselExampleIndicators" data-slide-to="0"
-						class="active"></li>
-					<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-					<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-					<li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
-				</ol>
-				<div class="carousel-inner">
-					<div class="carousel-item active">
-						<img src="images/main/공지1.png" class="d-block w-100" alt="...">
-					</div>
-					<div class="carousel-item">
-						<img src="images/main/공지2.png" class="d-block w-100" alt="...">
-					</div>
-					<div class="carousel-item">
-						<img src="images/main/공지1.png" class="d-block w-100" alt="...">
-					</div>
-					<div class="carousel-item">
-						<img src="images/main/공지2.png" class="d-block w-100" alt="...">
-					</div>
-				</div>
-				<a class="carousel-control-prev" href="#carouselExampleIndicators"
-					role="button" data-slide="prev"> <span
-					class="carousel-control-prev-icon" aria-hidden="true"></span> <span
-					class="sr-only">Previous</span>
-				</a> <a class="carousel-control-next" href="#carouselExampleIndicators"
-					role="button" data-slide="next"> <span
-					class="carousel-control-next-icon" aria-hidden="true"></span> <span
-					class="sr-only">Next</span>
-				</a>
-			</div>
-		</article>
-		
-		<article class="arti" id="arti_2">
-			<img src="images/main/main_arti_3.png" id="main_arti_3">
-		</article>
 
+
+	<section>
+		<div class="mainDiv">
+			<article class="arti" id="arti_1">
+				<img src="images/main/main_arti_1.png" id="main_arti_1">
+			</article>
+
+			<article>
+				<div id="carouselExampleIndicators" class="carousel slide"
+					data-ride="carousel">
+					<ol class="carousel-indicators">
+						<li data-target="#carouselExampleIndicators" data-slide-to="0"
+							class="active"></li>
+						<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+						<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+					</ol>
+					<div class="carousel-inner">
+						<div class="carousel-item active">
+							<img src="images/main/메인 1.jpg" class="d-block w-100">
+						</div>
+						<div class="carousel-item">
+							<img src="images/main/메인 2.png" class="d-block w-100">
+						</div>
+						<div class="carousel-item">
+							<img src="images/main/메인 3.jpg" class="d-block w-100">
+						</div>
+					</div>
+					<a class="carousel-control-prev" href="#carouselExampleIndicators"
+						role="button" data-slide="prev"> <span
+						class="carousel-control-prev-icon" aria-hidden="true"></span> <span
+						class="sr-only">Previous</span>
+					</a> <a class="carousel-control-next" href="#carouselExampleIndicators"
+						role="button" data-slide="next"> <span
+						class="carousel-control-next-icon" aria-hidden="true"></span> <span
+						class="sr-only">Next</span>
+					</a>
+				</div>
+			</article>
+
+			<article class="arti" id="arti_2">
+				<img src="images/main/main_arti_3.png" id="main_arti_3">
+			</article>
+		</div>
 	</section>
 
-	<%@ include file="WEB-INF/views/common/footer.jsp" %>
+	<%@ include file="WEB-INF/views/common/footer.jsp"%>
 </body>
 </html>

@@ -19,13 +19,13 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
 	integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
 	crossorigin="anonymous"></script>
-<script type="text/javascript"
-	src="https://www.gstatic.com/charts/loader.js"></script>
-
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
 	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
 	crossorigin="anonymous">
+<!-- 구글 그래프 api -->
+<script type="text/javascript"
+	src="https://www.gstatic.com/charts/loader.js"></script>
 <!-- 폰트   -->
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@900&display=swap"
@@ -33,7 +33,9 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap"
 	rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
+	rel="stylesheet">
 <style>
 #zeroArea {
 	display: block;
@@ -47,10 +49,8 @@
 }
 
 #main_div1 {
-	/*  		border: 1px solid lightgray;  */
-	margin-top: 50px;
-	width: 80%;
-	margin: 50px auto;
+	width: 90%;
+	margin: 10px auto;
 }
 
 .sub_title {
@@ -96,7 +96,11 @@ p {
 	margin: 30px auto;
 	margin-top: -10px;
 }
-body{line-height: 1.4; font-family: 'Open Sans', sans-serif;}
+
+body {
+	line-height: 1.4;
+	font-family: 'Open Sans', sans-serif;
+}
 </style>
 
 </head>
@@ -183,7 +187,7 @@ body{line-height: 1.4; font-family: 'Open Sans', sans-serif;}
 		</article>
 	</section>
 	<div id="about_div4" class="about"
-		style="width: 80%; height: 600px; text-align: center; margin: 30px auto; margin-top: -10px;">
+		style="width: 90%; height: 600px; text-align: center; margin: 30px auto; margin-top: 40px;">
 		<h3>비건 성향 설문조사</h3>
 		<br> <br>
 		<div class="container" id="research-form">
@@ -210,7 +214,7 @@ body{line-height: 1.4; font-family: 'Open Sans', sans-serif;}
 							aria-controls="settings">폴로 베지터리언</a> <a
 							class="list-group-item list-group-item-action"
 							id="research-list-7" data-toggle="list" href="#list-7" role="tab"
-							aria-controls="settings">플렉시리언</a>
+							aria-controls="settings">플렉시터리언</a>
 					</div>
 				</div>
 				<div class="col-8">
@@ -242,63 +246,93 @@ body{line-height: 1.4; font-family: 'Open Sans', sans-serif;}
 			</div>
 			<br>
 			<div class="row">
-				<div class="col">
-					<button class="btn btn-outline-info btn-block" id="btn-research">결과보기</button>
+				<div class="col-6">
+					<button class="btn btn-outline-info btn-block" id="btn-research-1">3D
+						그래프 결과보기</button>
+				</div>
+				<div class="col-6">
+					<button class="btn btn-outline-info btn-block" id="btn-research-2">막대
+						그래프 결과보기</button>
 				</div>
 			</div>
 		</div>
 
-		<div id="research-chart"
+		<div id="research-chart-1"
+			style="width: 700px; height: 450px; margin: auto;"></div>
+		<div id="research-chart-2"
 			style="width: 700px; height: 450px; margin: auto;"></div>
 	</div>
 
 
-	<script>
-	
-	$(document).ready(function () {
-		$('div#research-chart').hide();
-	});
-	
-	$('#btn-research').on('click', function(e){
-		$('div#research-chart').show();
+	<script>	
+	// 3d 그래프 결과 버튼
+	$('#btn-research-1').on('click', function(e){
+		$('div#research-chart-1').show();
 	}); 
-
-
 	
+	// 막대 그래프 결과 버튼
+	$('#btn-research-2').on('click', function(e){
+		$('div#research-chart-2').show();
+	});
+
+
+	// 온 로드
 	$(()=>{
-	
-		let selected = 1;
-		let resultList;
-		google.charts.load('current', {'packages':['corechart']});
-	
-		// 선택한 값 대입
+		$('div#research-chart-1').hide();			// 처음 페이지 로드 될 때 차트 숨김
+		$('div#research-chart-2').hide();
+		var selected = 1;
+		var resultList;	
+		google.charts.load('current', {'packages':['corechart']});		// 3d 원형 그래프
+		google.charts.load('current', {'packages':['bar']});			// 막대 그래프
+		
+		// id 추출해서 선택한 값 대입 
 		$('#list-tab > a').click((e)=>{
 			var $obj = $(e.target);
 			var no = $obj.prop("id").split('-')[2];
 			selected = no;
 			console.log(selected);
 		});
+		
+		
+	// 버튼 클릭 시 3d 그래프 그리기	
+	$('#btn-research-1').click(()=>{
 	
-		// function(data)
-	
-		$('#btn-research').click(()=>{
-	
-			$.ajax({
-				url:"<%=request.getContextPath()%>/research",
-				type: "get",
-				data: {selected:selected},
-				dataType: "json",
-				success: data => {
-					$('#research-form').hide();
-					google.charts.setOnLoadCallback(drawChart(data));
-	
-				},
-				error: (jqxhr, textStatus, errorThrown)=>{
-					console.log(jqxhr, textStatus, errorThrown);
-				}
-			});
-	
+		$.ajax({
+			url:"<%=request.getContextPath()%>/research",
+			type: "get",
+			data: {selected:selected},
+			dataType: "json",
+			success: data => {
+				$('#research-form').hide();
+				google.charts.setOnLoadCallback(drawChart(data));
+
+			},
+			error: (jqxhr, textStatus, errorThrown)=>{
+				console.log(jqxhr, textStatus, errorThrown);
+			}
 		});
+	
+	});
+	
+	// 버튼 클릭 시 3d 그래프 그리기	
+	$('#btn-research-2').click(()=>{
+	
+		$.ajax({
+			url:"<%=request.getContextPath()%>/research",
+			type: "get",
+			data: {selected:selected},
+			dataType: "json",
+			success: data => {
+				$('#research-form').hide();
+				google.charts.setOnLoadCallback(drawStuff(data));
+
+			},
+			error: (jqxhr, textStatus, errorThrown)=>{
+				console.log(jqxhr, textStatus, errorThrown);
+			}
+		});
+	
+	});
 
 	function drawChart(list) {
 
@@ -320,9 +354,33 @@ body{line-height: 1.4; font-family: 'Open Sans', sans-serif;}
 			is3D: true
 		};
 
-		var chart = new google.visualization.PieChart(document.getElementById('research-chart'));
+		var chart = new google.visualization.PieChart(document.getElementById('research-chart-1'));
 
 		chart.draw(data, options);
+	}
+	
+	function drawStuff(list) {
+
+		console.log(list[0].cnt);
+
+		var data = new google.visualization.arrayToDataTable([
+			['', ''],
+			['비건', list[0].cnt],
+			['락토', list[1].cnt],
+			['오보', list[2].cnt],
+			['락토 오보', list[3].cnt],
+			['페스코', list[4].cnt],
+			['폴로', list[5].cnt],
+			['플렉', list[6].cnt]
+		]);
+
+		var options = {
+		          legend: { position: 'top'},
+		          bar: { groupWidth: "80%" }
+		        };
+
+		var chart = new google.charts.Bar(document.getElementById('research-chart-2'));
+        chart.draw(data, options);
 	}
 });
 	
