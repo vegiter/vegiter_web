@@ -42,11 +42,13 @@ public class EncryptWrapper extends HttpServletRequestWrapper{
 			e.printStackTrace();
 		}
 		// byte[]로 쪼개기
-		byte[] bytes = userPwd.getBytes(Charset.forName("UTF-8"));
+		if(userPwd != null) {
+			byte[] bytes = userPwd.getBytes(Charset.forName("UTF-8"));
+		
 		md.update(bytes);
 		
 		encPwd = Base64.getEncoder().encodeToString(md.digest());
-		
+		}
 		return encPwd;
 	}
 }

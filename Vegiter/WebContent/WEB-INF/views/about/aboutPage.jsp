@@ -98,7 +98,7 @@ p {
 }
 
 body {
-	line-height: 1.4;
+	line-height: 1.4 !important;	<!--!important  가장 우선임-->
 	font-family: 'Open Sans', sans-serif;
 }
 </style>

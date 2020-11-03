@@ -23,7 +23,6 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
 	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
 	crossorigin="anonymous">
-
 <style>
 #zeroArea {
 	display: block;
@@ -33,7 +32,7 @@
 #main_arti_1 {
 	display: block;
 	width: 100%;
-	margin-top: 10px;
+	margin-top: 1px;
 }
 
 .carousel {

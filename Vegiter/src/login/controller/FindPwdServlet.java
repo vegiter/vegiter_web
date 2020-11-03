@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import login.model.serviec.MemberService;
+import login.model.service.MemberService;
 import login.model.vo.Member;
 
 /**
@@ -30,11 +30,21 @@ public class FindPwdServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String id = request.getParameter("idInput");
-		String email = request.getParameter("emailInput");
-		String phone = request.getParameter("numInput");
+		String name = request.getParameter("userName");
+		String id = request.getParameter("userId");
+		String email = request.getParameter("email");
 		
-		Member member = new MemberService().findPwd(id, email, phone);
+		Member member = null;
+		if(email != null) {
+			member = new MemberService().findPwd(name, id, email);
+		}else {
+			String phone1 = request.getParameter("phone-first");
+			String phone2 = request.getParameter("phone-middle");
+			String phone3 = request.getParameter("phone-last");
+			String phone = phone1 + phone2 + phone3;
+			member = new MemberService().findPwdByPhone(name, id, phone);
+		}
+		
 		
 		String page = null;
 		if(member != null) {

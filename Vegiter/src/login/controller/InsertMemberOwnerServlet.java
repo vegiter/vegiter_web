@@ -17,9 +17,7 @@ import com.oreilly.servlet.MultipartRequest;
 
 import board.model.vo.Attachment;
 import common.MyFileRenamePolicy;
-import login.model.serviec.MemberService;
-import login.model.vo.Member;
-import login.model.vo.Owner;
+import login.model.service.MemberService;
 
 /**
  * Servlet implementation class InsertMemberOwnerServlet

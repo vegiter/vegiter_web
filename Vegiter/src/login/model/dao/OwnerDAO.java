@@ -14,14 +14,14 @@ import java.util.Properties;
 import login.model.vo.Owner;
 
 public class OwnerDAO {
-	
+
 	private Properties prop = new Properties();
-	
+
 	public OwnerDAO() {
 		String fileName = MemberDAO.class.getResource("/sql/member/member-query.properties").getPath();
 		try {
 			prop.load(new FileReader(fileName));
-			
+
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -33,17 +33,15 @@ public class OwnerDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		Owner o = null;
-		
+
 		String query = prop.getProperty("findOwner");
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, ownerNum);
 			pstmt.setString(2, ownerName);
 			rset = pstmt.executeQuery();
-			if(rset.next()) {
-				o = new Owner(rset.getString("own_no"),
-								rset.getString("own_name"),
-								rset.getString("mem_id"));	
+			if (rset.next()) {
+				o = new Owner(rset.getString("own_no"), rset.getString("own_name"), rset.getString("mem_id"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -51,7 +49,7 @@ public class OwnerDAO {
 			close(rset);
 			close(pstmt);
 		}
-		
+
 		return o;
 	}
 
