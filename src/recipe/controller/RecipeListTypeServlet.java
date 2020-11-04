@@ -13,24 +13,14 @@ import board.model.service.BoardService;
 import board.model.vo.Attachment;
 import board.model.vo.Board;
 
-/**
- * Servlet implementation class RecipeListTypeSort
- */
 @WebServlet("/recipe.cate")
 public class RecipeListTypeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public RecipeListTypeServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			
 		int bcate=Integer.parseInt(request.getParameter("bcate"));
@@ -38,20 +28,20 @@ public class RecipeListTypeServlet extends HttpServlet {
 		ArrayList<Board> bList=service.selectTList(1,bcate);
 		ArrayList<Attachment> tList=service.selectTList(2,bcate);
 		String page=null;
+		System.out.println(bcate);
+		System.out.println(bList+","+tList);
+		System.out.println("asdasdasdasdasd");
 		
-		
-//		if(bList !=null && tList !=null)
-		if(true){
+		if(bList!=null && tList!=null){
 			request.setAttribute("bList", bList);
 			request.setAttribute("tList", tList);
-//			request.setAttribute("Type", type);
 			page="WEB-INF/views/recipe/recipelist.jsp";
 		}else {
 			request.setAttribute("msg", "정렬에 실패하였습니다.");
 			page="WEB-INF/views/common/errorPage.jsp";
 		}
 		
-		
+
 		request.getRequestDispatcher(page).forward(request, response);
 		
 		

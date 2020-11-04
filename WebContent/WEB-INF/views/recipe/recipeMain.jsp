@@ -23,9 +23,9 @@
 	
 		
 		
-
+	
 <div class="card-group">
-  <div class="card"	 onclick="location.href='<%=request.getContextPath()%>/recipe.cate?bcate=' +1">			<!--RecipeListTypeServlet -->
+  <div class="card"	 onclick="location.href='<%=request.getContextPath()%>/recipe.cate?bcate=1'">			<!--RecipeListTypeServlet -->
     <img src="<%= request.getContextPath() %>/images/recipe/비건이미지.PNG" class="card-img-top" alt="...">
     <div class="card-body">
       <h5 class="card-title"><b class="name">비건</b></h5>
@@ -33,42 +33,42 @@
       
     </div>
   </div>
-  <div class="card"	 onclick="location.href='<%=request.getContextPath()%>/recipe.cate?bcate=' +2">
+  <div class="card"	 onclick="location.href='<%=request.getContextPath()%>/recipe.cate?bcate=2'">
     <img src="<%= request.getContextPath() %>/images/recipe/락토이미지.PNG" class="card-img-top" alt="...">
     <div class="card-body">
       <h5 class="card-title"><b class="name">락토 베지테리언</b></h5>
       <p class="card-text">락토 베지테리언은 동물성 원료 중 우유까지는 섭취하는 상태입니다</p>
     </div>
   </div>
-  <div class="card"	 onclick="location.href='<%=request.getContextPath()%>/recipe.cate?bcate=' +3">
+  <div class="card"	 onclick="location.href='<%=request.getContextPath()%>/recipe.cate?bcate=3'">
     <img src="<%= request.getContextPath() %>/images/recipe/오보이미지.PNG" class="card-img-top" alt="...">
     <div class="card-body">
       <h5 class="card-title"><b class="name">오보 베지테리언</b></h5>
       <p class="card-text">오보 베지테리언은 동물성 원료 중 달걀까지 섭취하는 상태입니다.</p>
     </div>
   </div>
-    <div class="card"  onclick="location.href='<%=request.getContextPath()%>/recipe.cate?bcate=' +4">
+    <div class="card"  onclick="location.href='<%=request.getContextPath()%>/recipe.cate?bcate=4'">
     <img src="<%= request.getContextPath() %>/images/recipe/락토오보이미지.PNG" class="card-img-top" alt="...">
     <div class="card-body">
       <h5 class="card-title"><b class="name">락토 오보 베지테리언</b></h5>
       <p class="card-text">락토-오보 베지테리언은 이름에서도 알 수 있듯이 우유와 달걀 둘 다 섭취하는 비건 지향을 말합니다.</p>
     </div>
   </div>
-    <div class="card"	 onclick="location.href='<%=request.getContextPath()%>/recipe.cate?bcate=' +5">
+    <div class="card"	 onclick="location.href='<%=request.getContextPath()%>/recipe.cate?bcate=5'">
     <img src="<%= request.getContextPath() %>/images/recipe/페스코이미지.PNG" class="card-img-top" alt="...">
     <div class="card-body">
       <h5 class="card-title"><b class="name">페스코 베지테리언</b></h5>
       <p class="card-text"> 페스코 베지테리언은 땅 위에서 사는 동물들 즉, 소, 닭, 돼지, 오리 등의 동물을 섭취하지 않지만 바다에서 사는 해산물은 섭취하는 비건 지향이라고 할 수 있습니다.</p>
     </div>
   </div>
-    <div class="card"	 onclick="location.href='<%=request.getContextPath()%>/recipe.cate?bcate=' +6">
+    <div class="card"	 onclick="location.href='<%=request.getContextPath()%>/recipe.cate?bcate=6'">
     <img src="<%= request.getContextPath() %>/images/recipe/폴로이미지.PNG" class="card-img-top" alt="...">
     <div class="card-body">
       <h5 class="card-title"><b class="name">폴로 베지테리언</b></h5>
       <p class="card-text">플렉시테리언은 기본적으로 채식주의를 지향하지만 사정상, 혹은 자기 나름대로의 허용된 기준 안에서 육류(적색육)를 먹는 경우다. 그냥 골고루 먹는 것과 다른 점은, '채식이 기본'이라는 의식의 차이. 보통 채식주의에 입문할 때 가장 먼저 들어서는 단계로 분류한다.</p>
     </div>
   </div>
-     <div class="card"	 onclick="location.href='<%=request.getContextPath()%>/recipe.cate?bcate=' +7">
+     <div class="card"	 onclick="location.href='<%=request.getContextPath()%>/recipe.cate?bcate=7'">
     <img src="<%= request.getContextPath() %>/images/recipe/플렉이미지.PNG" class="card-img-top" alt="...">
     <div class="card-body">
       <h5 class="card-title"><b class="name">플렉시테리언</b></h5>
@@ -76,14 +76,6 @@
     </div>
   </div>
 </div>
-		
-		<script>
-			
-		
-		
-		</script>
-		
-		
 		
 		
 		<%@ include file="../common/gnb.jsp" %>

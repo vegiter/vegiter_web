@@ -4,7 +4,7 @@
     <% 
     	Board board=(Board)request.getAttribute("board");
     	ArrayList<Attachment> list=(ArrayList)request.getAttribute("attchment");
-    	ArrayList<Reply> list =(ArrayList)request.getAttribute("list");
+    /* 	ArrayList<Reply> list =(ArrayList)request.getAttribute("list"); */
     %>
 <!DOCTYPE html>
 <html>
@@ -101,7 +101,7 @@
 				function deleteBoard(){
 					var bool=confirm("정말로 삭제하시겠습니까?");
 					if(bool){
-						location.href='<%=request.getContextPath()%>/delete.bo?bId=<%=board.getBoard_no()%>';
+						location.href='<%=request.getContextPath()%>/delete.recipe?bId=<%=board.getBoard_no()%>';
 					}
 				}
 			

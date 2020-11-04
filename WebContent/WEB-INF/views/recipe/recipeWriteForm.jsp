@@ -59,32 +59,33 @@
 	  	
   <article class="writeform">	
   
-  <form action="<%=request.getContextPath()%>/insert.recipe" method="post"  encType="multipart/form-data">		
+  <form action="<%=request.getContextPath()%>/insert.recipe" onsubmit="return writeBoard();" method="post"  encType="multipart/form-data">		
   		<div class="insertArea">
-  
-  
-  <div class="input-group input-group-sm mb-3">
-  <div class="input-group-prepend">
-    <span class="input-group-text" id="inputGroup-sizing-sm">title</span>
-  </div>
-  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-</div>			
+ 			 <div class="input-group input-group-sm mb-3">
+ 		 <div class="input-group-prepend">
+ 			   <span class="input-group-text" id="inputGroup-sizing-sm">title</span>
+ 		 </div>
+ 			 <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+		</div>			
   			
  
 <div class="select-box select-script">
     <label for="selectbox">선택해 주세요</label>
     <select id="selectbox" title="선택 구분" name="cate">
-        <option selected="selected">선택해 주세요</option>
-        <option>비건</option>
-        <option>락토</option>
-        <option>오보</option>
-        <option>락토오보</option>
-        <option>페스코</option>
-        <option>폴로</option>
-        <option>플렉</option>
+        <option selected="selected" value="0">선택해 주세요</option>
+        <option value="1">비건</option>
+        <option value="2">락토</option>
+        <option value="3">오보</option>
+        <option value="4">락토오보</option>
+        <option value="5">페스코</option>
+        <option value="6">폴로</option>
+        <option value="7">플렉</option>
     </select>
 </div>
+		
 
+		
+		
 	<script>
 	 $(document).ready(function(){		 
 	    var select = $('.select-script select');
@@ -140,6 +141,7 @@
      				   	 		  </div>
   							   </div>
  							 </div>
+				
 				
 								 <div>
  							 	<br><br><br>
@@ -382,10 +384,22 @@
 			</div>
 		
 		<div class="btnArea">	
-  			<input class="btn btn-success" type="submit" value="Submit">
+  			<input class="btn btn-success" type="submit" value="Submit" >
   		</div>
   	
   	</form>
+  		<script>
+  			function writeBoard(){
+  				var a=$("#selectbox").val();
+  				if(a==0){
+  					alert("카테고리를 선택해주세요");
+  					return false;
+  				}else{
+  					return true;
+  				}
+  			}
+  		</script>
+  		
   		
   	</article>		
 

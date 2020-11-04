@@ -4,7 +4,6 @@
     <%
     ArrayList<Board> bList=(ArrayList<Board>)request.getAttribute("bList");
     ArrayList<Attachment> tList=(ArrayList<Attachment>)request.getAttribute("tList");
-   /*  int VeganType=request.getAttribute("Type"); */
     %>
 <!DOCTYPE html>
 <html>
@@ -64,9 +63,9 @@
 	
 	<article class="cardwrap">
 	
-<%-- 		<div class="row row-cols-1 row-cols-sm-5">
+	<div class="row row-cols-1 row-cols-sm-5">
 	
-	<% if(bList.isEmpty() || tList.isEmpty()){ %> 
+  	<% if(bList.isEmpty() || tList.isEmpty()){ %> 
 		<h2><font color="gray">등록된 레시피가 없습니다.</font></h2>
 		<% } else{ %>
 		
@@ -91,28 +90,11 @@
   </div>
   
   		<%} %> 
-  	<%} %> 
+  	<%} %>   
 
-	</div>  --%>
+	</div>  
   
-  
-	 <div class="col">
-    <div class="card h-100">
-<%-- < 			  <input type="hidden" value="<%=b.getBoardId()%>">  --%>
-        <a href="<%= request.getContextPath() %>/detail.recipe"><img src="<%= request.getContextPath() %>/images/recipe/post.png" class="card-img-top" alt="..."></a>
-      <div class="card-body">
-        <h5 class="card-title"> <a href="view.html">Card title</a></h5>
-        <p class="card-text"> <a href="view.html">This is a short card.</a></p>
-        <img src="<%= request.getContextPath() %>/images/recipe/like.png" height="30px" width="30px"><b>1111</b>  &nbsp;
-        <img src="<%= request.getContextPath() %>/images/recipe/comment.png" height="25px" width="25px"><b>22</b>
-      </div>
-    </div>
-  </div>
-  
-
-  
-  
-  <script>
+  	<script>
 		$(function(){
 			$('.card h-100').click(function(){
 				var bId=$(this).children().children().eq(0).val();
@@ -124,13 +106,12 @@
   					
 		
 		<!-- 글쓰기 버튼 -->
-  	<%-- <%if(loginUser == null){ %>
+  	 <%if(loginUser == null){ %>
 		<span id="write"><img src="<%=request.getContextPath() %>/images/recipe/write.png" height="50px" width="50px" onclick="alert('로그인 후 이용가능합니다.')"></span>	
 	<%} else{ %>
 		<span id="write"><img src="<%=request.getContextPath() %>/images/recipe/write.png" height="50px" width="50px" onclick="location.href='<%=request.getContextPath()%>/write'"></span>	
-	<%} %>    --%>
+	<%} %>    
 	
-	<span id="write"><img src="<%=request.getContextPath() %>/images/recipe/write.png" height="50px" width="50px" onclick="location.href='<%=request.getContextPath()%>/write'"></span>	
  	
 		
 	</article>

@@ -18,6 +18,7 @@ import com.oreilly.servlet.MultipartRequest;
 import board.model.service.BoardService;
 import board.model.vo.Attachment;
 import board.model.vo.Board;
+import board.model.vo.Content;
 import common.MyFileRenamePolicy;
 import login.model.vo.Member;
 
@@ -53,34 +54,23 @@ public class RecipeInsertServlet extends HttpServlet {
 			
 			
 			MultipartRequest multiRequest = new  MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
-			
+			String bWriter=((Member)request.getSession().getAttribute("loginUser")).getMemId();
 			String title=multiRequest.getParameter("title");
 			String[] content=multiRequest.getParameterValues("content");
-	   		String cates=multiRequest.getParameter("cate"); 
-	   		int cate=0;
-	   		switch(cates) {
-	   		case "비건": cate=1; break;
-	   		case "락토": cate=2; break;
-	   		case "오보": cate=3; break;
-	   		case "락토오보": cate=4; break;
-	   		case "페스코": cate=5; break;
-	   		case "폴로": cate=6; break;
-	   		case "플렉": cate=7; break;
-	   		default:  cate=0; break;
-	   		}
-	   			   		
-			String contents=null;
-			for(int i=0; i<content.length; i++) {
-				if(i==0) {
-				contents += content[i];
-				}
-				else {
-					contents +=","+content[i];
-				}
-			}
-			
+	   		int cates=Integer.parseInt(multiRequest.getParameter("cate")); 
 
-			String bWriter=((Member)request.getSession().getAttribute("loginUser")).getMemId();
+	   			   		
+//			String contents=null;
+//			for(int i=0; i<content.length; i++) {
+//				if(i==0) {
+//				contents += content[i];
+//				}
+//				else {
+//					contents +=","+content[i];
+//				}
+//			}
+			
+			
 			
 			
 			ArrayList<String> saveFiles= new ArrayList<String>();			//바뀐 파일저장
@@ -100,10 +90,20 @@ public class RecipeInsertServlet extends HttpServlet {
 			
 			Board b =new Board();
 			b.setBoard_title(title);
-			b.setBoard_content(contents);
-			b.setBoard_cate(cate);
-			b.setBoard_code(2);
-			b.setBoard_cate(cate);
+//			b.setBoard_content(content);
+			b.setMem_id(bWriter);
+			b.setBoard_cate(cates);
+			b.setBoard_code(0);
+			System.out.println(b.getMem_id());
+			
+			ArrayList<Content> con=new ArrayList<Content>();
+			for(int i=0; i<content.length; i++) {
+				Content c=new Content();
+				c.setContent(content[i]);
+				con.add(c);
+			}
+			
+			
 			
 			ArrayList<Attachment> fileList =new ArrayList<Attachment>();
 			
@@ -122,7 +122,7 @@ public class RecipeInsertServlet extends HttpServlet {
 				fileList.add(at);
 			}
 			
-			int result=new BoardService().insertRecipe(b,fileList);
+			int result=new BoardService().insertRecipe(con,b,fileList);
 			
 			if(result>0) {
 				response.sendRedirect("recipe");				
@@ -132,13 +132,11 @@ public class RecipeInsertServlet extends HttpServlet {
 					failedFile.delete();
 				}
 				
-				request.setAttribute("msg", "사진게시판 등록에 실패하였습니다.");
+				request.setAttribute("msg", "레시피게시판 등록에 실패하였습니다.");
 				request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
 		
 			}			
-		}
-						
-						
+		}			
 						
 	}
 

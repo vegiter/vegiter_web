@@ -16,6 +16,7 @@ import java.util.Properties;
 
 import board.model.vo.Attachment;
 import board.model.vo.Board;
+import board.model.vo.Content;
 
 public class BoardDAO {
 	private Properties prop = new Properties();
@@ -37,8 +38,8 @@ public class BoardDAO {
 
 	public int insertAttachment(Connection conn, ArrayList<Attachment> fileList) {
 		PreparedStatement pstmt = null;
+		String query = prop.getProperty("insertAttachment_recipe");
 		int result = 0;
-		String query = prop.getProperty("insertAttachment");
 		
 		try {
 			for(int i = 0; i < fileList.size(); i++) {
@@ -46,15 +47,13 @@ public class BoardDAO {
 				
 				pstmt = conn.prepareStatement(query);
 				pstmt.setString(1, at.getMemId());
-				pstmt.setInt(2, at.getBoardNo());
-				pstmt.setInt(3, at.getAtcType());
-				pstmt.setString(4, at.getAtcOrigin());
-				pstmt.setString(5, at.getAtcName());
-				pstmt.setString(6, at.getAtcPath());
-				pstmt.setDate(7, at.getAtcDate());
-				pstmt.setInt(8,  at.getAtcLevel());;
+				pstmt.setInt(2, at.getAtcType());
+				pstmt.setString(3, at.getAtcOrigin());
+				pstmt.setString(4, at.getAtcName());
+				pstmt.setString(5, at.getAtcPath());
+				pstmt.setInt(6, at.getAtcLevel());
 			
-				result += pstmt.executeUpdate();
+				result = pstmt.executeUpdate();
 			}
 			
 		} catch (SQLException e) {
@@ -79,7 +78,7 @@ public class BoardDAO {
 			pstmt=conn.prepareStatement(query);
 			pstmt.setInt(1, bcate);
 			rset=pstmt.executeQuery();
-			
+			list=new ArrayList<Board>();
 			
 			while(rset.next()) {
 				list.add(new Board(rset.getInt("board_no"),
@@ -92,7 +91,9 @@ public class BoardDAO {
 									rset.getInt("board_like"),
 									rset.getInt("board_com"),
 									rset.getInt("board_cate"),
-									rset.getString("board_status")));				
+									rset.getString("board_status")));		
+
+		
 			}	
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -113,11 +114,11 @@ public class BoardDAO {
 		ArrayList<Attachment> list =null;
 		
 		String query=prop.getProperty("selectTList_TypeSort");
-		//selectTList_TypeSort=SELECT * FROM ATTACHMENT WHERE STATUS='Y' AND FILE_LEVEL=0 AND BOARD_CATE=?
 		try {
 			pstmt=conn.prepareStatement(query);
+			pstmt.setInt(1, bcate);
 			rset=pstmt.executeQuery();
-			
+			list=new ArrayList<Attachment>();
 			while(rset.next()) {
 				list.add(new Attachment(rset.getInt("atcNo"),
 										rset.getString("atcName")));
@@ -220,42 +221,118 @@ public class BoardDAO {
 		return null;
 	}
 
-	public ArrayList<Attachment> selectThumbnail(Connection conn, int bId) {
+
+
+
+//	public ArrayList<Attachment> selectThumbnail(Connection conn, int bId) {
+//		PreparedStatement pstmt=null;
+//		ResultSet rset=null;
+//		ArrayList<Attachment>list=null;
+//		
+//		String query=prop.getProperty("selectRecipeThumbnail");
+//		
+//		try {
+//			pstmt=conn.prepareStatement(query);
+//			pstmt.setInt(1,bId);
+//			rset=pstmt.executeQuery();
+//			list=new ArrayList<Attachment>();
+//			
+//			while(rset.next()) {
+//				Attachment at=new Attachment();
+//				at.setFile
+//			}
+//			/*	private int atcNo;
+//	private String memId;
+//	private int atcType;
+//	private String atcOrigin;
+//	private String atcName;
+//	private String atcPath;
+//	private Date atcDate;
+//	private int atcLevel;
+//	private char atcStatus;
+//	private int boardNo;*/
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		
+//		
+//		
+//		return null;
+//	}
+
+
+
+	public int insertBoard(Connection conn, Board b) {
 		PreparedStatement pstmt=null;
-		ResultSet rset=null;
-		ArrayList<Attachment>list=null;
-		
-		String query=prop.getProperty("selectRecipeThumbnail");
+		int result=0;
+		String query=prop.getProperty("insertBoard_recipe");
 		
 		try {
 			pstmt=conn.prepareStatement(query);
-			pstmt.setInt(1,bId);
-			rset=pstmt.executeQuery();
-			list=new ArrayList<Attachment>();
+			pstmt.setString(1, b.getMem_id());
+			pstmt.setString(2,b.getBoard_title());
+			pstmt.setInt(3, b.getBoard_cate());
 			
-			while(rset.next()) {
-				Attachment at=new Attachment();
-				at.setFile
-			}
-			/*	private int atcNo;
-	private String memId;
-	private int atcType;
-	private String atcOrigin;
-	private String atcName;
-	private String atcPath;
-	private Date atcDate;
-	private int atcLevel;
-	private char atcStatus;
-	private int boardNo;*/
+			result=pstmt.executeUpdate();
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			close(pstmt);
 		}
 		
+		return result;
+	}
+
+	public int insertBoardContent(Connection conn, ArrayList<Content> con) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String query=prop.getProperty("insertBoardContent_recipe");
 		
+		try {
+			for(int i=0; i<con.size(); i++){
+				Content ct=con.get(i);
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, ct.getContent());
+				
+				result +=pstmt.executeUpdate();
+			}	
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
 		
+		return result;
+	}
+
+
+
+	public int deleteBoard(Connection conn, int bId) {
+		PreparedStatement pstmt=null;
+		int result=0;
 		
-		return null;
+		String query=prop.getProperty("deleteRecipe");
+			
+		try {
+			pstmt=conn.prepareStatement("query");
+			pstmt.setInt(1, bId);
+			
+			result=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 	
 	

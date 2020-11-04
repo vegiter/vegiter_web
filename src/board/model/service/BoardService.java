@@ -11,12 +11,16 @@ import java.util.ArrayList;
 import board.model.dao.BoardDAO;
 import board.model.vo.Attachment;
 import board.model.vo.Board;
+import board.model.vo.Content;
 
 public class BoardService {
 
 
 
-	public ArrayList selectTList(int i, int bcate) {		//타입별 레시피 목록
+	public ArrayList selectTList(int i, int bcate) {
+		
+		System.out.println("Service");
+		//타입별 레시피 목록
 		Connection conn=getConnection();
 		
 		ArrayList list=null;
@@ -54,15 +58,22 @@ public class BoardService {
 	
 	
 
-	public int insertRecipe(Board b, ArrayList<Attachment> fileList) {
-		Connection conn=getConnection();
-		BoardDAO dao=new BoardDAO();
-		
-		int result1=dao.insertBoard(conn,b);
-		int result2=dao.insertAttachment(conn, fileList);
-	
-		return 0;
-	}
+//	public int insertRecipe(Board b, ArrayList<Attachment> fileList) {
+//		Connection conn=getConnection();
+//		BoardDAO dao=new BoardDAO();
+//		
+//		int result1=dao.insertBoard(conn,b);
+//		int result2=dao.insertAttachment(conn, fileList);
+//	
+//		if(result1>0 && result2>0) {
+//			commit(conn);
+//		}else {
+//			rollback(conn);
+//		}
+//		close(conn);
+//		
+//		return result1;
+//	}
 
 
 
@@ -85,29 +96,71 @@ public class BoardService {
 		return b;
 	}
 
-	
-	
-	public ArrayList<Attachment> selectThumbnail(int bId) {
+
+	public int insertRecipe(ArrayList<Content> con, Board b, ArrayList<Attachment> fileList) {
 		Connection conn=getConnection();
-		int result=new BoardDAO().updateCount(conn, bId);
+		BoardDAO dao=new BoardDAO();
 		
-		ArrayList<Attachment>list=null;
+		int result1=dao.insertBoard(conn,b);
 		
-		if(result>0) {
-			list=new BoardDAO().selectThumbnail(conn,bId);
-			
-				if(list !=null) {
-					commit(conn);
-				}else {
-					rollback(conn);
-				}
+		int result2=dao.insertAttachment(conn, fileList);
+	
+		int result3=dao.insertBoardContent(conn,con);
+		
+		if(result1>0 && result2>0 && result3>0) {
+			commit(conn);
 		}else {
 			rollback(conn);
-		}	
-			
-			close(conn);						
+		}
+		close(conn);
 		
-		return list;
+		return result1;
+		
 	}
+
+
+	public int deleteBoard(int bId) {
+		Connection conn=getConnection();
+		
+		int result=new BoardDAO().deleteBoard(conn,bId);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+
+
+
+	
+	
+//	public ArrayList<Attachment> selectThumbnail(int bId) {
+//		Connection conn=getConnection();
+//		int result=new BoardDAO().updateCount(conn, bId);
+//		
+//		ArrayList<Attachment>list=null;
+//		
+//		if(result>0) {
+//			list=new BoardDAO().selectThumbnail(conn,bId);
+//			
+//				if(list !=null) {
+//					commit(conn);
+//				}else {
+//					rollback(conn);
+//				}
+//		}else {
+//			rollback(conn);
+//		}	
+//			
+//			close(conn);						
+//		
+//		return list;
+//	}
 
 }
