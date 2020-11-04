@@ -41,11 +41,12 @@ body {
 	top: 0;
 	background-color: #fff;
 	text-align: center;
+	z-index: 100;
 }
 
 .gnb-nav ul {
 	width: 80%;
-	max-width: 1000px;
+	max-width: 1600px;
 	min-width: 800px;
 	margin: auto;
 	display: flex;
@@ -94,7 +95,9 @@ body {
 					id="logo" onclick="location.href='<%=request.getContextPath()%>'"
 					src="<%=request.getContextPath()%>/images/common/logo.png"
 					style="cursor: pointer;"></li>
-				<li class="gnb-nav-list"><a onclick="aboutPage();">About</a></li>
+				<li class="gnb-nav-list"></li>
+				<li class="gnb-nav-list"></li>
+				<li class="gnb-nav-list" onclick="aboutPage();">About</li>
 				<li class="gnb-nav-list">식당검색</li>
 				<li class="gnb-nav-list">레시피</li>
 				<li class="gnb-nav-list"
