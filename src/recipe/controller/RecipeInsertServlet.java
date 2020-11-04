@@ -1,4 +1,4 @@
-package board.controller;
+package recipe.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -68,24 +68,24 @@ public class RecipeInsertServlet extends HttpServlet {
 	   		case "플렉": cate=7; break;
 	   		default:  cate=0; break;
 	   		}
-	   		
-	   		
-	   		
-	   		
-	   		
+	   			   		
 			String contents=null;
 			for(int i=0; i<content.length; i++) {
-				contents += content[i]+",";
+				if(i==0) {
+				contents += content[i];
+				}
+				else {
+					contents +=","+content[i];
+				}
 			}
 			
-			 
-			
+
 			String bWriter=((Member)request.getSession().getAttribute("loginUser")).getMemId();
 			
 			
 			ArrayList<String> saveFiles= new ArrayList<String>();			//바뀐 파일저장
 			ArrayList<String> originFiles =new ArrayList<String>();			//원본파일저장
-			
+																
 			
 			Enumeration<String> files=multiRequest.getFileNames();	//폼에서 전송된 파일 리스트의 이름 반환
 			

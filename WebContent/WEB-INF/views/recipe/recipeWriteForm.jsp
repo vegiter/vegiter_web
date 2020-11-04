@@ -9,29 +9,20 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 <style>
 	
-	footer,section,.inputtext{
-		display:block;
-	}	
+	footer,section,.inputtext{display:block;}	
+	article{margin-top:30px;}
+	.cardwrap{display:inline-block;}	
+	form{padding: 50px;margin-left: 100px;margin-right: 100px;}
 	
-
-	.cardwrap{
-	display:inline-block;
-	}
-	
-	form{
-		padding: 50px;
-		margin-left: 100px;
-		margin-right: 100px;
-	}
-	
-	.form-control{
-		display:inline-block;
-	}
+	.form-control{display:inline-block;resize: none; }
 	
 	#titleImgArea{
 		margin-left:400px;
 	}
-
+	#content1{
+		margin-left:380px;
+		width:500px; height:auto;
+	}
 
 	#tileImgtitle,#contentname{
 		margin-left:200px;
@@ -40,6 +31,10 @@
 	
 	.card-img,.card{
 		border:2px dashed darkgray;
+	}
+	
+	.row no-gutters,card-img{
+		position:absolute;
 	}
 	
 .select-script{position:relative; width:200px; height:32px; line-height:30px; border:1px solid #606976; border-radius:4px; text-transform:uppercase; background:#fffff; }
@@ -55,14 +50,13 @@
 </head>
 <body>
 
- 	<%@ include file="../common/gnb.jsp" %>
+ 	
 
  
  <section>
  	
   			
- <a href="recipe.html"><button type="button" class="btn btn-light">&lt;</button></a>
-  	
+	  	
   <article class="writeform">	
   
   <form action="<%=request.getContextPath()%>/insert.recipe" method="post"  encType="multipart/form-data">		
@@ -101,15 +95,18 @@
 	 
 	}); 
 	</script>
+	
 	<br>
 		<table id="insertThumbTable">			
 					<tr>
-						<td colspan="3">
+						<td>
 							<div id="titleImgArea">
 									<div id="tileImgtitle"><b>THUMBNAIL</b></div>
-								<img id="titleImg" class="card" width="500" height="300">
-								
+								<img id="titleImg" class="card" width="500" height="300">	
 							</div>
+							<div class="card-body">
+    		  						<textarea class="form-control" name="content" id="content1" aria-label="With textarea" cols="500" rows="9"></textarea>
+								</div>
 						</td>
 					</tr>													
 		</table>
@@ -123,7 +120,7 @@
     								</div>
     							     <div class="col-md-8">
     						 			 <div class="card-body">
-    		  								<textarea class="form-control" name="content" id="content1" aria-label="With textarea" cols="500" rows="9"></textarea>
+    		  								<textarea class="form-control" name="content"  aria-label="With textarea" cols="500" rows="9"></textarea>
       									</div>
      				   	 		  </div>
   							   </div>
@@ -138,7 +135,7 @@
     								</div>
     							     <div class="col-md-8">
     						 			 <div class="card-body">
-    		  								<textarea class="form-control" name="content" id="content1" aria-label="With textarea" cols="500" rows="9"></textarea>
+    		  								<textarea class="form-control" name="content"  aria-label="With textarea" cols="500" rows="9"></textarea>
       									</div>
      				   	 		  </div>
   							   </div>
@@ -152,7 +149,7 @@
     								</div>
     							     <div class="col-md-8">
     						 			 <div class="card-body">
-    		  								<textarea class="form-control" name="content" id="content1" aria-label="With textarea" cols="500" rows="9"></textarea>
+    		  								<textarea class="form-control" name="content" aria-label="With textarea" cols="500" rows="9"></textarea>
       									</div>
      				   	 		  </div>
   							   </div>
@@ -166,7 +163,7 @@
     								</div>
     							     <div class="col-md-8">
     						 			 <div class="card-body">
-    		  								<textarea class="form-control" name="content" id="content1" aria-label="With textarea" cols="500" rows="9"></textarea>
+    		  								<textarea class="form-control" name="content" aria-label="With textarea" cols="500" rows="9"></textarea>
       									</div>
      				   	 		  </div>
   							   </div>
@@ -180,7 +177,7 @@
     								</div>
     							     <div class="col-md-8">
     						 			 <div class="card-body">
-    		  								<textarea class="form-control" name="content" id="content1" aria-label="With textarea" cols="500" rows="9"></textarea>
+    		  								<textarea class="form-control" name="content"  aria-label="With textarea" cols="500" rows="9"></textarea>
       									</div>
      				   	 		  </div>
   							   </div>
@@ -194,7 +191,7 @@
     								</div>
     							     <div class="col-md-8">
     						 			 <div class="card-body">
-    		  								<textarea class="form-control" name="content" id="content1" aria-label="With textarea" cols="500" rows="9"></textarea>
+    		  								<textarea class="form-control" name="content"  aria-label="With textarea" cols="500" rows="9"></textarea>
       									</div>
      				   	 		  </div>
   							   </div>
@@ -208,7 +205,7 @@
     								</div>
     							     <div class="col-md-8">
     						 			 <div class="card-body">
-    		  								<textarea class="form-control" name="content" id="content1" aria-label="With textarea" cols="500" rows="9"></textarea>
+    		  								<textarea class="form-control" name="content"  aria-label="With textarea" cols="500" rows="9"></textarea>
       									</div>
      				   	 		  </div>
   							   </div>
@@ -222,7 +219,7 @@
     								</div>
     							     <div class="col-md-8">
     						 			 <div class="card-body">
-    		  								<textarea class="form-control" name="content" id="content1" aria-label="With textarea" cols="500" rows="9"></textarea>
+    		  								<textarea class="form-control" name="content" aria-label="With textarea" cols="500" rows="9"></textarea>
       									</div>
      				   	 		  </div>
   							   </div>
@@ -236,7 +233,7 @@
     								</div>
     							     <div class="col-md-8">
     						 			 <div class="card-body">
-    		  								<textarea class="form-control" name="content" id="content1" aria-label="With textarea" cols="500" rows="9"></textarea>
+    		  								<textarea class="form-control" name="content"  aria-label="With textarea" cols="500" rows="9"></textarea>
       									</div>
      				   	 		  </div>
   							   </div>
@@ -250,7 +247,7 @@
     								</div>
     							     <div class="col-md-8">
     						 			 <div class="card-body">
-    		  								<textarea class="form-control" name="content" id="content1" aria-label="With textarea" cols="500" rows="9"></textarea>
+    		  								<textarea class="form-control" name="content"  aria-label="With textarea" cols="500" rows="9"></textarea>
       									</div>
      				   	 		  </div>
   							   </div>
@@ -264,7 +261,7 @@
     								</div>
     							     <div class="col-md-8">
     						 			 <div class="card-body">
-    		  								<textarea class="form-control" name="content" id="content1" aria-label="With textarea" cols="500" rows="9"></textarea>
+    		  								<textarea class="form-control" name="content"  aria-label="With textarea" cols="500" rows="9"></textarea>
       									</div>
      				   	 		  </div>
   							   </div>
@@ -393,7 +390,7 @@
   	</article>		
 
  </section>
-
+		<%@ include file="../common/gnb.jsp" %>
 		<%@ include file="../common/footer.jsp" %>
  
 

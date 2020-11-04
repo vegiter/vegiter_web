@@ -1,4 +1,4 @@
-package board.controller;
+package recipe.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,9 +14,9 @@ import board.model.vo.Attachment;
 import board.model.vo.Board;
 
 /**
- * Servlet implementation class RecipeListTypeSort
+ * Servlet implementation class RecipeListTypeSort2
  */
-@WebServlet("/recipe.cate")
+@WebServlet("/recipe.sort")
 public class RecipeListTypeSort extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -32,27 +32,25 @@ public class RecipeListTypeSort extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			int sortType=Integer.parseInt(request.getParameter("sortType"));
 			
-		int bcate=Integer.parseInt(request.getParameter("bcate"));
-		
-		BoardService service=new BoardService(); 
-		ArrayList<Board> bList=service.selectTList(1,bcate);
-		ArrayList<Attachment> tList=service.selectTList(2,bcate);
-		
-		String page=null;
-		
-		if(bList !=null && tList !=null) {
-			request.setAttribute("bList", bList);
-			request.setAttribute("tList", tList);
-			page="WEB-INF/views/recipe/recipelist.jsp";
-		}else {
-			request.setAttribute("msg", "정렬에 실패하였습니다.");
-			page="WEB-INF/views/common/errorPage.jsp";
-		}
+ 
+			BoardService service=new BoardService(); 
+			ArrayList<Board> bList=service.selectTList(1,sortType);
+			ArrayList<Attachment> tList=service.selectTList(2,sortType);
+			
+			String page=null;
+			
+			if(bList !=null && tList !=null) {
+				request.setAttribute("bList", bList);
+				request.setAttribute("tList", tList);
+				page="WEB-INF/views/recipe/recipelist.jsp";
+			}else {
+				request.setAttribute("msg", "정렬에 실패하였습니다.");
+				page="WEB-INF/views/common/errorPage.jsp";
+			}
 
-		request.getRequestDispatcher(page).forward(request, response);
-		
-		
+			
 	}
 
 	/**

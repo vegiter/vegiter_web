@@ -1,4 +1,4 @@
-package board.controller;
+package recipe.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,9 +32,9 @@ public class RecipeSelectServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
+			request.setCharacterEncoding("UTF-8");
 		
-		String text=request.getParameter("text");
+			String text=request.getParameter("text");
 		
 		  BoardService service=new BoardService(); 
 		  ArrayList<Board> bList=service.selectTList(1,text);

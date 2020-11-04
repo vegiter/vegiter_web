@@ -1,29 +1,23 @@
-package board.controller;
+package recipe.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import board.model.service.BoardService;
-import board.model.vo.Attachment;
-import board.model.vo.Board;
-
 /**
- * Servlet implementation class RecipeListTypeSort2
+ * Servlet implementation class RecipeWriteFormServlet
  */
-@WebServlet("/recipe.sort")
-public class RecipeListTypeSort2 extends HttpServlet {
+@WebServlet("/write")
+public class RecipeWriteFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RecipeListTypeSort2() {
+    public RecipeWriteFormServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,25 +26,7 @@ public class RecipeListTypeSort2 extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			int sortType=Integer.parseInt(request.getParameter("sortType"));
-			
- 
-			BoardService service=new BoardService(); 
-			ArrayList<Board> bList=service.selectTList(1,sortType);
-			ArrayList<Attachment> tList=service.selectTList(2,sortType);
-			
-			String page=null;
-			
-			if(bList !=null && tList !=null) {
-				request.setAttribute("bList", bList);
-				request.setAttribute("tList", tList);
-				page="WEB-INF/views/recipe/recipelist.jsp";
-			}else {
-				request.setAttribute("msg", "정렬에 실패하였습니다.");
-				page="WEB-INF/views/common/errorPage.jsp";
-			}
-
-			
+		request.getRequestDispatcher("WEB-INF/views/recipe/recipeWriteForm.jsp").forward(request, response);
 	}
 
 	/**

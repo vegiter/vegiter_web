@@ -28,7 +28,7 @@
 		<nav class="gnb-nav">
 			<ul>
 				<li class="gnb-nav-list" onclick="location.href='<%= request.getContextPath() %>'"><img id="logo" onclick="location.href='<%= request.getContextPath() %>'" src="<%= request.getContextPath() %>/images/common/logo.png" style="cursor: pointer;"></li>
-				<li class="gnb-nav-list">About</li>
+				<li  class="gnb-nav-list" onclick="location.href = '<%= request.getContextPath() %>/aboutPage.me'">About</a></li>
 				<li class="gnb-nav-list">식당검색</li>
 				<li class="gnb-nav-list" onclick="location.href='<%= request.getContextPath() %>/recipe'">레시피</li>
 				<li class="gnb-nav-list" onclick="location.href='<%= request.getContextPath() %>/vegiTalk'">VegiTalk</li>
@@ -40,5 +40,7 @@
 			</ul>
 		</nav>
 	</header>
+	
+
 </body>
 </html>

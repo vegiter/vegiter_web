@@ -20,6 +20,7 @@ import board.model.vo.Board;
 public class BoardDAO {
 	private Properties prop = new Properties();
 	
+	
 	public BoardDAO() {
 		String fileName = BoardDAO.class.getResource("/sql/board/board-query.properties").getPath();
 		try {
@@ -31,6 +32,8 @@ public class BoardDAO {
 			e.printStackTrace();
 		}
 	}
+	
+	
 
 	public int insertAttachment(Connection conn, ArrayList<Attachment> fileList) {
 		PreparedStatement pstmt = null;
@@ -62,68 +65,14 @@ public class BoardDAO {
 		return result;
 	}
 
-	public ArrayList selectBList(Connection conn) {
-			Statement stmt=null;
-			ResultSet rset=null;
-			ArrayList<Board> list =null;
-			
-			String query=prop.getProperty("selectBList");		
-			try {
-				stmt=conn.createStatement();
-				rset=stmt.executeQuery(query);
-				
-				list=new ArrayList<Board>();
-				
-				while(rset.next()) {
-					list.add(new Board(rset.getInt("board_no"),
-										rset.getInt("board_code"),
-										rset.getString("mem_id"),
-										rset.getString("board_title"),
-										rset.getDate("board_date"),
-										rset.getString("board_content"),
-										rset.getInt("board_count"),
-										rset.getInt("board_like"),
-										rset.getInt("board_com"),
-										rset.getInt("board_cate"),
-										rset.getString("board_status")));
-					}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}finally {
-				close(rset);
-				close(stmt);
-			}
 
-		return list;
-	}
 
-	public ArrayList selectTList(Connection conn) {
-			Statement stmt=null;
-			ResultSet rset=null;
-			ArrayList<Attachment> list=null;
-			
-			String query=prop.getProperty("selectTList");
-			//selectTList=SELECT * FROM ATTACHMENT WHERE STATUS='Y' AND FILE_LEVEL=0
-			
-			try {
-				stmt=conn.createStatement();
-				rset=stmt.executeQuery(query);
-				while(rset.next()) {
-					list.add(new Attachment(rset.getInt("atcNo"),
-											rset.getString("atcName")));
-				}			
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return list;
-	}
-
-	public ArrayList selectBList(Connection conn, int bcate) {
+	
+	public ArrayList selectBList(Connection conn, int bcate) {		//레시피 가져오기
 		PreparedStatement pstmt=null;
 		ResultSet rset=null;
 		ArrayList<Board>list=null;
+		
 		String query=prop.getProperty("selectBList_TypeSort");
 		
 		try {
@@ -156,14 +105,15 @@ public class BoardDAO {
 		return list;
 	}
 
-	public ArrayList selectTList(Connection conn, int bcate) {
+	
+	
+	public ArrayList selectTList(Connection conn, int bcate) {	//레시피 가져오기
 		PreparedStatement pstmt=null;
 		ResultSet rset=null;
 		ArrayList<Attachment> list =null;
 		
 		String query=prop.getProperty("selectTList_TypeSort");
 		//selectTList_TypeSort=SELECT * FROM ATTACHMENT WHERE STATUS='Y' AND FILE_LEVEL=0 AND BOARD_CATE=?
-
 		try {
 			pstmt=conn.prepareStatement(query);
 			rset=pstmt.executeQuery();
@@ -172,25 +122,18 @@ public class BoardDAO {
 				list.add(new Attachment(rset.getInt("atcNo"),
 										rset.getString("atcName")));
 			}
-			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(rset);
 			close(pstmt);
 		}
-		
 		return list;
 	}
 
-	public int insertBoard(Connection conn, Board b) {
-		
-		
-		return ;
-	}
 
-	public ArrayList selectBList(Connection conn, String text) {
+
+	public ArrayList selectBList(Connection conn, String text) {		//검색
 		PreparedStatement pstmt=null;
 		ResultSet rset=null;
 		ArrayList<Board>list=null;
@@ -214,8 +157,7 @@ public class BoardDAO {
 									rset.getInt("board_cate"),
 									rset.getString("board_status")));				
 			}	
-			
-			
+						
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -227,7 +169,7 @@ public class BoardDAO {
 		return list;
 	}
 
-	public ArrayList selectTList(Connection conn, String text) {
+	public ArrayList selectTList(Connection conn, String text) {			//검색
 		PreparedStatement pstmt=null;
 		ResultSet rset=null;
 		ArrayList<Attachment> list =null;
@@ -253,6 +195,67 @@ public class BoardDAO {
 		
 		
 		return list;
+	}
+
+	public int updateCount(Connection conn, int bId) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		
+		String query=prop.getProperty("updateCount");
+		
+		
+		
+		return 0;
+	}
+
+	public Board selectBoard(Connection conn, int bId) {
+		PreparedStatement pstmt=null;
+		Board b=null;
+		ResultSet rset=null;
+		
+		String query=prop.getProperty("selectBoard");
+		
+		
+		
+		return null;
+	}
+
+	public ArrayList<Attachment> selectThumbnail(Connection conn, int bId) {
+		PreparedStatement pstmt=null;
+		ResultSet rset=null;
+		ArrayList<Attachment>list=null;
+		
+		String query=prop.getProperty("selectRecipeThumbnail");
+		
+		try {
+			pstmt=conn.prepareStatement(query);
+			pstmt.setInt(1,bId);
+			rset=pstmt.executeQuery();
+			list=new ArrayList<Attachment>();
+			
+			while(rset.next()) {
+				Attachment at=new Attachment();
+				at.setFile
+			}
+			/*	private int atcNo;
+	private String memId;
+	private int atcType;
+	private String atcOrigin;
+	private String atcName;
+	private String atcPath;
+	private Date atcDate;
+	private int atcLevel;
+	private char atcStatus;
+	private int boardNo;*/
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		return null;
 	}
 	
 	
