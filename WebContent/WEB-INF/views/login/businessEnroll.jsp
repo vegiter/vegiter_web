@@ -9,58 +9,7 @@
 	* { 
 		box-sizing: border-box;
 	}
-	header{
-		position: fixed;
-		top: 0;
-		z-index: 10;
-		width: 100%;
-		background: rgba(255,255,255, 0.8);
-		border-bottom: 1px solid lightgray;
-	}
-	nav{
-		diplay: inline-block;
-		float: right;
-		padding: 0;
-		height: 40px;
-		margin-right: 10%;
-	}
-	div, ul, li{
-		padding: 0;
-		margin: 0;
-	}
-	#logo{
-		width: 150px;
-		margin-left: 10%
-	}
-	nav li{
-		float: left;
-		position: relative;
-		padding: 0;
-		line-height: 40px; /*굵기*/
-	}
-	.header nav .wrap > ul{
-		display: inline-block;
-		position : relative;
-	}
-	.wrap>ul>li{
-		width: 100px;
-		height: 63px;
-	}
-	.wrap>ul>li>a{
-		display: block;
-		width: 100%;
-		text-decoration : none;
-		color: black;
-		text-align: center;
-		margin-top: 10px;
-	}
-	ol, ul{
-		list-style:none;
-	}
-	nav li:hover{
-		font-weight: bolder;
-		border-bottom: 3px solid rgb(45,115,102);
-	}
+
 	/* 내용부분 */
 	section{
 		margin: 12%;
