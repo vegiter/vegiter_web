@@ -149,5 +149,17 @@ public class MemberService {
 		close(conn);
 		return mem;
 	}
+	public int checkEmail(String email) {
+		Connection conn = getConnection();
+		int result = new MemberDAO().checkEmail(conn, email);
+		close(conn);
+		return result;
+	}
+	public int checkPhone(String phone) {
+		Connection conn = getConnection();
+		int result = new MemberDAO().checkPhone(conn, phone);
+		close(conn);
+		return result;
+	}
 
 }
