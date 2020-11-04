@@ -375,8 +375,7 @@ form p {
 								nameCheck = true;
 								emailCheck = true;
 							} else {
-								promt('네이버회원으로 이미 등록되어 있습니다.');
-								location.href="<%=request.getContextPath()%>/Vegiter";
+								alert('네이버회원으로 이미 등록되어 있습니다.');
 							}
 						}
 					});
