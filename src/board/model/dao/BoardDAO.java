@@ -40,7 +40,7 @@ public class BoardDAO {
 		PreparedStatement pstmt = null;
 		String query = prop.getProperty("insertAttachment_recipe");
 		int result = 0;
-		
+		System.out.println(fileList);
 		try {
 			for(int i = 0; i < fileList.size(); i++) {
 				Attachment at = fileList.get(i);
@@ -53,8 +53,10 @@ public class BoardDAO {
 				pstmt.setString(5, at.getAtcPath());
 				pstmt.setInt(6, at.getAtcLevel());
 			
-				result = pstmt.executeUpdate();
+				result += pstmt.executeUpdate();
 			}
+			
+			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -114,14 +116,16 @@ public class BoardDAO {
 		ArrayList<Attachment> list =null;
 		
 		String query=prop.getProperty("selectTList_TypeSort");
+		
 		try {
 			pstmt=conn.prepareStatement(query);
 			pstmt.setInt(1, bcate);
 			rset=pstmt.executeQuery();
-			list=new ArrayList<Attachment>();
+			list=new ArrayList<Attachment>();			
 			while(rset.next()) {
-				list.add(new Attachment(rset.getInt("atcNo"),
-										rset.getString("atcName")));
+					list.add(new Attachment(rset.getInt("ATC_NO"),
+											rset.getString("ATC_NAME"),
+											rset.getInt("board_no")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -182,9 +186,12 @@ public class BoardDAO {
 			rset=pstmt.executeQuery();
 			
 			while(rset.next()) {
-				list.add(new Attachment(rset.getInt("atcNo"),
-										rset.getString("atcName")));
-			}
+				list.add(new Attachment(										
+										rset.getInt("atcNo"),
+										rset.getString("atcName"),
+										rset.getInt("board_no")));
+			}	
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -202,13 +209,22 @@ public class BoardDAO {
 		PreparedStatement pstmt=null;
 		int result=0;
 		
-		String query=prop.getProperty("updateCount");
+		String query=prop.getProperty("updateCount_recipe");
 		
-		
-		
-		return 0;
+		try {
+			pstmt=conn.prepareStatement(query);
+			pstmt.setInt(1, bId);
+			result=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}			
+		return result;
 	}
 
+	
+	
 	public Board selectBoard(Connection conn, int bId) {
 		PreparedStatement pstmt=null;
 		Board b=null;

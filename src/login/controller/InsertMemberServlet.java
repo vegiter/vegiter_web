@@ -43,7 +43,9 @@ public class InsertMemberServlet extends HttpServlet {
 		// null값으로 넣기
 		
 		String userId = request.getParameter("userId");
-	
+		if(userId == null) {
+			userId = request.getParameter("userId2");
+		}
 		int code = Integer.parseInt(request.getParameter("code"));
 		String userPwd = request.getParameter("userPwd");
 		String name = request.getParameter("userName");
@@ -51,7 +53,8 @@ public class InsertMemberServlet extends HttpServlet {
 		String gender = request.getParameter("gender");
 		String phone = request.getParameter("phone");
 		String style = request.getParameter("style");
-		if(style.equals("null")) {
+		if(style != null) {
+			if(style.equals("null"))
 			style = null;
 		}
 		
@@ -63,6 +66,9 @@ public class InsertMemberServlet extends HttpServlet {
 		m.setMemEmail(email);
 		if(gender != null) {
 			m.setMemGender(gender.charAt(0));
+		}else {
+			gender = "N";
+			m.setMemGender(gender.charAt(0));
 		}
 		m.setMemPhone(phone);
 		m.setMemStyle(style);
@@ -71,13 +77,31 @@ public class InsertMemberServlet extends HttpServlet {
 		
 	
 		// 일반회원인경우
-		result = new MemberService().insertMember(m);
+		if(code == 1) {
+			result = new MemberService().insertMember(m);
+		}else {
+		// 사업자 회원인 경우
+			String ownNo = request.getParameter("ownNumber");
+			String ownName = request.getParameter("userName");
+			String memId = request.getParameter("userId");
+			
+			Owner own = new Owner(ownNo, ownName, memId);
+			
+			result = new MemberService().insertMember(m, own);
+			
+		}
 			
 		if(result > 0) {
-			response.sendRedirect(request.getContextPath());
+			if(code == 1) {
+				response.sendRedirect(request.getContextPath());
+			}else {
+				request.setAttribute("memId", userId);
+				System.out.println("insertServlet : " + userId);
+				request.getRequestDispatcher("WEB-INF/views/login/businessFileForm.jsp").forward(request, response);
+			}
 		}else {
 			request.setAttribute("msg", "회원가입에 실패하였습니다.");
-			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);;
+			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
 		}
 		
 	}

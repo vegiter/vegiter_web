@@ -29,8 +29,8 @@ public class RecipeListTypeServlet extends HttpServlet {
 		ArrayList<Attachment> tList=service.selectTList(2,bcate);
 		String page=null;
 		System.out.println(bcate);
-		System.out.println(bList+","+tList);
-		System.out.println("asdasdasdasdasd");
+		System.out.println(bList);
+		System.out.println(tList);
 		
 		if(bList!=null && tList!=null){
 			request.setAttribute("bList", bList);

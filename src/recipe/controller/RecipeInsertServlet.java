@@ -55,22 +55,13 @@ public class RecipeInsertServlet extends HttpServlet {
 			
 			MultipartRequest multiRequest = new  MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 			String bWriter=((Member)request.getSession().getAttribute("loginUser")).getMemId();
+			System.out.println(bWriter+"확인합니다");
 			String title=multiRequest.getParameter("title");
 			String[] content=multiRequest.getParameterValues("content");
 	   		int cates=Integer.parseInt(multiRequest.getParameter("cate")); 
-
-	   			   		
-//			String contents=null;
-//			for(int i=0; i<content.length; i++) {
-//				if(i==0) {
-//				contents += content[i];
-//				}
-//				else {
-//					contents +=","+content[i];
-//				}
-//			}
-			
-			
+	   		
+	   		System.out.println(""+title);
+	   			   					
 			
 			
 			ArrayList<String> saveFiles= new ArrayList<String>();			//바뀐 파일저장
@@ -78,19 +69,20 @@ public class RecipeInsertServlet extends HttpServlet {
 																
 			
 			Enumeration<String> files=multiRequest.getFileNames();	//폼에서 전송된 파일 리스트의 이름 반환
-			
+			System.out.println("확인용!!!");
 			while(files.hasMoreElements()) {
 				String name=files.nextElement();
 			
 				if(multiRequest.getFilesystemName(name)!=null) {
 					saveFiles.add(multiRequest.getFilesystemName(name));
 					originFiles.add(multiRequest.getOriginalFileName(name));
+					
+					System.out.println(multiRequest.getFilesystemName(name));
 				}
 			}
 			
 			Board b =new Board();
 			b.setBoard_title(title);
-//			b.setBoard_content(content);
 			b.setMem_id(bWriter);
 			b.setBoard_cate(cates);
 			b.setBoard_code(0);
@@ -98,17 +90,21 @@ public class RecipeInsertServlet extends HttpServlet {
 			
 			ArrayList<Content> con=new ArrayList<Content>();
 			for(int i=0; i<content.length; i++) {
-				Content c=new Content();
-				c.setContent(content[i]);
-				con.add(c);
+				if((content[i].trim())!="") {
+					Content c=new Content();
+					System.out.println(i+","+content[i]);
+					c.setContent(content[i]);				
+					con.add(c);
+				}
 			}
-			
 			
 			
 			ArrayList<Attachment> fileList =new ArrayList<Attachment>();
 			
 			for(int i=originFiles.size()-1; i>=0; i--) {
 				Attachment at =new Attachment();
+				
+				at.setMemId(bWriter);
 				at.setAtcPath(savePath);
 				at.setAtcOrigin(originFiles.get(i));
 				at.setAtcName(saveFiles.get(i));
@@ -121,6 +117,10 @@ public class RecipeInsertServlet extends HttpServlet {
 				
 				fileList.add(at);
 			}
+			
+			System.out.println(fileList+"연습입니다.");
+			
+			
 			
 			int result=new BoardService().insertRecipe(con,b,fileList);
 			

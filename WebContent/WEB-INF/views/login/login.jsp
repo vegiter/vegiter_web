@@ -4,8 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Vegitor 로그인</title>
+<title>Vegiter 로그인</title>
 <script type="text/javascript" src="<%= request.getContextPath() %>/js/jquery-3.5.1.min.js"></script>
+
 <style>
 	body{
 		background: rgb(242, 242, 242);
@@ -84,6 +85,11 @@
 		margin: auto;
 		padding-top: 8px;
 	}
+	#social-login{
+		width: 75%;
+		margin: auto;
+		margin-top: 10px;
+	}
 	div#other-div{
 		width : 240px;
 		margin: auto;
@@ -105,12 +111,18 @@
 		background: rgb(45,115,102);
 		cursor: default;
 	}
+	
 </style>
+<!-- API -->
+<script src="<%=request.getContextPath()%>/js/naveridlogin_js_sdk_2.0.0.js"></script>
+<script src="<%=request.getContextPath()%>/js/naverLogin_implicit-1.0.2.js"></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<meta name = "google-signin-client_id"content = "474954666713-ekaotga6objgkdvabl55n6t1rch4dkcu.apps.googleusercontent.com">
 </head>
 <body>
 		<section id="login">
 		<div class="login-header" id="login-header">
-			<a href="index.jsp">
+			<a href="/Vegiter">
 				<img src="<%= request.getContextPath() %>/images/common/logo.png">
 			</a>
 		</div>
@@ -118,7 +130,8 @@
 			<div id="btn">
 				<button  class="memberBtn" id="common">개인 회원</button>
 				<button  class="memberBtn" id="business">사업자 회원</button>
-			
+				
+				<input type="hidden" id="social" name="social" value='1'><br>
 				<input type="text" class="input-info" placeholder="아이디" id="userId" name="userId"><br>
 				<input type="password" class="input-info" placeholder="비밀번호" id="userPwd" name="userPwd">
 			</div>
@@ -128,16 +141,20 @@
 				<input type="submit" id="login-btn" value="로그인">
 			</div>
 		</form>
+		<div id="social-login">
+			<div id="naverIdLogin"></div>
+			<div class="g-signin2" data-onsuccess="onSignIn"></div>
+		</div>
 		<div id="other-div">
 			<span class="other" id="findId"><a href="<%=request.getContextPath() %>/findId.me">아이디 찾기</a></span>
 			<span class="other" id="findPwd"><a href="<%=request.getContextPath()%>/findPwd.me">비밀번호 찾기</a></span>
 			<span class="other" id="enroll"><a href="<%=request.getContextPath()%>/enrollForm.me">회원가입</a></span>
 		</div>
 	</section>
-	<script>
+	<script type="text/javascript">
+		var social = false;
 		$(function(){
 			$('#common').addClass('selectedBtn');
-			
 			$('#common').click(function(){
 				$(this).addClass('selectedBtn');
 				$('#business').removeClass('selectedBtn');
@@ -158,18 +175,62 @@
 			var userId = $('#userId');
 			var userPwd = $('#userPwd');
 			
+			console.log("login()함수 실행");
+			
 			if(userId.val() == ''){
 				$('#login-error').html('아이디를 입력해주세요').css('color','red');
 				userId.focus();
 				return false;
 			}else if(userPwd.val() == ''){
-				$('#login-error').html('비밀번호를 입력해주세요').css('color','red');
-				userPwd.focus();
-				return false;
+				if($('#social').val() == '2'){
+					console.log("social: true");
+					return true;
+				}else{
+					$('#login-error').html('비밀번호를 입력해주세요').css('color','red');
+					userPwd.focus();
+					return false;
+				}
 			}else{
 				return true;
 			}
 		}
+		var naverLogin = new naver.LoginWithNaverId(
+				{
+					clientId : "w3sXDEgZtjtnF9AcUJSw",
+					callbackUrl : "http://localhost:9981/Vegiter/login.me",
+					isPopup : false,
+					loginButton : {color : "white",type : 2, height : 40}
+			});
+			naverLogin.init();
+			
+			window.addEventListener('load', function() {
+				$('#userId').val('');
+				$('#social').val('1');
+				
+				naverLogin.getLoginStatus(function(status) {
+					if (status) {
+						/* (6) 로그인 상태가 "true" 인 경우 로그인 버튼을 없애고 사용자 정보를 출력합니다. */
+						$('#naverIdLogin').click(function(){
+							setLoginStatus();
+						});
+					}
+// 	 				window.location.replace("http://" + window.location.hostname + ( (location.port==""||location.port==undefined)?"":":" + location.port) + "/Vegiter/login");
+					
+				});
+			});
+			function setLoginStatus() {
+				var uniqId = naverLogin.user.getId();
+				$('#social').val('2');
+				$('#userId').val(uniqId);
+				$('#login-btn').click();
+			}
+			function onSignIn(googleUser) {
+				  var profile = googleUser.getBasicProfile();
+				  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+				  console.log('Name: ' + profile.getName());
+				  console.log('Image URL: ' + profile.getImageUrl());
+				  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+				}
 	</script>
 </body>
 </html>

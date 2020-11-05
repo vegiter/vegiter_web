@@ -26,13 +26,15 @@ public class BoardService {
 		ArrayList list=null;
 		
 		BoardDAO dao=new BoardDAO();
-		
+				
+
 		if(i==1) {
 			list=dao.selectBList(conn,bcate);		
 		}else {
 			list=dao.selectTList(conn,bcate);			
 			}		
 		close(conn);
+
 
 		return list;		
 	}
@@ -43,11 +45,16 @@ public class BoardService {
 		BoardDAO dao=new BoardDAO();
 		ArrayList list=null;
 		
+	
+		
 		if(i==1) {
 			list=dao.selectBList(conn, text);
 		}else{
 			list=dao.selectTList(conn,text);
 		}
+		
+
+
 		
 		close(conn);
 		
@@ -92,7 +99,8 @@ public class BoardService {
 					rollback(conn);
 				}
 		}
-			close(conn);	
+			close(conn);
+			
 		return b;
 	}
 
@@ -100,6 +108,8 @@ public class BoardService {
 	public int insertRecipe(ArrayList<Content> con, Board b, ArrayList<Attachment> fileList) {
 		Connection conn=getConnection();
 		BoardDAO dao=new BoardDAO();
+		
+		System.out.println(fileList);
 		
 		int result1=dao.insertBoard(conn,b);
 		
@@ -133,6 +143,17 @@ public class BoardService {
 		close(conn);
 		
 		return result;
+	}
+
+
+	public ArrayList<Attachment> selectThumbnail(int bId) {
+		Connection conn=getConnection();
+		
+		int result=new 
+		
+		
+		
+		return null;
 	}
 
 

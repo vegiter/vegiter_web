@@ -65,7 +65,7 @@
  		 <div class="input-group-prepend">
  			   <span class="input-group-text" id="inputGroup-sizing-sm">title</span>
  		 </div>
- 			 <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+ 			 <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="title">
 		</div>			
   			
  

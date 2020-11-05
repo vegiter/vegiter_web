@@ -7,22 +7,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import login.model.serviec.MemberService;
 import login.model.vo.Member;
 
 /**
- * Servlet implementation class LoginServlet
+ * Servlet implementation class FindPwdServlet
  */
-@WebServlet(urlPatterns="/login", name="LoginServlet")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/findPwdForm.me")
+public class FindPwdServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet() {
+    public FindPwdServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,34 +30,32 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String name = request.getParameter("userName");
+		String id = request.getParameter("userId");
+		String email = request.getParameter("email");
 		
-		String userId = request.getParameter("userId");
-		String userPwd = request.getParameter("userPwd");
-		int social = Integer.parseInt(request.getParameter("social"));
-		
-		Member member = new Member();
-		member.setMemId(userId);
-		member.setMemPwd(userPwd);
-		
-		MemberService mService = new MemberService();
-		
-		Member loginUser = null;
-		if(social == 1) {
-			loginUser = mService.loginMember(member);
+		Member member = null;
+		if(email != null) {
+			member = new MemberService().findPwd(name, id, email);
 		}else {
-			loginUser = mService.loginSocialMember(member);
+			String phone1 = request.getParameter("phone-first");
+			String phone2 = request.getParameter("phone-middle");
+			String phone3 = request.getParameter("phone-last");
+			String phone = phone1 + phone2 + phone3;
+			member = new MemberService().findPwdByPhone(name, id, phone);
 		}
 		
-		if(loginUser != null) {
-			HttpSession session = request.getSession();
-			session.setAttribute("loginUser", loginUser);
-			session.setMaxInactiveInterval(1000);
-			
-			response.sendRedirect(request.getContextPath());
-		}else {
-			request.setAttribute("msg", "로그인 실패");
-			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
+		
+		String page = null;
+		if(member != null) {
+			page = "WEB-INF/views/login/findPwdForm.jsp";
+			request.setAttribute("member", member);
+		} else {
+			page = "WEB-INF/views/common/errorPage.jsp";
+			request.setAttribute("msg", "일치하는 회원이 없습니다.");
 		}
+		
+		request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	/**
