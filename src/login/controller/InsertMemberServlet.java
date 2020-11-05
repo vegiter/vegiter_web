@@ -51,9 +51,6 @@ public class InsertMemberServlet extends HttpServlet {
 		String gender = request.getParameter("gender");
 		String phone = request.getParameter("phone");
 		String style = request.getParameter("style");
-		if(style.equals("null")) {
-			style = null;
-		}
 		
 		Member m = new Member();
 		m.setMemId(userId);
@@ -63,6 +60,9 @@ public class InsertMemberServlet extends HttpServlet {
 		m.setMemEmail(email);
 		if(gender != null) {
 			m.setMemGender(gender.charAt(0));
+		}else {
+			String str = "N";
+			m.setMemGender(str.charAt(0));
 		}
 		m.setMemPhone(phone);
 		m.setMemStyle(style);

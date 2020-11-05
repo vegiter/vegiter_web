@@ -332,12 +332,12 @@ form p {
 					});
 				});
 				
-				
 				function setLoginStatus() {
 					var email = naverLogin.user.getEmail();
 					var name = naverLogin.user.getName();
 					var uniqId = naverLogin.user.getId();
 					var gender = naverLogin.user.getGender();
+					
 					/* 필수적으로 받아야하는 프로필 정보가 있다면 callback처리 시점에 체크 */
 					if (name == undefined || name == null) {
 						alert("이름은 필수정보입니다. 정보제공을 동의해주세요.");
@@ -356,7 +356,6 @@ form p {
 						url:'<%=request.getContextPath()%>/checkId.me',
 						data: {userId: uniqId},
 						success: function(data){
-							console.log(data);
 							if (data == 'success') {
 								$('#social-enroll').remove();
 								$('#social-del').remove();
@@ -397,6 +396,8 @@ form p {
 					});
 				});
 				
+				
+				
 				$("#userId").on('change paste keyup', function(){
 					var idCheck = false;
 				});
@@ -432,7 +433,7 @@ form p {
 									$('.error').eq(0).text('사용가능한 아이디입니다.').css('color','green');
 									idCheck = true;
 									} else {
-										$('.erro').eq(0).text('중복된 아이디입니다.').css('color','red');
+										$('.error').eq(0).text('중복된 아이디입니다.').css('color','red');
 											idCheck = false;
 									}
 							}
@@ -513,9 +514,21 @@ form p {
 										'color', 'red');
 								emailCheck = false;
 							} else {
-								$('.error').eq(4).text('사용가능한 이메일입니다.').css(
-										'color', 'green');
-								emailCheck = true;
+								$.ajax({
+									url: '<%=request.getContextPath()%>/checkEmail.me',
+									data : {email:email},
+									success :  function(data){
+										console.log(data);
+										if(data == 'success2'){
+											$('.error').eq(4).text('사용가능한 이메일주소입니다.').css('color','green');
+											emailCheck = true;
+										} else {
+											$('.error').eq(4).text('중복된 이메일주소입니다.').css('color','red');
+												emailCheck = false;
+										}
+									}
+									
+								});
 							}
 						});
 
@@ -527,8 +540,22 @@ form p {
 										'color', 'red');
 								phoneCheck = false;
 							} else {
-								$('.error').eq(5).text('');
-								phoneCheck = true;
+								$.ajax({
+									url: '<%=request.getContextPath()%>/checkPhone.me',
+									data : {phone:phone},
+									success :  function(data){
+										console.log(data);
+
+										if(data == 'success3'){
+											$('.error').eq(5).text('사용가능한 번호입니다.').css('color','green');
+											phoneCheck = true;
+										} else {
+											$('.error').eq(5).text('중복된 전화번호입니다.').css('color','red');
+												phoneCheck = false;
+										}
+									}
+									
+								});
 							}
 				});
 
