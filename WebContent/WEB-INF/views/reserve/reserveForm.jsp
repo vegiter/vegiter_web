@@ -9,5 +9,6 @@
 <body>
 	<%@ include file="../common/gnb.jsp"%>
 	<h3>예약페이지</h3>
+	<%@ include file="../common/footer.jsp"%>
 </body>
 </html>

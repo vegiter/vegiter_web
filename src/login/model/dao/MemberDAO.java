@@ -164,5 +164,242 @@ public class MemberDAO {
 		
 		return result;
 	}
+	public Member findMember(Connection conn, String name, String email) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member m = null;
+		
+		String query = prop.getProperty("findMember");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, name);
+			pstmt.setString(2, email);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				m = new Member(rset.getString("mem_id"),
+								rset.getString("mem_pwd"),
+								rset.getInt("mem_code"),
+								rset.getString("mem_name"),
+								rset.getString("mem_gender").charAt(0),
+								rset.getString("mem_phone"),
+								rset.getString("mem_email"),
+								rset.getString("mem_style"),
+								rset.getString("mem_status"),
+								rset.getDate("mem_deldate"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return m;
+	}
+
+	public Member findPwd(Connection conn,String name, String id, String email) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member m = null;
+		
+		String query = prop.getProperty("findPwd");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, name);
+			pstmt.setString(2, id);
+			pstmt.setString(3, email);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				m = new Member(rset.getString("mem_id"),
+								rset.getString("mem_pwd"),
+								rset.getInt("mem_code"),
+								rset.getString("mem_name"),
+								rset.getString("mem_gender").charAt(0),
+								rset.getString("mem_phone"),
+								rset.getString("mem_email"),
+								rset.getString("mem_style"),
+								rset.getString("mem_status"),
+								rset.getDate("mem_deldate"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return m;
+	}
+
+	public int changePwd(Connection conn, String id, String pwd) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("changePwd");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, pwd);
+			pstmt.setString(2, id);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public Member findMemberByPhone(Connection conn, String name, String phone) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member mem = null;
+		String query = prop.getProperty("findMemberByPhone");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1,phone);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				mem = new Member(rset.getString("mem_id"),
+						rset.getString("mem_pwd"),
+						rset.getInt("mem_code"),
+						rset.getString("mem_name"),
+						rset.getString("mem_gender").charAt(0),
+						rset.getString("mem_phone"),
+						rset.getString("mem_email"),
+						rset.getString("mem_style"),
+						rset.getString("mem_status"),
+						rset.getDate("mem_deldate"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return mem;
+	}
+
+	public Member findPwdByPhone(Connection conn, String name, String id, String phone) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member mem = null;
+		String query = prop.getProperty("findPwdByPhone");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1,name);
+			pstmt.setString(2,id);
+			pstmt.setString(3,phone);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				mem = new Member(rset.getString("mem_id"),
+						rset.getString("mem_pwd"),
+						rset.getInt("mem_code"),
+						rset.getString("mem_name"),
+						rset.getString("mem_gender").charAt(0),
+						rset.getString("mem_phone"),
+						rset.getString("mem_email"),
+						rset.getString("mem_style"),
+						rset.getString("mem_status"),
+						rset.getDate("mem_deldate"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return mem;
+	}
+
+	public Member findPwdOwner(Connection conn, String name, String id, String number) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member mem = null;
+		String query = prop.getProperty("findPwdOwner");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1,name);
+			pstmt.setString(2,id);
+			pstmt.setString(3,number);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				mem = new Member(rset.getString("mem_id"),
+						rset.getString("mem_pwd"),
+						rset.getInt("mem_code"),
+						rset.getString("mem_name"),
+						rset.getString("mem_gender").charAt(0),
+						rset.getString("mem_phone"),
+						rset.getString("mem_email"),
+						rset.getString("mem_style"),
+						rset.getString("mem_status"),
+						rset.getDate("mem_deldate"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return mem;
+	}
+
+	public int checkEmail(Connection conn, String email) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		String query = prop.getProperty("checkEmail");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, email);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int checkPhone(Connection conn, String phone) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		String query = prop.getProperty("checkPhone");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, phone);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
 
 }

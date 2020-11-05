@@ -15,22 +15,8 @@ public class Attachment {
 	private int boardNo;
 	
 	public Attachment() {}
+
 	
-<<<<<<< HEAD:Vegiter/src/board/model/vo/Attachment.java
-=======
-	
-	
-
-	public Attachment(int atcNo, String atcName) {
-		super();
-		this.atcNo = atcNo;
-		this.atcName = atcName;
-	}
-
-
-
-
->>>>>>> jinsik:src/board/model/vo/Attachment.java
 	public Attachment(int atcNo, String memId, int atcType, String atcOrigin, String atcName, String atcPath,
 			Date atcDate, int atcLevel, char atcStatus, int boardNo) {
 		super();
@@ -45,6 +31,13 @@ public class Attachment {
 		this.atcStatus = atcStatus;
 		this.boardNo = boardNo;
 	}
+
+	public Attachment(int atcNo, String atcName) {
+		super();
+		this.atcNo = atcNo;
+		this.atcName = atcName;
+	}
+
 
 	public int getAtcNo() {
 		return atcNo;

@@ -42,6 +42,9 @@ public class InsertMemberOwnerServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String userId = request.getParameter("userId");
+		if(userId == null) {
+			userId = request.getParameter("userId2");
+		}
 		String userPwd = request.getParameter("userPwd1");
 		int code = Integer.parseInt(request.getParameter("code"));
 		System.out.println("Servlet : " + userPwd);

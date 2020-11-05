@@ -71,14 +71,32 @@ public class InsertMemberServlet extends HttpServlet {
 		
 	
 		// 일반회원인경우
-		result = new MemberService().insertMember(m);
-			
-		if(result > 0) {
-			response.sendRedirect(request.getContextPath());
-		}else {
-			request.setAttribute("msg", "회원가입에 실패하였습니다.");
-			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);;
-		}
+				if(code == 1) {
+					result = new MemberService().insertMember(m);
+				}else {
+				// 사업자 회원인 경우
+					String ownNo = request.getParameter("ownNumber");
+					String ownName = request.getParameter("userName");
+					String memId = request.getParameter("userId");
+					
+					Owner own = new Owner(ownNo, ownName, memId);
+					
+					result = new MemberService().insertMember(m, own);
+					
+				}
+					
+				if(result > 0) {
+					if(code == 1) {
+						response.sendRedirect(request.getContextPath());
+					}else {
+						request.setAttribute("memId", userId);
+						System.out.println("insertServlet : " + userId);
+						request.getRequestDispatcher("WEB-INF/views/login/businessFileForm.jsp").forward(request, response);
+					}
+				}else {
+					request.setAttribute("msg", "회원가입에 실패하였습니다.");
+					request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
+				}
 		
 	}
 
