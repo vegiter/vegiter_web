@@ -10,11 +10,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import board.model.vo.Attachment;
 import board.model.vo.Board;
 import board.model.vo.DietList;
+import board.model.vo.PageInfo;
 
 public class VegitalkDAO {
 	private Properties prop = new Properties();
@@ -153,5 +155,99 @@ public class VegitalkDAO {
 			close(pstmt);
 		}
 		return postCount;
+	}
+
+	public ArrayList<Board> getPListAll(Connection conn, PageInfo pi) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Board> pList = new ArrayList();
+		String query = prop.getProperty("getPListAll");
+		int startRow = (pi.getCurrentPage() - 1) * pi.getPostLimit() + 1;
+		int endRow = (startRow + pi.getPostLimit()) - 1;
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Board post = new Board(rset.getInt("board_no"),
+									   rset.getInt("board_code"),
+									   rset.getString("mem_id"),
+									   rset.getString("board_title"),
+									   rset.getDate("board_date"),
+									   rset.getString("board_content"),
+									   rset.getInt("board_count"),
+									   rset.getInt("board_like"),
+									   rset.getInt("board_com"),
+									   rset.getString("board_status"));
+				pList.add(post);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		return pList;
+	}
+
+	public ArrayList<Attachment> getAList(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Attachment> aList = new ArrayList();
+		String query = prop.getProperty("getAList");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			while(rset.next()) {
+				Attachment atc = new Attachment(rset.getString("atc_name"),
+												rset.getInt("board_no"));
+				aList.add(atc);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		return aList;
+	}
+	
+	public ArrayList<Board> getPList(Connection conn, PageInfo pi, int boardCode) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Board> pList = new ArrayList();
+		String query = prop.getProperty("getPListAll");
+		int startRow = (pi.getCurrentPage() - 1) * pi.getPostLimit() + 1;
+		int endRow = (startRow + pi.getPostLimit()) - 1;
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, boardCode);
+			if(rset.next()) {
+				Board post = new Board(rset.getInt("board_no"),
+									   rset.getInt("board_code"),
+									   rset.getString("mem_id"),
+									   rset.getString("board_title"),
+									   rset.getDate("board_date"),
+									   rset.getString("board_content"),
+									   rset.getInt("board_count"),
+									   rset.getInt("board_like"),
+									   rset.getInt("board_com"),
+									   rset.getString("board_status"));
+				System.out.println(post);
+				pList.add(post);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		return pList;
 	}
 }

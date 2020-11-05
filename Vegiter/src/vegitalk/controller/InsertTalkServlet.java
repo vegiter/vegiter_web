@@ -72,7 +72,7 @@ public class InsertTalkServlet extends HttpServlet {
 		}
 		
 		if(result > 0) {
-			request.getRequestDispatcher("WEB-INF/views/vegitalk/vegitalk.jsp").forward(request, response);
+			request.getRequestDispatcher("/vegiTalk").forward(request, response);
 		} else {
 			request.setAttribute("msg", "게시글 등록에 실패했습니다.<br>관리자에게 문의해주세요.");
 			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
