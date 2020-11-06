@@ -37,7 +37,6 @@
 </style>
 <script src="https://kit.fontawesome.com/34238d14b4.js" crossorigin="anonymous"></script>
 <script src="<%= request.getContextPath()%>/js/jquery-3.5.1.min.js"></script>
-<link rel="stylesheet" type="text/css" href="/resources/css/writeDiet.css">
 </head>
 <body>
 
@@ -50,7 +49,8 @@
 			<button id="type-two">#식단</button>
 		</div>
 	<form class="write" action="<%= request.getContextPath() %>/insertDiet" method="post">
-		<input type="hidden" name="board-type" value="2">
+		<input type="hidden" name="boardCode" value="2">
+		
 		<table class="dietList">
 			<tr>
 				<th>아침</th>
@@ -59,15 +59,15 @@
 			</tr>
 			<tr name="diet">
 				<td>
-					<input type="text" name="morning" placeholder="아침 메뉴 입력">
+					<input type="text" name="mFood" placeholder="아침 메뉴 입력">
 					<input type="url" name="mUrl" placeholder="레시피 링크 입력">
 				</td>
 				<td>
-					<input type="text" name="lunch" placeholder="점심 메뉴 입력">
-					<input type="url" name="lUrl" placeholder="레시피 링크 입력">
+					<input type="text" name="lFood" placeholder="점심 메뉴 입력">
+					<input type="url" name="lUrl" placeholder="레시피 링크 입력" >
 				</td>
 				<td>
-					<input  type="text" name="dinner" placeholder="저녁 메뉴 입력">
+					<input  type="text" name="eFood" placeholder="저녁 메뉴 입력">
 					<input type="url" name="eUrl"placeholder="레시피 링크 입력">
 				</td>
 			</tr>
@@ -78,7 +78,7 @@
 			<span id="removeRow"><i class="far fa-minus-square"></i></span>
 		</div>
 
-		<textarea name="write" id="wirte-area" placeholder="게시글을 작성해주세요."></textarea>
+		<textarea name="boardContent" id="wirte-area" placeholder="게시글을 작성해주세요."></textarea>
 		<button type="submit" name="submitBtn" id="write-submit-btn">등록</button>
 	</form>
 </div>
@@ -90,47 +90,49 @@
 	
 	$(function(){
 		$('#addRow').click(function(){
-			var addRow = '<tr name="diet">' +
-						 '	<td>' +
-						 '		<input type="text" name="morning" placeholder="아침 메뉴 입력">' +
-						 '		<input type="url" name="mUrl" placeholder="레시피 링크 입력">' +
-						 '	</td>' +
-						 '	<td>' +
-						 '		<input type="text" name="lunch" placeholder="점심 메뉴 입력">' +
-						 '		<input type="url" name="lUrl" placeholder="레시피 링크 입력">' +
-						 '	</td>' +
-						 '	<td>' +
-						 '		<input  type="text" name="dinner" placeholder="저녁 메뉴 입력">' +
-						 '		<input type="url" name="eUrl"placeholder="레시피 링크 입력">' +
-						 '	</td>' +
-						 '</tr>';
-			$('tr[name="diet"]:last').after(addRow);
+			var trCnt = $('.dietList tr[name="diet"]').length;
+			console.log(trCnt);
+			if(trCnt > 6) {
+				alert('최대 7일까지 작성할 수 있어요.')
+			} else {
+				var addRow = '<tr name="diet">' +
+							 '	<td>' +
+							 '		<input type="text" name="mFood" placeholder="아침 메뉴 입력">' +
+							 '		<input type="url" name="mUrl" placeholder="레시피 링크 입력">' +
+							 '	</td>' +
+							 '	<td>' +
+							 '		<input type="text" name="lFood" placeholder="점심 메뉴 입력">' +
+							 '		<input type="url" name="lUrl" placeholder="레시피 링크 입력">' +
+							 '	</td>' +
+							 '	<td>' +
+							 '		<input  type="text" name="eFood" placeholder="저녁 메뉴 입력">' +
+							 '		<input type="url" name="eUrl"placeholder="레시피 링크 입력">' +
+							 '	</td>' +
+							 '</tr>';
+				$('tr[name="diet"]:last').after(addRow);
+			}
 		});
 	});
 	
 	$(function(){
-		$('#addRow').click(function(){
-			var addRow = '<tr name="diet">' +
-						 '	<td>' +
-						 '		<input type="text" name="morning" placeholder="아침 메뉴 입력">' +
-						 '		<input type="url" name="mUrl" placeholder="레시피 링크 입력">' +
-						 '	</td>' +
-						 '	<td>' +
-						 '		<input type="text" name="lunch" placeholder="점심 메뉴 입력">' +
-						 '		<input type="url" name="lUrl" placeholder="레시피 링크 입력">' +
-						 '	</td>' +
-						 '	<td>' +
-						 '		<input  type="text" name="dinner" placeholder="저녁 메뉴 입력">' +
-						 '		<input type="url" name="eUrl"placeholder="레시피 링크 입력">' +
-						 '	</td>' +
-						 '</tr>';
-			$('tr[name="diet"]:last').remove(addRow);
+		$('#removeRow').click(function(){
+			var trCnt = $('.dietList tr[name="diet"]').length;
+			if(trCnt > 1) {
+				$('tr[name="diet"]:last').remove();
+			} else {
+				alert('하루 이상의 식단을 입력해주세요.');
+			}
 		});
 	});
 	
 	$(function(){
-		$('#addRow').click(function(){
-			var table = $('#dietList');
+		$('#write-submit-btn').click(function(){
+			var content = $('textarea').val();
+			if(content.length == 0) {
+				alert('게시글 작성해주세요.');
+				return false;
+			}
+			return true;
 		});
 	});
 </script>

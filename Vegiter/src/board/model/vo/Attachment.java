@@ -11,13 +11,19 @@ public class Attachment {
 	private String atcPath;
 	private Date atcDate;
 	private int atcLevel;
-	private char atcStatus;
+	private String atcStatus;
 	private int boardNo;
 	
 	public Attachment() {}
 	
+	public Attachment(String atcName, int boardNo) {
+		super();
+		this.atcName = atcName;
+		this.boardNo = boardNo;
+	}
+	
 	public Attachment(int atcNo, String memId, int atcType, String atcOrigin, String atcName, String atcPath,
-			Date atcDate, int atcLevel, char atcStatus, int boardNo) {
+			Date atcDate, int atcLevel, String atcStatus, int boardNo) {
 		super();
 		this.atcNo = atcNo;
 		this.memId = memId;
@@ -95,11 +101,11 @@ public class Attachment {
 		this.atcLevel = atcLevel;
 	}
 
-	public char getAtcStatus() {
+	public String getAtcStatus() {
 		return atcStatus;
 	}
 
-	public void setAtcStatus(char atcStatus) {
+	public void setAtcStatus(String atcStatus) {
 		this.atcStatus = atcStatus;
 	}
 

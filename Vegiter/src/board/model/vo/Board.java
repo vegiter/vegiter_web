@@ -31,10 +31,6 @@ public class Board {
       this.board_com = board_com;
       this.board_status = board_status;
    }
-
-   
-   
-   
    
    public Board(int board_no, int board_code, String mem_id, String board_title, Date board_date, String board_content,
          int board_count, int board_like, int board_com, int board_cate, String board_status) {
