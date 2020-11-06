@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="UTF-8"%>
+
+<%
+	String loginfail = (String)request.getAttribute("loginfail");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -194,6 +198,7 @@
 				return true;
 			}
 		}
+		
 		var naverLogin = new naver.LoginWithNaverId(
 				{
 					clientId : "w3sXDEgZtjtnF9AcUJSw",
@@ -218,19 +223,25 @@
 					
 				});
 			});
+			
 			function setLoginStatus() {
 				var uniqId = naverLogin.user.getId();
 				$('#social').val('2');
 				$('#userId').val(uniqId);
 				$('#login-btn').click();
 			}
+			
 			function onSignIn(googleUser) {
 				  var profile = googleUser.getBasicProfile();
 				  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
 				  console.log('Name: ' + profile.getName());
 				  console.log('Image URL: ' + profile.getImageUrl());
 				  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-				}
+			}
+			
+		
+			// 로그인 
+			
 	</script>
 </body>
 </html>

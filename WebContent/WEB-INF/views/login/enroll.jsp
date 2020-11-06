@@ -397,7 +397,6 @@ form p {
 				});
 				
 				
-				
 				$("#userId").on('change paste keyup', function(){
 					var idCheck = false;
 				});

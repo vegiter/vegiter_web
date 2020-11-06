@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import login.model.serviec.MemberService;
+import login.model.service.MemberService;
 import login.model.vo.Member;
 
 /**
@@ -47,8 +47,8 @@ public class LoginServlet extends HttpServlet {
 			
 			response.sendRedirect(request.getContextPath());
 		}else {
-			request.setAttribute("msg", "로그인 실패");
-			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
+			request.setAttribute("loginfail", "로그인 실패하였습니다.");
+			request.getRequestDispatcher("WEB-INF/views/common/login.jsp").forward(request, response);
 		}
 	}
 

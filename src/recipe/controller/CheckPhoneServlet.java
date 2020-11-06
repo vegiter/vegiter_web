@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import login.model.serviec.MemberService;
+import login.model.service.MemberService;
 
 /**
  * Servlet implementation class CheckPhoneServlet
