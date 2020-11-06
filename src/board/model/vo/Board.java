@@ -33,11 +33,17 @@ public class Board {
       this.board_status = board_status;
    }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 17dc2188b775d31f07cf5158c64030434addb3a3
 
    
    
    
+<<<<<<< HEAD
+>>>>>>> 17dc2188b775d31f07cf5158c64030434addb3a3
+=======
 >>>>>>> 17dc2188b775d31f07cf5158c64030434addb3a3
    
    public Board(int board_no, int board_code, String mem_id, String board_title, Date board_date, String board_content,

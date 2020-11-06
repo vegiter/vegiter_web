@@ -12,7 +12,11 @@ public class Attachment {
 	private Date atcDate;
 	private int atcLevel;
 <<<<<<< HEAD
+<<<<<<< HEAD
 	private String atcStatus;
+=======
+	private char atcStatus;
+>>>>>>> 17dc2188b775d31f07cf5158c64030434addb3a3
 =======
 	private char atcStatus;
 >>>>>>> 17dc2188b775d31f07cf5158c64030434addb3a3
@@ -22,6 +26,7 @@ public class Attachment {
 	
 <<<<<<< HEAD:Vegiter/src/board/model/vo/Attachment.java
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public Attachment(String atcName, int boardNo) {
 		super();
 		this.atcName = atcName;
@@ -30,6 +35,8 @@ public class Attachment {
 	
 =======
 <<<<<<< HEAD:Vegiter/src/board/model/vo/Attachment.java
+=======
+>>>>>>> 17dc2188b775d31f07cf5158c64030434addb3a3
 =======
 >>>>>>> 17dc2188b775d31f07cf5158c64030434addb3a3
 =======
@@ -47,9 +54,14 @@ public class Attachment {
 
 >>>>>>> jinsik:src/board/model/vo/Attachment.java
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 17dc2188b775d31f07cf5158c64030434addb3a3:src/board/model/vo/Attachment.java
 	public Attachment(int atcNo, String memId, int atcType, String atcOrigin, String atcName, String atcPath,
 			Date atcDate, int atcLevel, String atcStatus, int boardNo) {
+=======
+	public Attachment(int atcNo, String memId, int atcType, String atcOrigin, String atcName, String atcPath,
+			Date atcDate, int atcLevel, char atcStatus, int boardNo) {
+>>>>>>> 17dc2188b775d31f07cf5158c64030434addb3a3
 =======
 	public Attachment(int atcNo, String memId, int atcType, String atcOrigin, String atcName, String atcPath,
 			Date atcDate, int atcLevel, char atcStatus, int boardNo) {
@@ -132,17 +144,23 @@ public class Attachment {
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public String getAtcStatus() {
 		return atcStatus;
 	}
 
 	public void setAtcStatus(String atcStatus) {
 =======
+=======
+>>>>>>> 17dc2188b775d31f07cf5158c64030434addb3a3
 	public char getAtcStatus() {
 		return atcStatus;
 	}
 
 	public void setAtcStatus(char atcStatus) {
+<<<<<<< HEAD
+>>>>>>> 17dc2188b775d31f07cf5158c64030434addb3a3
+=======
 >>>>>>> 17dc2188b775d31f07cf5158c64030434addb3a3
 		this.atcStatus = atcStatus;
 	}
