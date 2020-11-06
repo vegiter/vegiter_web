@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import board.model.service.BoardService;
 import board.model.vo.Attachment;
 import board.model.vo.Board;
+import board.model.vo.Content;
 
 /**
  * Servlet implementation class RecipeDetail
@@ -40,11 +41,15 @@ public class RecipeDetailServlet extends HttpServlet {
 			
 			ArrayList<Attachment> fileList=service.selectThumbnail(bId);
 			
+			ArrayList<Content> conList=service.selectContent(bId);
+			
+			
 			String page=null;
 			
 			if(fileList != null) {
 				request.setAttribute("board", board);
 				request.setAttribute("fileList", fileList);
+				request.setAttribute("conList", conList);
 				page="WEB-INF/views/recipe/recipeView.jsp";
 			}else {
 				request.setAttribute("msg", "레시피 상세 보기에 실패하였습니다.");

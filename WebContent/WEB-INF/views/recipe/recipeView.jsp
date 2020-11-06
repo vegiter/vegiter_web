@@ -2,9 +2,11 @@
     pageEncoding="UTF-8"%>
     <%@ page import="board.model.vo.*, java.util.ArrayList" %>
     <% 
-    	Board board=(Board)request.getAttribute("board");
-		ArrayList<Attachment> list=(ArrayList<Attachment>)request.getAttribute("fileList");
-    	Attachment titleImg=list.get(0);
+		Board board=(Board)request.getAttribute("board");
+		ArrayList<Attachment> atList=(ArrayList<Attachment>)request.getAttribute("fileList");
+    	Attachment titleImg=atList.get(0);
+    	ArrayList<Content> conList=(ArrayList<Content>)request.getAttribute("conList");
+    	Content titleCon=conList.get(0);
     /* 	ArrayList<Reply> list =(ArrayList)request.getAttribute("list"); */
     %>
 <!DOCTYPE html>
@@ -30,7 +32,7 @@
 		margin-top: 10px;
 		}
 
-	.write-img{margin-left:450px; width: 600px; height:400px; overflow: hidden; background-color: #F0F3F5; text-align: center; line-height: 550px;}
+	.write-img{margin-left:450px; width: 600px; height:330px; overflow: hidden; background-color: #F0F3F5; text-align: center; line-height: 550px;}
 	#post-img{width: 100%; height: auto;border-radius: 5px; }
 	.wrapper{margin-top:100px;}
 	.card-img{border-radius: 5px;}
@@ -81,7 +83,6 @@
 <div class="wrapper">
 	
 		
-	
 
 
 	<div class="title">			
@@ -132,20 +133,27 @@
 			<img src="<%=request.getContextPath() %>/thumnail_uploadFiles/<%=titleImg.getAtcName()%>" id="post-img" alt="비어있습니다.">	
 			
 	</div>
-		<textarea class="content" readonly>처음 설명부분</textarea>
+		<textarea class="content" readonly><%=titleCon.getContent() %></textarea>
 	</div>
 	
-	<%for(int i=1; i<list.size(); i++){ %>
+	<%for(int i=1; i<atList.size(); i++){ %>
   		<div class="part">
  				<br><br><br>
  			<div class="row no-gutters">
    				<div class="col-md-4" id="titleImgArea1">
    			 		<img id="contentImg<%=i %>" class="card-img" width="300" height="300"
-   			 		 src="<%=request.getContextPath() %>/thumnail_uploadFiles/<%=list.get(i).getAtcName()%>">
+   			 		 src="<%=request.getContextPath() %>/thumnail_uploadFiles/<%=atList.get(i).getAtcName()%>">
     			</div>
     				<div class="col-md-8">
     					<div class="card-body">
-    		  				<textarea class="form-control" name="content" id="content1" aria-label="With textarea" cols="500" rows="9" disabled  style="background-color:transparent">aaa</textarea>
+    		  				<textarea class="form-control" name="content" id="content1" aria-label="With textarea"
+    		  				 cols="500" rows="9" disabled  style="background-color:transparent">
+    		  				 <%if(conList.get(i).getContent()==null){
+    		  					 
+    		  				 }else{ %>
+    		  				 
+    		  				 <%=conList.get(i).getContent() %>
+    		  				 <%} %></textarea>
       					</div>
      				</div>
   			</div>
@@ -153,7 +161,12 @@
  	<%} %>						 
  							 
 	
+			<%for(int i=0; i<conList.size(); i++){
+					System.out.println(i+":"+conList.get(i).getContent());
+					
+			}%>
 			
+
 
 
 		<div class="social">

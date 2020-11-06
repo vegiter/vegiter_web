@@ -16,14 +16,14 @@ import board.model.vo.Board;
 /**
  * Servlet implementation class RecipeSelectServlet
  */
-@WebServlet("/select.re")
-public class RecipeSelectServlet extends HttpServlet {
+@WebServlet("/search.re")
+public class RecipeSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RecipeSelectServlet() {
+    public RecipeSearchServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,11 +34,16 @@ public class RecipeSelectServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			request.setCharacterEncoding("UTF-8");
 		
-			String text=request.getParameter("text");
+		String text=request.getParameter("search");
+		int type=Integer.parseInt(request.getParameter("type"));
+		
+		System.out.println(text+"   검색예스");
+		System.out.println(type+"   과연?");
+		
 		
 		  BoardService service=new BoardService(); 
-		  ArrayList<Board> bList=service.selectTList(1,text);
-		  ArrayList<Attachment>tList=service.selectTList(2,text);	//thumbnail사진
+		  ArrayList<Board> bList=service.searchTList(1,text,type);
+		  ArrayList<Attachment>tList=service.searchTList(2,text,type);	//thumbnail사진
 		  
 		  
 		  String page=null;

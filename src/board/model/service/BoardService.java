@@ -17,9 +17,7 @@ public class BoardService {
 
 
 
-	public ArrayList selectTList(int i, int bcate) {
-		
-		System.out.println("Service");
+	public ArrayList selectTList(int i, int bcate) {				//레시피 리스트 불러오기
 		//타입별 레시피 목록
 		Connection conn=getConnection();
 		
@@ -27,7 +25,6 @@ public class BoardService {
 		
 		BoardDAO dao=new BoardDAO();
 				
-
 		if(i==1) {
 			list=dao.selectBList(conn,bcate);		
 		}else {
@@ -40,47 +37,25 @@ public class BoardService {
 	}
 	
 	
-	public ArrayList selectTList(int i, String text) {		//검색
-		Connection conn=getConnection();
-		BoardDAO dao=new BoardDAO();
-		ArrayList list=null;
+	public ArrayList selectTList_sort(int i, int sortType, int type) {		//정렬된 레시피 리스트 불러오기	(1이면 보드, 2면 첨부파일 , 두번째는 정렬기준 1=최신순, 2=좋아요순, 3=댓글순,  세번째는 비건게시글타입)
 		
-	
+		Connection conn=getConnection();
+		
+		ArrayList list=null;
+
+		BoardDAO dao=new BoardDAO();
 		
 		if(i==1) {
-			list=dao.selectBList(conn, text);
-		}else{
-			list=dao.selectTList(conn,text);
+			list=dao.selectBList_sort(conn,sortType,type);
+			
+		}else {
+			list=dao.selectTList_sort(conn, sortType, type);
 		}
-		
-
-
-		
 		close(conn);
 		
-		return list;
 		
+		return list;
 	}
-	
-	
-	
-
-//	public int insertRecipe(Board b, ArrayList<Attachment> fileList) {
-//		Connection conn=getConnection();
-//		BoardDAO dao=new BoardDAO();
-//		
-//		int result1=dao.insertBoard(conn,b);
-//		int result2=dao.insertAttachment(conn, fileList);
-//	
-//		if(result1>0 && result2>0) {
-//			commit(conn);
-//		}else {
-//			rollback(conn);
-//		}
-//		close(conn);
-//		
-//		return result1;
-//	}
 
 
 
@@ -172,31 +147,50 @@ public class BoardService {
 	}
 
 
+	public ArrayList<Content> selectContent(int bId) {
+		Connection conn=getConnection();
+		
+		int result=new BoardDAO().updateCount(conn, bId);
+		
+		ArrayList<Content> list=null;
+		
+		if(result>0) {
+			list=new BoardDAO().selectContent(conn,bId);
+			
+			if(list!=null) {
+				commit(conn);
+			}else {
+				rollback(conn);
+			}
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+
+		return list;
+	}
 
 
-	
-	
-//	public ArrayList<Attachment> selectThumbnail(int bId) {
-//		Connection conn=getConnection();
-//		int result=new BoardDAO().updateCount(conn, bId);
-//		
-//		ArrayList<Attachment>list=null;
-//		
-//		if(result>0) {
-//			list=new BoardDAO().selectThumbnail(conn,bId);
-//			
-//				if(list !=null) {
-//					commit(conn);
-//				}else {
-//					rollback(conn);
-//				}
-//		}else {
-//			rollback(conn);
-//		}	
-//			
-//			close(conn);						
-//		
-//		return list;
-//	}
+	public ArrayList searchTList(int i, String text, int type) {				//검색
+		
+		Connection conn=getConnection();
+		
+		ArrayList list=null;
+		
+		BoardDAO dao=new BoardDAO();
+		
+		if(i==1) {
+			list=dao.searchBList(conn, text, type);
+		}else {
+			list=dao.searchTList(conn, text, type);
+		}
+		
+		return list;
+	}
+
+
+
+
 
 }

@@ -138,17 +138,18 @@ public class BoardDAO {
 
 
 
-	public ArrayList selectBList(Connection conn, String text) {		//검색
+	public ArrayList searchBList(Connection conn, String text, int type) {		//검색
 		PreparedStatement pstmt=null;
 		ResultSet rset=null;
 		ArrayList<Board>list=null;
-		String query=prop.getProperty("selectBList_select");
+		String query=prop.getProperty("selectBList_search");
 		
 		try {
 			pstmt=conn.prepareStatement(query);
 			pstmt.setString(1, text);
+			pstmt.setInt(2,type);
 			rset=pstmt.executeQuery();
-			
+			list=new ArrayList<Board>();
 			while(rset.next()) {
 				list.add(new Board(rset.getInt("board_no"),
 									rset.getInt("board_code"),
@@ -174,24 +175,25 @@ public class BoardDAO {
 		return list;
 	}
 
-	public ArrayList selectTList(Connection conn, String text) {			//검색
+	public ArrayList searchTList(Connection conn, String text, int type) {			//검색
 		PreparedStatement pstmt=null;
 		ResultSet rset=null;
 		ArrayList<Attachment> list =null;
 		
-		String query=prop.getProperty("selectTList_select");
+		String query=prop.getProperty("selectTList_search");
 		
 		try {
 			pstmt=conn.prepareStatement(query);
+			pstmt.setString(1, text);
+			pstmt.setInt(2,type);
 			rset=pstmt.executeQuery();
-			
+			list=new ArrayList<Attachment>();
 			while(rset.next()) {
 				list.add(new Attachment(										
 										rset.getInt("atcNo"),
 										rset.getString("atcName"),
 										rset.getInt("board_no")));
 			}	
-
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -199,12 +201,13 @@ public class BoardDAO {
 			close(rset);
 			close(pstmt);
 		}
-		
-		
-		
 		return list;
 	}
 
+	
+	
+	
+	
 	public int updateCount(Connection conn, int bId) {
 		PreparedStatement pstmt=null;
 		int result=0;
@@ -259,48 +262,6 @@ public class BoardDAO {
 		
 		return b;
 	}
-
-
-
-
-//	public ArrayList<Attachment> selectThumbnail(Connection conn, int bId) {
-//		PreparedStatement pstmt=null;
-//		ResultSet rset=null;
-//		ArrayList<Attachment>list=null;
-//		
-//		String query=prop.getProperty("selectRecipeThumbnail");
-//		
-//		try {
-//			pstmt=conn.prepareStatement(query);
-//			pstmt.setInt(1,bId);
-//			rset=pstmt.executeQuery();
-//			list=new ArrayList<Attachment>();
-//			
-//			while(rset.next()) {
-//				Attachment at=new Attachment();
-//				at.setFile
-//			}
-//			/*	private int atcNo;
-//	private String memId;
-//	private int atcType;
-//	private String atcOrigin;
-//	private String atcName;
-//	private String atcPath;
-//	private Date atcDate;
-//	private int atcLevel;
-//	private char atcStatus;
-//	private int boardNo;*/
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
-//		
-//		
-//		
-//		return null;
-//	}
-
 
 
 	public int insertBoard(Connection conn, Board b) {
@@ -407,6 +368,115 @@ public class BoardDAO {
 		}
 		return list;
 	}
-	
+
+
+
+	public ArrayList<Content> selectContent(Connection conn, int bId) {
+		PreparedStatement pstmt=null;
+		ResultSet rset=null;
+		ArrayList<Content>list=null;
+		
+		String query=prop.getProperty("selectRContent");
+		
+		try {
+			pstmt=conn.prepareStatement(query);
+			pstmt.setInt(1, bId);
+			list=new ArrayList<Content>();
+			rset=pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Content con=new Content();
+				con.setContent(rset.getString("RCONTENT_CON"));
+
+				list.add(con);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+
+
+	public ArrayList selectBList_sort(Connection conn, int sortType, int type) {
+		PreparedStatement pstmt=null;
+		ResultSet rset=null;
+		ArrayList<Board> list =null;
+		String query=null;
+		System.out.println(sortType+"");
+		if(sortType==1) {
+			 query=prop.getProperty("selectBList_RecentSort");
+		}else if(sortType==2) {
+			 query=prop.getProperty("selectBList_LikeSort");
+		}else {
+			 query=prop.getProperty("selectBList_ComSort");
+		}
+			try {
+				pstmt=conn.prepareStatement(query);
+				pstmt.setInt(1,type);
+				rset=pstmt.executeQuery();
+				list=new ArrayList<Board>();
+				while(rset.next()) {
+					list.add(new Board(rset.getInt("board_no"),
+										rset.getInt("board_code"),
+										rset.getString("mem_id"),
+										rset.getString("board_title"),
+										rset.getDate("board_date"),
+										rset.getString("board_content"),
+										rset.getInt("board_count"),
+										rset.getInt("board_like"),
+										rset.getInt("board_com"),
+										rset.getInt("board_cate"),
+										rset.getString("board_status")));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+		return list;
+	}
+
+
+
+	public ArrayList selectTList_sort(Connection conn, int sortType, int type) {
+		PreparedStatement pstmt=null;
+		ResultSet rset=null;
+		ArrayList<Attachment> list =null;
+		String query=null;
+		
+		if(sortType==1) {
+			 query=prop.getProperty("selectTList_RecentSort");
+		}else if(sortType==2) {
+			 query=prop.getProperty("selectTList_LikeSort");
+		}else {
+			 query=prop.getProperty("selectTList_ComSort");
+		}
+			try {
+				pstmt=conn.prepareStatement(query);
+				pstmt.setInt(1,type);
+				rset=pstmt.executeQuery();
+				list =new ArrayList<Attachment>();
+				while(rset.next()) {
+					list.add(new Attachment(rset.getInt("ATC_NO"),
+											rset.getString("ATC_NAME"),
+											rset.getInt("board_no")));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+		return list;
+	}
+
+
+
+
 	
 }

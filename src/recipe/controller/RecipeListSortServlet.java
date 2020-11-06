@@ -17,13 +17,13 @@ import board.model.vo.Board;
  * Servlet implementation class RecipeListTypeSort2
  */
 @WebServlet("/recipe.sort")
-public class RecipeListTypeSort extends HttpServlet {
+public class RecipeListSortServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RecipeListTypeSort() {
+    public RecipeListSortServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,11 +33,15 @@ public class RecipeListTypeSort extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			int sortType=Integer.parseInt(request.getParameter("sortType"));
-			
+			int type=Integer.parseInt(request.getParameter("type"));
  
 			BoardService service=new BoardService(); 
-			ArrayList<Board> bList=service.selectTList(1,sortType);
-			ArrayList<Attachment> tList=service.selectTList(2,sortType);
+			ArrayList<Board> bList=service.selectTList_sort(1,sortType,type);
+			ArrayList<Attachment> tList=service.selectTList_sort(2,sortType,type);
+			
+			System.out.println(sortType+"sortType입니다!");
+			System.out.println(type+"type입니다!!");
+			
 			
 			String page=null;
 			
@@ -49,8 +53,11 @@ public class RecipeListTypeSort extends HttpServlet {
 				request.setAttribute("msg", "정렬에 실패하였습니다.");
 				page="WEB-INF/views/common/errorPage.jsp";
 			}
-
 			
+			request.getRequestDispatcher(page).forward(request, response);
+		
+		
+
 	}
 
 	/**

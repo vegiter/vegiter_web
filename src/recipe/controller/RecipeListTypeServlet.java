@@ -24,6 +24,7 @@ public class RecipeListTypeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			
 		int bcate=Integer.parseInt(request.getParameter("bcate"));
+		
 		BoardService service=new BoardService(); 		
 		ArrayList<Board> bList=service.selectTList(1,bcate);
 		ArrayList<Attachment> tList=service.selectTList(2,bcate);

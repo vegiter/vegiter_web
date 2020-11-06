@@ -27,7 +27,7 @@
 	.text{margin-left:600px;}
 	h2{text-align:center;}
 	.card h-100:hover{cursor:pointer; }
-	.col{max-width:"250px"; max-height:"150px"; min-width:"250px"; min-height:"150px";}
+	.col{max-width:"250px"; max-height:"150px"; min-width:"250px"; min-height:"150px"; border-radius: 10px;}
 </style>
 
 <title>Insert title here</title>
@@ -42,27 +42,31 @@
     
     <br>
     
+    	
+    <%System.out.println("ㄹㅇ확인용555"+bList.get(0).getBoard_cate()); %>
+	
+    
     	<div class="sort">
-    		<input type="hidden">
+     		<input type="hidden" name="veguntype" value="<%=bList.get(0).getBoard_cate()%>">
 			<span class="sortType"><input type="hidden" name="cate" value="1"> 최신순 </span>|
 			<span class="sortType"><input type="hidden" name="cate" value="2">좋아요순 </span>|
 			<span class="sortType"><input type="hidden" name="cate" value="3">댓글순</span>
 		</div>
     
     
-  	<script>
+   	<script>
 		$(function(){
 			$('.sortType').click(function(){
-					var sortType=$(this).children().eq(0).val();			//최신순이면 1, 좋아요순이면 2 , 댓글순이면 3				
-					location.href='<%=request.getContextPath()%>/recipe.sort?sortType=' +sortType;   //2에다 만듬									
+					var sortType=$(this).children().eq(0).val();			//최신순이면 1, 좋아요순이면 2 , 댓글순이면 3	
+ 					var type=$('.sort').children().eq(0).val();
+ 				
+ 					location.href="<%=request.getContextPath()%>/recipe.sort?sortType=" + sortType + "&type=" + type;
 			});
 		});
 
-	</script> 
+	</script>  
     
     
-    
-	
 	<article class="cardwrap">
 	
 	<div class="row row-cols-1 row-cols-sm-5">
@@ -123,10 +127,15 @@
 		
 	
 	 <div class="text">
- 		<form  id="select" action="<%=request.getContextPath() %>/select.re" method="post">
- 			<input type="text" class="search" maxlength="100" size="50"> 
+ 		
+ 		<form  id="select" action="<%=request.getContextPath() %>/search.re" method="post">
+ 		
+ 			<input type="hidden" value="<%=bList.get(0).getBoard_cate()%>" name="type">
+ 			<input type="text" class="search" maxlength="100" size="50" name="search"> 
  			<input type="submit" value="검색" id="search">
+ 	
  		</form>
+ 	
  	</div>
 	
 	
