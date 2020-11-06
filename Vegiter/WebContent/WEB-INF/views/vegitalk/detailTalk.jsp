@@ -98,10 +98,28 @@
 			<li class="comment-list-item" id="comDate">2020.10.10</li>
 		</ul>
 		<div class="comment-input">
-			<input type="text" class="comment-input-field" placeholder="댓글을 입력하세요.">
-			<button type="submit" class="comment-input-submit">등록</button>
+			<input type="text" class="comment-input-field" placeholder="댓글을 입력하세요." id="commentContent">
+			<button type="submit" class="comment-input-submit" id="addComment">등록</button>
 		</div>
 	</div>
 </div>
+
+	<script>
+		$('#addComment').click(function(){
+			var writer = '<%= loginUser.getMemId() %>';
+			var bId =  '<%= post.getBoard_no() %>';
+			var content = $('#commentContent').val();
+			
+			$.ajax({
+				url: 'insertComment.bo',
+				data: {writer:writer, bId:bId, content:content},
+				success: function(data){
+					console.log(data);
+					
+					
+				}
+			})
+		});
+	</script>
 </body>
 </html>
