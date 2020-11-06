@@ -9,6 +9,7 @@
 .cal_top{
     text-align: center;
     font-size: 30px;
+    margin-top: 50px;
 }
 .cal{
     text-align: center; 
@@ -21,7 +22,10 @@ table.calendar{
 table.calendar td{
     vertical-align: top;
     border: 1px solid skyblue;
-    width: 100px;
+    width: 60px;
+}
+.cal-day:hover{
+	cursor: pointer;
 }
 </style>
 </head>
@@ -37,6 +41,23 @@ table.calendar td{
     </div>
     <div id="cal_tab" class="cal">
     </div>
+	
+	<div class="reserve-input">
+		<form>
+			<table id="reserve-t">
+				<tr>
+					<span>이름</span><input type="text" id="name" name="name">
+				</tr>
+				<tr>
+					<td><span>이름</span><input type="text" id="name" name="name"></td>
+				</tr>
+				<tr>
+					<td><span>이름</span><input type="text" id="name" name="name"></td>
+				</tr>
+				<tr>
+			</table>
+		</form>
+	</div>
 	
 	<%@ include file="../common/footer.jsp"%>
 	<script type="text/javascript">
@@ -64,7 +85,7 @@ table.calendar td{
         setTableHTML+='<table class="calendar">';
         setTableHTML+='<tr><th>SUN</th><th>MON</th><th>TUE</th><th>WED</th><th>THU</th><th>FRI</th><th>SAT</th></tr>';
         for(var i=0;i<6;i++){
-            setTableHTML+='<tr height="100">';
+            setTableHTML+='<tr height="60">';
             for(var j=0;j<7;j++){
                 setTableHTML+='<td style="text-overflow:ellipsis;overflow:hidden;white-space:nowrap">';
                 setTableHTML+='    <div class="cal-day"></div>';
@@ -183,7 +204,11 @@ table.calendar td{
             }
         }
     }
- 
+    
+    $(".cal-day").click(function(){
+    	
+    });
+ 	
 </script>
 </body>
 </html>

@@ -1,9 +1,6 @@
 package login.controller;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,15 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
-
-import com.oreilly.servlet.MultipartRequest;
-
-import board.model.vo.Attachment;
-import common.MyFileRenamePolicy;
 import login.model.serviec.MemberService;
 import login.model.vo.Member;
 import login.model.vo.Owner;
+import shop.model.vo.Shop;
 
 /**
  * Servlet implementation class InsertMemberServlet
@@ -51,6 +43,11 @@ public class InsertMemberServlet extends HttpServlet {
 		String gender = request.getParameter("gender");
 		String phone = request.getParameter("phone");
 		String style = request.getParameter("style");
+		if (style != null) {
+			if (style.equals("null"))
+				style = null;
+		}
+
 		
 		Member m = new Member();
 		m.setMemId(userId);
@@ -58,6 +55,7 @@ public class InsertMemberServlet extends HttpServlet {
 		m.setMemCode(code);
 		m.setMemName(name);
 		m.setMemEmail(email);
+		
 		if(gender != null) {
 			m.setMemGender(gender.charAt(0));
 		}else {
@@ -71,32 +69,42 @@ public class InsertMemberServlet extends HttpServlet {
 		
 	
 		// 일반회원인경우
-				if(code == 1) {
-					result = new MemberService().insertMember(m);
-				}else {
-				// 사업자 회원인 경우
-					String ownNo = request.getParameter("ownNumber");
-					String ownName = request.getParameter("userName");
-					String memId = request.getParameter("userId");
-					
-					Owner own = new Owner(ownNo, ownName, memId);
-					
-					result = new MemberService().insertMember(m, own);
-					
-				}
-					
-				if(result > 0) {
-					if(code == 1) {
-						response.sendRedirect(request.getContextPath());
-					}else {
-						request.setAttribute("memId", userId);
-						System.out.println("insertServlet : " + userId);
-						request.getRequestDispatcher("WEB-INF/views/login/businessFileForm.jsp").forward(request, response);
-					}
-				}else {
-					request.setAttribute("msg", "회원가입에 실패하였습니다.");
-					request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
-				}
+		if (code == 1) {
+			result = new MemberService().insertMember(m);
+		} else {
+			// 사업자 회원인 경우
+			String ownNo = request.getParameter("ownNumber");
+			String ownName = request.getParameter("userName");
+			String memId = request.getParameter("userId");
+
+			Owner own = new Owner(ownNo, ownName, memId);
+			
+			String shopName = request.getParameter("shopName");
+			String url = request.getParameter("url");
+			String address = request.getParameter("address");
+			
+			Shop shop = new Shop();
+			shop.setShopName(shopName);
+			shop.setOwnNo(ownNo);
+			shop.setShopAddress(address);
+			shop.setShopPage(url);
+
+			result = new MemberService().insertMember(m, own, shop);
+
+		}
+
+		if (result > 0) {
+			if (code == 1) {
+				response.sendRedirect(request.getContextPath());
+			} else {
+				request.setAttribute("memId", userId);
+				System.out.println("insertServlet : " + userId);
+				request.getRequestDispatcher("WEB-INF/views/login/businessFileForm.jsp").forward(request, response);
+			}
+		} else {
+			request.setAttribute("msg", "회원가입에 실패하였습니다.");
+			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
+		}
 		
 	}
 

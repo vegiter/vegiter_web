@@ -184,13 +184,16 @@
 					<div class="input-info"><input type="text" name="userName" id="userName"></div>
 					<div class="error"></div>
 					<h4>사업자 번호<b>*</b></h4>
-					<div class="input-info"><input type="number" name="ownNumber" id="ownNumber" placeholder="-포함"></div>
+					<div class="input-info"><input type="number" name="ownNumber" id="ownNumber" placeholder="-미포함"></div>
 					<div class="error"></div>
 					<h4>이메일<b>*</b></h4>
 					<div class="input-info"><input type="email" name="email" id="email"></div>
 					<div class="error"></div>
 					<h4>업체 전화번호<b>*</b></h4>
 					<div class="input-info"><input type="number" name="phone" id="phone"></div>
+					<div class="error"></div>
+					<h4>업체명<b>*</b></h4>
+					<div class="input-info"><input type="text" name="shopName" id="shopName"></div>
 					<div class="error"></div>
 					<h4>업체 주소<b>*</b></h4>
 					<div class="input-info"><input type="text" name="address" id="address"></div>
@@ -223,6 +226,7 @@
 				var emailCheck = false; //unique
 				var ownNumberCheck = false;
 				var phoneCheck = false;
+				var shopNameCheck = false;
 				var addressCheck = false;
 				var checked = false; 
 				
@@ -331,14 +335,15 @@
 				});
 				$('#ownNumber').change(function(){
 					// pk 중복체크
-					var own = $('#ownNumber').val();
-					if(own.length < 4){
+					console.log($('#ownNumber').val());
+					var ownNumber = $('#ownNumber').val();
+					if(ownNumber.length < 4){
 						$('.error').eq(4).text('사업자 번호를 입력해주세요').css('color','red');
 						ownNumberCheck = false;
 					}else{
 						$.ajax({
 							url: '<%=request.getContextPath()%>/checkOwnNumber',
-							data : {ownNo:own},
+							data : {ownNumber:ownNumber},
 							success: function(data){
 								console.log(data);
 								
@@ -353,13 +358,24 @@
 						});
 					}
 				});
+				$('#shopName').change(function(){
+					var shop = $('#shopName').val();
+					if(address.length < 4){
+						$('.error').eq(7).text('업체명을 입력해주세요').css('color','red');
+						shopNameCheck = false;
+					}else{
+						$('.error').eq(7).text('');
+						shopNameCheck = true;
+					}
+				});
+				
 				$('#address').change(function(){
 					var address = $('#address').val();
 					if(address.length < 4){
-						$('.error').eq(7).text('주소를 입력해주세요').css('color','red');
+						$('.error').eq(8).text('주소를 입력해주세요').css('color','red');
 						addressCheck = false;
 					}else{
-						$('.error').eq(7).text('');
+						$('.error').eq(8).text('');
 						addressCheck = true;
 					}
 				});
@@ -392,6 +408,10 @@
 					}else if(!ownNumberCheck){
 						alert('사업자번호를 확인해주세요');
 						$('#ownNumber').focus();
+						return false;
+					}else if(!shopNameCheck){
+						alert('업체명을 입력해주세요');
+						$('#shopName').focus();
 						return false;
 					}else if(!addressCheck){
 						alert('주소를 확인해주세요');
