@@ -67,7 +67,11 @@
 	<% } %>
 	
 	<div class="write-img">
+		<% if(post.getBoard_code() == 1 || post.getBoard_code() == 3){%>
 		<img src="<%= request.getContextPath() %>/uploaded_Images/<%= atc.getAtcName() %>" id="post-img">
+		<% } else{ %>
+			식단
+		<% } %>
 	</div>
 	
 	<div class="user">
