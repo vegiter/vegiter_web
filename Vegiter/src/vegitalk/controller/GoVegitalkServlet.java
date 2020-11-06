@@ -41,7 +41,6 @@ public class GoVegitalkServlet extends HttpServlet {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		
-		System.out.println("지금 페이지는?" + currentPage);
 		PageInfo pi = new PageInfo(postCount, currentPage, pageLimit, postLimit, maxPage, startPage, endPage);
 		ArrayList<Board> pList = vs.getPListAll(pi);
 		ArrayList<Attachment> aList = vs.getAList();

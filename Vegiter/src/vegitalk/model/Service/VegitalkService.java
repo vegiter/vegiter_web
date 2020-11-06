@@ -66,7 +66,6 @@ public class VegitalkService {
 
 	public ArrayList<Board> getPListAll(PageInfo pi) {
 		Connection conn = getConnection();
-		
 		ArrayList<Board> pList = new VegitalkDAO().getPListAll(conn , pi);
 		close(conn);
 		return pList;
@@ -84,5 +83,19 @@ public class VegitalkService {
 		ArrayList<Attachment>aList = new VegitalkDAO().getAList(conn);
 		close(conn);
 		return aList;
+	}
+
+	public Board selectPost(int bId, int bCode) {
+		Connection conn = getConnection();
+		Board post = new VegitalkDAO().selectPost(conn, bId, bCode);
+		close(conn);
+		return post;
+	}
+
+	public Attachment selectAtc(int bId) {
+		Connection conn = getConnection();
+		Attachment atc = new VegitalkDAO().selectAtc(conn, bId);
+		close(conn);
+		return atc;
 	}
 }

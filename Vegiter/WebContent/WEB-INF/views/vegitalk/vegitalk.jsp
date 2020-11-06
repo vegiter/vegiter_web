@@ -49,7 +49,8 @@
 
 	.board-list-item{background-color: #DEE2E5; height: 130px; text-align: left;}
 	.board-list-item h1{font-size: 20px; padding: 10px; font-weight: bold; color: #21403A;}
-	.board-list-item>p{padding: 0 15px; height: 50px; width: 260px; color: #485056; line-height: 1.5rem; text-overflow: ellipsis;}
+	.board-list-item>p{padding: 0 15px; height: 50px; width: 260px; color: #485056; line-height: 1.5rem;}
+	.board-list-item-con>p{text-overflow: ellipsis;}
 	.board-list-item-social{text-align: right; color: #485056; padding: 10px 15px;}
 	.board-list-item-social span{margin-left: 5px;}
 	.board-list-item-social>i{color: #485056;}
@@ -92,6 +93,7 @@
 			<% for(Board p: pList) { %>
 			    <li class="board-list" style="cursor:pointer;">
 			    	<input type="hidden" value="<%= p.getBoard_no() %>">
+			    	<input type="hidden" value="<%= p.getBoard_code() %>">
 			    	<div class="board-list-img">
 			    		<% for(Attachment a: aList){
 			    				int pNo = p.getBoard_no();
@@ -149,7 +151,7 @@
 		});
 		
 		$(function(){ //sort 옵션 버튼 클릭 이벤트
-			$('.opt-type>span.filter:eq[0]').css('color', '#41A693');
+			$('.opt-type>span.filter:first').css('color', '#41A693');
 			
 			$('.opt-type>span.filter').on('click', function(){
 				$('.opt-type>span.filter').css('color', '#ACB5BD');
@@ -164,10 +166,11 @@
 			});
 		});
 		
-		$(function(){ //페이징 이벤트
-			$('.paging>span:first').click(function(){
-				if(currentPage == 1) {
-					pre
+		$(function(){ //상세페이지 이동 분기 처리
+			$('.board-list').click(function(){
+				var bId = $(this).children().val();
+				var bCode = $(this).children().eq(1).val();
+				location.href="<%= request.getContextPath() %>/detail?bId=" + bId + "&bCode=" + bCode;
 			});
 			
 		});

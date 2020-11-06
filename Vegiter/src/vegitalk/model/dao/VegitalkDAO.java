@@ -164,7 +164,7 @@ public class VegitalkDAO {
 		String query = prop.getProperty("getPListAll");
 		int startRow = (pi.getCurrentPage() - 1) * pi.getPostLimit() + 1;
 		int endRow = (startRow + pi.getPostLimit()) - 1;
-		
+
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, startRow);
@@ -249,5 +249,59 @@ public class VegitalkDAO {
 			close(rset);
 		}
 		return pList;
+	}
+
+	public Board selectPost(Connection conn, int bId, int bCode) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Board post = null;
+		String query = prop.getProperty("selectPost");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, bId);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				post = new Board(rset.getInt("board_no"),
+				   			     rset.getInt("board_code"),
+							     rset.getString("mem_id"),
+							     rset.getString("board_title"),
+							     rset.getDate("board_date"),
+							     rset.getString("board_content"),
+							     rset.getInt("board_count"),
+							     rset.getInt("board_like"),
+							     rset.getInt("board_com"),
+							     rset.getString("board_status"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return post;
+	}
+
+	public Attachment selectAtc(Connection conn, int bId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Attachment atc = null;
+		String query = prop.getProperty("selectAtc");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, bId);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				atc = new Attachment(rset.getString("atc_name"),
+									 rset.getInt("board_no"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return atc;
 	}
 }

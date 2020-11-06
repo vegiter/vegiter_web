@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="board.model.vo.Board, board.model.vo.Attachment" %>
+<%
+	Board post = (Board)request.getAttribute("post");
+	Attachment atc = (Attachment)request.getAttribute("atc");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,21 +19,19 @@
 	blockquote:before, blockquote:after, q:before, q:after {content: ''; content: none;}
 	table{border-collapse: collapse; border-spacing: 0;}
 	button{outline: none; background-color: white;border-style: none;}
-	textarea{outline: none;padding: 1rem;border-style: none;}
-	.wrapper{width: 600px;min-width: 600px;margin: auto;margin-top: 150px;margin-bottom: 100px;overflow: hidden;}
+	textarea{outline: none; padding: 1rem;border-style: none;}
+	.wrapper{width: 500px; min-width: 500px; margin: auto;margin-top: 150px;margin-bottom: 100px;overflow: hidden;}
 	#wirte-area{resize: vertical;}
 	.write-my {display: flex;justify-content: flex-end;}
-	.write-my button{margin-bottom: 10px;margin-right: 2px;color: #333B3F;font-weight: bold;left: 0;}
+	.write-my button{margin-bottom: 10px; margin-right: 2px;color: #333B3F;font-weight: bold; left: 0;}
 	.write-my button:hover{background-color: #F0F3F5;border-radius: 5px;}
 	.write-my button:active{background-color: #41A693;color: #FFF;}
 	.selected{color: #41A693;font-weight: bold;}
-	
-	.write-img{width: 600px; height: 550px; overflow: hidden; background-color: #F0F3F5; text-align: center; line-height: 550px;}
+	.write-img{margin: 0 auto; width: 500px; height: 450px; overflow: hidden; background-color: #F0F3F5; text-align: center; line-height: 550px;}
 	.write-img-btn{padding: 50px; border: 2px dotted #858E96; border-radius: 20px; color: #858E96;}
-	#post-img{width: 100%; height: auto;}
-	
-	#wirte-area {width: 570px; min-height: 80px; height: auto; padding: 15px; line-height: 1.5; resize:none;}
-	.social{width: 600px;display: flex;justify-content: flex-end;margin: 10px 0;}
+	#post-img{width: 100%; height: 100%;}
+	#wirte-area {width: 470px; min-height: 100px; height: auto; padding: 15px; line-height: 1.5; resize:none;}
+	.social{width: 500px;display: flex;justify-content: flex-end;margin: 10px 0;}
 	span>i {font-size: 18px;vertical-align: middle;}
 	.social>span{padding: 3px;padding-left: 8px;padding-right: 8px;}
 	.social>span:nth-child(1):hover{cursor: default;}
@@ -36,17 +39,17 @@
 	.checked{color: #41A693;font-weight: bold;}
 	.user{padding: 1rem;color: #333B3F;font-weight: bold;font-size: 19px;display: flex;justify-content: space-between;align-items: center;}
 	.user-info{width: 95%;display: flex;justify-content: space-between;}
-	#userId{font-size: 22px;}
-	.fa-bookmark{font-size: 22px;cursor: pointer;}
+	#userId{font-size: 20px;}
+	.fa-bookmark{font-size: 20px;cursor: pointer;}
 	.fa-bookmark:hover{cursor: pointer;color: #41A693;}
-	.comment{width: 564px;background-color: #F0F3F5; height: auto;padding: 18px;margin-top: 10px;}
-	.comment-list{width: 100%;padding: 0;display: flex;}
+	.comment{box-sizing:border-box;width: 500px;background-color: #F0F3F5; height: auto;padding: 14px;margin-top: 10px;}
+	.comment-list{width: 100%;padding: 0;display: flex;margin-top: 8px;}
 	.comment-input{display: flex;justify-content: space-between;margin-top: 20px;vertical-align: middle;}
-	#comUserId{width: 20%;font-weight: bold;overflow: hidden;}
-	#comContent{width: 65%;}
-	#comDate{width: 15%;text-align: right;}
+	#comUserId{width: 20%;font-weight: bold;overflow: hidden;font-size: 14px;}
+	#comContent{width: 65%;font-size: 14px;}
+	#comDate{width: 15%;text-align: right;font-size: 14px;}
 	.comment-input-field{width: 85%;border-style: none;padding: 8px; outline:none;}
-	.comment-input-submit{width: 60px;}
+	.comment-input-submit{width: 50px;}
 	.comment-input-submit:hover{background-color: #41A693;color: #fff;}
 </style>
 <script src="https://kit.fontawesome.com/34238d14b4.js" crossorigin="anonymous"></script>
@@ -56,30 +59,32 @@
 <body>
 <%@ include file="../common/gnb.jsp" %>
 <div class="wrapper">
-	<div class="write-my">
-		<button id="delete">삭제</button>
-		<button id="modify">수정</button>
-	</div>
-
+	<% if(loginUser != null && (loginUser.getMemId()).equals(post.getMem_id())){ %>
+		<div class="write-my">
+			<button id="delete">삭제</button>
+			<button id="modify">수정</button>
+		</div>
+	<% } %>
+	
 	<div class="write-img">
-		<img src="img.png" id="post-img">
+		<img src="<%= request.getContextPath() %>/uploaded_Images/<%= atc.getAtcName() %>" id="post-img">
 	</div>
 	
 	<div class="user">
 		<div class="user-info">
-		<span id="userId">아이디</span>
-			<span id="date">2020-10-10</span>
+		<span id="userId"><%= post.getMem_id() %></span>
+			<span id="date"><%= post.getBoard_date() %></span>
 		</div>
 		<i class="far fa-bookmark"></i>
 	</div>
 	
-	<textarea name="write" id="wirte-area" readonly>안녕하세요, 작성자입니다.</textarea>
+	<textarea name="write" id="wirte-area" readonly><%= post.getBoard_content() %></textarea>
 	
 	<div class="social">
 		<span><i class="far fa-comment-dots"></i>
-		100+</span>
+		<%= post.getBoard_com() %></span>
 		<span class="social-item checked"><i class="far fa-heart"></i>
-		100+</span>
+		<%= post.getBoard_like() %></span>
 	</div>
 
 	<div class="comment">
@@ -94,6 +99,5 @@
 		</div>
 	</div>
 </div>
-
 </body>
 </html>
