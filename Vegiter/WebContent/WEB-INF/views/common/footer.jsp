@@ -21,7 +21,7 @@
 <body>
 	<footer>
 		<div class="f_div1">
-			<a href="#"><span>About</span></a>
+			<a href="#" onclick="aboutPage();"><span>About</span></a>
 			<span> | </span>
 			<span>Privacy</span>
 			<span> | </span>
@@ -31,5 +31,11 @@
 			<p><a href="https://github.com/vegiter/vegiter_web">채채식 팀 GitHub</a></p>
 		</div>
 	</footer>
+	
+	<script>
+		function aboutPage(){
+		location.href = '<%= request.getContextPath() %>/aboutPage.me';
+		}
+	</script>
 </body>
 </html>

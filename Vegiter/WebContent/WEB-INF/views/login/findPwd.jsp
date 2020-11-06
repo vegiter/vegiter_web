@@ -1,11 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>비밀번호 찾기</title>
+<!-- jquery -->
+<script src="js/jquery-3.5.1.min.js"></script>
+<!-- 폰트  -->
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap"
+	rel="stylesheet">
 <style>
+body {
+	line-height: 1;
+	font-family: 'Open Sans', sans-serif;
+}
 #section-header {
 	width: 70%;
 	height: 100%;
@@ -17,18 +28,15 @@
 	width: 50%;
 	display: inline-block;
 	height: 50px;
-	background: rgb(45, 115, 102);
-	font-size: 18px;
+	background: rgb(65, 166, 147);
+	font-size: 20px;
 	color: white;
 }
 
 #find-pwd {
 	float: right;
+	background: rgb(45, 115, 102);
 	margin-left: -10px;
-}
-
-#find-id {
-	background: rgb(65, 166, 147);
 }
 
 #find-id a {
@@ -38,9 +46,9 @@
 
 #find-id h4, #find-pwd h4 {
 	margin-left: 40px;
-	margin-top: 12px;
+	margin-top: 10px;
 	font-weight: normal;
-	height: 100%;
+	height: 60%;
 }
 
 #find-id h4:hover {
@@ -60,22 +68,16 @@
 	border: 1px solid rgb(242, 242, 242);
 }
 
-#common {
-	margin-right: 30px;
-}
-
 #input-boxes {
-	width: 430px;
+	width: 450px;
 	margin: auto;
 }
-
 .input-box {
 	display: inline-block;
-	width: 430px;
-	height: 230px;
-	margin: auto;
+	width: 480px;
+	height: 280px;
+	margin-bottom: 5%;
 	background: white;
-	margin-top: 50px;
 	border: 2px solid gray;
 }
 
@@ -90,16 +92,23 @@
 	margin: auto;
 	margin-left: 10px;
 	margin-top: 10px;
+	font-size: 18px;
+	color: dimgray;
 }
 
 /* 일반회원 */
+#common{
+	margin-top: 15px;
+}
 #common-input {
-	width: 300px;
+	width: 320px;
 	margin: auto;
 }
-
+#common{
+	margin-top: 10px;
+}
 table {
-	font-size: 12px;
+	font-size: 13px;
 }
 
 table tr {
@@ -120,60 +129,55 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 	margin: 0;
 }
 /* 사업자 회원 */
+#business{
+	margin-top: 10px;
+}
 #business-input {
-	width: 300px;
+	width: 320px;
 	margin: auto;
 	margin-top: 30px;
 }
 
-#div-btn-id {
-	width: 430px;
-	height: 40px;
+.div-btn{
+	width: 200px;
+	height: 30px;
 	margin: auto;
-	margin-top: 30px;
 	margin-bottom: 30px;
+	margin-top: 5px;
 }
-
-#IdBtn {
+.IdBtn {
 	width: 100%;
 	height: 100%;
-	background: rgb(45, 115, 102);
+	background: dimgray;
 	color: white;
 	border: none;
-	font-size: 18px;
+	font-size: 14px;
+}
+.IdBtn:hover{
+	background: rgb(64,64,64);
+	cursor: pointer;
 }
 </style>
 </head>
 <body>
 	<%@ include file="../common/gnb.jsp"%>
-	<section>
+
+<section>
 		<div id="section-header">
-			<div class="find-header" id="find-id">
-				<h4>
-					<a href="<%=request.getContextPath()%>/findId.me">아이디 찾기</a>
-				</h4>
-			</div>
-			<div class="find-header" id="find-pwd">
-				<h4>비밀번호 찾기</h4>
-			</div>
+			<div class="find-header" id="find-id"><h4><a href="<%=request.getContextPath()%>/findId.me">아이디 찾기</a></h4></div>
+			<div class="find-header" id="find-pwd"><h4>비밀번호 찾기</h4></div>
 		</div>
 		<article id="content">
-			<form onsubmit="return findPwd();"
-				action="<%=request.getContextPath()%>/findPwd">
-				<div id="input-boxes">
-					<div class="input-box" id="common">
-						<div class="input-header" id="common-header">
-							<h4>일반회원</h4>
-						</div>
-						<div id="common-input">
+			<div id="input-boxes">
+				<div class="input-box" id="common">
+					<div class="input-header" id="common-header"><h4>일반회원</h4></div>
+					<div id="common-input">
+						<form action="<%= request.getContextPath() %>/findPwdForm.me" method="post" id="findPwdForm" name="findPwdForm" onsubmit="return findPwd();">
 							<table>
 								<tr>
-									<td class="confirm"><input type="radio" name="confirm"
-										onclick="phoneConfirm();" checked="checked" id="confirm-phone">휴대폰
-										인증</td>
+									<td class="confirm"><input type="radio" name="confirm" onclick="phoneConfirm();" checked="checked" id="confirm-phone">휴대폰 인증</td>
 									<td></td>
-									<td class="confirm"><input type="radio" name="confirm"
-										onclick="emailConfirm();" id="confirm-email">이메일 인증</td>
+									<td class="confirm"><input type="radio" name="confirm" onclick="emailConfirm();" id="confirm-email">이메일 인증</td>
 								</tr>
 								<tr>
 									<td>이름</td>
@@ -186,89 +190,106 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 								<tr>
 									<td id="change-name">휴대폰 번호</td>
 									<td id="change-input" colspan="2">
-									<select name="phone-first">
+										<select name="phone-first">
 											<option selected value="010">010</option>
 											<option value="011">011</option>
-									</select> - <input type="number" class="phone" name="phone-middle">
-										- <input type="number" class="phone" name="phone-last">
+										</select>
+										-
+										<input type="number" class="phone" name="phone-middle" id="phone-middle" maxlength="4" oninput="maxLengthCheck(this)"> -
+										<input type="number" class="phone" name="phone-last" id="phone-last" maxlength="4" oninput="maxLengthCheck(this)">
 									</td>
 								</tr>
 							</table>
-						</div>
+							<div class="div-btn"><input type="submit" class="IdBtn" id="btn1" value="일반회원 비밀번호 찾기"></div>
+						</form>
 					</div>
-					<script>
-						function emailConfirm() {
-							$('#change-name').html("이메일 주소");
-							$('#change-input').html(
-									'<input type="email" name="email">');
-						};
-						function phoneConfirm() {
-							$('#change-name').html("휴대폰 번호");
-							$('#change-input')
-									.html(
-											'<select name="phone-first"><option selected value="010">010</option><option value="011">011</option></select> - <input type="number" class="phone" name="phone-middle"> - <input type="number" class="phone" name="phone-last">');
-						};
-					</script>
-					<div class="input-box" id="business">
-						<div class="input-header" id="business-header">
-							<h4>사업자 회원</h4>
-						</div>
-						<div id="business-input">
+				</div>
+				<script type="text/javascript">
+					function maxLengthCheck(object){
+				   	 if (object.value.length > object.maxLength){
+				    	  object.value = object.value.slice(0, object.maxLength);
+				  	  }    
+				 	 }
+				</script>
+				<script>
+					function emailConfirm(){
+						$('#change-name').html("이메일 주소");
+						$('#change-input').html('<input type="email" name="email" required>');
+					};
+					function phoneConfirm(){
+						$('#change-name').html("휴대폰 번호");
+						$('#change-input').html('<select name="phone-first"><option selected value="010">010</option><option value="011">011</option></select> - <input type="number" class="phone" name="phone-middle" id="phone-middle" maxlength="4" oninput="maxLengthCheck(this)"> - <input type="number" class="phone" id="phone-last" name="phone-last" maxlength="4" oninput="maxLengthCheck(this)">');
+					};
+					function findPwd(){
+						var name = $('#userName').val();
+						var id = $('#userId').val();
+						
+						if($('#confirm-phone').attr('checked') == 'checked'){
+							var phone2 = $('#phone-middle').val();
+							var phone3 = $('#phone-last').val();
+							if(name.length < 2){
+								alert('이름을 입력해주세요');
+								$('#userName').focus();
+								return false;
+							}else if(id.length < 5){
+								alert('아이디를 입력해주세요');
+								$('#userId').focus();
+								return false;
+								
+							}else if(phone2.length < 4 || phone3.length <4){
+								alert('휴대폰 번호를 입력해주세요');
+								return false;
+							}else{
+								return true;
+							}
+						}else{
+							if(name.length < 2){
+								alert('이름을 입력해주세요');
+								$('#userName').focus();
+								return false;
+							} else if(id.length < 5){
+								alert('아이디를 입력해주세요');
+								$('#userId').focus();
+								return false;
+							}else {
+								return true;
+							}
+						}
+					}
+				</script>
+				<div class="input-box" id="business">
+					<div class="input-header" id="business-header"><h4>사업자 회원</h4></div>
+					<div id="business-input">
+						<form action="<%= request.getContextPath() %>/findPwdOwnerForm.me" method="post" id="findPwdOwnerForm" name="findPwdOwnerForm" onsubmit="return findPwdOwner();">
 							<table>
 								<tr>
 									<td>사업주</td>
-									<td colspan="2"><input type="text" name="ownName" id="ownName"></td>
+									<td colspan="2"><input type="text" name="ownerName" id="ownerName"></td>
 								</tr>
 								<tr>
 									<td>아이디</td>
-									<td colspan="2"><input type="text" name="ownId" id="ownId"></td>
+									<td colspan="2"><input type="text" name="ownerId" id="ownerId"></td>
 								</tr>
 								<tr>
 									<td>사업자 등록번호</td>
-									<td><input type="number" name="ownNumber" id="ownNumber"></td>
+									<td><input type="number" name="ownerNumber" id="ownerNumber"></td>
 								</tr>
 							</table>
-						</div>
+						<div class="div-btn"><input type="submit" class="IdBtn" id="btn2" value="사업자 비밀번호 찾기"></div>
+						</form>
 					</div>
 				</div>
-				<div id="div-btn-id">
-					<input type="submit" id="IdBtn" value="비밀번호 찾기">
-				</div>
-			</form>
+			</div>
 			<script>
-				$(function() {
-					$('input').focusin(function() {
-						$(this).css({
-							'border' : '2px solid green',
-							'box-shadow' : '0px 0px 5px green'
-						});
-					}).focusout(function() {
-						$(this).css({
-							'border' : '1px solid black',
-							'box-shadow' : 'none'
-						})
-					});
+				$('input').focusin(function(){
+					$(this).css({'border':'2px solid green', 'box-shadow':'0px 0px 5px green'});
+				}).focusout(function(){
+					$(this).css({'border':'1px solid black', 'box-shadow':'none'})
 				});
-
-				function resultId() {
-					var name = $('#userName');
-					var phone = $('.phone');
-
-					console.log(name);
-					console.log(phone);
-
-					console.log("name.val : " + name.val);
-					console.log("name.focus : " + name.focus());
-
-					if (name.val == 0 || name.length == 0) {
-						alert('이름을 입력해주세요');
-						name.focus();
-						$('#userName').focus();
-					}
-				}
+				
 			</script>
 		</article>
 	</section>
-<%-- 		<%@ include file="../common/footer.jsp" %> --%>
+	
 </body>
 </html>

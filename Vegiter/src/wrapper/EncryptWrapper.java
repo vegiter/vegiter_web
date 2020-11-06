@@ -19,11 +19,9 @@ public class EncryptWrapper extends HttpServletRequestWrapper{
 		
 		String value = "";
 		
-		if(name != null && (name.equals("userPwd")|| name.equals("userPwd1") || name.equals("newPwd"))) {
+		if(name != null && (name.equals("userPwd")|| name.equals("userPwd1") || name.equals("newPwd") || name.equals("password"))) {
 			// 암호화 ( 로그인 시/ 회원가입 시/ 비밀번호 변경시)
-			
-			System.out.println("name :" + name);
-			System.out.println("super.getParameter : " + super.getParameter(name));
+
 			value = getSha512(super.getParameter(name));
 			
 		}else {
@@ -44,11 +42,13 @@ public class EncryptWrapper extends HttpServletRequestWrapper{
 			e.printStackTrace();
 		}
 		// byte[]로 쪼개기
-		byte[] bytes = userPwd.getBytes(Charset.forName("UTF-8"));
+		if(userPwd != null) {
+			byte[] bytes = userPwd.getBytes(Charset.forName("UTF-8"));
+		
 		md.update(bytes);
 		
 		encPwd = Base64.getEncoder().encodeToString(md.digest());
-		
+		}
 		return encPwd;
 	}
 }
