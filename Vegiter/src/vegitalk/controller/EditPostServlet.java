@@ -20,18 +20,22 @@ import login.model.vo.Member;
 import vegitalk.common.MyFileRenamePolicy;
 import vegitalk.model.Service.VegitalkService;
 
-@WebServlet("/insertTalk")
-public class InsertTalkServlet extends HttpServlet {
+@WebServlet("/edit")
+public class EditPostServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public InsertTalkServlet() {}
+    public EditPostServlet() {
+        super();
+    }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Board b = new Board();
+		Board post = new Board();
+		Board pReuslt = null;
 		Attachment atc = new Attachment();
 		int result = 0;
+		int bCode = 0;
 		
-		if(ServletFileUpload.isMultipartContent(request)) {
+		if(ServletFileUpload.isMultipartContent(request) ) {
 			int maxSize = 1024 * 1024 * 30;
 			String savePath = request.getSession().getServletContext().getRealPath("/") + "uploaded_Images/";
 			File f = new File(savePath);
@@ -39,43 +43,45 @@ public class InsertTalkServlet extends HttpServlet {
 				f.mkdirs();
 			}
 			
-			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
-			int boardCode = Integer.parseInt(multiRequest.getParameter("boardCode"));
-			String boardContent = multiRequest.getParameter("boardContent");
+			MultipartRequest mpr = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
+			bCode = Integer.parseInt(mpr.getParameter("boardCode"));
+			int bId = Integer.parseInt(mpr.getParameter("bId"));
+			String boardContent = mpr.getParameter("boardContent");
 			String writer = ((Member)request.getSession().getAttribute("loginUser")).getMemId();
-			
+			System.out.println("writer는?" + writer);
 			String newAtcName = new String();
 			String originAtcName = new String();
-			Enumeration<String> files = multiRequest.getFileNames();
+			Enumeration<String> files = mpr.getFileNames();
 			
 			if(files.hasMoreElements()) {
 				String name = files.nextElement();
 				
-				if(multiRequest.getFilesystemName(name) != null) {
-					atc.setAtcName(multiRequest.getFilesystemName(name));
-					atc.setAtcOrigin(multiRequest.getOriginalFileName(name));
+				if(mpr.getFilesystemName(name) != null) {
+					atc.setAtcName(mpr.getFilesystemName(name));
+					atc.setAtcOrigin(mpr.getOriginalFileName(name));
 					atc.setAtcPath(savePath);
 					atc.setMemId(writer);
-					atc.setAtcType(boardCode);
+					atc.setAtcType(bCode);
 					atc.setAtcLevel(0);
 				}
 			}
 			
-			b.setBoard_code(boardCode);
-			b.setBoard_content(boardContent);
-			b.setMem_id(writer);
+			post.setBoard_no(bId);
+			post.setBoard_content(boardContent);
 			
-			result = new VegitalkService().insertPost(b, atc);
-		}
-		
-		if(result > 0) {
-			request.getRequestDispatcher("/vegiTalk").forward(request, response);
-		} else {
-			request.setAttribute("msg", "게시글 등록에 실패했습니다.<br>관리자에게 문의해주세요.");
-			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
+			int aResult = new VegitalkService().updateNewAtc(atc, bId);
+			int pResult = new VegitalkService().editPost(post);
+
+			if(pResult > 0) {
+				response.sendRedirect("detail?bId=" + bId);
+			} else {
+				request.setAttribute("msg", "게시글 등록에 실패했습니다.<br>관리자에게 문의해주세요.");
+				request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
+			}
 		}
 	}
 
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

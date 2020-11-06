@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="board.model.vo.Board, board.model.vo.Attachment" %>
+<%
+	Board post = (Board)request.getAttribute("post");
+%>
 <!DOCTYPE html>
 <html>
 <head>

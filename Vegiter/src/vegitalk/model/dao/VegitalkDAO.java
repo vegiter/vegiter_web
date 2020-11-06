@@ -50,7 +50,7 @@ public class VegitalkDAO {
 	}
 
 	public int insertAttachment(Connection conn, Attachment atc) {
-		String query = prop.getProperty("insertAttachment");
+		String query = prop.getProperty("insertVegitalkAtc");
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
@@ -251,7 +251,7 @@ public class VegitalkDAO {
 		return pList;
 	}
 
-	public Board selectPost(Connection conn, int bId, int bCode) {
+	public Board selectPost(Connection conn, int bId) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		Board post = null;
@@ -303,5 +303,82 @@ public class VegitalkDAO {
 			close(pstmt);
 		}
 		return atc;
+	}
+
+	public int deletePost(Connection conn, int bId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("deletePost");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, bId);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int editPost(Connection conn, Board post) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("editPost");
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, post.getBoard_content());
+			pstmt.setInt(2, post.getBoard_no());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int offAtcStatus(Connection conn, int bId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("editAtc");
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, bId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int updateNewAtc(Connection conn, Attachment atc, int bId) {
+		String query = prop.getProperty("updateNewAtc");
+		PreparedStatement pstmt = null;
+		int result = 0;
+		System.out.println("dao에서: " + atc.getMemId());
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, atc.getMemId());
+			pstmt.setInt(2, bId);
+			pstmt.setInt(3, atc.getAtcType());
+			pstmt.setString(4, atc.getAtcOrigin());
+			pstmt.setString(5, atc.getAtcName());
+			pstmt.setString(6, atc.getAtcPath());
+			pstmt.setInt(7, atc.getAtcLevel());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 }

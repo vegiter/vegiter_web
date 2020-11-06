@@ -57,51 +57,61 @@
 </head>
 </head>
 <body>
-<%@ include file="../common/gnb.jsp" %>
-<div class="wrapper">
-	<% if(loginUser != null && (loginUser.getMemId()).equals(post.getMem_id())){ %>
-		<div class="write-my">
-			<button id="delete">삭제</button>
-			<button id="modify">수정</button>
-		</div>
-	<% } %>
-	
-	<div class="write-img">
-		<% if(post.getBoard_code() == 1 || post.getBoard_code() == 3){%>
-		<img src="<%= request.getContextPath() %>/uploaded_Images/<%= atc.getAtcName() %>" id="post-img">
-		<% } else{ %>
-			식단
+	<%@ include file="../common/gnb.jsp" %>
+	<div class="wrapper">
+		<% if(loginUser != null && (loginUser.getMemId()).equals(post.getMem_id())){ %>
+			<div class="write-my">
+				<button id="delete">삭제</button>
+				<button id="modify">수정</button>
+			</div>
 		<% } %>
-	</div>
-	
-	<div class="user">
-		<div class="user-info">
-		<span id="userId"><%= post.getMem_id() %></span>
-			<span id="date"><%= post.getBoard_date() %></span>
+		
+		<% if(atc != null){ %>
+			<div class="write-img">
+				<img src="<%= request.getContextPath() %>/uploaded_Images/<%= atc.getAtcName() %>" id="post-img">
+			</div>
+		<% } %>
+		
+		<div class="user">
+			<input type="hidden" value="<%= post.getBoard_no() %>">
+			<div class="user-info">
+			<span id="userId"><%= post.getMem_id() %></span>
+				<span id="date"><%= post.getBoard_date() %></span>
+			</div>
+			<i class="far fa-bookmark"></i>
 		</div>
-		<i class="far fa-bookmark"></i>
-	</div>
+		
+		<textarea name="write" id="wirte-area" readonly><%= post.getBoard_content() %></textarea>
+		
+		<div class="social">
+			<span><i class="far fa-comment-dots"></i>
+			<%= post.getBoard_com() %></span>
+			<span class="social-item checked"><i class="far fa-heart"></i>
+			<%= post.getBoard_like() %></span>
+		</div>
 	
-	<textarea name="write" id="wirte-area" readonly><%= post.getBoard_content() %></textarea>
-	
-	<div class="social">
-		<span><i class="far fa-comment-dots"></i>
-		<%= post.getBoard_com() %></span>
-		<span class="social-item checked"><i class="far fa-heart"></i>
-		<%= post.getBoard_like() %></span>
-	</div>
-
-	<div class="comment">
-		<ul class="comment-list">
-			<li class="comment-list-item" id="comUserId">작성자</li>
-			<li class="comment-list-item" id="comContent">댓글이다</li>
-			<li class="comment-list-item" id="comDate">2020.10.10</li>
-		</ul>
-		<div class="comment-input">
-			<input type="text" class="comment-input-field" placeholder="댓글을 입력하세요.">
-			<button type="submit" class="comment-input-submit">등록</button>
+		<div class="comment">
+			<ul class="comment-list">
+				<li class="comment-list-item" id="comUserId">작성자</li>
+				<li class="comment-list-item" id="comContent">댓글이다</li>
+				<li class="comment-list-item" id="comDate">2020.10.10</li>
+			</ul>
+			<div class="comment-input">
+				<input type="text" class="comment-input-field" placeholder="댓글을 입력하세요.">
+				<button type="submit" class="comment-input-submit">등록</button>
+			</div>
 		</div>
 	</div>
-</div>
+	<script>
+		$('#delete').click(function(){
+			var bId = $('.user').children().val();
+			location.href="<%= request.getContextPath() %>/delete?bId=" + bId;
+		});
+		
+		$('#modify').click(function(){
+			var bId = $('.user').children().val();
+			location.href="<%= request.getContextPath() %>/editForm?bId=" + bId;
+		});
+	</script>
 </body>
 </html>
