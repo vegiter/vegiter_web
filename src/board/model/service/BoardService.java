@@ -89,7 +89,7 @@ public class BoardService {
 		
 		int result=new BoardDAO().updateCount(conn,bId);
 		
-		Board b=null;
+		Board b=null;	
 		
 		if(result>0) {
 			b=new BoardDAO().selectBoard(conn,bId);
@@ -149,11 +149,26 @@ public class BoardService {
 	public ArrayList<Attachment> selectThumbnail(int bId) {
 		Connection conn=getConnection();
 		
-		int result=new 
+		int result=new BoardDAO().updateCount(conn,bId);
+		
+		ArrayList<Attachment> list=null;
+		
+		if(result>0) {
+			list=new BoardDAO().selectThumbnail(conn,bId);
+			
+			if(list!=null) {
+				commit(conn);
+			}else {
+				rollback(conn);
+			}
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
 		
 		
-		
-		return null;
+		return list;
 	}
 
 

@@ -45,7 +45,7 @@ public class RecipeDetailServlet extends HttpServlet {
 			if(fileList != null) {
 				request.setAttribute("board", board);
 				request.setAttribute("fileList", fileList);
-				page="WEB-INF/views/recipe/recipeDetail.jsp";
+				page="WEB-INF/views/recipe/recipeView.jsp";
 			}else {
 				request.setAttribute("msg", "레시피 상세 보기에 실패하였습니다.");
 				page="WEB-INF/veiws/views/common/errorPage.jsp";
@@ -53,7 +53,6 @@ public class RecipeDetailServlet extends HttpServlet {
 			
 			request.getRequestDispatcher(page).forward(request, response);
 		
-		request.getRequestDispatcher("WEB-INF/views/recipe/recipeView.jsp").forward(request, response);
 
 	
 	}

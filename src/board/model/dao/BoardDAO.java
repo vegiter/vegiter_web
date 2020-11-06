@@ -232,9 +232,32 @@ public class BoardDAO {
 		
 		String query=prop.getProperty("selectBoard");
 		
+		try {
+			pstmt=conn.prepareStatement(query);
+			pstmt.setInt(1, bId);
+			rset=pstmt.executeQuery();
+
+			if(rset.next()) {
+				b=new Board(rset.getInt("board_no"),
+							rset.getInt("board_code"),
+							rset.getString("mem_id"),
+							rset.getString("board_title"),
+							rset.getDate("board_date"),
+							rset.getString("board_content"),
+							rset.getInt("board_count"),
+							rset.getInt("board_like"),
+							rset.getInt("board_com"),
+							rset.getInt("board_cate"),
+							rset.getString("board_status"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
 		
-		
-		return null;
+		return b;
 	}
 
 
@@ -349,6 +372,40 @@ public class BoardDAO {
 		}
 		
 		return result;
+	}
+
+
+
+	public ArrayList<Attachment> selectThumbnail(Connection conn, int bId) {
+		PreparedStatement pstmt=null;
+		ResultSet rset=null;
+		ArrayList<Attachment> list=null;
+		
+		String query=prop.getProperty("selectRecipe");
+		
+		try {
+			pstmt=conn.prepareStatement(query);
+			pstmt.setInt(1, bId);
+			list=new ArrayList<Attachment>();
+			rset=pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Attachment at=new Attachment();
+				at.setAtcNo(rset.getInt("atc_no"));
+				at.setAtcOrigin(rset.getString("atc_origin"));
+				at.setAtcName(rset.getString("atc_name"));
+				at.setAtcPath(rset.getString("atc_path"));
+				at.setAtcDate(rset.getDate("atc_date"));
+				
+				list.add(at);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
 	}
 	
 	

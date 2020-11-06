@@ -102,7 +102,7 @@
   	<script>
 		$(function(){
 			$('.col').click(function(){
-				var bId=$(this).children().children().eq(0).val();
+				var bId=$(this).children().eq(0).val();
 				location.href="<%=request.getContextPath()%>/detail.recipe?bId=" +bId;
 			});
 		});

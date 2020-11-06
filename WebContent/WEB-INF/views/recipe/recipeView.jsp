@@ -3,7 +3,8 @@
     <%@ page import="board.model.vo.*, java.util.ArrayList" %>
     <% 
     	Board board=(Board)request.getAttribute("board");
-    	ArrayList<Attachment> list=(ArrayList)request.getAttribute("attchment");
+		ArrayList<Attachment> list=(ArrayList<Attachment>)request.getAttribute("fileList");
+    	Attachment titleImg=list.get(0);
     /* 	ArrayList<Reply> list =(ArrayList)request.getAttribute("list"); */
     %>
 <!DOCTYPE html>
@@ -84,24 +85,40 @@
 
 
 	<div class="title">			
-			<span id="title"><b>제목입니다.</b></span>
+			<span id="title"><b><%=board.getBoard_title() %></b></span>
 	</div>		
 				<div id="top">
-					<span id="userId">Id User01</span>
-					<span id="date"><b><br>2020-10-10</b></span>				
-					<i class="far fa-bookmark"></i>
+					<span id="userId"><%=board.getMem_id()%></span>
+					<span id="date"><b><br><%=board.getBoard_date() %></b></span>				
+					<i class="far fa-bookmark" onclick="bookMark()"></i>
+					
+					<!-- <script>
+						function bookMark(){
+							if(true){
+								
+							}
+						}
+					</script> -->
+					
 				</div>
 					
 				<span id="update">
-				<button id="delete" onclick="deleteBoard()"><b>삭제</b></button>
-				<button id="modify"><b>수정</b></button>
+				<button id="delete" onclick="deleteRecipe()"><b>삭제</b></button>
+				<button id="modify" onclick="updateRecipe()"><b>수정</b></button>
 				</span>			
 			
 			<script>
-				function deleteBoard(){
+				function deleteRecipe(){
 					var bool=confirm("정말로 삭제하시겠습니까?");
 					if(bool){
 						location.href='<%=request.getContextPath()%>/delete.recipe?bId=<%=board.getBoard_no()%>';
+					}
+				}
+				
+				function updateRecipe(){
+					var bool=confirm("정말로 수정하시겠습니까?");
+					if(bool){
+						location.href='<%=request.getContextPath()%>/update.recipe?bId=<%=board.getBoard_no()%>';
 					}
 				}
 			
@@ -112,82 +129,43 @@
 					
 	<div id="thumbnail">
 		<div class="write-img">
-			<img src="<%=request.getContextPath() %>/images/recipe/비건이미지.PNG" id="post-img" alt="비어있습니다.">	
+			<img src="<%=request.getContextPath() %>/thumnail_uploadFiles/<%=titleImg.getAtcName()%>" id="post-img" alt="비어있습니다.">	
 			
 	</div>
 		<textarea class="content" readonly>처음 설명부분</textarea>
 	</div>
 	
-	
-  							 <div class="part">
- 							 	<br><br><br>
- 							 	 <div class="row no-gutters">
-   			 						<div class="col-md-4" id="titleImgArea1">
-   			 							<img src="<%=request.getContextPath() %>/images/recipe/비건이미지.PNG" id="contentImg2" class="card-img" width="300" height="300">
-    								</div>
-    							     <div class="col-md-8">
-    						 			 <div class="card-body">
-    		  								<textarea class="form-control" name="content" id="content1" aria-label="With textarea" cols="500" rows="9" disabled  style="background-color:transparent">aaa</textarea>
-      									</div>
-     				   	 		  </div>
-  							   </div>
- 							 </div>
+	<%for(int i=1; i<list.size(); i++){ %>
+  		<div class="part">
+ 				<br><br><br>
+ 			<div class="row no-gutters">
+   				<div class="col-md-4" id="titleImgArea1">
+   			 		<img id="contentImg<%=i %>" class="card-img" width="300" height="300"
+   			 		 src="<%=request.getContextPath() %>/thumnail_uploadFiles/<%=list.get(i).getAtcName()%>">
+    			</div>
+    				<div class="col-md-8">
+    					<div class="card-body">
+    		  				<textarea class="form-control" name="content" id="content1" aria-label="With textarea" cols="500" rows="9" disabled  style="background-color:transparent">aaa</textarea>
+      					</div>
+     				</div>
+  			</div>
+ 		</div>
+ 	<%} %>						 
  							 
- 							 <div class="part">
- 							 	<br><br><br>
- 							 	 <div class="row no-gutters">
-   			 						<div class="col-md-4" id="titleImgArea1">
-   			 							<img src="<%=request.getContextPath() %>/images/recipe/비건이미지.PNG" id="contentImg2" class="card-img" width="300" height="300">
-    								</div>
-    							     <div class="col-md-8">
-    						 			 <div class="card-body">
-    		  								<textarea class="form-control" name="content" id="content1" aria-label="With textarea" cols="500" rows="9" disabled  style="background-color:transparent">aaa</textarea>
-      									</div>
-     				   	 		  </div>
-  							   </div>
- 							 </div>
- 							 
- 							 <div class="part">
- 							 	<br><br><br>
- 							 	 <div class="row no-gutters">
-   			 						<div class="col-md-4" id="titleImgArea1">
-   			 							<img src="<%=request.getContextPath() %>/images/recipe/비건이미지.PNG" id="contentImg2" class="card-img" width="300" height="300">
-    								</div>
-    							     <div class="col-md-8">
-    						 			 <div class="card-body">
-    		  								<textarea class="form-control" name="content" id="content1" aria-label="With textarea" cols="500" rows="9" disabled  style="background-color:transparent">aaa</textarea>
-      									</div>
-     				   	 		  </div>
-  							   </div>
- 							 </div>
- 							 
- 							 <div class="part">
- 							 	<br><br><br>
- 							 	 <div class="row no-gutters">
-   			 						<div class="col-md-4" id="titleImgArea1">
-   			 							<img src="<%=request.getContextPath() %>/images/recipe/비건이미지.PNG" id="contentImg2" class="card-img" width="300" height="300">
-    								</div>
-    							     <div class="col-md-8">
-    						 			 <div class="card-body">
-    		  								<textarea class="form-control" name="content" id="content1" aria-label="With textarea" cols="500" rows="9" disabled  style="background-color:transparent">aaa</textarea>
-      									</div>
-     				   	 		  </div>
-  							   </div>
- 							 </div>
 	
 			
 
 
 		<div class="social">
-			<span><i class="far fa-comment-dots"></i>
-				100+</span>
-			<span class="social-item checked"><i class="far fa-heart"></i>
-				100+</span>
+			<span><i class="far fa-comment-dots" id="commentImg"></i>
+				<%=board.getBoard_com()%>+</span>
+			<span class="social-item checked"><i class="far fa-heart" onclick="likeEvent()"></i>
+				<%=board.getBoard_like() %>+</span>
 		</div>
 
 	<div class="comment">
 		<ul class="comment-list">
-			<li  id="comUserId">user01</li>
+			<li  id="comUserId">댓글작성자 이름</li>
 			<li  id="comContent">comment</li>
 			<li  id="comDate">2020-11-11</li>
 		</ul>
