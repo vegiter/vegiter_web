@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import board.model.vo.Attachment;
 import board.model.vo.Board;
+import board.model.vo.Comments;
 import vegitalk.model.Service.VegitalkService;
 
 @WebServlet("/detail")
@@ -24,9 +25,13 @@ public class Detail extends HttpServlet {
 		int bCode = Integer.parseInt(request.getParameter("bCode"));
 		Board post = new VegitalkService().selectPost(bId, bCode);
 		Attachment atc = new VegitalkService().selectAtc(bId);
+		// 댓글 리스트
+		ArrayList<Comments> list = new VegitalkService().selectReplyList(bId);
+		
 		
 		
 		if (post != null) {
+			request.setAttribute("list", list);
 			if(bCode == 1 || bCode == 3) {
 				request.setAttribute("post", post);
 				request.setAttribute("atc", atc);

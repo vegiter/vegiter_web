@@ -11,6 +11,7 @@ import java.util.Arrays;
 
 import board.model.vo.Attachment;
 import board.model.vo.Board;
+import board.model.vo.Comments;
 import board.model.vo.DietList;
 import board.model.vo.PageInfo;
 import vegitalk.model.dao.VegitalkDAO;
@@ -97,5 +98,48 @@ public class VegitalkService {
 		Attachment atc = new VegitalkDAO().selectAtc(conn, bId);
 		close(conn);
 		return atc;
+	}
+
+	public ArrayList<Comments> insertComment(Comments c) {
+		Connection conn = getConnection();
+		
+		VegitalkDAO vDAO = new VegitalkDAO();
+		
+		int result = vDAO.insertComment(conn, c);
+		
+		ArrayList<Comments> list = null;
+		if(result > 0) {
+			commit(conn);
+			list = vDAO.selectCommentList(conn, c.getBoardNo());
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public ArrayList<Comments> selectReplyList(int bId) {
+		Connection conn = getConnection();
+
+		ArrayList<Comments> list = new VegitalkDAO().selectCommentList(conn, bId);
+
+		close(conn);
+
+		return list;
+	}
+
+	public int countComment(int bId) {
+		Connection conn = getConnection();
+		int result = new VegitalkDAO().countComment(conn, bId);
+		System.out.println(result);
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
 	}
 }
