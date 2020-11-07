@@ -8,13 +8,12 @@ import static common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import javax.xml.ws.Response;
-
 import board.model.dao.BoardDAO;
 import board.model.vo.Attachment;
 import login.model.dao.MemberDAO;
 import login.model.vo.Member;
 import login.model.vo.Owner;
+import shop.model.vo.Shop;
 
 public class MemberService {
 
@@ -59,14 +58,15 @@ public class MemberService {
 		return result;
 	}
 
-	public int insertMember(Member m, Owner own) {
+	public int insertMember(Member m, Owner own, Shop shop) {
 		Connection conn = getConnection();
 		MemberDAO mDAO = new MemberDAO();
 
 		int result1 = mDAO.insertMember(conn, m);
 		int result2 = mDAO.insertOwner(conn, own);
+		int result3 = mDAO.insertShop(conn, shop);
 
-		if (result1 > 0 && result2 > 0) {
+		if (result1 > 0 && result2 > 0 && result3 > 0) {
 			commit(conn);
 		} else {
 			rollback(conn);

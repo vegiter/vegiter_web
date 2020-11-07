@@ -15,6 +15,7 @@ import java.util.Properties;
 import board.model.vo.Attachment;
 import login.model.vo.Member;
 import login.model.vo.Owner;
+import shop.model.vo.Shop;
 
 public class MemberDAO {
 	private Properties prop = new Properties();
@@ -348,6 +349,29 @@ public class MemberDAO {
 			close(pstmt);
 		}
 		return mem;
+	}
+
+	public int insertShop(Connection conn, Shop shop) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("insertShop");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, shop.getOwnNo());
+			pstmt.setString(2, shop.getShopName());
+			pstmt.setString(3, shop.getShopAddress());
+			pstmt.setString(4, shop.getShopPage());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 }

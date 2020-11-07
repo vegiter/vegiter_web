@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import login.model.service.MemberService;
 import login.model.vo.Member;
 import login.model.vo.Owner;
+import shop.model.vo.Shop;
 
 /**
  * Servlet implementation class InsertMemberServlet
@@ -78,8 +79,18 @@ public class InsertMemberServlet extends HttpServlet {
 			String memId = request.getParameter("userId");
 
 			Owner own = new Owner(ownNo, ownName, memId);
+			
+			String shopName = request.getParameter("shopName");
+			String url = request.getParameter("url");
+			String address = request.getParameter("address");
+			
+			Shop shop = new Shop();
+			shop.setShopName(shopName);
+			shop.setOwnNo(ownNo);
+			shop.setShopAddress(address);
+			shop.setShopPage(url);
 
-			result = new MemberService().insertMember(m, own);
+			result = new MemberService().insertMember(m, own, shop);
 
 		}
 

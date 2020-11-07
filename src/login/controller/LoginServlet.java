@@ -49,6 +49,8 @@ public class LoginServlet extends HttpServlet {
 		} else {
 			request.setAttribute("msg", "로그인 실패");
 			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
+//			request.setAttribute("loginfail", "로그인 실패하였습니다.");
+//			request.getRequestDispatcher("/login.me").forward(request, response);
 		}
 	}
 
