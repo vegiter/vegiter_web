@@ -179,7 +179,7 @@
 					
 // 					var c = $('#commentSelect').html('');
 					$('#commentSelect').html('');
-					$('#commentContent').val('');	// 댓글 내용 없애기
+					$('#commentContent').val('');	// 댓글 입력 후 기존 내용 삭제
 					
 // 					$('.comment-list').on('click','#commentSelect *', function(e) {  });
 					
