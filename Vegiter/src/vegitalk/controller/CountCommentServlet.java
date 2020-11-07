@@ -30,9 +30,7 @@ public class CountCommentServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int bId = Integer.parseInt(request.getParameter("bId"));
-		System.out.println(bId);
 		int result = new VegitalkService().countComment(bId);
-		System.out.println(result);
 		
 		
 	}

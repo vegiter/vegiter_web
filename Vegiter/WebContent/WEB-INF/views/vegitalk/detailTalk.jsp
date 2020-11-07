@@ -59,13 +59,14 @@
 	#userId{font-size: 20px;}
 	.fa-bookmark{font-size: 20px;cursor: pointer;}
 	.fa-bookmark:hover{cursor: pointer;color: #41A693;}
-	.comment{box-sizing:border-box;width: 500px;background-color: #F0F3F5; height: auto;padding: 14px;margin-top: 10px;}
-	.comment-list{width: 100%; padding: 0;display: inline-block; margin-top: 8px;}
+	.comment{box-sizing:border-box;width: 500px;background-color: #F0F3F5; height: auto;padding: 14px; margin-top: 8px;}
+	.comment-list{width: 100%; padding: 0; display: inline-block; margin-top: 8px;}
 	.comment-input{display: flex; justify-content: space-between; margin-top: 20px; vertical-align: middle;}
-	#comUserId{display: inline-block; width: 20%; bold; overflow: hidden;font-size: 14px;}
-	#comContent{display: inline-block; width: 55%; font-size: 14px; }
-	#comDate{display: inline-block; width: 15%; text-align: right; font-size: 14px;
-			}
+	#comUserId{display: inline-block; width: 15%; bold; overflow: hidden; font-size: 14px; font-weight: bold !important; height: 20px !important;}
+	#comContent{display: inline-block; width: 60%; font-size: 14px; height: 20px !important;}
+	#comDate{display: inline-block; width: 20%; text-align: right; font-size: 14px;
+			 height: 20px !important;}
+	.commentRow{padding-top: 12px;}
 	.comment-input-field{width: 85%;border-style: none; padding: 8px; outline:none;}
 	.comment-input-submit{width: 50px;}
 	.comment-input-submit:hover{background-color: #41A693;color: #fff;}
@@ -115,10 +116,10 @@
 			댓글로 소통을 해보세요!
 		<% } else { %>
 		<% 		for(int i = 0; i < list.size(); i++) { %>
-			<div class="row">
-				<div class="col-2"><%=  list.get(i).getMemId()  %></div>
-				<div class="col-7"><%=  list.get(i).getComContent()  %></div>
-				<div class="col-3"><%=  list.get(i).getComDate()  %></div>
+			<div class="row commentRow">
+				<div class="col-2 commentCol" id='comUserId'><%=  list.get(i).getMemId()  %></div>
+				<div class="col-7 commentCol" id='comContent'><%=  list.get(i).getComContent()  %></div>
+				<div class="col-3 commentCol" id='comDate'><%=  list.get(i).getComDate()  %></div>
 			</div>
 <%-- 			<li class="comment-list-item" id="comUserId" style="width: 50px;"><%=  list.get(i).getMemId()  %></li> --%>
 <%-- 			<li class="comment-list-item" id="comContent" style="width: 50px;" ><%=  list.get(i).getComContent()  %></li> --%>
@@ -147,39 +148,55 @@
 // 			console.log(selected);
 // 		});
 		
+			
 		$('#addComment').click(function(){
+			
+				
 			var writer = '<%= loginUser.getMemId() %>';
 			var bId =  '<%= post.getBoard_no() %>';
 			var content = $('#commentContent').val();
 			
-			// 댓글 수 추가
-			$.ajax({
-				url: 'countComment.bo',
-				data: {bId:bId},
-				success: function(data){
-					console.log(data);
-				}
-			});
 			
-			// 댓글 가져오기
+			
+			// 댓글 수 추가
+			if(content == null || content == '') {
+				alert("댓글을 입력해주세요");
+			} else {
+				$.ajax({
+					url: 'countComment.bo',
+					data: {bId:bId},
+					success: function(data){
+						console.log(data);
+					}
+				});
+			
+			
 			$.ajax({
 				url: 'insertComment.bo',
 				data: {writer:writer, bId:bId, content:content},
 				success: function(data){
 					console.log(data);
 					
+// 					var c = $('#commentSelect').html('');
 					$('#commentSelect').html('');
+					$('#commentContent').val('');
+					
+					$('.comment-list').on('click','#commentSelect *', function(e) {  });
 					
 					for(var i=0 in data){
-						console.log(data[i]);
-						$('#commentSelect').append("<div class='col-2' id='comUserId'>" + data[i].memId + "</div>")
+// 						console.log(data[i]);
+						
+						$('.comment-list').append("<div class='col-2' id='comUserId'>" + data[i].memId + "</div>")
 						.append("<div class='col-7' id='comContent'>" + data[i].comContent + "</div>")
 						.append("<div class='col-3' id='comDate'>" + data[i].comDate + "</div>");
 					}
 					
 				}
-			})
+			});
+			}
 		});
+		
+		
 	</script>
 </body>
 </html>

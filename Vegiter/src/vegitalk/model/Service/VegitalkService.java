@@ -133,7 +133,6 @@ public class VegitalkService {
 	public int countComment(int bId) {
 		Connection conn = getConnection();
 		int result = new VegitalkDAO().countComment(conn, bId);
-		System.out.println(result);
 		if(result > 0) {
 			commit(conn);
 		} else {
