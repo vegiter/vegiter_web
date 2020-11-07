@@ -179,18 +179,22 @@
 					
 // 					var c = $('#commentSelect').html('');
 					$('#commentSelect').html('');
-					$('#commentContent').val('');
+					$('#commentContent').val('');	// 댓글 내용 없애기
 					
-					$('.comment-list').on('click','#commentSelect *', function(e) {  });
+// 					$('.comment-list').on('click','#commentSelect *', function(e) {  });
+					
+					var commentResult = "";
 					
 					for(var i=0 in data){
 // 						console.log(data[i]);
-						
-						$('.comment-list').append("<div class='col-2' id='comUserId'>" + data[i].memId + "</div>")
-						.append("<div class='col-7' id='comContent'>" + data[i].comContent + "</div>")
-						.append("<div class='col-3' id='comDate'>" + data[i].comDate + "</div>");
+						commentResult += "<div class='col-2' id='comUserId'>" + data[i].memId + "</div>"
+											+ "<div class='col-7' id='comContent'>" + data[i].comContent + "</div>"
+											+ "<div class='col-3' id='comDate'>" + data[i].comDate + "</div>";
+// 						$('.comment-list').append("<div class='col-2' id='comUserId'>" + data[i].memId + "</div>")
+// 						.append("<div class='col-7' id='comContent'>" + data[i].comContent + "</div>")
+// 						.append("<div class='col-3' id='comDate'>" + data[i].comDate + "</div>");
 					}
-					
+					$('#commentSelect').html('<div class="row commentRow">' + commentResult + '</div>');
 				}
 			});
 			}
