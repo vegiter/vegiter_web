@@ -153,8 +153,13 @@
 						<tr>
 							<td class="profile-header">성별</td>
 							<td class="profile-content">
-								<%if(loginUser.getMemGender() == 'N'){ %> -- <%}else if(loginUser.getMemGender() == 'F'){ %>
-								여자 <%}else{ %> 남자 <%} %>
+								<%if(loginUser.getMemGender() == 'N'){ %> 
+									-- 
+								<%}else if(loginUser.getMemGender() == 'F'){ %>
+									여자 
+								<%}else{ %> 
+									남자
+								<%} %>
 							</td>
 						</tr>
 						<tr>
@@ -164,8 +169,11 @@
 						<tr>
 							<td class="profile-header">푸드스타일</td>
 							<td class="profile-content">
-								<% if(loginUser.getMemStyle() == null){ %> -- <% }else{%>
-								loginUser.getMemStyle(); <%} %>
+								<% if(loginUser.getMemStyle() == null){ %> 
+									-- 
+								<% }else{%>
+									loginUser.getMemStyle(); 
+								<%} %>
 							</td>
 						</tr>
 					</table>
