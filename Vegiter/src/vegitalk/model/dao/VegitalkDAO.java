@@ -117,6 +117,9 @@ public class VegitalkDAO {
 		String efStr = arrToStr(dl.geteFood());
 		String euStr = arrToStr(dl.geteUrl());
 		
+		System.out.println(dl);
+		
+		
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, mfStr);
@@ -383,6 +386,7 @@ public class VegitalkDAO {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String query = prop.getProperty("updatePost");
+		
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, post.getBoard_content());
@@ -395,5 +399,35 @@ public class VegitalkDAO {
 			close(pstmt);
 		}
 		return result;
+	}
+
+	public DietList selectDietList(Connection conn, int bId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		DietList dList = null;
+		String query = prop.getProperty("selectDietList");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, bId);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				String[] mF = rset.getString("m_food").split(",");
+				String[] mU = rset.getString("m_food").split(",");
+				String[] lF = rset.getString("m_food").split(",");
+				String[] lU = rset.getString("m_food").split(",");
+				String[] eF = rset.getString("m_food").split(",");
+				String[] eU = rset.getString("m_food").split(",");
+				
+				dList = new DietList(rset.getInt("board_no"), mF, mU, lF, lU, eF, eU);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return dList;
 	}
 }

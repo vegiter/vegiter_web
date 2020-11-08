@@ -19,9 +19,13 @@ public class DeleteVegitalkServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int bId = Integer.parseInt(request.getParameter("bId"));
+		int bCode = Integer.parseInt(request.getParameter("bCode"));
+		int aResult = 1;
 		
 		int pResult = new VegitalkService().deletePost(bId);
-		int aResult = new VegitalkService().deleteAtc(bId);
+		if(bCode == 1 || bCode == 3) {
+			aResult = new VegitalkService().deleteAtc(bId);
+		}
 		
 		if(pResult > 0 && aResult > 0){
 			response.sendRedirect("vegiTalk?currentPage=1");

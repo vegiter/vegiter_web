@@ -148,4 +148,11 @@ public class VegitalkService {
 		return insertAtcResult;
 	}
 
+	public DietList selectDietList(int bId) {
+		Connection conn = getConnection();
+		DietList dList = new VegitalkDAO().selectDietList(conn, bId);
+		close(conn);
+		return dList;
+	}
+
 }

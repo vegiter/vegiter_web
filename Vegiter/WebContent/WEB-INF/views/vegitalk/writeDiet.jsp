@@ -59,12 +59,12 @@
 			</tr>
 			<tr name="diet">
 				<td>
-					<input type="text" name="mFood" placeholder="아침 메뉴 입력">
-					<input type="url" name="mUrl" placeholder="레시피 링크 입력">
+					<input type="text" name="mFood" val="" placeholder="아침 메뉴 입력">
+					<input type="url" name="mUrl" val="" placeholder="레시피 링크 입력">
 				</td>
 				<td>
-					<input type="text" name="lFood" placeholder="점심 메뉴 입력">
-					<input type="url" name="lUrl" placeholder="레시피 링크 입력" >
+					<input type="text" name="lFood" val="" placeholder="점심 메뉴 입력">
+					<input type="url" name="lUrl" val="" placeholder="레시피 링크 입력" >
 				</td>
 				<td>
 					<input  type="text" name="eFood" placeholder="저녁 메뉴 입력">
@@ -86,6 +86,7 @@
 <script>
 	function writePost(){
 		$('body').load("writePost");
+		
 	}
 	
 	$(function(){
