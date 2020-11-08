@@ -1,6 +1,7 @@
 package login.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,19 +40,23 @@ public class LoginServlet extends HttpServlet {
 		} else {
 			loginUser = mService.loginSocialMember(member);
 		}
-
+		
+//		PrintWriter out = response.getWriter();
 		if (loginUser != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", loginUser);
 			session.setMaxInactiveInterval(1000);
-
+			
+//			out.print("success");
 			response.sendRedirect(request.getContextPath());
+			
 		} else {
+//			out.print("fail");
 			request.setAttribute("msg", "로그인 실패");
 			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
-//			request.setAttribute("loginfail", "로그인 실패하였습니다.");
-//			request.getRequestDispatcher("/login.me").forward(request, response);
 		}
+//		out.flush();
+//		out.close();
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

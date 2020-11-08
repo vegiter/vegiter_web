@@ -14,7 +14,7 @@ import login.model.vo.Member;
 /**
  * Servlet implementation class FindPwdServlet
  */
-@WebServlet("/findPwdForm.me")
+@WebServlet(urlPatterns="/findPwdForm.me", name="ChangePwdServlet")
 public class FindPwdServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

@@ -82,7 +82,7 @@
 	#profile{
 		margin: 10px;
 	}
-	#profile tr td{
+	#profile tr td,#bookmark tr td{
 		width: 100px;
 		height: 40px;
 		padding-left: 10px;
@@ -90,18 +90,8 @@
 	.profile-header{
 		border-right: 1px solid lightgray;
 	}
-
 	
 	#list{
-		background-color: #21403A;
-		width: 180px;
-		height: 50px;
-		color: white;
-		font-weight: bold;
-		font-size: 1.25rem;
-		border-radius: 16px;
-	}
-	.book{
 		background-color: #21403A;
 		width: 180px;
 		height: 50px;
@@ -165,8 +155,48 @@
 					</table>
 				</div>
 			</div>
+				<div class="content">
+				<div class="title">북마크</div>
+				<div class="subtitle">
+					<table id="bookmark">
+						<tr>
+							<td class="profile-header">이름</td>
+							<td class="profile-content"><%= loginUser.getMemName() %></td>
+						</tr>
+						<tr>
+							<td class="profile-header">이메일</td>
+							<td class="profile-content"><%= loginUser.getMemEmail()%></td>
+						</tr>
+						<tr>
+							<td class="profile-header">성별</td>
+							<td class="profile-content">
+								<%if(loginUser.getMemGender() == 'N'){ %> 
+									-- 
+								<%}else if(loginUser.getMemGender() == 'F'){ %>
+									여자 
+								<%}else{ %> 
+									남자
+								<%} %>
+							</td>
+						</tr>
+						<tr>
+							<td class="profile-header">휴대폰번호</td>
+							<td class="profile-content"><%= loginUser.getMemPhone()%></td>
+						</tr>
+						<tr>
+							<td class="profile-header">푸드스타일</td>
+							<td class="profile-content">
+								<% if(loginUser.getMemStyle() == null){ %> 
+									-- 
+								<% }else{%>
+									loginUser.getMemStyle(); 
+								<%} %>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
 		</div>
-
 	<script>
 		function logout(){
 			location.href='<%= request.getContextPath() %>/logout.me';
