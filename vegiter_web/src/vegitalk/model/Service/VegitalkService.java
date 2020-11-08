@@ -136,16 +136,21 @@ public class VegitalkService {
 				
 	public ArrayList<Comments> insertComment(Comments c) {
 		Connection conn = getConnection();
-		int result = new VegitalkDAO().insertComment(conn, c);
-		ArrayList<Comments> list = new VegitalkDAO().selectCommentList(conn, c.getBoardNo());
 		
+		VegitalkDAO vDAO = new VegitalkDAO();
+		
+		int result = vDAO.insertComment(conn, c);
+		
+		ArrayList<Comments> list = null;
 		if(result > 0) {
 			commit(conn);
+			list = vDAO.selectCommentList(conn, c.getBoardNo());
 		} else {
 			rollback(conn);
 		}
 		
 		close(conn);
+		
 		return list;
 	}
 	
@@ -165,7 +170,7 @@ public class VegitalkService {
 		Connection conn = getConnection();
 
 		ArrayList<Comments> list = new VegitalkDAO().selectCommentList(conn, bId);
-
+		
 		close(conn);
 
 		return list;
