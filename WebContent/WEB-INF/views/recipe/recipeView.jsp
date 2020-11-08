@@ -7,6 +7,10 @@
     	Attachment titleImg=atList.get(0);
     	ArrayList<Content> conList=(ArrayList<Content>)request.getAttribute("conList");
     	Content titleCon=conList.get(0);
+    	
+    	BookMark bookList=(BookMark)request.getAttribute("bookList");
+    	
+    	
     /* 	ArrayList<Reply> list =(ArrayList)request.getAttribute("list"); */
     %>
 <!DOCTYPE html>
@@ -68,11 +72,22 @@
 	
 	fa-bookmark{font-size: 15px;cursor: pointer;}
 	.fa-bookmark:hover{cursor: pointer;color: #41A693;}
+	
+	#bookMark{color:gray;}
+	#bookMarkchecked{color:red;}	
+	
+	id="bookMark"
+	id="bookMarkchecked"
+	
+	
 	.social{width: 1000px;display: flex;justify-content: flex-end;margin: 10px 0; margin-left:150px;}
 	span>i {font-size: 18px;vertical-align: middle;}
 	.social>span{padding: 3px;padding-left: 8px;padding-right: 8px; }
 	.social>span:nth-child(1):hover{cursor: default;}
-	.social>span:nth-child(2):hover{cursor: pointer;background-color: #41A693;color: #fff;border-radius: 15px;}
+	.social>span:nth-child(2):hover{cursor: pointer;color:#00FC8F;border-radius: 15px;}
+	
+	
+	
 	
 </style> 
 <script src="https://kit.fontawesome.com/34238d14b4.js" crossorigin="anonymous"></script>
@@ -82,7 +97,7 @@
 <body>
 <div class="wrapper">
 	
-		
+		<%@ include file="../common/gnb.jsp" %>
 
 
 	<div class="title">			
@@ -90,16 +105,36 @@
 	</div>		
 				<div id="top">
 					<span id="userId"><%=board.getMem_id()%></span>
-					<span id="date"><b><br><%=board.getBoard_date() %></b></span>				
-					<i class="far fa-bookmark" onclick="bookMark()"></i>
+					<span id="date"><b><br><%=board.getBoard_date() %></b></span>	
 					
-					<!-- <script>
-						function bookMark(){
-							if(true){
+					 <%if(bookList ==null){ %>		 	
+					<i class="far fa-bookmark" id="bookMark"></i>
+					 <% }else{ %>
+					<i class="far fa-bookmark" id="bookMarkchecked"></i>
+					<% } %> 
+
+					 <script>
+					 
+						$(function(){
+							var bId=<%=board.getBoard_no()%>;
+							var user=<%=loginUser.getMemId()%>;
+							
+							$('#bookMark').click(function(){
 								
-							}
-						}
-					</script> -->
+								$(this).css('color','green');
+								
+								$.ajax({
+									url:'bookmark.recipe',
+									data:{bId:bId,user:user},
+									
+									
+
+								});
+								
+							});
+						});	
+					
+					</script> 
 					
 				</div>
 					
@@ -111,8 +146,17 @@
 			<script>
 				function deleteRecipe(){
 					var bool=confirm("정말로 삭제하시겠습니까?");
+					var bcate=<%=board.getBoard_cate()%>;
+					var bId=<%=board.getBoard_no()%>;
 					if(bool){
-						location.href='<%=request.getContextPath()%>/delete.recipe?bId=<%=board.getBoard_no()%>';
+				
+						<%-- location.href='<%=request.getContextPath()%>/delete.recipe?bId=<%=board.getBoard_no()%>';  --%>
+						
+						location.href="<%=request.getContextPath()%>/delete.recipe?bId=" + bId + "&bcate=" +bcate; 
+
+						
+					
+	
 					}
 				}
 				
@@ -172,9 +216,42 @@
 		<div class="social">
 			<span><i class="far fa-comment-dots" id="commentImg"></i>
 				<%=board.getBoard_com()%>+</span>
-			<span class="social-item checked"><i class="far fa-heart" onclick="likeEvent()"></i>
-				<%=board.getBoard_like() %>+</span>
+				
+			<span class="social-item checked" id="likeButton">
+			<i class="far fa-heart" >
+				<input type="hidden" name="veguntype" value=0>
+			</i>
+				<b id="likescale"><%=board.getBoard_like() %>+</b></span>
 		</div>
+		
+		<script>
+		
+		$(function(){
+			var num=0;
+			var like=<%=board.getBoard_like() %>;
+			var bId=<%=board.getBoard_no()%>;
+			$('#likeButton').click(function(){
+								
+ 				num++;
+ 				console.log(num);
+ 				if(num % 2 !=0){
+ 					$(this).css({'background':'#41A693','border-radius':'15px','color':'#FF3F3F'});
+ 					$(this).children().eq(1).text(++like +"+");
+				}else{
+					$(this).css({'background':'white','color':'black'});
+					$(this).children().eq(1).text(--like +"+");						 
+				}
+ 				$.ajax({
+						url:'updateLike.recipe',
+						data:{num:num,bId:bId},
+						success:function(data){
+							console.log(data);
+						}
+					});
+			});
+		});	
+		</script>
+		
 
 	<div class="comment">
 		<ul class="comment-list">
@@ -190,7 +267,7 @@
 	</div>
 
 </div>
-<%@ include file="../common/gnb.jsp" %>
+
 
 	<%@ include file="../common/footer.jsp" %>
 	

@@ -4,7 +4,8 @@
     <%
     ArrayList<Board> bList=(ArrayList<Board>)request.getAttribute("bList");
     ArrayList<Attachment> tList=(ArrayList<Attachment>)request.getAttribute("tList");
-    %>
+    int bcate= (int)request.getAttribute("bcate");
+     %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,10 +25,11 @@
 	.col{display:inline-block;border: 3px solid black;padding:1px;margin:1px;}
 	.sortType{cursor:pointer;}
 	#write{margin-left:1200px;margin-top:100px;padding-top: 1000px;cursor:pointer;		}
-	.text{margin-left:600px;}
+	.text{margin-top:100px;margin-left:600px;}
 	h2{text-align:center;}
 	.card h-100:hover{cursor:pointer; }
 	.col{max-width:"250px"; max-height:"150px"; min-width:"250px"; min-height:"150px"; border-radius: 10px;}
+	#error{margin-left:550px;}
 </style>
 
 <title>Insert title here</title>
@@ -38,29 +40,32 @@
 	
 	
 	 <div id="menuname"><h3>&nbsp;&nbsp;RECIPE</h3></div>
-  	
-    
     <br>
-    
-    	
-    <%System.out.println("ㄹㅇ확인용555"+bList.get(0).getBoard_cate()); %>
-	
-    
+    		<% if(bList.isEmpty()){ %> 
+    				<article class="cardwrap">	
+						<div class="row row-cols-1 row-cols-sm-5">
+							<br><br><br><br>
+							<h2><font color="gray" id="error">등록된 레시피가 없습니다.</font></h2>
+							<br><br><br><br><br><br><br>
+						</div>
+					</article>
+			<%} else{%>
+
     	<div class="sort">
      		<input type="hidden" name="veguntype" value="<%=bList.get(0).getBoard_cate()%>">
 			<span class="sortType"><input type="hidden" name="cate" value="1"> 최신순 </span>|
 			<span class="sortType"><input type="hidden" name="cate" value="2">좋아요순 </span>|
 			<span class="sortType"><input type="hidden" name="cate" value="3">댓글순</span>
 		</div>
-    
+			
     
    	<script>
 		$(function(){
 			$('.sortType').click(function(){
 					var sortType=$(this).children().eq(0).val();			//최신순이면 1, 좋아요순이면 2 , 댓글순이면 3	
  					var type=$('.sort').children().eq(0).val();
- 				
- 					location.href="<%=request.getContextPath()%>/recipe.sort?sortType=" + sortType + "&type=" + type;
+					
+ 					location.href="<%=request.getContextPath()%>/recipe.sort?sortType=" + sortType + "&type=" + type + "&bcate=" +<%=bcate%>;
 			});
 		});
 
@@ -112,7 +117,12 @@
 		});
 		
 	</script>
-  					
+  				
+  				
+  				
+ 			
+  				
+  	<%} %>					
 		
 		<!-- 글쓰기 버튼 -->
   	 <%if(loginUser == null){ %>
@@ -125,21 +135,18 @@
 		
 	</article>
 		
-	
-	 <div class="text">
- 		
+	<div class="text">
  		<form  id="select" action="<%=request.getContextPath() %>/search.re" method="post">
- 		
- 			<input type="hidden" value="<%=bList.get(0).getBoard_cate()%>" name="type">
+ 			<%-- <input type="hidden" value="<%=bList.get(0).getBoard_cate()%>" name="type"> --%>
+ 			<input type="hidden" value="<%=bcate%>" name="type">
  			<input type="text" class="search" maxlength="100" size="50" name="search"> 
  			<input type="submit" value="검색" id="search">
- 	
  		</form>
- 	
  	</div>
-	
-	
 
+	
+	
+	
 	
 	<!-- Footer  -->
 	<%@ include file="../common/footer.jsp" %>

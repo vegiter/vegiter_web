@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import board.model.dao.BoardDAO;
 import board.model.vo.Attachment;
 import board.model.vo.Board;
+import board.model.vo.BookMark;
 import board.model.vo.Content;
 
 public class BoardService {
@@ -27,12 +28,12 @@ public class BoardService {
 				
 		if(i==1) {
 			list=dao.selectBList(conn,bcate);		
+			System.out.println(list+"서비스 확인 b");
 		}else {
 			list=dao.selectTList(conn,bcate);			
+			System.out.println(list+"서비스 확인 t");
 			}		
-		close(conn);
-
-
+			close(conn);
 		return list;		
 	}
 	
@@ -146,6 +147,29 @@ public class BoardService {
 		return list;
 	}
 
+	public BookMark selectBookMark(int bId) {
+		Connection conn=getConnection();
+		
+		int result=new BoardDAO().updateCount(conn,bId);
+		
+		BookMark bookMark =null;
+		
+		if(result>0) {
+			bookMark=new BoardDAO().selectBookMark(conn,bId);
+			
+			if(bookMark!=null) {
+				commit(conn);
+			}else {
+				rollback(conn);
+			}
+		}
+		
+		close(conn);
+		
+		return bookMark;
+	}
+
+	
 
 	public ArrayList<Content> selectContent(int bId) {
 		Connection conn=getConnection();
@@ -182,12 +206,44 @@ public class BoardService {
 		
 		if(i==1) {
 			list=dao.searchBList(conn, text, type);
+			System.out.println(list+"이거는 뭘까?");
 		}else {
-			list=dao.searchTList(conn, text, type);
+			list=dao.searchTList(conn,text,type);
+			System.out.println(list+"사진은?");
 		}
 		
 		return list;
 	}
+
+
+	public int updateLike(int num, int bId) {
+
+		Connection conn=getConnection();
+		
+		int result=new BoardDAO().updateLike(conn,num,bId);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+
+	public int updateBookMark(String user, int bId) {
+
+		Connection conn=getConnection();
+		
+		int result=new BoardDAO().updateBookMark(conn,user,bId);
+		
+		return result;
+	}
+
+
 
 
 

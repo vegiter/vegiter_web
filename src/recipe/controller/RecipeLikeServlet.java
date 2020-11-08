@@ -8,41 +8,46 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 import board.model.service.BoardService;
+import board.model.vo.Board;
 
 /**
- * Servlet implementation class RecipeDeleteServlet
+ * Servlet implementation class RecipeLikeServlet
  */
-@WebServlet("/delete.recipe")
-public class RecipeDeleteServlet extends HttpServlet {
+@WebServlet("/updateLike.recipe")
+public class RecipeLikeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public RecipeDeleteServlet() {
+    public RecipeLikeServlet() {
         super();
     }
 
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			int num=Integer.parseInt(request.getParameter("num"));
 			int bId=Integer.parseInt(request.getParameter("bId"));
-			System.out.println(bId+"aaaa");
-			int bcate=Integer.parseInt(request.getParameter("bcate"));
-			System.out.println(bcate+"bbbbb");
+			BoardService service=new BoardService();
+			
+		
+			
+			int result=service.updateLike(num,bId);
+			
+//			if(result>0) {			//like업데이트가 잘 되었을때
+//				
+//			}else {					//like업데이트에 문제가 생길떼
+//				
+//			}
 			
 			
-			int result=new BoardService().deleteBoard(bId);
-			
-			if(result>0) {
-				request.setAttribute("bcate", bcate);
-				request.getRequestDispatcher("recipe.cate").forward(request, response);
-//				response.sendRedirect("recipe.cate");
-				
-			}else {
-				request.setAttribute("msg", "삭제에 실패하였습니다.");
-				request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
-			}
+			response.setContentType("application/json;");
+			Gson gson=new Gson();
 			
 	}
 
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

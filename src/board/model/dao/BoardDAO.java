@@ -16,6 +16,7 @@ import java.util.Properties;
 
 import board.model.vo.Attachment;
 import board.model.vo.Board;
+import board.model.vo.BookMark;
 import board.model.vo.Content;
 
 public class BoardDAO {
@@ -95,7 +96,6 @@ public class BoardDAO {
 									rset.getInt("board_cate"),
 									rset.getString("board_status")));		
 
-		
 			}	
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -146,8 +146,11 @@ public class BoardDAO {
 		
 		try {
 			pstmt=conn.prepareStatement(query);
-			pstmt.setString(1, text);
+			System.out.println(text+"text는 뭘까?");
+			pstmt.setString(1, '%'+text+'%');
+			System.out.println(type+"뭘까?");
 			pstmt.setInt(2,type);
+			
 			rset=pstmt.executeQuery();
 			list=new ArrayList<Board>();
 			while(rset.next()) {
@@ -163,9 +166,7 @@ public class BoardDAO {
 									rset.getInt("board_cate"),
 									rset.getString("board_status")));				
 			}	
-						
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(rset);
@@ -175,27 +176,26 @@ public class BoardDAO {
 		return list;
 	}
 
+	
 	public ArrayList searchTList(Connection conn, String text, int type) {			//검색
 		PreparedStatement pstmt=null;
 		ResultSet rset=null;
 		ArrayList<Attachment> list =null;
 		
-		String query=prop.getProperty("selectTList_search");
+		String query=prop.getProperty("selectTList_search");	///////////////////////////////검색 쿼리 설정!! 
 		
 		try {
 			pstmt=conn.prepareStatement(query);
-			pstmt.setString(1, text);
-			pstmt.setInt(2,type);
+			pstmt.setInt(1, type);
 			rset=pstmt.executeQuery();
 			list=new ArrayList<Attachment>();
 			while(rset.next()) {
 				list.add(new Attachment(										
-										rset.getInt("atcNo"),
-										rset.getString("atcName"),
+										rset.getInt("ATC_NO"),
+										rset.getString("ATC_NAME"),
 										rset.getInt("board_no")));
 			}	
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(rset);
@@ -320,9 +320,8 @@ public class BoardDAO {
 		String query=prop.getProperty("deleteRecipe");
 			
 		try {
-			pstmt=conn.prepareStatement("query");
+			pstmt=conn.prepareStatement(query);
 			pstmt.setInt(1, bId);
-			
 			result=pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -369,6 +368,37 @@ public class BoardDAO {
 		return list;
 	}
 
+	
+	public BookMark selectBookMark(Connection conn, int bId) {
+		PreparedStatement pstmt=null;
+		ResultSet rset=null;
+		BookMark bookmark =null;
+		
+		String query=prop.getProperty("selectBookMark");
+		
+		try {
+			pstmt=conn.prepareStatement(query);
+			pstmt.setInt(1, bId);
+			rset=pstmt.executeQuery();
+			
+			if(rset.next()) {
+				bookmark=new BookMark(rset.getInt("bmk_no"),
+							rset.getString("mem_id"),
+							rset.getString("shop_Id"),
+							rset.getInt("board_no"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return bookmark;
+	}
+
+	
+	
 
 
 	public ArrayList<Content> selectContent(Connection conn, int bId) {
@@ -475,6 +505,49 @@ public class BoardDAO {
 		return list;
 	}
 
+
+
+	public int updateLike(Connection conn, int num, int bId) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String query=null;
+		
+		if(num%2 !=0) {		//like개수 상승
+			 query=prop.getProperty("updateLike_plus");
+		}else {				//like개수 하락
+			 query=prop.getProperty("updateLike_minus");
+		}
+		
+		
+		try {
+			pstmt=conn.prepareStatement(query);
+			pstmt.setInt(1, bId);
+			
+			result=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+
+	public int updateBookMark(Connection conn, String user, int bId) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String query=;
+		
+		
+		
+		return 0;
+	}
+
+
+
+	
 
 
 

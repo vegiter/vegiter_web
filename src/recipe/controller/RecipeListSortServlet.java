@@ -34,6 +34,9 @@ public class RecipeListSortServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			int sortType=Integer.parseInt(request.getParameter("sortType"));
 			int type=Integer.parseInt(request.getParameter("type"));
+			int bcate=Integer.parseInt(request.getParameter("bcate"));
+			
+			System.out.println("bcate는"+bcate);
  
 			BoardService service=new BoardService(); 
 			ArrayList<Board> bList=service.selectTList_sort(1,sortType,type);
@@ -42,12 +45,15 @@ public class RecipeListSortServlet extends HttpServlet {
 			System.out.println(sortType+"sortType입니다!");
 			System.out.println(type+"type입니다!!");
 			
+			System.out.println(bList+"정렬확인용");
+			System.out.println(tList+"정렬확인용입니다");
 			
 			String page=null;
 			
 			if(bList !=null && tList !=null) {
 				request.setAttribute("bList", bList);
 				request.setAttribute("tList", tList);
+				request.setAttribute("bcate", bcate);
 				page="WEB-INF/views/recipe/recipelist.jsp";
 			}else {
 				request.setAttribute("msg", "정렬에 실패하였습니다.");

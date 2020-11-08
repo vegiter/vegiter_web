@@ -30,14 +30,15 @@ public class RecipeListTypeServlet extends HttpServlet {
 		ArrayList<Attachment> tList=service.selectTList(2,bcate);
 		String page=null;
 		System.out.println(bcate);
-		System.out.println(bList);
-		System.out.println(tList);
+		System.out.println("음"+bList);
+		System.out.println("어"+tList);
 		
 		if(bList!=null && tList!=null){
+			request.setAttribute("bcate", bcate);
 			request.setAttribute("bList", bList);
 			request.setAttribute("tList", tList);
 			page="WEB-INF/views/recipe/recipelist.jsp";
-		}else {
+		}else{
 			request.setAttribute("msg", "정렬에 실패하였습니다.");
 			page="WEB-INF/views/common/errorPage.jsp";
 		}
@@ -48,11 +49,7 @@ public class RecipeListTypeServlet extends HttpServlet {
 		
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

@@ -32,7 +32,7 @@ public class RecipeSearchServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			request.setCharacterEncoding("UTF-8");
+		
 		
 		String text=request.getParameter("search");
 		int type=Integer.parseInt(request.getParameter("type"));
@@ -45,13 +45,18 @@ public class RecipeSearchServlet extends HttpServlet {
 		  ArrayList<Board> bList=service.searchTList(1,text,type);
 		  ArrayList<Attachment>tList=service.searchTList(2,text,type);	//thumbnail사진
 		  
+		  System.out.println("제발 ㅠㅠ"+bList);
+		  System.out.println("제발 ㅠㅠ"+tList);
+
 		  
 		  String page=null;
 		  
 		  if(bList !=null && tList!=null) {
+			  request.setAttribute("bcate", type);
 			  request.setAttribute("bList", bList);
-			  request.setAttribute("TList", tList);
-			  page="WEB-INF/views/recipe/recipelist.jsp";		  
+			  request.setAttribute("tList", tList);
+			  page="WEB-INF/views/recipe/recipelist.jsp";	
+//			  page="WEB-INF/views/common/errorPage.jsp";
 		  }else {
 			  request.setAttribute("msg", "recipe조회에 실패하였습니다");
 			  page="WEB-INF/views/common/errorPage.jsp";
@@ -59,7 +64,7 @@ public class RecipeSearchServlet extends HttpServlet {
 
 		
 		
-		 request.getRequestDispatcher("WEB-INF/views/recipe/recipelist.jsp").forward(request, response);
+		 request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	/**
