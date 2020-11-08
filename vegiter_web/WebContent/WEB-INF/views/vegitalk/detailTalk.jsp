@@ -4,7 +4,7 @@
 <%
 	Board post = (Board)request.getAttribute("post");
 	Attachment atc = (Attachment)request.getAttribute("atc");
-	ArrayList<Comments> list = (ArrayList<Comments>)request.getAttribute("list");
+	ArrayList<Comments> list = (ArrayList)request.getAttribute("list");
 %>
 <!DOCTYPE html>
 <html>
@@ -111,17 +111,17 @@
 
 		<div class="comment">
 			<ul class="comment-list" id="commentSelect">
-			<%-- 	<% if(list.isEmpty()) { %>
-					댓글로 소통을 해보세요!
-				<% } else {
-				 		for(int i = 0; i < list.size(); i++) { %>
-							<div class="row commentRow">
-								<div class="col-2 commentCol" id='comUserId'><%=  list.get(i).getMemId()  %></div>
-								<div class="col-7 commentCol" id='comContent'><%=  list.get(i).getComContent()  %></div>
-								<div class="col-3 commentCol" id='comDate'><%=  list.get(i).getComDate()  %></div>
-							</div>
-				<% 		}
-				   } %> --%>
+			<% if(list.isEmpty()) {%>
+				댓글로 소통을 해보세요!
+			<% } else { %>
+			<% 		for(int i = 0; i < list.size(); i++) { %>
+				<div class="row commentRow">
+				<div class="col-2 commentCol" id='comUserId'><%=  list.get(i).getMemId()  %></div>
+				<div class="col-7 commentCol" id='comContent'><%=  list.get(i).getComContent()  %></div>
+				<div class="col-3 commentCol" id='comDate'><%=  list.get(i).getComDate()  %></div>
+			</div>
+			  <% } %>
+		<% } %>
 			</ul>
 			<div class="comment-input">
 				<input type="text" class="comment-input-field" placeholder="댓글을 입력하세요." id="commentContent">
@@ -131,7 +131,7 @@
 	</div>
 
 	<script>
-		<%-- $('#addComment').click(function(){
+		 $('#addComment').click(function(){
 			var writer = '<%= loginUser.getMemId() %>';
 			var bId =  '<%= post.getBoard_no() %>';
 			var content = $('#commentContent').val();
@@ -168,7 +168,7 @@
 				}
 			});
 			}
-		}); --%>
+		});
 	</script>
 </body>
 </html>

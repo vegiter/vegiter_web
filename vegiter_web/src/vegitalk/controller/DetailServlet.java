@@ -27,10 +27,10 @@ public class DetailServlet extends HttpServlet {
 		Board post = new VegitalkService().selectPost(bId);
 		Attachment atc = new VegitalkService().selectAtc(bId);
 		DietList dList = new VegitalkService().selectDietList(bId);
-		//ArrayList<Comments> list = new VegitalkService().selectReplyList(bId);
+		ArrayList<Comments> list = new VegitalkService().selectReplyList(bId);
 		
 		if (post != null) {
-			//request.setAttribute("list", list);
+			request.setAttribute("list", list);
 			if(bCode == 1 || bCode == 3) {
 				request.setAttribute("post", post);
 				request.setAttribute("atc", atc);
