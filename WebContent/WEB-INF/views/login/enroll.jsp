@@ -444,7 +444,7 @@
 									$('.error').eq(0).text('사용가능한 아이디입니다.').css('color','green');
 									idCheck = true;
 									} else {
-										$('.erro').eq(0).text('중복된 아이디입니다.').css('color','red');
+										$('.error').eq(0).text('중복된 아이디입니다.').css('color','red');
 											idCheck = false;
 									}
 							}
