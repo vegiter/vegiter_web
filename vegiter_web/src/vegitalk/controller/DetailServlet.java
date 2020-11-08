@@ -1,6 +1,7 @@
 package vegitalk.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import board.model.vo.Attachment;
 import board.model.vo.Board;
+import board.model.vo.Comments;
 import board.model.vo.DietList;
 import vegitalk.model.Service.VegitalkService;
 
@@ -25,8 +27,10 @@ public class DetailServlet extends HttpServlet {
 		Board post = new VegitalkService().selectPost(bId);
 		Attachment atc = new VegitalkService().selectAtc(bId);
 		DietList dList = new VegitalkService().selectDietList(bId);
+		//ArrayList<Comments> list = new VegitalkService().selectReplyList(bId);
 		
 		if (post != null) {
+			//request.setAttribute("list", list);
 			if(bCode == 1 || bCode == 3) {
 				request.setAttribute("post", post);
 				request.setAttribute("atc", atc);

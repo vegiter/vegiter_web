@@ -1,15 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="board.model.vo.Board, board.model.vo.Attachment" %>
+<%@ page import="board.model.vo.*, board.model.vo.Attachment, java.util.ArrayList" %>
 <%
 	Board post = (Board)request.getAttribute("post");
 	Attachment atc = (Attachment)request.getAttribute("atc");
+	ArrayList<Comments> list = (ArrayList<Comments>)request.getAttribute("list");
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>도란도란</title>
+<!-- 부트스트랩 -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+	integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+	integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+	crossorigin="anonymous"></script>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+	crossorigin="anonymous">
 <style>
 	html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video{margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline; text-decoration: none; border-style: none; color: #000000;}
 	article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {display: block;}
@@ -42,13 +59,15 @@
 	#userId{font-size: 20px;}
 	.fa-bookmark{font-size: 20px;cursor: pointer;}
 	.fa-bookmark:hover{cursor: pointer;color: #41A693;}
-	.comment{box-sizing:border-box;width: 500px;background-color: #F0F3F5; height: auto;padding: 14px;margin-top: 10px;}
-	.comment-list{width: 100%;padding: 0;display: flex;margin-top: 8px;}
-	.comment-input{display: flex;justify-content: space-between;margin-top: 20px;vertical-align: middle;}
-	#comUserId{width: 20%;font-weight: bold;overflow: hidden;font-size: 14px;}
-	#comContent{width: 65%;font-size: 14px;}
-	#comDate{width: 15%;text-align: right;font-size: 14px;}
-	.comment-input-field{width: 85%;border-style: none;padding: 8px; outline:none;}
+	.comment{box-sizing:border-box;width: 500px;background-color: #F0F3F5; height: auto;padding: 14px; margin-top: 8px;}
+	.comment-list{width: 100%; padding: 0; display: inline-block; margin-top: 8px;}
+	.comment-input{display: flex; justify-content: space-between; margin-top: 20px; vertical-align: middle;}
+	#comUserId{display: inline-block; width: 15%; bold; overflow: hidden; font-size: 14px; font-weight: bold !important; height: 20px !important;}
+	#comContent{display: inline-block; width: 60%; font-size: 14px; height: 20px !important;}
+	#comDate{display: inline-block; width: 20%; text-align: right; font-size: 14px;
+			 height: 20px !important;}
+	.commentRow{padding-top: 12px;}
+	.comment-input-field{width: 85%;border-style: none; padding: 8px; outline:none;}
 	.comment-input-submit{width: 50px;}
 	.comment-input-submit:hover{background-color: #41A693;color: #fff;}
 </style>
@@ -86,34 +105,70 @@
 		<textarea name="write" id="wirte-area" readonly><%= post.getBoard_content() %></textarea>
 		
 		<div class="social">
-			<span><i class="far fa-comment-dots"></i>
-			<%= post.getBoard_com() %></span>
-			<span class="social-item checked"><i class="far fa-heart"></i>
-			<%= post.getBoard_like() %></span>
+			<span><i class="far fa-comment-dots"></i><%= post.getBoard_com() %></span>
+			<span class="social-item checked"><i class="far fa-heart"></i><%= post.getBoard_like() %></span>
 		</div>
-	
+
 		<div class="comment">
-			<ul class="comment-list">
-				<li class="comment-list-item" id="comUserId">작성자</li>
-				<li class="comment-list-item" id="comContent">댓글이다</li>
-				<li class="comment-list-item" id="comDate">2020.10.10</li>
+			<ul class="comment-list" id="commentSelect">
+			<%-- 	<% if(list.isEmpty()) { %>
+					댓글로 소통을 해보세요!
+				<% } else {
+				 		for(int i = 0; i < list.size(); i++) { %>
+							<div class="row commentRow">
+								<div class="col-2 commentCol" id='comUserId'><%=  list.get(i).getMemId()  %></div>
+								<div class="col-7 commentCol" id='comContent'><%=  list.get(i).getComContent()  %></div>
+								<div class="col-3 commentCol" id='comDate'><%=  list.get(i).getComDate()  %></div>
+							</div>
+				<% 		}
+				   } %> --%>
 			</ul>
 			<div class="comment-input">
-				<input type="text" class="comment-input-field" placeholder="댓글을 입력하세요.">
-				<button type="submit" class="comment-input-submit">등록</button>
+				<input type="text" class="comment-input-field" placeholder="댓글을 입력하세요." id="commentContent">
+				<button type="submit" class="comment-input-submit" id="addComment">등록</button>
 			</div>
 		</div>
 	</div>
+
 	<script>
-		$('#delete').click(function(){
-			var bId = $('.user').children().val();
-			location.href="<%= request.getContextPath() %>/delete?bId=" + bId;
-		});
-		
-		$('#modify').click(function(){
-			var bId = $('.user').children().val();
-			location.href="<%= request.getContextPath() %>/editForm?bId=" + bId;
-		});
+		<%-- $('#addComment').click(function(){
+			var writer = '<%= loginUser.getMemId() %>';
+			var bId =  '<%= post.getBoard_no() %>';
+			var content = $('#commentContent').val();
+			
+			// 댓글 수 추가
+			if(content == null || content == '') {
+				alert("댓글을 입력해주세요");
+			} else {
+				$.ajax({
+					url: 'countComment.bo',
+					data: {bId:bId},
+					success: function(data){
+						console.log(data);
+					}
+				});
+			
+			$.ajax({
+				url: 'insertComment.bo',
+				data: {writer:writer, bId:bId, content:content},
+				success: function(data){
+					console.log(data);
+					
+					$('#commentSelect').html('');
+					$('#commentContent').val('');	// 댓글 입력 후 기존 내용 삭제
+					
+					var commentResult = "";
+					
+					for(var i=0 in data){
+						commentResult += "<div class='col-2' id='comUserId'>" + data[i].memId + "</div>"
+											+ "<div class='col-7' id='comContent'>" + data[i].comContent + "</div>"
+											+ "<div class='col-3' id='comDate'>" + data[i].comDate + "</div>";
+					}
+					$('#commentSelect').html('<div class="row commentRow">' + commentResult + '</div>');
+				}
+			});
+			}
+		}); --%>
 	</script>
 </body>
 </html>

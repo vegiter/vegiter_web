@@ -11,6 +11,7 @@ import java.util.Arrays;
 
 import board.model.vo.Attachment;
 import board.model.vo.Board;
+import board.model.vo.Comments;
 import board.model.vo.DietList;
 import board.model.vo.PageInfo;
 import vegitalk.model.dao.VegitalkDAO;
@@ -124,7 +125,6 @@ public class VegitalkService {
 	public int updatePost(Board post) {
 		Connection conn = getConnection();
 		int result = new VegitalkDAO().updatePost(conn, post);
-				
 		if(result > 0) {
 			commit(conn);
 		} else {
@@ -132,6 +132,43 @@ public class VegitalkService {
 		}
 		close(conn);
 		return result;
+	}
+				
+	public ArrayList<Comments> insertComment(Comments c) {
+		Connection conn = getConnection();
+		int result = new VegitalkDAO().insertComment(conn, c);
+		ArrayList<Comments> list = new VegitalkDAO().selectCommentList(conn, c.getBoardNo());
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return list;
+	}
+	
+	public int countComment(int bId) {
+		Connection conn = getConnection();
+		int result = new VegitalkDAO().countComment(conn, bId);
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	public ArrayList<Comments> selectReplyList(int bId) {
+		Connection conn = getConnection();
+
+		ArrayList<Comments> list = new VegitalkDAO().selectCommentList(conn, bId);
+
+		close(conn);
+
+		return list;
 	}
 
 	public int editAtc(Attachment atc, int bId) {
@@ -154,5 +191,4 @@ public class VegitalkService {
 		close(conn);
 		return dList;
 	}
-
 }
