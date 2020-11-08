@@ -50,7 +50,7 @@ public class VegitalkDAO {
 	}
 
 	public int insertAttachment(Connection conn, Attachment atc) {
-		String query = prop.getProperty("insertAttachment");
+		String query = prop.getProperty("insertVegitalkAtc");
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
@@ -62,6 +62,28 @@ public class VegitalkDAO {
 			pstmt.setString(4, atc.getAtcName());
 			pstmt.setString(5, atc.getAtcPath());
 			pstmt.setInt(6, atc.getAtcLevel());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int editAttachment(Connection conn, Attachment atc) {
+		String query = prop.getProperty("editVegitalkAtc");
+		PreparedStatement pstmt = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, atc.getMemId());
+			pstmt.setInt(2, atc.getBoardNo());
+			pstmt.setInt(3, atc.getAtcType());
+			pstmt.setString(4, atc.getAtcOrigin());
+			pstmt.setString(5, atc.getAtcName());
+			pstmt.setString(6, atc.getAtcPath());
+			pstmt.setInt(7, atc.getAtcLevel());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -94,6 +116,9 @@ public class VegitalkDAO {
 		String luStr = arrToStr(dl.getlUrl());
 		String efStr = arrToStr(dl.geteFood());
 		String euStr = arrToStr(dl.geteUrl());
+		
+		System.out.println(dl);
+		
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -239,7 +264,6 @@ public class VegitalkDAO {
 									   rset.getInt("board_like"),
 									   rset.getInt("board_com"),
 									   rset.getString("board_status"));
-				System.out.println(post);
 				pList.add(post);
 			}
 		} catch (SQLException e) {
@@ -251,7 +275,7 @@ public class VegitalkDAO {
 		return pList;
 	}
 
-	public Board selectPost(Connection conn, int bId, int bCode) {
+	public Board selectPost(Connection conn, int bId) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		Board post = null;
@@ -303,5 +327,107 @@ public class VegitalkDAO {
 			close(pstmt);
 		}
 		return atc;
+	}
+
+	public int deletePost(Connection conn, int bId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("deletePost");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, bId);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int deleteAtc(Connection conn, int bId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("deleteAtc");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, bId);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int editPost(Connection conn, Board post) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("editPost");
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, post.getBoard_content());
+			pstmt.setInt(2, post.getBoard_no());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int updatePost(Connection conn, Board post) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("updatePost");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, post.getBoard_content());
+			pstmt.setInt(2, post.getBoard_no());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public DietList selectDietList(Connection conn, int bId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		DietList dList = null;
+		String query = prop.getProperty("selectDietList");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, bId);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				String[] mF = rset.getString("m_food").split(",");
+				String[] mU = rset.getString("m_food").split(",");
+				String[] lF = rset.getString("m_food").split(",");
+				String[] lU = rset.getString("m_food").split(",");
+				String[] eF = rset.getString("m_food").split(",");
+				String[] eU = rset.getString("m_food").split(",");
+				
+				dList = new DietList(rset.getInt("board_no"), mF, mU, lF, lU, eF, eU);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return dList;
 	}
 }

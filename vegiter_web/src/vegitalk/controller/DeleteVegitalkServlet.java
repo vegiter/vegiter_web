@@ -1,49 +1,42 @@
 package vegitalk.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import board.model.vo.Attachment;
-import board.model.vo.Board;
 import vegitalk.model.Service.VegitalkService;
 
-@WebServlet("/detail")
-public class Detail extends HttpServlet {
+@WebServlet("/delete")
+public class DeleteVegitalkServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public Detail() {}
+    public DeleteVegitalkServlet() {
+        super();
+    }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int bId = Integer.parseInt(request.getParameter("bId"));
 		int bCode = Integer.parseInt(request.getParameter("bCode"));
-		Board post = new VegitalkService().selectPost(bId, bCode);
-		Attachment atc = new VegitalkService().selectAtc(bId);
+		int aResult = 1;
 		
+		int pResult = new VegitalkService().deletePost(bId);
+		if(bCode == 1 || bCode == 3) {
+			aResult = new VegitalkService().deleteAtc(bId);
+		}
 		
-		if (post != null) {
-			if(bCode == 1 || bCode == 3) {
-				request.setAttribute("post", post);
-				request.setAttribute("atc", atc);
-				request.getRequestDispatcher("WEB-INF/views/vegitalk/detailTalk.jsp").forward(request, response);
-			}
-			if(bCode == 2) {
-				request.setAttribute("post", post);
-				request.getRequestDispatcher("WEB-INF/views/vegitalk/detailDiete.jsp").forward(request, response);
-			}
+		if(pResult > 0 && aResult > 0){
+			response.sendRedirect("vegiTalk?currentPage=1");
 		} else {
-			request.setAttribute("msg", "게시글을 읽어오지 못했어요.");
+			request.setAttribute("msg", "게시글을 삭제하지 못했어요.<br>다시 시도해주세요.");
 			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
+			
 		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
-
 }

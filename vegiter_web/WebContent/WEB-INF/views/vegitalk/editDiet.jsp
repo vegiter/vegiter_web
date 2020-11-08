@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="board.model.vo.Board, board.model.vo.Attachment" %>
+<%
+	Board post = (Board)request.getAttribute("post");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,7 +52,7 @@
 			<button id="type-one" onclick="writePost();">#도란도란</button>
 			<button id="type-two">#식단</button>
 		</div>
-	<form class="write" action="<%= request.getContextPath() %>/insertDiet" method="post">
+	<form class="write" method="post" action="<%= request.getContextPath() %>/edit">
 		<input type="hidden" name="boardCode" value="2">
 		
 		<table class="dietList">
@@ -59,12 +63,12 @@
 			</tr>
 			<tr name="diet">
 				<td>
-					<input type="text" name="mFood" val="" placeholder="아침 메뉴 입력">
-					<input type="url" name="mUrl" val="" placeholder="레시피 링크 입력">
+					<input type="text" name="mFood" placeholder="아침 메뉴 입력">
+					<input type="url" name="mUrl" placeholder="레시피 링크 입력">
 				</td>
 				<td>
-					<input type="text" name="lFood" val="" placeholder="점심 메뉴 입력">
-					<input type="url" name="lUrl" val="" placeholder="레시피 링크 입력" >
+					<input type="text" name="lFood" placeholder="점심 메뉴 입력">
+					<input type="url" name="lUrl" placeholder="레시피 링크 입력" >
 				</td>
 				<td>
 					<input  type="text" name="eFood" placeholder="저녁 메뉴 입력">
@@ -86,7 +90,6 @@
 <script>
 	function writePost(){
 		$('body').load("writePost");
-		
 	}
 	
 	$(function(){

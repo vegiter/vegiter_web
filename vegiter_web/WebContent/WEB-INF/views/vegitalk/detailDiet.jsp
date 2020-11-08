@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="board.model.vo.Board, board.model.vo.Attachment" %>
+<%
+	Board post = (Board)request.getAttribute("post");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,10 +62,12 @@
 <%@ include file="../common/gnb.jsp" %>
 
 <div class="wrapper">
-	<div class="write-my">
-		<button id="delete">삭제</button>
-		<button id="modify">수정</button>
-	</div>
+	<% if(loginUser != null && (loginUser.getMemId()).equals(post.getMem_id())){ %>
+		<div class="write-my">
+			<button id="delete" onclick="location.href='<%= request.getContextPath() %>/delete?bId=<%=post.getBoard_code() %>&bCode=<%=post.getBoard_no()%>">삭제</button>
+			<button id="modify">수정</button>
+		</div>
+	<% } %>
 
 	<table class="dietList">
 		<tr>
@@ -74,27 +80,17 @@
 			<td>점심메뉴</td>
 			<td>저녁메뉴</td>
 		</tr>
-		<tr>
-			<td><a href="#">아침 메뉴</td>
-			<td>점심메뉴</td>
-			<td>저녁메뉴</td>
-		</tr>
-		<tr>
-			<td><a href="#">아침 메뉴</td>
-			<td>점심메뉴</td>
-			<td>저녁메뉴</td>
-		</tr>
 	</table>
 	
 	<div class="user">
 		<div class="user-info">
-		<span id="userId">아이디</span>
-			<span id="date">2020-10-10</span>
+		<span id="userId"><%= post.getMem_id() %></span>
+			<span id="date"><%= post.getBoard_date() %></span>
 		</div>
 		<i class="far fa-bookmark"></i>
 	</div>
 	
-	<textarea name="write" id="wirte-area" readonly>안녕하세요, 작성자입니다.</textarea>
+	<textarea name="write" id="wirte-area" readonly><%= post.getBoard_content() %></textarea>
 	
 	<div class="social">
 		<span><i class="far fa-comment-dots"></i>

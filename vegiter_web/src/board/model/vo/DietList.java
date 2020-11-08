@@ -1,6 +1,9 @@
 package board.model.vo;
 
+import java.util.Arrays;
+
 public class DietList {
+	int boardNo;
 	private String[] mFood;
 	private String[] mUrl;
 	private String[] lFood;
@@ -12,6 +15,17 @@ public class DietList {
 	
 	public DietList(String[] mFood, String[] mUrl, String[] lFood, String[] lUrl, String[] eFood, String[] eUrl) {
 		super();
+		this.mFood = mFood;
+		this.mUrl = mUrl;
+		this.lFood = lFood;
+		this.lUrl = lUrl;
+		this.eFood = eFood;
+		this.eUrl = eUrl;
+	}
+	
+	public DietList(int boardNo, String[] mFood, String[] mUrl, String[] lFood, String[] lUrl, String[] eFood, String[] eUrl) {
+		super();
+		this.boardNo = boardNo;
 		this.mFood = mFood;
 		this.mUrl = mUrl;
 		this.lFood = lFood;
@@ -71,7 +85,8 @@ public class DietList {
 
 	@Override
 	public String toString() {
-		return "DietList [mFood=" + mFood + ", mUrl=" + mUrl + ", lFood=" + lFood + ", lUrl=" + lUrl + ", eFood="
-				+ eFood + ", eUrl=" + eUrl + ", boardCode=" + "]";
+		return "DietList [boardNo=" + boardNo + ", mFood=" + Arrays.toString(mFood) + ", mUrl=" + Arrays.toString(mUrl)
+				+ ", lFood=" + Arrays.toString(lFood) + ", lUrl=" + Arrays.toString(lUrl) + ", eFood="
+				+ Arrays.toString(eFood) + ", eUrl=" + Arrays.toString(eUrl) + "]";
 	}
 }

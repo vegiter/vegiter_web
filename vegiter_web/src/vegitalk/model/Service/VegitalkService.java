@@ -24,8 +24,6 @@ public class VegitalkService {
 		int pResult = new VegitalkDAO().insertPost(conn, b);
 		int aResult = new VegitalkDAO().insertAttachment(conn, atc);
 		
-		System.out.println("service : " + pResult + ", " + aResult);
-		
 		if(pResult > 0 && aResult > 0) {
 			commit(conn);
 		} else {
@@ -85,9 +83,9 @@ public class VegitalkService {
 		return aList;
 	}
 
-	public Board selectPost(int bId, int bCode) {
+	public Board selectPost(int bId) {
 		Connection conn = getConnection();
-		Board post = new VegitalkDAO().selectPost(conn, bId, bCode);
+		Board post = new VegitalkDAO().selectPost(conn, bId);
 		close(conn);
 		return post;
 	}
@@ -98,4 +96,63 @@ public class VegitalkService {
 		close(conn);
 		return atc;
 	}
+
+	public int deletePost(int bId) {
+		Connection conn = getConnection();
+		int result = new VegitalkDAO().deletePost(conn, bId);
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	public int deleteAtc(int bId) {
+		Connection conn = getConnection();
+		int result = new VegitalkDAO().deleteAtc(conn, bId);
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	public int updatePost(Board post) {
+		Connection conn = getConnection();
+		int result = new VegitalkDAO().updatePost(conn, post);
+				
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	public int editAtc(Attachment atc, int bId) {
+		Connection conn = getConnection();
+		int removePreAtcResult = new VegitalkDAO().deleteAtc(conn, bId);
+		int insertAtcResult = new VegitalkDAO().editAttachment(conn, atc);
+		
+		if(insertAtcResult > 0 && removePreAtcResult > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return insertAtcResult;
+	}
+
+	public DietList selectDietList(int bId) {
+		Connection conn = getConnection();
+		DietList dList = new VegitalkDAO().selectDietList(conn, bId);
+		close(conn);
+		return dList;
+	}
+
 }

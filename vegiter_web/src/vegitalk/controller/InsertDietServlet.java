@@ -20,7 +20,6 @@ public class InsertDietServlet extends HttpServlet {
     public InsertDietServlet() {}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		String[] mFood = request.getParameterValues("mFood");
 		String[] mUrl = request.getParameterValues("mUrl");
 		String[] lFood = request.getParameterValues("lFood");
@@ -40,7 +39,7 @@ public class InsertDietServlet extends HttpServlet {
 		int result = new VegitalkService().insertDiet(dl, b);
 		
 		if(result> 0){
-			request.getRequestDispatcher("WEB-INF/views/vegitalk/vegitalk.jsp").forward(request, response);
+			response.sendRedirect("vegiTalk?currentPage=1");
 		} else {
 			request.setAttribute("msg", "게시글 등록에 실패했습니다.<br>관리자에게 문의하세요.");
 			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
