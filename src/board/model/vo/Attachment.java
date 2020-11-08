@@ -11,19 +11,35 @@ public class Attachment {
 	private String atcPath;
 	private Date atcDate;
 	private int atcLevel;
-	private String atcStatus;
+	private char atcStatus;
 	private int boardNo;
 	
 	public Attachment() {}
 	
-	public Attachment(String atcName, int boardNo) {
+	
+	
+
+	public Attachment(int atcNo, String atcName, int boardNo) {
 		super();
+		this.atcNo = atcNo;
 		this.atcName = atcName;
 		this.boardNo = boardNo;
 	}
-	
+
+
+
+
+	public Attachment(int atcNo, String atcName) {
+		super();
+		this.atcNo = atcNo;
+		this.atcName = atcName;
+	}
+
+
+
+
 	public Attachment(int atcNo, String memId, int atcType, String atcOrigin, String atcName, String atcPath,
-			Date atcDate, int atcLevel, String atcStatus, int boardNo) {
+			Date atcDate, int atcLevel, char atcStatus, int boardNo) {
 		super();
 		this.atcNo = atcNo;
 		this.memId = memId;
@@ -101,11 +117,11 @@ public class Attachment {
 		this.atcLevel = atcLevel;
 	}
 
-	public String getAtcStatus() {
+	public char getAtcStatus() {
 		return atcStatus;
 	}
 
-	public void setAtcStatus(String atcStatus) {
+	public void setAtcStatus(char atcStatus) {
 		this.atcStatus = atcStatus;
 	}
 
@@ -123,5 +139,5 @@ public class Attachment {
 				+ ", atcName=" + atcName + ", atcPath=" + atcPath + ", atcDate=" + atcDate + ", atcLevel=" + atcLevel
 				+ ", atcStatus=" + atcStatus + ", boardNo=" + boardNo + "]";
 	}
-
+	
 }
