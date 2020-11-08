@@ -118,7 +118,8 @@ public class VegitalkDAO {
 		String efStr = arrToStr(dl.geteFood());
 		String euStr = arrToStr(dl.geteUrl());
 		
-		System.out.println(dl);
+		
+		System.out.println(mfStr);
 		
 		
 		try {
@@ -241,39 +242,6 @@ public class VegitalkDAO {
 			close(rset);
 		}
 		return aList;
-	}
-	
-	public ArrayList<Board> getPList(Connection conn, PageInfo pi, int boardCode) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		ArrayList<Board> pList = new ArrayList();
-		String query = prop.getProperty("getPListAll");
-		int startRow = (pi.getCurrentPage() - 1) * pi.getPostLimit() + 1;
-		int endRow = (startRow + pi.getPostLimit()) - 1;
-		
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, boardCode);
-			if(rset.next()) {
-				Board post = new Board(rset.getInt("board_no"),
-									   rset.getInt("board_code"),
-									   rset.getString("mem_id"),
-									   rset.getString("board_title"),
-									   rset.getDate("board_date"),
-									   rset.getString("board_content"),
-									   rset.getInt("board_count"),
-									   rset.getInt("board_like"),
-									   rset.getInt("board_com"),
-									   rset.getString("board_status"));
-				pList.add(post);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-			close(rset);
-		}
-		return pList;
 	}
 
 	public Board selectPost(Connection conn, int bId) {
@@ -427,6 +395,7 @@ public class VegitalkDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		DietList dList = null;
+		
 		String query = prop.getProperty("selectDietList");
 		
 		try {
@@ -436,11 +405,11 @@ public class VegitalkDAO {
 			
 			if(rset.next()) {
 				String[] mF = rset.getString("m_food").split(",");
-				String[] mU = rset.getString("m_food").split(",");
-				String[] lF = rset.getString("m_food").split(",");
-				String[] lU = rset.getString("m_food").split(",");
-				String[] eF = rset.getString("m_food").split(",");
-				String[] eU = rset.getString("m_food").split(",");
+				String[] mU = rset.getString("m_url").split(",");
+				String[] lF = rset.getString("l_food").split(",");
+				String[] lU = rset.getString("l_url").split(",");
+				String[] eF = rset.getString("e_food").split(",");
+				String[] eU = rset.getString("e_url").split(",");
 				
 				dList = new DietList(rset.getInt("board_no"), mF, mU, lF, lU, eF, eU);
 			}
@@ -540,5 +509,41 @@ public class VegitalkDAO {
 			close(pstmt);
 		}
 		return result;
+	}
+	
+	public ArrayList<Board> getPList(Connection conn, PageInfo pi, String optStr) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Board> pList = new ArrayList();
+		String query = prop.getProperty("getPList");
+		int startRow = (pi.getCurrentPage() - 1) * pi.getPostLimit() + 1;
+		int endRow = (startRow + pi.getPostLimit()) - 1;
+		System.out.println(optStr);
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, optStr);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			if(rset.next()) {
+				Board post = new Board(rset.getInt("board_no"),
+									   rset.getInt("board_code"),
+									   rset.getString("mem_id"),
+									   rset.getString("board_title"),
+									   rset.getDate("board_date"),
+									   rset.getString("board_content"),
+									   rset.getInt("board_count"),
+									   rset.getInt("board_like"),
+									   rset.getInt("board_com"),
+									   rset.getString("board_status"));
+				pList.add(post);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		return pList;
 	}
 }

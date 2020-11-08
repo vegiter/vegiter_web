@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import board.model.vo.Attachment;
 import board.model.vo.Board;
+import board.model.vo.BookMark;
 import board.model.vo.Comments;
 import board.model.vo.DietList;
 import vegitalk.model.Service.VegitalkService;
@@ -26,7 +27,6 @@ public class DetailServlet extends HttpServlet {
 		int bCode = Integer.parseInt(request.getParameter("bCode"));
 		Board post = new VegitalkService().selectPost(bId);
 		Attachment atc = new VegitalkService().selectAtc(bId);
-		DietList dList = new VegitalkService().selectDietList(bId);
 		ArrayList<Comments> list = new VegitalkService().selectReplyList(bId);
 		
 		if (post != null) {
@@ -34,11 +34,12 @@ public class DetailServlet extends HttpServlet {
 			if(bCode == 1 || bCode == 3) {
 				request.setAttribute("post", post);
 				request.setAttribute("atc", atc);
-				request.setAttribute("dList", dList);
 				request.getRequestDispatcher("WEB-INF/views/vegitalk/detailTalk.jsp").forward(request, response);
 			}
 			if(bCode == 2) {
+				DietList dList = new VegitalkService().selectDietList(bId);
 				request.setAttribute("post", post);
+				request.setAttribute("dList", dList);
 				request.getRequestDispatcher("WEB-INF/views/vegitalk/detailDiet.jsp").forward(request, response);
 			}
 		} else {

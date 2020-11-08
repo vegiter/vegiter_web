@@ -59,16 +59,16 @@
 			</tr>
 			<tr name="diet">
 				<td>
-					<input type="text" name="mFood" val="" placeholder="아침 메뉴 입력">
-					<input type="url" name="mUrl" val="" placeholder="레시피 링크 입력">
+					<input type="text" name="mFood" placeholder="아침 메뉴 입력" required>
+					<input type="url" name="mUrl" placeholder="레시피 링크 입력" required>
 				</td>
 				<td>
-					<input type="text" name="lFood" val="" placeholder="점심 메뉴 입력">
-					<input type="url" name="lUrl" val="" placeholder="레시피 링크 입력" >
+					<input type="text" name="lFood" placeholder="점심 메뉴 입력" required>
+					<input type="url" name="lUrl" placeholder="레시피 링크 입력" required>
 				</td>
 				<td>
-					<input  type="text" name="eFood" placeholder="저녁 메뉴 입력">
-					<input type="url" name="eUrl"placeholder="레시피 링크 입력">
+					<input  type="text" name="eFood" placeholder="저녁 메뉴 입력" required>
+					<input type="url" name="eUrl" placeholder="레시피 링크 입력" required>
 				</td>
 			</tr>
 		</table>
@@ -129,13 +129,15 @@
 	$(function(){
 		$('#write-submit-btn').click(function(){
 			var content = $('textarea').val();
+			
 			if(content.length == 0) {
 				alert('게시글 작성해주세요.');
 				return false;
 			}
+			
 			return true;
 		});
-	});
+	});	
 </script>
 </body>
 </html>

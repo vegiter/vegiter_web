@@ -20,6 +20,7 @@ public class InsertDietServlet extends HttpServlet {
     public InsertDietServlet() {}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
 		String[] mFood = request.getParameterValues("mFood");
 		String[] mUrl = request.getParameterValues("mUrl");
 		String[] lFood = request.getParameterValues("lFood");
@@ -29,7 +30,7 @@ public class InsertDietServlet extends HttpServlet {
 		String boardContent = request.getParameter("boardContent");
 		int boardCode = Integer.parseInt(request.getParameter("boardCode"));
 		String writer = ((Member)request.getSession().getAttribute("loginUser")).getMemId();
-
+		
 		DietList dl = new DietList(mFood, mUrl, lFood, lUrl, eFood, eUrl);
 		Board b = new Board();
 		b.setBoard_content(boardContent);

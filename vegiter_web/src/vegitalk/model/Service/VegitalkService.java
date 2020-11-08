@@ -11,6 +11,7 @@ import java.util.Arrays;
 
 import board.model.vo.Attachment;
 import board.model.vo.Board;
+import board.model.vo.BookMark;
 import board.model.vo.Comments;
 import board.model.vo.DietList;
 import board.model.vo.PageInfo;
@@ -66,13 +67,6 @@ public class VegitalkService {
 	public ArrayList<Board> getPListAll(PageInfo pi) {
 		Connection conn = getConnection();
 		ArrayList<Board> pList = new VegitalkDAO().getPListAll(conn , pi);
-		close(conn);
-		return pList;
-	}
-	
-	public ArrayList<Board> getPList(PageInfo pi, int boardCode) {
-		Connection conn = getConnection();
-		ArrayList<Board> pList = new VegitalkDAO().getPList(conn, pi, boardCode);
 		close(conn);
 		return pList;
 	}
@@ -195,5 +189,30 @@ public class VegitalkService {
 		DietList dList = new VegitalkDAO().selectDietList(conn, bId);
 		close(conn);
 		return dList;
+	}
+
+	public String getOptStr(int opt) {
+		String OptStr = "";
+		
+		switch(opt) {
+		case 1: OptStr = "PLIST_TALK_NEW"; break;
+		case 2: OptStr = "PLIST_DIET_NEW"; break;
+		case 3: OptStr = "PLIST_NOTICE_NEW"; break;
+		} 
+		
+		System.out.println("getOptStr?" + OptStr);
+		return OptStr;
+	}
+	
+	public ArrayList<Board> getPList(PageInfo pi, int opt) {
+		Connection conn = getConnection();
+		String OptStr = getOptStr(opt);
+		ArrayList<Board> pList = new VegitalkDAO().getPList(conn, pi, OptStr);
+		close(conn);
+		return pList;
+	}
+
+	public ArrayList<BookMark> selectBookMarkList(int bId) {
+		return null;
 	}
 }

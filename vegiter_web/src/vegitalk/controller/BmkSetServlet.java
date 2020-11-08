@@ -10,11 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import board.model.service.BoardService;
 
-@WebServlet("/CheckBmk")
-public class BmkCheckServlet extends HttpServlet {
+@WebServlet("/setBmk")
+public class BmkSetServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public BmkCheckServlet() {
+    public BmkSetServlet() {
         super();
     }
 
@@ -24,7 +24,7 @@ public class BmkCheckServlet extends HttpServlet {
 		
 		BoardService service=new BoardService();
 		
-		int result=service.insertBookMark(user,bId);
+		int result = service.insertBookMark(user,bId);
 		
 		PrintWriter out=response.getWriter();
 		if(result>0) {

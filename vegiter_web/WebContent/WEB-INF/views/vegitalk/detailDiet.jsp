@@ -4,7 +4,15 @@
 <%
 	Board post = (Board)request.getAttribute("post");
 	ArrayList<Comments> list = (ArrayList)request.getAttribute("list");
-	System.out.println("게시글 유형?" + post.getBoard_code());
+	DietList dList = (DietList)request.getAttribute("dList");
+	System.out.println("dlist?" + dList);
+	String[] mF = dList.getmFood();
+	String[] mU = dList.getmUrl();
+	String[] lF = dList.getlFood();
+	String[] lU = dList.getlUrl();
+	String[] eF = dList.geteFood();
+	String[] eU = dList.geteUrl();
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -79,11 +87,13 @@
 			<th>점심</th>
 			<th>저녁</th>
 		</tr>
-		<tr>
-			<td><a href="#">아침 메뉴</td>
-			<td>점심메뉴</td>
-			<td>저녁메뉴</td>
-		</tr>
+		<% for(int i =0; i < mF.length; i++) { %>
+			<tr>
+				<td><a href="<%= mU[i] %>"><%= mF[i] %></a></td>
+				<td><a href="<%= lU[i] %>"><%= lF[i] %></td>
+				<td><a href="<%= eU[i] %>"><%= eF[i] %></td>
+			</tr>
+		<% } %>
 	</table>
 	
 	<div class="user">

@@ -1,4 +1,4 @@
-package vegitalk.controller;
+package wrapper;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import board.model.vo.Board;
 import board.model.vo.PageInfo;
 import vegitalk.model.Service.VegitalkService;
 
-@WebServlet("/filterNsort")
+@WebServlet("/vegiTalk")
 public class GoVegitalkServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

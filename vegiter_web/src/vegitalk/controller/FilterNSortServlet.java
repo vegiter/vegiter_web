@@ -14,11 +14,11 @@ import board.model.vo.Board;
 import board.model.vo.PageInfo;
 import vegitalk.model.Service.VegitalkService;
 
-@WebServlet("/filterNsort")
-public class GoVegitalkServlet extends HttpServlet {
+@WebServlet("/filterNSort")
+public class FilterNSortServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public GoVegitalkServlet() {
+    public FilterNSortServlet() {
         super();
     }
 
@@ -31,6 +31,7 @@ public class GoVegitalkServlet extends HttpServlet {
 		int maxPage = (int)Math.ceil((double)postCount/postLimit);
 		int startPage = ((currentPage - 1) / pageLimit) * pageLimit + 1;
 		int endPage = 0;
+		int opt = Integer.parseInt(request.getParameter("opt"));
 		
 		if(maxPage < pageLimit) {
 			endPage = maxPage;
@@ -42,14 +43,14 @@ public class GoVegitalkServlet extends HttpServlet {
 		}
 		
 		PageInfo pi = new PageInfo(postCount, currentPage, pageLimit, postLimit, maxPage, startPage, endPage);
-		ArrayList<Board> pList = vs.getPListAll(pi);
+		ArrayList<Board> pList = vs.getPList(pi, opt);
 		ArrayList<Attachment> aList = vs.getAList();
 		
 		if(pList != null && aList != null) {
 			request.setAttribute("pi", pi);
 			request.setAttribute("pList", pList);
 			request.setAttribute("aList", aList);
-			request.getRequestDispatcher("WEB-INF/views/vegitalk/vegitalk.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/views/vegitalk/vegitalkFiltered.jsp").forward(request, response);
 		} else {
 			request.setAttribute("msg", "게시판 조회에 실패했습니다.");
 			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);

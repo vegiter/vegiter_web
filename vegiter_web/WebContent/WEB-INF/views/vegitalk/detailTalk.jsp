@@ -173,7 +173,10 @@
 		$('#delete').click(function(){
 			var bId = $('.user').children().val();
 			var bCode = $('.user').children().eq(1).val();
-			location.href = "<%= request.getContextPath() %>/delete?bId=" + bId + "&bCode=" + bCode;
+			var bool = confirm('정말 삭제하시겠어요?');
+			if(bool) {
+				location.href = "<%= request.getContextPath() %>/delete?bId=" + bId + "&bCode=" + bCode;
+			}
 		});
 		
 		$('#modify').click(function(){

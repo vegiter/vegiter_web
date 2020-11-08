@@ -11,11 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import board.model.service.BoardService;
 
-@WebServlet("/uncheckBmk")
-public class BmkUncheckServlet extends HttpServlet {
+@WebServlet("/delBmk")
+public class BmkDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public BmkUncheckServlet() {
+	public BmkDeleteServlet() {
         super();
     }
 

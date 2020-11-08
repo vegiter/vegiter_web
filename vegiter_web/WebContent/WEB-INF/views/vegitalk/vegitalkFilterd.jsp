@@ -76,10 +76,10 @@
 		<% } else {  %>
 		<div class="option">
 			<div class="opt-type">
-				<span class="opt-type filter" value="0">#All</span>
-				<span class="opt-type filter" value="1">#공지/이벤트</span>
-				<span class="opt-type filter" value="2">#도란도란</span>
-				<span class="opt-type filter" value="3">#식단공유</span>
+				<span class="opt-type filter">#All</span>
+				<span class="opt-type filter">#공지/이벤트</span>
+				<span class="opt-type filter">#도란도란</span>
+				<span class="opt-type filter">#식단공유</span>
 			</div>
 			<div class="opt-search">
 				<input type="text" name="keyword" class="option-search-input">
@@ -119,7 +119,7 @@
 				   	 	if(p == currentPage) {%>
 							<span class="paging-item"><%= p %></span>
 					<%  } else { %>
-						<span class="paging-item" onclick="location.href='<%= request.getContextPath() %>/vegiTalk?currentPage=<%= p %>'"><%= p %></span>
+						<span class="paging-item" onclick="location.href='<%= request.getContextPath() %>/filterNSort?currentPage=<%= p %>'"><%= p %></span>
 					<%  } 
 				  } %>	
 				<span class="paging-item">&gt;</span>
