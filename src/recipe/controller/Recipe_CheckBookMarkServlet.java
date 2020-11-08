@@ -1,6 +1,8 @@
 package recipe.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,14 +14,14 @@ import board.model.service.BoardService;
 /**
  * Servlet implementation class RecipeBookMarkServlet
  */
-@WebServlet("/bookmark.recipe")
-public class RecipeBookMarkServlet extends HttpServlet {
+@WebServlet("/Check_bookmark.recipe")
+public class Recipe_CheckBookMarkServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RecipeBookMarkServlet() {
+    public Recipe_CheckBookMarkServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,10 +32,20 @@ public class RecipeBookMarkServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String user=request.getParameter("user");	
 		int bId=Integer.parseInt(request.getParameter("bId"));
+		
 		BoardService service=new BoardService();
 		
-		int result=service.updateBookMark(user,bId);
+		int result=service.insertBookMark(user,bId);
 		
+		PrintWriter out=response.getWriter();
+		if(result>0) {
+			out.print("bookmark Success");
+		}else {
+			out.print("fail");
+		}
+		
+		out.flush();
+		out.close();
 		
 		
 	}

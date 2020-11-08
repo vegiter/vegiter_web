@@ -535,15 +535,51 @@ public class BoardDAO {
 
 
 
-	public int updateBookMark(Connection conn, String user, int bId) {
+	public int insertBookMark(Connection conn, String user, int bId) {
 		PreparedStatement pstmt=null;
 		int result=0;
-		String query=;
+		String query=prop.getProperty("insertBookMark");
 		
-		
-		
-		return 0;
+		try {
+			pstmt=conn.prepareStatement(query);
+			pstmt.setString(1, user);
+			pstmt.setInt(2, bId);
+			
+			result=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
 	}
+
+
+
+	public int deleteBookMark(Connection conn, String user, int bId) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String query=prop.getProperty("deleteBookMark");
+		
+		try {
+			pstmt=conn.prepareStatement(query);
+			pstmt.setString(1, user);
+			pstmt.setInt(2, bId);
+			
+			result=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+
+
+
 
 
 

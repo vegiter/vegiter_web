@@ -234,14 +234,45 @@ public class BoardService {
 	}
 
 
-	public int updateBookMark(String user, int bId) {
-
+	public int insertBookMark(String user, int bId) {
 		Connection conn=getConnection();
+
+		BoardDAO dao=new BoardDAO();
 		
-		int result=new BoardDAO().updateBookMark(conn,user,bId);
+		int result=dao.insertBookMark(conn,user,bId);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
 		
 		return result;
 	}
+
+
+	public int deleteBookMark(String user, int bId) {
+		Connection conn=getConnection();
+
+		BoardDAO dao=new BoardDAO();
+		
+		int result=dao.deleteBookMark(conn,user,bId);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+	
+
 
 
 

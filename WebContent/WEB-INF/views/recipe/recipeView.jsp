@@ -71,13 +71,11 @@
 	
 	
 	fa-bookmark{font-size: 15px;cursor: pointer;}
-	.fa-bookmark:hover{cursor: pointer;color: #41A693;}
+	.fa-bookmark:hover{cursor: pointer;	color: #41A693;}
 	
 	#bookMark{color:gray;}
-	#bookMarkchecked{color:red;}	
+	#bookMarkchecked{color:green;}	
 	
-	id="bookMark"
-	id="bookMarkchecked"
 	
 	
 	.social{width: 1000px;display: flex;justify-content: flex-end;margin: 10px 0; margin-left:150px;}
@@ -106,6 +104,7 @@
 				<div id="top">
 					<span id="userId"><%=board.getMem_id()%></span>
 					<span id="date"><b><br><%=board.getBoard_date() %></b></span>	
+					<%System.out.println("음"+bookList); %>
 					
 					 <%if(bookList ==null){ %>		 	
 					<i class="far fa-bookmark" id="bookMark"></i>
@@ -114,26 +113,33 @@
 					<% } %> 
 
 					 <script>
-					 
 						$(function(){
+							var num=0;
 							var bId=<%=board.getBoard_no()%>;
-							var user=<%=loginUser.getMemId()%>;
+							var user="<%=loginUser.getMemId()%>";
 							
-							$('#bookMark').click(function(){
-								
-								$(this).css('color','green');
-								
+							$('#bookMark').click(function(){		/*선택*/
 								$.ajax({
-									url:'bookmark.recipe',
+									url:'Check_bookmark.recipe',
 									data:{bId:bId,user:user},
-									
-									
-
-								});
-								
+									success:function(data){
+										console.log(data);
+									}
+								}); 
+								location.reload();						
+							});
+/*-----------------------------------------------------------------------------------------------------------------*/			
+							$('#bookMarkchecked').click(function(){		/*선택해제*/
+								$.ajax({
+									url:'Uncheck_bookmark.recipe',
+									data:{bId:bId,user:user},
+									success:function(data){
+										console.log(data);
+									}
+								}); 
+								location.reload();	
 							});
 						});	
-					
 					</script> 
 					
 				</div>
@@ -226,12 +232,12 @@
 		
 		<script>
 		
-		$(function(){
 			var num=0;
+			var num2=0;
 			var like=<%=board.getBoard_like() %>;
 			var bId=<%=board.getBoard_no()%>;
+/*--------------------------------------------------------------------------------------------------------------------------------*/			
 			$('#likeButton').click(function(){
-								
  				num++;
  				console.log(num);
  				if(num % 2 !=0){
@@ -248,8 +254,37 @@
 							console.log(data);
 						}
 					});
+			});			
+/*-----------------------------------------------------------------------------------------------------------------------------------------*/			
+			$('#Checked_likeButton').click(function(){
+				num2++;
+				console.log(num2);
+				if(num2 % 2 !=0){
+					
+				}
 			});
-		});	
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 		</script>
 		
 
