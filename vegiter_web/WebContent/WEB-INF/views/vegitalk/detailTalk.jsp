@@ -112,7 +112,7 @@
 		<div class="comment">
 			<ul class="comment-list" id="commentSelect">
 			<% if(list.isEmpty()) {%>
-				댓글로 소통을 해보세요!
+				<span style="color: gray; font-size: 14px;"><%= post.getMem_id() %>님과 가장 먼저 댓글로 이야기해보세요!</span>
 			<% } else { %>
 			<% 		for(int i = 0; i < list.size(); i++) { %>
 				<div class="row commentRow">
@@ -124,7 +124,7 @@
 		<% } %>
 			</ul>
 			<div class="comment-input">
-				<input type="text" class="comment-input-field" placeholder="댓글을 입력하세요." id="commentContent">
+				<input type="text" class="comment-input-field" placeholder="댓글을 입력하세요" id="commentContent">
 				<button type="submit" class="comment-input-submit" id="addComment">등록</button>
 			</div>
 		</div>
@@ -168,6 +168,18 @@
 				}
 			});
 			}
+		});
+		 
+		$('#delete').click(function(){
+			var bId = $('.user').children().val();
+			var bCode = $('.user').children().eq(1).val();
+			location.href = "<%= request.getContextPath() %>/delete?bId=" + bId + "&bCode=" + bCode;
+		});
+		
+		$('#modify').click(function(){
+			var bId = $('.user').children().val();
+			var bCode = $('.user').children().eq(1).val();
+			location.href="<%= request.getContextPath() %>/editForm?bId=" + bId + "&bCode=" + bCode;
 		});
 	</script>
 </body>

@@ -501,4 +501,44 @@ public class VegitalkDAO {
 		}
 		return result;
 	}
+	
+	public int insertBookMark(Connection conn, String user, int bId) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String query=prop.getProperty("insertBookMark");
+		
+		try {
+			pstmt=conn.prepareStatement(query);
+			pstmt.setString(1, user);
+			pstmt.setInt(2, bId);
+			
+			result=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int deleteBookMark(Connection conn, String user, int bId) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String query=prop.getProperty("deleteBookMark");
+		
+		try {
+			pstmt=conn.prepareStatement(query);
+			pstmt.setString(1, user);
+			pstmt.setInt(2, bId);
+			
+			result=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }

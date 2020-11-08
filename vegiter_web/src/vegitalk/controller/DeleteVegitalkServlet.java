@@ -20,6 +20,7 @@ public class DeleteVegitalkServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int bId = Integer.parseInt(request.getParameter("bId"));
 		int bCode = Integer.parseInt(request.getParameter("bCode"));
+		System.out.println("비코:" + bCode);
 		int aResult = 1;
 		
 		int pResult = new VegitalkService().deletePost(bId);
