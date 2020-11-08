@@ -198,6 +198,9 @@
 					<h4>업체 주소<b>*</b></h4>
 					<div class="input-info"><input type="text" name="address" id="address"></div>
 					<div class="error"></div>
+					<h4>상세 주소<b>*</b></h4>
+					<div class="input-info"><input type="text" name="detaladdress" id="detailaddress"></div>
+					<div class="error"></div>
 					<h4>홈페이지</h4>
 					<div class="input-info"><input type="url" name="url" id="url"></div>
 					<div class="error"></div>

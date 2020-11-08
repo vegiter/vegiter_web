@@ -1,7 +1,7 @@
-package myPage.controller;
+package recipe.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,20 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import board.model.vo.Board;
-import login.model.vo.Member;
+import board.model.service.BoardService;
 
 /**
- * Servlet implementation class MainServlet
+ * Servlet implementation class RecipeBookMarkServlet
  */
-@WebServlet("/myinfo.me")
-public class MainServlet extends HttpServlet {
+@WebServlet("/Check_bookmark.recipe")
+public class Recipe_CheckBookMarkServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MainServlet() {
+    public Recipe_CheckBookMarkServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,20 +30,31 @@ public class MainServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Member mem = (Member) request.getSession().getAttribute("loginUser");
+		String user=request.getParameter("user");	
+		int bId=Integer.parseInt(request.getParameter("bId"));
 		
-		// bookmark 가져오기
+		BoardService service=new BoardService();
 		
-		// boardlist 가져오기
-		ArrayList<Board> board = new ArrayList<Board>();
+		int result=service.insertBookMark(user,bId);
 		
-		request.getRequestDispatcher("WEB-INF/views/myinfo/main.jsp").forward(request, response);
+		PrintWriter out=response.getWriter();
+		if(result>0) {
+			out.print("bookmark Success");
+		}else {
+			out.print("fail");
+		}
+		
+		out.flush();
+		out.close();
+		
+		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

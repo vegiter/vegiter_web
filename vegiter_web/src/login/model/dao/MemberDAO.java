@@ -362,6 +362,7 @@ public class MemberDAO {
 			pstmt.setString(2, shop.getShopName());
 			pstmt.setString(3, shop.getShopAddress());
 			pstmt.setString(4, shop.getShopPage());
+			pstmt.setString(5, shop.getShopCoord());
 			
 			result = pstmt.executeUpdate();
 			

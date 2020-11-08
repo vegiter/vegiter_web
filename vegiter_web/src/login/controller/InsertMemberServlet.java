@@ -83,12 +83,14 @@ public class InsertMemberServlet extends HttpServlet {
 			String shopName = request.getParameter("shopName");
 			String url = request.getParameter("url");
 			String address = request.getParameter("address");
+			String detail = request.getParameter("detailaddress");
 			
 			Shop shop = new Shop();
 			shop.setShopName(shopName);
 			shop.setOwnNo(ownNo);
 			shop.setShopAddress(address);
 			shop.setShopPage(url);
+			shop.setShopCoord(detail);
 
 			result = new MemberService().insertMember(m, own, shop);
 
