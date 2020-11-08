@@ -21,7 +21,11 @@
 <body>
 	<footer>
 		<div class="f_div1">
+<<<<<<< HEAD
 			<a href="#" onclick="aboutPage();"><span>About</span></a>
+=======
+			<a href="#"><span>About</span></a>
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 			<span> | </span>
 			<span>Privacy</span>
 			<span> | </span>
@@ -31,11 +35,14 @@
 			<p><a href="https://github.com/vegiter/vegiter_web">채채식 팀 GitHub</a></p>
 		</div>
 	</footer>
+<<<<<<< HEAD
 	
 	<script>
 		function aboutPage(){
 		location.href = '<%= request.getContextPath() %>/aboutPage.me';
 		}
 	</script>
+=======
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 </body>
 </html>

@@ -89,6 +89,7 @@
 	            reader.readAsDataURL(input.files[0]);
 	        }
 	    }
+<<<<<<< HEAD
 		
 		$(function(){
 			$('#write-submit-btn').click(function(){
@@ -100,6 +101,8 @@
 				return true;
 			});
 		});
+=======
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 	</script>
 </body>
 </html>

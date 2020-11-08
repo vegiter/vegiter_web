@@ -4,7 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<<<<<<< HEAD
 <title>About</title>
+=======
+<title>Insert title here</title>
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 <!-- jquery -->
 <script src="js/jquery-3.5.1.min.js"></script>
 <!-- 부트스트랩 -->
@@ -23,9 +27,12 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
 	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
 	crossorigin="anonymous">
+<<<<<<< HEAD
 <!-- 구글 그래프 api -->
 <script type="text/javascript"
 	src="https://www.gstatic.com/charts/loader.js"></script>
+=======
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 <!-- 폰트   -->
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@900&display=swap"
@@ -33,9 +40,12 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap"
 	rel="stylesheet">
+<<<<<<< HEAD
 <link
 	href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
 	rel="stylesheet">
+=======
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 <style>
 #zeroArea {
 	display: block;
@@ -49,8 +59,15 @@
 }
 
 #main_div1 {
+<<<<<<< HEAD
 	width: 90%;
 	margin: 10px auto;
+=======
+	/*  		border: 1px solid lightgray;  */
+	margin-top: 50px;
+	width: 85%;
+	margin: 50px auto;
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 }
 
 .sub_title {
@@ -73,7 +90,11 @@ p {
 
 #about_arti_1 {
 	display: block;
+<<<<<<< HEAD
 	width: 70%;
+=======
+	width: 80%;
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 	margin: 30px auto;
 }
 
@@ -89,6 +110,7 @@ p {
 	margin: 30px auto;
 	margin-top: -10px;
 }
+<<<<<<< HEAD
 
 #about_arti_4 {
 	display: block;
@@ -103,15 +125,28 @@ body {
 }
 </style>
 
+=======
+</style>
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 </head>
 <body>
 	<%@ include file="../common/gnb.jsp"%>
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 	<div id="zeroArea"></div>
 
 	<section>
 		<article>
 			<div id="main_div1">
+<<<<<<< HEAD
+=======
+				<div id="title_div">
+					<h3 id="title">Vegiter</h3>
+				</div>
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 				<br>
 
 				<div id="about_div1" class="about">
@@ -120,7 +155,11 @@ body {
 
 					<article class="arti" id="arti_1">
 						<img
+<<<<<<< HEAD
 							src="<%=request.getContextPath()%>/images/about/about_arti1.jpg"
+=======
+							src="<%= request.getContextPath() %>/images/about/about_arti1.jpg"
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 							id="about_arti_1">
 					</article>
 
@@ -157,7 +196,11 @@ body {
 					<h4 class="sub_title">비건의 시대, 마이너에서 메이저로 ! 비거니즘</h4>
 					<article class="arti" id="arti_1">
 						<img
+<<<<<<< HEAD
 							src="<%=request.getContextPath()%>/images/about/about_arti2.png"
+=======
+							src="<%= request.getContextPath() %>/images/about/about_arti2.png"
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 							id="about_arti_2">
 					</article>
 					<br>
@@ -179,13 +222,18 @@ body {
 
 					<article class="arti" id="arti_1">
 						<img
+<<<<<<< HEAD
 							src="<%=request.getContextPath()%>/images/about/about_arti3.png"
+=======
+							src="<%= request.getContextPath() %>/images/about/about_arti3.png"
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 							id="about_arti_3">
 					</article>
 				</div>
 			</div>
 		</article>
 	</section>
+<<<<<<< HEAD
 	<div id="about_div4" class="about"
 		style="width: 90%; height: 600px; text-align: center; margin: 30px auto; margin-top: 40px;">
 		<h3>비건 성향 설문조사</h3>
@@ -385,6 +433,9 @@ body {
 });
 	
 </script>
+=======
+
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 
 	<%@ include file="../common/footer.jsp"%>
 </body>

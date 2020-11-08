@@ -1,32 +1,51 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
+<<<<<<< HEAD
 	pageEncoding="UTF-8"%>
 
+=======
+    pageEncoding="UTF-8"%>
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
 <style>
+<<<<<<< HEAD
 	* {
 		box-sizing: border-box;
 	}
 	
 	/* 내용부분 */
 	section {
+=======
+	* { box-sizing: border-box; border: 1px solid green;}
+	
+	/* 내용부분 */
+	section{
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 		margin: 12%;
 		margin-top: 100px;
 		background: rgb(242, 242, 242);
 		min-height: 800px;
 		border: 1px solid rgb(242, 242, 242);
 	}
+<<<<<<< HEAD
 	
 	#section-header {
+=======
+	#section-header{
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 		width: 656px;
 		height: 100%;
 		margin: auto;
 	}
+<<<<<<< HEAD
 	
 	.member-header {
+=======
+	.member-header{
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 		width: 50%;
 		display: inline-block;
 		height: 50px;
@@ -34,12 +53,17 @@
 		font-size: 18px;
 		color: white;
 	}
+<<<<<<< HEAD
 	
 	#business {
+=======
+	#business{
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 		float: right;
 		background: rgb(65, 166, 147);
 		margin-left: -10px;
 	}
+<<<<<<< HEAD
 	
 	#business a {
 		text-decoration: none;
@@ -47,11 +71,19 @@
 	}
 	
 	#common h4, #business h4 {
+=======
+	#business a{
+		text-decoration: none;
+		color: white;
+	}
+	#common h4, #business h4{
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 		margin-left: 40px;
 		margin-top: 12px;
 		font-weight: normal;
 		height: 100%;
 	}
+<<<<<<< HEAD
 	
 	#business h4:hover {
 		font-weight: bolder;
@@ -66,32 +98,57 @@
 	}
 	
 	.input-header {
+=======
+	#business h4:hover{
+		font-weight: bolder;
+	}
+	#business:hover{
+		background: rgb(53, 154, 135);
+	}
+	#naverIdLogin{
+		display: inline-block;
+	}
+	.input-header{
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 		margin: 0;
 		height: 40px;
 		width: 100%;
 		box-shadow: 0px 5px 5px 0px lightgray;
 	}
+<<<<<<< HEAD
 	
 	.input-header h4 {
+=======
+	.input-header h4{
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 		margin: auto;
 		margin-left: 10px;
 		margin-top: 10px;
 	}
 	
+<<<<<<< HEAD
 	#social-enroll {
+=======
+	#social-enroll{
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 		width: 656px;
 		height: 120px;
 		margin: auto;
 		clear: both;
 		background: white;
 	}
+<<<<<<< HEAD
 	
 	#social-enroll p {
+=======
+	#social-enroll p{
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 		margin: 0;
 		margin-left: 25px;
 		padding-top: 10px;
 		padding-bottom: 10px;
 	}
+<<<<<<< HEAD
 	
 	#social img {
 		margin-left: 25px;
@@ -100,11 +157,21 @@
 	#input-boxes {
 		width: 656px;
 		min-height: 500px;
+=======
+	#social img{
+		margin-left: 25px;
+	}
+	
+	#input-boxes{
+		width: 656px;
+		min-height: 700px;
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 		margin: auto;
 		margin-top: 20px;
 		background: white;
 	}
 	
+<<<<<<< HEAD
 	form h4 {
 		min-width: 400px;
 		font-size: 15px;
@@ -121,12 +188,29 @@
 	}
 	
 	.error {
+=======
+	form h4{
+		min-width: 400px;
+		font-size: 15px;
+		margin: 10px;
+		margin-left:20%;
+		display: inline-block;
+	}
+	.input-info{
+		width: 400px;
+		height: 40px;		
+		padding: 0;
+		margin: auto;
+	}
+	.error{
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 		height: 20px;
 		width: 400px;
 		margin: auto;
 		margin-top: 2px;
 		font-size: 12px;
 	}
+<<<<<<< HEAD
 	
 	select {
 		width: 400px;
@@ -135,10 +219,19 @@
 	}
 	
 	input {
+=======
+	select{
+		width: 400px;
+		height: 40px; 
+		border: 2px solid lightgray;
+	} 
+	input{
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 		width: 400px;
 		height: 100%;
 		border: 2px solid lightgray;
 	}
+<<<<<<< HEAD
 	
 	input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button
 		{
@@ -151,12 +244,24 @@
 	}
 	
 	form p {
+=======
+	input[type="number"]::-webkit-outer-spin-button,
+	input[type="number"]::-webkit-inner-spin-button {
+    	-webkit-appearance: none;
+    	margin: 0;
+	}
+	form p b, b{
+		color: red;
+	}
+	form p{
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 		display: inline-block;
 		font-size: 12px;
 		margin: 0;
 		float: right;
 	}
 	
+<<<<<<< HEAD
 	
 	
 	/* 푸드스타일 */
@@ -165,6 +270,41 @@
 	}
 	
 	#style-info a {
+=======
+	.phone-btn{
+		background: rgb(45, 115, 102);
+		color: white;
+		height: 38px;
+		border-radius: 0;
+		border: none;
+		margin: auto;
+		float: right;
+	}
+	#phone-msg, #phone-ok{
+		border: 1px solid white;
+	}
+	#phone{
+		width: 70%;
+	}
+	#phoneConfirm{
+		width: 80%;
+	}
+	#phone-ok{
+		margin-top: 20px;
+	}
+	#sendMsg{
+		width: 30%;
+	}
+	#msgOk{
+		width: 20%;
+	}
+	
+	/* 푸드스타일 */
+	#style-info{
+		margin-bottom: 5px;
+	}
+	#style-info a{
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 		cursor: pointer;
 		float: right;
 		font-size: 13px;
@@ -172,16 +312,25 @@
 		margin-top: 5px;
 	}
 	
+<<<<<<< HEAD
 	#div-btn-enroll {
 		clear: both;
+=======
+	#div-btn-enroll{
+		clear:both;
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 		width: 400px;
 		height: 40px;
 		margin: auto;
 		margin-top: 30px;
 		margin-bottom: 30px;
 	}
+<<<<<<< HEAD
 	
 	#enrollBtn {
+=======
+	#enrollBtn{
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 		width: 100%;
 		height: 100%;
 		background: rgb(45, 115, 102);
@@ -190,6 +339,7 @@
 		font-size: 18px;
 	}
 </style>
+<<<<<<< HEAD
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script
@@ -209,12 +359,29 @@
 					<a href="<%=request.getContextPath()%>/businessEnroll">사업자 회원</a>
 				</h4>
 			</div>
+=======
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="<%= request.getContextPath() %>/js/naveridlogin_js_sdk_2.0.0.js"></script>
+</head>
+<body>
+	<%@ include file="../common/gnb.jsp" %>
+		<section>
+		<div id="section-header">
+			<div class="member-header" id="common"><h4>일반회원</h4></div>
+			<div class="member-header" id="business"><h4><a href="<%= request.getContextPath()%>/businessEnroll">사업자 회원</a></h4></div>
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 		</div>
 		<article id="social-enroll">
 			<div class="social" id="social">
 				<p>소셜로 간편하게 로그인하세요.</p>
+<<<<<<< HEAD
 				<a href="#"><img src="<%= request.getContextPath() %>/images/common/kakao.png" id="kakao"></a>
 				<div id="naverIdLogin"></div>
+=======
+				<div id="naverIdLogin"></div>
+				<a href="#"><img src="<%= request.getContextPath() %>/images/common/kakao.png" id="kakao"></a>
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 			</div>
 			<script type="text/javascript">
 				var naverLogin = new naver.LoginWithNaverId(
@@ -232,6 +399,7 @@
 			</script>
 		</article>
 		<article>
+<<<<<<< HEAD
 			<form method="post" id="insertMember"
 				action="<%=request.getContextPath()%>/insert.me"
 				onsubmit="return enroll();">
@@ -277,11 +445,32 @@
 					<div class="input-info">
 						<input type="email" name="email" id="email">
 					</div>
+=======
+			<form method="post" id="insertMember" action="<%=request.getContextPath() %>/insert.me" onsubmit="return enroll();">
+				<div id="input-boxes">
+					<p><b>*</b>은 필수 입력칸입니다.</p>
+					<h4>아이디(6자리이상 영문, 숫자 1개 이상)<b>*</b></h4>
+					<div class="input-info"><input type="text" name="userId" id="userId"></div>
+					<div class="error" id="id-error"></div>
+					<h4>비밀번호(6자리이상 영문, 숫자, 특수문자 1개 이상)<b>*</b></h4>
+					<div class="input-info"><input type="password" name="userPwd" id="password"></div>
+					<div class="error"></div>
+					<h4>비밀번호 확인<b>*</b></h4>
+					<div class="input-info"><input type="password" name="userPwd2" id="password2"></div>
+					<div class="error"></div>
+					<input type="hidden" name="code" value="1">
+					<h4>이름<b>*</b></h4>
+					<div class="input-info"><input type="text" name="userName" id="userName"></div>
+					<div class="error"></div>
+					<h4>이메일<b>*</b></h4>
+					<div class="input-info"><input type="email" name="email" id="email"></div>
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 					<div class="error"></div>
 					<h4>성별</h4>
 					<div class="input-info">
 						<select name="gender">
 							<option selected value="N">성별</option>
+<<<<<<< HEAD
 							<option value="F" id="gender-m">남자</option>
 							<option value="M" id="gender-f">여자</option>
 							<option value="N" id="gender-n">선택 안함</option>
@@ -293,6 +482,21 @@
 					<div class="input-info" id="phone-msg">
 						<input type="number" class="phone" name="phone" id="phone"
 							placeholder="(-)미포함">
+=======
+							<option value="F">남자</option>
+							<option value="M">여자</option>
+							<option value="N">선택 안함</option>
+						</select>
+					</div>
+					<h4>휴대폰 번호<b>*</b></h4>
+					<div class="input-info" id="phone-msg">
+						<input type="number" class="phone" name="phone" id="phone" placeholder="(-)미포함">
+						<button class="phone-btn" id="sendMsg" onclick="sendConfirm();">인증번호 전송</button>
+					</div>
+					<div class="input-info" id="phone-ok">
+						<input type="number" class="phone" name="phoneConfirm" id="phoneConfirm">
+						<button class="phone-btn" id="msgOk" onclick="confirm();">확인</button>
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 					</div>
 					<div class="error"></div>
 					<h4>푸드스타일</h4>
@@ -308,6 +512,7 @@
 							<option value="베지">베지</option>
 						</select>
 					</div>
+<<<<<<< HEAD
 					<div class="error" id="style-info">
 						<a onclick="info();">푸드스타일이란?</a>
 					</div>
@@ -394,6 +599,12 @@
 				}
 				
 			</script>
+=======
+					<div class="error" id="style-info"><a onclick="info();">푸드스타일이란?</a></div>
+				</div>
+				<div id="div-btn-enroll"><input type="submit" id="enrollBtn" value="회원가입"></div>
+			</form>
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 			<script>
 				var regExp1 = /[a-zA-Z]/; //문자
 				var regExp2 = /[0-9]/;	//숫자
@@ -409,6 +620,17 @@
 					});
 				});
 				
+<<<<<<< HEAD
+=======
+				var idCheck = false;  // pk
+				var pwdCheck = false;
+				var pwd2Check = false;
+				var nameCheck = false;
+				var emailCheck = false; //unique
+				var phoneCheck = false; //인증
+				var checked = false; //전체 체크
+				
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 				$("#userId").on('change paste keyup', function(){
 					var idCheck = false;
 				});
@@ -435,6 +657,7 @@
 					}else{
 						// 중복 체크!
 						$.ajax({
+<<<<<<< HEAD
 							url: '<%=request.getContextPath()%>/checkId.me',
 							data : {userId : inputId},
 							success : function(data) {
@@ -570,19 +793,149 @@
 						$('#phone').focus();
 						return false;
 					} else {
+=======
+							url: '<%= request.getContextPath()%>/checkId.me',
+							data: {userId: inputId},
+							success: function(data){
+								console.log(data);
+								
+								if(data == 'success'){
+									$('.error').eq(0).text('사용가능한 아이디입니다.').css('color','green');
+									idCheck = true;
+								}else{
+									$('.erro').eq(0).text('중복된 아이디입니다.').css('color','red');
+									idCheck = false;
+								}
+							}
+						});
+					}
+					
+				})
+				
+				$('#password').change(function(){
+					var inputPwd = $('#password').val();
+					if(inputPwd.length ==  0){
+						$('.error').eq(1).text('비밀번호를 입력해주세요').css('color','red');
+						pwdCheck = false;
+					}else if(!regExp1.test(inputPwd) || !regExp2.test(inputPwd) || !regExp3.test(inputPwd) || !regExp4.test(inputPwd) || inputPwd.length < 6 ){
+						$('.error').eq(1).text('비밀번호는 6자리 이상, 문자, 숫자로 구성하여야 합니다.').css('color','red');
+						pwdCheck = false;
+					}else{
+						$('.error').eq(1).text('사용가능한 비밀번호입니다.').css('color','green');
+						pwdCheck = true;
+					}
+				});
+				
+				$('#password2').change(function(){
+					var inputPwd2 = $('#password2').val();
+					var inputPwd = $('#password').val();
+					if(inputPwd == inputPwd2){
+						if(inputPwd2 == ""){
+							$('.error').eq(2).text('');
+							pwd2Check = false;
+						}else{
+							$('.error').eq(2).text('비밀번호가 일치합니다.').css('color','green');
+							pwd2Check = true;
+						}
+					}else{
+						$('.error').eq(2).text('비밀번호가 일치하지 않습니다.').css('color','red');
+						pwd2Check = false;
+					}
+				});
+				
+				$('#userName').change(function(){
+					var name = $('#userName').val();
+					if(name.length == 0){
+						$('.error').eq(3).text('이름을 입력해주세요').css('color','red');
+						nameCheck = false;
+					}else if(!regExp5.test(name) || regExp2.test(name) || regExp4.test(name)){
+						$('.error').eq(3).text('이름을 올바르게 입력해주세요').css('color','red');
+						nameCheck = false;
+					}else{
+						$('.error').eq(3).text('');
+						nameCheck = true;
+					}
+				});
+				
+				$('#email').change(function(){
+					var email = $('#email').val();
+					if(email.length == 0){
+						$('.error').eq(4).text('이메일을 입력해주세요').css('color','red');
+						emailCheck = false;
+					}else{
+						$('.error').eq(4).text('사용가능한 이메일입니다.').css('color','green');
+						emailCheck = true;
+					}
+				});
+				
+				$('#phone').change(function(){
+					var phone = $('#phone').val();
+					if(phone.length == 0){
+						$('.error').eq(5).text('휴대폰 번호를 입력해주세요').css('color','red');
+					}else{
+						$('.error').eq(5).text('');
+					}
+				});
+				function sendConfirm(){
+					console.log('askdasdfas');
+					
+				}
+				function confirm(){
+					// 확인문자까지 해야 true
+					$('.error').eq(5).text('인증이 완료되었습니다.').css('color','green');
+					phoneCheck = true;
+				}
+				
+				function enroll(){
+					if(!idCheck){
+						alert('아이디를 확인해주세요');
+						$('#userId').focus();
+						return false;
+					}else if(!pwdCheck){
+						alert('비밀번호를 입력해주세요');
+						$('#password').focus();
+						return false;
+					}else if(!pwd2Check){
+						alert('비밀번호가 일치하지 않습니다.');
+						$('#password2').focus();
+						return false;
+					}else if(!nameCheck){
+						alert('이름을 바르게 입력해주세요');
+						$('#userName').focus();
+						return false;
+					}else if(!emailCheck){
+						alert('이메일을 입력해주세요');
+						$('#email').focus();
+						return false;
+					}else if(!phoneCheck){
+						alert('휴대폰 인증확인을 해주세요');
+						$('#phone').focus();
+						return false;
+					}else{
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 						alert('회원가입이 되었습니다.');
 						return true;
 					}
 				}
+<<<<<<< HEAD
 
 				function info() {
 					window.open('foodStyle.html', '푸드스타일이란?',
 							'width=600,height=450');
+=======
+				
+				function info(){
+					window.open('foodStyle.html','푸드스타일이란?','width=600,height=450');
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 				}
 				
 			</script>
 		</article>
 	</section>
+<<<<<<< HEAD
 	<%@ include file="../common/footer.jsp"%>
+=======
+	<%@ include file="../common/footer.jsp" %>
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 </body>
 </html>

@@ -26,7 +26,10 @@ public class LoginFormServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<<<<<<< HEAD
 		request.setAttribute("loginfail", null);
+=======
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 		request.getRequestDispatcher("WEB-INF/views/login/login.jsp").forward(request, response);
 	}
 

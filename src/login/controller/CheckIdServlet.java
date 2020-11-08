@@ -9,7 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+<<<<<<< HEAD
 import login.model.service.MemberService;
+=======
+import login.model.serviec.MemberService;
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 
 /**
  * Servlet implementation class CheckIdServlet

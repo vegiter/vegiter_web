@@ -17,11 +17,20 @@ import wrapper.EncryptWrapper;
  * Servlet Filter implementation class EncryptFilter
  */
 @WebFilter(
+<<<<<<< HEAD
       servletNames = { 
             "LoginServlet", 
             "InsertMemberServlet",
             "InsertOwnerServlet"
       })
+=======
+		servletNames = { 
+				"LoginServlet", 
+				"InsertMemberServlet",
+				"InsertOwnerServlet",
+				"ChangePwdServlet"
+		})
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 public class EncryptFilter implements Filter{
 
     /**
@@ -31,6 +40,7 @@ public class EncryptFilter implements Filter{
         // TODO Auto-generated constructor stub
     }
 
+<<<<<<< HEAD
    /**
     * @see Filter#destroy()
     */
@@ -62,3 +72,34 @@ public class EncryptFilter implements Filter{
    }
 
 }
+=======
+	/**
+	 * @see Filter#destroy()
+	 */
+	public void destroy() {
+		// TODO Auto-generated method stub
+	}
+
+	/**
+	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
+	 */
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+		HttpServletRequest hsr = (HttpServletRequest)request;
+		EncryptWrapper ew = new EncryptWrapper(hsr);
+		
+		String password = request.getParameter("userPwd1");
+		String userId = request.getParameter("userId");
+		
+		// pass the request along the filter chain
+		chain.doFilter(ew, response);
+	}
+
+	/**
+	 * @see Filter#init(FilterConfig)
+	 */
+	public void init(FilterConfig fConfig) throws ServletException {
+		// TODO Auto-generated method stub
+	}
+
+}
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거

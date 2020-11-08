@@ -15,16 +15,27 @@ import java.util.Properties;
 import board.model.vo.Attachment;
 import login.model.vo.Member;
 import login.model.vo.Owner;
+<<<<<<< HEAD
 import shop.model.vo.Shop;
 
 public class MemberDAO {
 	private Properties prop = new Properties();
 
+=======
+
+public class MemberDAO {
+	private Properties prop = new Properties();
+	
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 	public MemberDAO() {
 		String fileName = MemberDAO.class.getResource("/sql/member/member-query.properties").getPath();
 		try {
 			prop.load(new FileReader(fileName));
+<<<<<<< HEAD
 
+=======
+			
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -36,13 +47,20 @@ public class MemberDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		Member loginUser = null;
+<<<<<<< HEAD
 
 		String query = prop.getProperty("loginMember");
 
+=======
+		
+		String query = prop.getProperty("loginMember");
+		
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, member.getMemId());
 			pstmt.setString(2, member.getMemPwd());
+<<<<<<< HEAD
 
 			rset = pstmt.executeQuery();
 
@@ -89,6 +107,31 @@ public class MemberDAO {
 			close(pstmt);
 		}
 
+=======
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				loginUser = new Member(rset.getString("mem_id"),
+										rset.getString("mem_pwd"),
+										rset.getInt("mem_code"),
+										rset.getString("mem_name"),
+										rset.getString("mem_gender").charAt(0),
+										rset.getString("mem_phone"),
+										rset.getString("mem_email"),
+										rset.getString("mem_style"),
+										rset.getString("mem_status"),
+										rset.getDate("mem_deldate"));
+				System.out.println(loginUser);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 		return loginUser;
 	}
 
@@ -100,6 +143,7 @@ public class MemberDAO {
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, userId);
+<<<<<<< HEAD
 
 			rset = pstmt.executeQuery();
 
@@ -114,6 +158,22 @@ public class MemberDAO {
 			close(pstmt);
 		}
 
+=======
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 		return result;
 	}
 
@@ -121,13 +181,18 @@ public class MemberDAO {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String query = prop.getProperty("insertMember");
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, m.getMemId());
 			pstmt.setString(2, m.getMemPwd());
 			pstmt.setInt(3, m.getMemCode());
 			pstmt.setString(4, m.getMemName());
+<<<<<<< HEAD
 			pstmt.setString(5, m.getMemGender() + "");
 			pstmt.setString(6, m.getMemPhone());
 			pstmt.setString(7, m.getMemEmail());
@@ -138,6 +203,18 @@ public class MemberDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+=======
+			pstmt.setString(5, m.getMemGender()+"");
+			pstmt.setString(6, m.getMemPhone());
+			pstmt.setString(7, m.getMemEmail());
+			pstmt.setString(8, m.getMemStyle());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 			close(pstmt);
 		}
 		return result;
@@ -147,6 +224,7 @@ public class MemberDAO {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String query = prop.getProperty("insertOwner");
+<<<<<<< HEAD
 
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -158,6 +236,19 @@ public class MemberDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+=======
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, own.getOwnNo());
+			pstmt.setString(2,  own.getOwnName());
+			pstmt.setString(3, own.getMemId());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 			close(pstmt);
 		}
 		return result;
@@ -166,12 +257,17 @@ public class MemberDAO {
 	public int checkOwnNumber(Connection conn, String ownNumber) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 		String query = prop.getProperty("checkOwnNumber");
 		int result = 0;
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, ownNumber);
+<<<<<<< HEAD
 
 			rset = pstmt.executeQuery();
 
@@ -364,10 +460,22 @@ public class MemberDAO {
 			pstmt.setString(4, shop.getShopPage());
 			
 			result = pstmt.executeUpdate();
+=======
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
+<<<<<<< HEAD
+=======
+			close(rset);
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 			close(pstmt);
 		}
 		

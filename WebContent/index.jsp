@@ -1,10 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
+<<<<<<< HEAD
 	pageEncoding="UTF-8"%>
+=======
+    pageEncoding="UTF-8"%>
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Vegiter</title>
+<<<<<<< HEAD
 <!-- jquery -->
 <script src="js/jquery-3.5.1.min.js"></script>
 <!-- 부트스트랩 -->
@@ -106,5 +111,15 @@
 	</section>
 
 	<%@ include file="WEB-INF/views/common/footer.jsp"%>
+=======
+</head>
+<body>
+	<!-- GNB  -->
+	<%@ include file="WEB-INF/views/common/gnb.jsp" %>
+	
+	
+	<!-- Footer  -->
+	<%@ include file="WEB-INF/views/common/footer.jsp" %>
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 </body>
 </html>

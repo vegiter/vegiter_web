@@ -6,6 +6,7 @@ import static common.JDBCTemplate.rollback;
 import static common.JDBCTemplate.close;
 
 import java.sql.Connection;
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -13,6 +14,11 @@ import board.model.vo.Attachment;
 import board.model.vo.Board;
 import board.model.vo.DietList;
 import board.model.vo.PageInfo;
+=======
+
+import board.model.vo.Attachment;
+import board.model.vo.Board;
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 import vegitalk.model.dao.VegitalkDAO;
 
 public class VegitalkService {
@@ -35,6 +41,7 @@ public class VegitalkService {
 		return pResult;
 	}
 
+<<<<<<< HEAD
 	public int insertDiet(DietList dl, Board b) {
 		Connection conn = getConnection();
 		VegitalkDAO vd = new VegitalkDAO();
@@ -98,4 +105,20 @@ public class VegitalkService {
 		close(conn);
 		return atc;
 	}
+=======
+	public int test(String st, int i) {
+		Connection conn = getConnection();
+		
+		int result = new VegitalkDAO().insertPost(conn, st, i);
+	
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 }

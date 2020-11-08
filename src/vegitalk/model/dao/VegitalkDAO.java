@@ -7,16 +7,24 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+<<<<<<< HEAD
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+=======
+import java.sql.SQLException;
+import java.sql.Statement;
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 import java.util.Properties;
 
 import board.model.vo.Attachment;
 import board.model.vo.Board;
+<<<<<<< HEAD
 import board.model.vo.DietList;
 import board.model.vo.PageInfo;
+=======
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 
 public class VegitalkDAO {
 	private Properties prop = new Properties();
@@ -70,6 +78,7 @@ public class VegitalkDAO {
 		}
 		return result;
 	}
+<<<<<<< HEAD
 	
 	public String arrToStr(String[] arr) {
 		String str = "";
@@ -103,6 +112,18 @@ public class VegitalkDAO {
 			pstmt.setString(4, luStr);
 			pstmt.setString(5, efStr);
 			pstmt.setString(6, euStr);
+=======
+
+	public int insertPost(Connection conn, String st, int i) {
+		String query = prop.getProperty("test");
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, st);
+			pstmt.setInt(2, i);
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -111,6 +132,7 @@ public class VegitalkDAO {
 		}
 		return result;
 	}
+<<<<<<< HEAD
 
 	public int getPostCountAll(Connection conn) {
 		Statement stmt = null;
@@ -304,4 +326,6 @@ public class VegitalkDAO {
 		}
 		return atc;
 	}
+=======
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 }

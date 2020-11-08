@@ -1,19 +1,25 @@
 package vegitalk.controller;
 
 import java.io.IOException;
+<<<<<<< HEAD
 import java.util.ArrayList;
 
+=======
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+<<<<<<< HEAD
 import board.model.vo.Attachment;
 import board.model.vo.Board;
 import board.model.vo.PageInfo;
 import vegitalk.model.Service.VegitalkService;
 
+=======
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 @WebServlet("/vegiTalk")
 public class GoVegitalkServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -23,6 +29,7 @@ public class GoVegitalkServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<<<<<<< HEAD
 		VegitalkService vs = new VegitalkService();
 		int postCount = vs.getPostCountAll();
 		int currentPage = 1;
@@ -54,6 +61,9 @@ public class GoVegitalkServlet extends HttpServlet {
 			request.setAttribute("msg", "게시판 조회에 실패했습니다.");
 			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
 		}
+=======
+		request.getRequestDispatcher("WEB-INF/views/vegitalk/vegitalk.jsp").forward(request, response);
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

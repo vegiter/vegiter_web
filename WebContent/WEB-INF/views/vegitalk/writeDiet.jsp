@@ -37,6 +37,10 @@
 </style>
 <script src="https://kit.fontawesome.com/34238d14b4.js" crossorigin="anonymous"></script>
 <script src="<%= request.getContextPath()%>/js/jquery-3.5.1.min.js"></script>
+<<<<<<< HEAD
+=======
+<link rel="stylesheet" type="text/css" href="/resources/css/writeDiet.css">
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 </head>
 <body>
 
@@ -49,8 +53,12 @@
 			<button id="type-two">#식단</button>
 		</div>
 	<form class="write" action="<%= request.getContextPath() %>/insertDiet" method="post">
+<<<<<<< HEAD
 		<input type="hidden" name="boardCode" value="2">
 		
+=======
+		<input type="hidden" name="board-type" value="2">
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 		<table class="dietList">
 			<tr>
 				<th>아침</th>
@@ -59,6 +67,7 @@
 			</tr>
 			<tr name="diet">
 				<td>
+<<<<<<< HEAD
 					<input type="text" name="mFood" placeholder="아침 메뉴 입력">
 					<input type="url" name="mUrl" placeholder="레시피 링크 입력">
 				</td>
@@ -68,6 +77,17 @@
 				</td>
 				<td>
 					<input  type="text" name="eFood" placeholder="저녁 메뉴 입력">
+=======
+					<input type="text" name="morning" placeholder="아침 메뉴 입력">
+					<input type="url" name="mUrl" placeholder="레시피 링크 입력">
+				</td>
+				<td>
+					<input type="text" name="lunch" placeholder="점심 메뉴 입력">
+					<input type="url" name="lUrl" placeholder="레시피 링크 입력">
+				</td>
+				<td>
+					<input  type="text" name="dinner" placeholder="저녁 메뉴 입력">
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 					<input type="url" name="eUrl"placeholder="레시피 링크 입력">
 				</td>
 			</tr>
@@ -78,7 +98,11 @@
 			<span id="removeRow"><i class="far fa-minus-square"></i></span>
 		</div>
 
+<<<<<<< HEAD
 		<textarea name="boardContent" id="wirte-area" placeholder="게시글을 작성해주세요."></textarea>
+=======
+		<textarea name="write" id="wirte-area" placeholder="게시글을 작성해주세요."></textarea>
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 		<button type="submit" name="submitBtn" id="write-submit-btn">등록</button>
 	</form>
 </div>
@@ -90,6 +114,7 @@
 	
 	$(function(){
 		$('#addRow').click(function(){
+<<<<<<< HEAD
 			var trCnt = $('.dietList tr[name="diet"]').length;
 			console.log(trCnt);
 			if(trCnt > 6) {
@@ -111,10 +136,28 @@
 							 '</tr>';
 				$('tr[name="diet"]:last').after(addRow);
 			}
+=======
+			var addRow = '<tr name="diet">' +
+						 '	<td>' +
+						 '		<input type="text" name="morning" placeholder="아침 메뉴 입력">' +
+						 '		<input type="url" name="mUrl" placeholder="레시피 링크 입력">' +
+						 '	</td>' +
+						 '	<td>' +
+						 '		<input type="text" name="lunch" placeholder="점심 메뉴 입력">' +
+						 '		<input type="url" name="lUrl" placeholder="레시피 링크 입력">' +
+						 '	</td>' +
+						 '	<td>' +
+						 '		<input  type="text" name="dinner" placeholder="저녁 메뉴 입력">' +
+						 '		<input type="url" name="eUrl"placeholder="레시피 링크 입력">' +
+						 '	</td>' +
+						 '</tr>';
+			$('tr[name="diet"]:last').after(addRow);
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 		});
 	});
 	
 	$(function(){
+<<<<<<< HEAD
 		$('#removeRow').click(function(){
 			var trCnt = $('.dietList tr[name="diet"]').length;
 			if(trCnt > 1) {
@@ -122,10 +165,29 @@
 			} else {
 				alert('하루 이상의 식단을 입력해주세요.');
 			}
+=======
+		$('#addRow').click(function(){
+			var addRow = '<tr name="diet">' +
+						 '	<td>' +
+						 '		<input type="text" name="morning" placeholder="아침 메뉴 입력">' +
+						 '		<input type="url" name="mUrl" placeholder="레시피 링크 입력">' +
+						 '	</td>' +
+						 '	<td>' +
+						 '		<input type="text" name="lunch" placeholder="점심 메뉴 입력">' +
+						 '		<input type="url" name="lUrl" placeholder="레시피 링크 입력">' +
+						 '	</td>' +
+						 '	<td>' +
+						 '		<input  type="text" name="dinner" placeholder="저녁 메뉴 입력">' +
+						 '		<input type="url" name="eUrl"placeholder="레시피 링크 입력">' +
+						 '	</td>' +
+						 '</tr>';
+			$('tr[name="diet"]:last').remove(addRow);
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 		});
 	});
 	
 	$(function(){
+<<<<<<< HEAD
 		$('#write-submit-btn').click(function(){
 			var content = $('textarea').val();
 			if(content.length == 0) {
@@ -133,6 +195,10 @@
 				return false;
 			}
 			return true;
+=======
+		$('#addRow').click(function(){
+			var table = $('#dietList');
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 		});
 	});
 </script>

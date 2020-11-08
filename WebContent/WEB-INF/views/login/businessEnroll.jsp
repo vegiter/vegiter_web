@@ -9,7 +9,62 @@
 	* { 
 		box-sizing: border-box;
 	}
+<<<<<<< HEAD
 
+=======
+	header{
+		position: fixed;
+		top: 0;
+		z-index: 10;
+		width: 100%;
+		background: rgba(255,255,255, 0.8);
+		border-bottom: 1px solid lightgray;
+	}
+	nav{
+		diplay: inline-block;
+		float: right;
+		padding: 0;
+		height: 40px;
+		margin-right: 10%;
+	}
+	div, ul, li{
+		padding: 0;
+		margin: 0;
+	}
+	#logo{
+		width: 150px;
+		margin-left: 10%
+	}
+	nav li{
+		float: left;
+		position: relative;
+		padding: 0;
+		line-height: 40px; /*굵기*/
+	}
+	.header nav .wrap > ul{
+		display: inline-block;
+		position : relative;
+	}
+	.wrap>ul>li{
+		width: 100px;
+		height: 63px;
+	}
+	.wrap>ul>li>a{
+		display: block;
+		width: 100%;
+		text-decoration : none;
+		color: black;
+		text-align: center;
+		margin-top: 10px;
+	}
+	ol, ul{
+		list-style:none;
+	}
+	nav li:hover{
+		font-weight: bolder;
+		border-bottom: 3px solid rgb(45,115,102);
+	}
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 	/* 내용부분 */
 	section{
 		margin: 12%;
@@ -192,9 +247,12 @@
 					<h4>업체 전화번호<b>*</b></h4>
 					<div class="input-info"><input type="number" name="phone" id="phone"></div>
 					<div class="error"></div>
+<<<<<<< HEAD
 					<h4>업체명<b>*</b></h4>
 					<div class="input-info"><input type="text" name="shopName" id="shopName"></div>
 					<div class="error"></div>
+=======
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 					<h4>업체 주소<b>*</b></h4>
 					<div class="input-info"><input type="text" name="address" id="address"></div>
 					<div class="error"></div>
@@ -226,7 +284,10 @@
 				var emailCheck = false; //unique
 				var ownNumberCheck = false;
 				var phoneCheck = false;
+<<<<<<< HEAD
 				var shopNameCheck = false;
+=======
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 				var addressCheck = false;
 				var checked = false; 
 				
@@ -342,7 +403,11 @@
 					}else{
 						$.ajax({
 							url: '<%=request.getContextPath()%>/checkOwnNumber',
+<<<<<<< HEAD
 							data : {ownNumber:ownNumber},
+=======
+							data : {ownNo:own},
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 							success: function(data){
 								console.log(data);
 								
@@ -357,6 +422,7 @@
 						});
 					}
 				});
+<<<<<<< HEAD
 				$('#shopName').change(function(){
 					var shop = $('#shopName').val();
 					if(address.length < 4){
@@ -374,6 +440,15 @@
 						addressCheck = false;
 					}else{
 						$('.error').eq(8).text('');
+=======
+				$('#address').change(function(){
+					var address = $('#address').val();
+					if(address.length < 4){
+						$('.error').eq(7).text('주소를 입력해주세요').css('color','red');
+						addressCheck = false;
+					}else{
+						$('.error').eq(7).text('');
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 						addressCheck = true;
 					}
 				});
@@ -407,10 +482,13 @@
 						alert('사업자번호를 확인해주세요');
 						$('#ownNumber').focus();
 						return false;
+<<<<<<< HEAD
 					}else if(!shopNameCheck){
 						alert('업체명을 입력해주세요');
 						$('#shopName').focus();
 						return false;
+=======
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 					}else if(!addressCheck){
 						alert('주소를 확인해주세요');
 						$('#address').focus();

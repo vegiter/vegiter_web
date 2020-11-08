@@ -10,7 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+<<<<<<< HEAD
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+=======
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 
 import com.oreilly.servlet.MultipartRequest;
 
@@ -72,7 +76,11 @@ public class InsertTalkServlet extends HttpServlet {
 		}
 		
 		if(result > 0) {
+<<<<<<< HEAD
 			request.getRequestDispatcher("/vegiTalk").forward(request, response);
+=======
+			request.getRequestDispatcher("WEB-INF/views/vegitalk/vegitalk.jsp").forward(request, response);
+>>>>>>> parent of 1d9bf72... 불필요한 파일 제거
 		} else {
 			request.setAttribute("msg", "게시글 등록에 실패했습니다.<br>관리자에게 문의해주세요.");
 			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
