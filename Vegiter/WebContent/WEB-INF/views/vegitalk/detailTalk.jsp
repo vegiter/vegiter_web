@@ -73,9 +73,11 @@
 		<% } %>
 		
 		<div class="user">
-			<input type="hidden" value="<%= post.getBoard_no() %>">
+			<input type="hidden" name="bId" value="<%= post.getBoard_no() %>">
+			<input type="hidden" name="bCode" value="<%= post.getBoard_code() %>">
+			
 			<div class="user-info">
-			<span id="userId"><%= post.getMem_id() %></span>
+				<span id="userId"><%= post.getMem_id() %></span>
 				<span id="date"><%= post.getBoard_date() %></span>
 			</div>
 			<i class="far fa-bookmark"></i>

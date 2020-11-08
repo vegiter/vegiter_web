@@ -43,10 +43,11 @@
 <body>
 	<%@ include file="../common/gnb.jsp" %>
 	<div class="wrapper">
-		<form class="write" method="post" encType="multipart/form-data" action="<%= request.getContextPath() %>/edit">
+		<form class="write" method="post" encType="multipart/form-data" action="<%= request.getContextPath() %>/updateEdit">
 			<input type="hidden" name="bId" value="<%= post.getBoard_no() %>">
-			<input type="hidden" name="bId" value="<%= post.getBoard_code() %>">
-			
+			<input type="hidden" name="bCode" value="<%= post.getBoard_code() %>">
+			<input type="hidden" name="writer" value="<%= post.getMem_id() %>">
+	
 			<% if(loginUser.getMemCode() == 0){ %>
 				<input type="hidden" name="boardCode" id="boardCode" value="3">
 			<% } else { %>
@@ -54,21 +55,22 @@
 			<% } %>
 			
 			<div class="write-img" id="uploadImg">
-			<% if(atc != null){ %>
+			<% if(atc != null) { %>
 				<img src="<%= request.getContextPath() %>/uploaded_Images/<%= atc.getAtcName() %>" id="post-img">
 			<% } %>
 				<label id="uploadLabel" style=""><i class="far fa-file-image"></i></label>
-				<input type="file" accept="image/*" id="imgFile" name="imgFile" onchange="readURL(this);" style="display:none;">
+				<input type="file" name="imgFile" accept="image/*" id="imgFile" onchange="readURL(this);" style="display:none;">
 				<img src="" id="post-img">
 			</div>
 			
 			<textarea name="boardContent" id="boardContent" rows="10" placeholder="게시글을 입력하세요."><%= post.getBoard_content() %></textarea>
-	
-			<button type="submit" name="submitBtn" id="write-submit-btn">등록</button>
+			<button type="submit" name="submitBtn" id="write-submit-btn">수정</button>
 		</form>
 	</div>
 	
 	<script>
+		var checkFile = false;
+		
 		$(function(){
 			$('#type-two').click(function(){
 				$('body').load("writeDiet");
@@ -92,19 +94,9 @@
 	                $('#post-img').attr('src', e.target.result);
 	            }
 	            reader.readAsDataURL(input.files[0]);
+	            checkFile = true;
 	        }
 	    }
-		
-		$(function(){
-			$('#write-submit-btn').click(function(){
-				var content = $('textarea').val();
-				if(content.length == 0) {
-					alert('게시글을 작성해주세요.');
-					return false;
-				}
-				return true;
-			});
-		});
 	</script>
 </body>
 </html>

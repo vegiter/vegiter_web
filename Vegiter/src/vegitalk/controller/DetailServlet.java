@@ -14,17 +14,16 @@ import board.model.vo.Board;
 import vegitalk.model.Service.VegitalkService;
 
 @WebServlet("/detail")
-public class Detail extends HttpServlet {
+public class DetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public Detail() {}
+    public DetailServlet() {}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int bId = Integer.parseInt(request.getParameter("bId"));
 		int bCode = Integer.parseInt(request.getParameter("bCode"));
 		Board post = new VegitalkService().selectPost(bId);
 		Attachment atc = new VegitalkService().selectAtc(bId);
-		
 		
 		if (post != null) {
 			if(bCode == 1 || bCode == 3) {

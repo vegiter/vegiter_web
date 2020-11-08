@@ -109,10 +109,9 @@ public class VegitalkService {
 		return result;
 	}
 
-	public int editPost(Board post) {
+	public int deleteAtc(int bId) {
 		Connection conn = getConnection();
-		int result = new VegitalkDAO().editPost(conn, post);
-		
+		int result = new VegitalkDAO().deleteAtc(conn, bId);
 		if(result > 0) {
 			commit(conn);
 		} else {
@@ -122,17 +121,31 @@ public class VegitalkService {
 		return result;
 	}
 
-	public int updateNewAtc(Attachment atc, int bId) {
+	public int updatePost(Board post) {
 		Connection conn = getConnection();
-		int offStatusResult = new VegitalkDAO().offAtcStatus(conn, bId);
-		int insertResult = new VegitalkDAO().updateNewAtc(conn, atc, bId);
-		
-		if(offStatusResult > 0 && insertResult > 0) {
+		int result = new VegitalkDAO().updatePost(conn, post);
+				
+		if(result > 0) {
 			commit(conn);
 		} else {
 			rollback(conn);
 		}
 		close(conn);
-		return insertResult;
+		return result;
 	}
+
+	public int editAtc(Attachment atc, int bId) {
+		Connection conn = getConnection();
+		int removePreAtcResult = new VegitalkDAO().deleteAtc(conn, bId);
+		int insertAtcResult = new VegitalkDAO().editAttachment(conn, atc);
+		
+		if(insertAtcResult > 0 && removePreAtcResult > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return insertAtcResult;
+	}
+
 }

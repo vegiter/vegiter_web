@@ -20,9 +20,10 @@ public class DeleteVegitalkServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int bId = Integer.parseInt(request.getParameter("bId"));
 		
-		int result = new VegitalkService().deletePost(bId);
+		int pResult = new VegitalkService().deletePost(bId);
+		int aResult = new VegitalkService().deleteAtc(bId);
 		
-		if(result > 0){
+		if(pResult > 0 && aResult > 0){
 			response.sendRedirect("vegiTalk?currentPage=1");
 		} else {
 			request.setAttribute("msg", "게시글을 삭제하지 못했어요.<br>다시 시도해주세요.");
