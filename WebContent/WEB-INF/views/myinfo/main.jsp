@@ -11,7 +11,6 @@
 		background: rgb(246, 246, 246);
 		margin-bottom: -100px;
 	}
-	*{border: 1px solid green;}
 	#profile-all{
 		margin-top: 50px;
 		background: rgb(246, 246, 246);
@@ -48,19 +47,20 @@
 	.div-name h3{
 		display: inline-block;
 		margin-top: 15px;
-		margin-left: 10px;
+		margin-left: 15px;
 		font-weight: normal;
 	}
 	#profile-revise{
 		diplay: inline-block;
 		margin-top: 19px;
-		margin-right: 10px;
+		margin-right: 15px;
 		font-size: 13px;
 		color: lightgray;
 		float: right;
 	}
 	#profile-revise:hover{
-		
+		font-weight:bolder;
+		cursor: pointer;
 	}
 	.content{
 		clear: both;
@@ -90,21 +90,7 @@
 	.profile-header{
 		border-right: 1px solid lightgray;
 	}
-	.price {
-		text-align: center;
-		margin-top: 50px;	
-		font-size: 16px;
-   		height: 100%;
-    	outline: none;
-    	padding-inline-end: 40px;
-    	padding-inline-start: 52px;
-	}
-	.check {
-		color: #007bff;
-		inquiryBtn: transparent;
-		background-imge: none;
-		border-color: #007bff;
-	}
+
 	
 	#list{
 		background-color: #21403A;
@@ -181,18 +167,19 @@
 			</div>
 		</div>
 
-		<div class="price" align="center">
-			<input class="pwd" type="password" name="userPwd"
-				placeholder="PASS WORD">
-			<button class="check" id="myPage"
-				onclick="location.href='<%= request.getContextPath() %>/myPage.me'">CHECK</button>
-		</div>
-
-		
-		<script>
+	<script>
 		function logout(){
 			location.href='<%= request.getContextPath() %>/logout.me';
 		}
+		$('#profile-revise').click(function(){
+			var popupX = (document.body.offsetWidth/2) - (200 / 2);
+			//&nbsp;만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+
+			var popupY= (window.screen.height / 2) - (300 / 2);
+			//&nbsp;만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+
+			window.open('checkPwdForm.me','pwdCheckForm', 'status=no, height=150, width=300, left='+ popupX + ', top='+ popupY);
+		});
 	</script>
 	</section>
 	<%@ include file="../common/footer.jsp" %>
