@@ -27,11 +27,11 @@
 </head>
 <body>
 	<header class="gnb">
-		<nav class="gnb-nav">
+		<nav class="gnb-nav">	
 			<ul>
 				<li class="gnb-nav-list" onclick="location.href='<%= request.getContextPath() %>'"><img id="logo" onclick="location.href='<%= request.getContextPath() %>'" src="<%= request.getContextPath() %>/images/common/logo.png" style="cursor: pointer;"></li>
 				<li class="gnb-nav-list" onclick="location.href='<%= request.getContextPath() %>/aboutPage.me'">About</li>
-				<li class="gnb-nav-list" onclick="location.href='<%= request.getContextPath() %>'">식당검색</li>
+				<li class="gnb-nav-list" onclick="location.href='<%=request.getContextPath()%>/search.map'">식당검색</li>
 				<li class="gnb-nav-list" onclick="location.href='<%= request.getContextPath() %>/recipe'">레시피</li>
 				<li class="gnb-nav-list" onclick="location.href='<%= request.getContextPath() %>/vegiTalk'">VegiTalk</li>
 				<%if(loginUser == null){ %>
