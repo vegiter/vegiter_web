@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import board.model.service.BoardService;
 import board.model.vo.Attachment;
 import board.model.vo.Board;
 import board.model.vo.BookMark;
@@ -28,9 +29,11 @@ public class DetailServlet extends HttpServlet {
 		Board post = new VegitalkService().selectPost(bId);
 		Attachment atc = new VegitalkService().selectAtc(bId);
 		ArrayList<Comments> list = new VegitalkService().selectReplyList(bId);
+		BookMark bmkList = new BoardService().selectBookMark(bId);
 		
 		if (post != null) {
 			request.setAttribute("list", list);
+			request.setAttribute("bmkList", bmkList);
 			if(bCode == 1 || bCode == 3) {
 				request.setAttribute("post", post);
 				request.setAttribute("atc", atc);

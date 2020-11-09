@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import board.model.service.BoardService;
 
-@WebServlet("/BmkDel.post")
+@WebServlet("/delBmk.post")
 public class BmkDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -23,9 +23,7 @@ public class BmkDeleteServlet extends HttpServlet {
 		String user=request.getParameter("user");	
 		int bId=Integer.parseInt(request.getParameter("bId"));
 		
-		BoardService service=new BoardService();
-		
-		int result=service.deleteBookMark(user,bId);
+		int result = new BoardService().deleteBookMark(user,bId);
 		
 		PrintWriter out=response.getWriter();
 		if(result>0) {

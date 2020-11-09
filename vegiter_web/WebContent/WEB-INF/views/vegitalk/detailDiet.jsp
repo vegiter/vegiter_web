@@ -5,13 +5,13 @@
 	Board post = (Board)request.getAttribute("post");
 	ArrayList<Comments> list = (ArrayList)request.getAttribute("list");
 	DietList dList = (DietList)request.getAttribute("dList");
-	System.out.println("dlist?" + dList);
 	String[] mF = dList.getmFood();
 	String[] mU = dList.getmUrl();
 	String[] lF = dList.getlFood();
 	String[] lU = dList.getlUrl();
 	String[] eF = dList.geteFood();
 	String[] eU = dList.geteUrl();
+	BookMark bmkList=(BookMark)request.getAttribute("bmkList");
 	
 %>
 <!DOCTYPE html>
@@ -134,7 +134,10 @@
 
 	<script>
 		 $('#addComment').click(function(){
-			var writer = '<%= loginUser.getMemId() %>';
+			var loginUserId = $('.comment-input')children().eq(0).val();
+			if(loginUserId != null) {
+				var writer = loginUserId;
+			}
 			var bId =  '<%= post.getBoard_no() %>';
 			var content = $('#commentContent').val();
 			
@@ -171,15 +174,10 @@
 			});
 			}
 		});
-		 
-		<%-- $('#delete').click(function(){
-				var bId = $('.user').children().val();
-				location.href="<%= request.getContextPath() %>/delete?bId=" + bId;
-			}); --%>
-			
-			$('#modify').click(function(){
-				var bId = $('.user').children().val();
-				location.href="<%= request.getContextPath() %>/editForm?bId=" + bId;
+		
+		$('#modify').click(function(){
+			var bId = $('.user').children().val();
+			location.href="<%= request.getContextPath() %>/editForm?bId=" + bId;
 		});
 	</script>
 

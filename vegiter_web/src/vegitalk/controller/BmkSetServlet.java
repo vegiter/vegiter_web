@@ -21,7 +21,6 @@ public class BmkSetServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String user=request.getParameter("user");	
 		int bId=Integer.parseInt(request.getParameter("bId"));
-		
 		BoardService service = new BoardService();
 		
 		int result = service.insertBookMark(user,bId);
