@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import board.model.service.BoardService;
 
-@WebServlet("/setBmk")
+@WebServlet("/setBmk.post")
 public class BmkSetServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

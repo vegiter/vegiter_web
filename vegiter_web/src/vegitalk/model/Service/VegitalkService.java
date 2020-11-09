@@ -191,23 +191,10 @@ public class VegitalkService {
 		return dList;
 	}
 
-	public String getOptStr(int opt) {
-		String OptStr = "";
-		
-		switch(opt) {
-		case 1: OptStr = "PLIST_TALK_NEW"; break;
-		case 2: OptStr = "PLIST_DIET_NEW"; break;
-		case 3: OptStr = "PLIST_NOTICE_NEW"; break;
-		} 
-		
-		System.out.println("getOptStr?" + OptStr);
-		return OptStr;
-	}
 	
 	public ArrayList<Board> getPList(PageInfo pi, int opt) {
 		Connection conn = getConnection();
-		String OptStr = getOptStr(opt);
-		ArrayList<Board> pList = new VegitalkDAO().getPList(conn, pi, OptStr);
+		ArrayList<Board> pList = new VegitalkDAO().getPList(conn, pi, opt);
 		close(conn);
 		return pList;
 	}

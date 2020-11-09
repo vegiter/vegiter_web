@@ -184,6 +184,34 @@
 			var bCode = $('.user').children().eq(1).val();
 			location.href="<%= request.getContextPath() %>/editForm?bId=" + bId + "&bCode=" + bCode;
 		});
+		
+		$('#modify').click(function(){
+			var bId = $('.user').children().val();
+			var bCode = $('.user').children().eq(1).val();
+			location.href="<%= request.getContextPath() %>/editForm?bId=" + bId + "&bCode=" + bCode;
+		});
+		
+		$(function(){
+			var bId = <%= post.getBoard_no() %>;
+			var user = <%= loginUser.getMemId() %>;
+			$('i, .fa-bookmark').on('click', function(){
+				$.ajax({
+					url:BmkSet.post,
+					data:{bId:bId,user:user},
+					success: function(data){
+						console.log(data);
+					}
+				});
+			}).off('click', function(){
+				$.ajax({
+					url:BmkDel.post,
+					data:{bId:bId,user:user},
+					success: function(data){
+						console.log(data);
+					}
+				});
+			});
+		});
 	</script>
 </body>
 </html>

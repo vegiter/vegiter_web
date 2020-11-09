@@ -360,7 +360,9 @@ body {
 	}
 	
 	function drawStuff(list) {
-
+		
+		console.log(list[0]);
+		console.log(list);
 		console.log(list[0].cnt);
 
 		var data = new google.visualization.arrayToDataTable([

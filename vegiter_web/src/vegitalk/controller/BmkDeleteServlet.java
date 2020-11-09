@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import board.model.service.BoardService;
 
-@WebServlet("/delBmk")
+@WebServlet("/BmkDel.post")
 public class BmkDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

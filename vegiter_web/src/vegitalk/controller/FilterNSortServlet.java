@@ -46,15 +46,17 @@ public class FilterNSortServlet extends HttpServlet {
 		ArrayList<Board> pList = vs.getPList(pi, opt);
 		ArrayList<Attachment> aList = vs.getAList();
 		
+		String page = null;
 		if(pList != null && aList != null) {
 			request.setAttribute("pi", pi);
 			request.setAttribute("pList", pList);
 			request.setAttribute("aList", aList);
-			request.getRequestDispatcher("WEB-INF/views/vegitalk/vegitalkFiltered.jsp").forward(request, response);
+			page = "WEB-INF/views/vegitalk/vegitalkFilter.jsp";
 		} else {
 			request.setAttribute("msg", "게시판 조회에 실패했습니다.");
-			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
+			page = "WEB-INF/views/common/errorPage.jsp";
 		}
+		request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

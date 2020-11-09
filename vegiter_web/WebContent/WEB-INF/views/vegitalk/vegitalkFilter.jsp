@@ -169,15 +169,15 @@
 		});
 		
 		$('.opt-type').children().eq(1).click(function(){
-			location.href="<%= request.getContextPath() %>/filterNSort?opt=1";
+			location.href="<%= request.getContextPath() %>/filterNSort?opt=3";
 		});
 		
 		$('.opt-type').children().eq(2).click(function(){
-			location.href="<%= request.getContextPath() %>/filterNSort?opt=2";
+			location.href="<%= request.getContextPath() %>/filterNSort?opt=1";
 		});
 		
 		$('.opt-type').children().eq(3).click(function(){
-			location.href="<%= request.getContextPath() %>/filterNSort?opt=3";
+			location.href="<%= request.getContextPath() %>/filterNSort?opt=2";
 		});
 		
 		$(function(){ //상세페이지 이동 분기 처리

@@ -118,10 +118,6 @@ public class VegitalkDAO {
 		String efStr = arrToStr(dl.geteFood());
 		String euStr = arrToStr(dl.geteUrl());
 		
-		
-		System.out.println(mfStr);
-		
-		
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, mfStr);
@@ -510,32 +506,41 @@ public class VegitalkDAO {
 		}
 		return result;
 	}
-	
-	public ArrayList<Board> getPList(Connection conn, PageInfo pi, String optStr) {
+
+	public ArrayList<Board> getPList(Connection conn, PageInfo pi, int opt) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		ArrayList<Board> pList = new ArrayList();
-		String query = prop.getProperty("getPList");
+		ArrayList<Board> pList = null;
+		String query = "";
 		int startRow = (pi.getCurrentPage() - 1) * pi.getPostLimit() + 1;
 		int endRow = (startRow + pi.getPostLimit()) - 1;
-		System.out.println(optStr);
+		
+		if(opt == 1) {
+			query = prop.getProperty("plist_talk_new");
+		} else if(opt == 2) {
+			query = prop.getProperty("plist_diet_new");
+		} else {
+			query = prop.getProperty("plist_notice_new");
+		}
+		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, optStr);
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, endRow);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rset = pstmt.executeQuery();
 			
-			if(rset.next()) {
+			pList = new ArrayList<>();
+			while(rset.next()) {
 				Board post = new Board(rset.getInt("board_no"),
-									   rset.getInt("board_code"),
-									   rset.getString("mem_id"),
-									   rset.getString("board_title"),
-									   rset.getDate("board_date"),
-									   rset.getString("board_content"),
-									   rset.getInt("board_count"),
-									   rset.getInt("board_like"),
-									   rset.getInt("board_com"),
-									   rset.getString("board_status"));
+								   rset.getInt("board_code"),
+								   rset.getString("mem_id"),
+								   rset.getString("board_title"),
+								   rset.getDate("board_date"),
+								   rset.getString("board_content"),
+								   rset.getInt("board_count"),
+								   rset.getInt("board_like"),
+								   rset.getInt("board_com"),
+								   rset.getString("board_status"));
 				pList.add(post);
 			}
 		} catch (SQLException e) {
