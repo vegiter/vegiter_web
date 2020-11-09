@@ -213,7 +213,6 @@
 		<article id="social-enroll">
 			<div class="social" id="social">
 				<p>소셜로 간편하게 로그인하세요.</p>
-				<a href="#"><img src="<%= request.getContextPath() %>/images/common/kakao.png" id="kakao"></a>
 				<div id="naverIdLogin"></div>
 			</div>
 			<script type="text/javascript">
@@ -378,7 +377,7 @@
 								switch(gender){
 								case 'F': $('#gender-f').attr('selected','selected'); break;
 								case 'M': $('#gender-m').attr('selected','selected'); break;
-								case 'U': $('#gender-n').attr('selected','selected'); break;
+								case 'N': $('#gender-n').attr('selected','selected'); break;
 								}
 								$('#enrollBtn').val('네이버로 회원가입');
 								idCheck = true;

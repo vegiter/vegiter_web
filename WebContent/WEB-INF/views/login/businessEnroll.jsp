@@ -199,8 +199,9 @@
 					<h4>사업주<b>*</b></h4>
 					<div class="input-info"><input type="text" name="userName" id="userName"></div>
 					<div class="error"></div>
+					
 					<h4>사업자 번호<b>*</b></h4>
-					<div class="input-info"><input type="number" name="ownNumber" id="ownNumber" placeholder="-포함"></div>
+					<div class="input-info"><input type="number" name="ownNumber" id="ownNumber" placeholder="-미포함"></div>
 					<div class="error"></div>
 					<h4>이메일<b>*</b></h4>
 					<div class="input-info"><input type="email" name="email" id="email"></div>
@@ -359,8 +360,8 @@
 				});
 				$('#ownNumber').change(function(){
 					// pk 중복체크
-					var own = $('#ownNumber').val();
-					if(own.length < 4){
+					var ownNumber = $('#ownNumber').val();
+					if(ownNumber.length < 4){
 						$('.error').eq(4).text('사업자 번호를 입력해주세요').css('color','red');
 						ownNumberCheck = false;
 					}else{
@@ -470,6 +471,7 @@
 
                 // 주소 정보를 해당 필드에 넣는다.
                 document.getElementById("address").value = addr;
+                addressCheck = true;
                 // 주소로 상세 정보를 검색
                 geocoder.addressSearch(data.address, function(results, status) {
                     // 정상적으로 검색이 완료됐으면
