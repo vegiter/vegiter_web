@@ -189,7 +189,7 @@
 			
 		});
 		
-		$(function(){ //페이징 효과 처리
+		$(function() { //페이징 효과 처리
 			if(<%= currentPage %> <= 1) {
 				$('.paging-item').eq(0).css('background-color', 'darkgray');
 				$('.paging-item').eq(0).click(function(){
@@ -199,9 +199,8 @@
 				$('.paging-item').eq(0).click(function(){
 					location.href="<%= request.getContextPath() %>/vegiTalk?currentPage=<%= currentPage - 1 %>";
 				});
-				
-				$('.paging-item:').last().click(function(){
-					alret('wow');
+			}	
+				$('.paging-item').last().click(function(){
 					location.href="<%= request.getContextPath() %>/vegiTalk?currentPage=<%= currentPage + 1 %>";
 				});
 			}

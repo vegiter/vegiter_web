@@ -116,8 +116,8 @@
 			<div class="paging">
 				<span class="paging-item">&lt;</span>
 				<% for(int p = startPage; p <= endPage; p++){
-				   	 	if(p == currentPage) {%>
-							<span class="paging-item"><%= p %></span>
+				   	 	if(p == currentPage) { %>
+							<span class="paging-item" style="background-color:#41A693;"><%= p %></span>
 					<%  } else { %>
 						<span class="paging-item" onclick="location.href='<%= request.getContextPath() %>/vegiTalk?currentPage=<%= p %>'"><%= p %></span>
 					<%  } 
@@ -186,12 +186,12 @@
 				var bCode = $(this).children().eq(1).val();
 				location.href="<%= request.getContextPath() %>/detail?bId=" + bId + "&bCode=" + bCode;
 			});
-			
 		});
 		
 		$(function(){ //페이징 효과 처리
-			if(<%= currentPage %> <= 1) {
-				$('.paging-item').eq(0).css('background-color', 'darkgray');
+			
+			if(<%= currentPage %> == 1) {
+				$('.paging-item').eq(0).css('background-color', '#ACB5BD');
 				$('.paging-item').eq(0).click(function(){
 					$('.paging-item').preventDefault();
 				});
@@ -201,7 +201,6 @@
 				});
 				
 				$('.paging-item:').last().click(function(){
-					alret('wow');
 					location.href="<%= request.getContextPath() %>/vegiTalk?currentPage=<%= currentPage + 1 %>";
 				});
 			}

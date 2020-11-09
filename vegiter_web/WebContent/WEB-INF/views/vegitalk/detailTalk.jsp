@@ -465,6 +465,7 @@ span>i {
 			}
 			
 			$('#bmkBtn').on('click', function(){
+				console.log('hi');
 				
 				if($(this).css('color') == 'black') {
 					$.ajax({
