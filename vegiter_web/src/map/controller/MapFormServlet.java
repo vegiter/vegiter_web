@@ -1,4 +1,4 @@
-package about.controller;
+package map.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class AboutPageFormServlet
+ * Servlet implementation class MapFormServlet
  */
-@WebServlet("/aboutPage.me")
-public class AboutPageFormServlet extends HttpServlet {
+@WebServlet("/search.map")
+public class MapFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AboutPageFormServlet() {
+    public MapFormServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,7 +26,7 @@ public class AboutPageFormServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("WEB-INF/views/about/aboutPage.jsp").forward(request, response);
+		request.getRequestDispatcher("WEB-INF/views/searchmap/searchshop.jsp").forward(request, response);
 	}
 
 	/**
