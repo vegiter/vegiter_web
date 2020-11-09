@@ -337,7 +337,9 @@ body {
 	function drawChart(list) {
 
 		console.log(list[0].cnt);
-
+		if(list[selected]){
+			if(list[selected].cnt){}
+		}
 		var data = google.visualization.arrayToDataTable([
 			['Title', 'Title'],
 			['비건', list[0].cnt],

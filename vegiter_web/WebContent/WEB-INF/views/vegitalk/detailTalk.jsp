@@ -123,16 +123,21 @@
 			  <% } %>
 		<% } %>
 			</ul>
+		<% if(loginUser != null) { %>
 			<div class="comment-input">
 				<input type="text" class="comment-input-field" placeholder="댓글을 입력하세요" id="commentContent">
 				<button type="submit" class="comment-input-submit" id="addComment">등록</button>
 			</div>
+		<%  } %>
 		</div>
 	</div>
 
 	<script>
 		 $('#addComment').click(function(){
-			var writer = '<%= loginUser.getMemId() %>';
+			if(<%= loginUser.getMemId() %> != null) {
+				var writer = '<%= loginUser.getMemId() %>';
+			}
+			
 			var bId =  '<%= post.getBoard_no() %>';
 			var content = $('#commentContent').val();
 			
@@ -192,11 +197,12 @@
 		});
 		
 		$(function(){
-			var bId = <%= post.getBoard_no() %>;
-			var user = <%= loginUser.getMemId() %>;
+			var bId = $('.user').children().val();
+			var userId = $('#userId').val();
+			
 			$('i, .fa-bookmark').on('click', function(){
 				$.ajax({
-					url:BmkSet.post,
+					url:'mkSet.post',
 					data:{bId:bId,user:user},
 					success: function(data){
 						console.log(data);
@@ -204,7 +210,7 @@
 				});
 			}).off('click', function(){
 				$.ajax({
-					url:BmkDel.post,
+					url:'BmkDel.post',
 					data:{bId:bId,user:user},
 					success: function(data){
 						console.log(data);

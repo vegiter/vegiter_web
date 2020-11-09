@@ -22,7 +22,7 @@ public class BmkSetServlet extends HttpServlet {
 		String user=request.getParameter("user");	
 		int bId=Integer.parseInt(request.getParameter("bId"));
 		
-		BoardService service=new BoardService();
+		BoardService service = new BoardService();
 		
 		int result = service.insertBookMark(user,bId);
 		
