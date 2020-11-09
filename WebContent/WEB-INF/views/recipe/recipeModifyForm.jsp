@@ -1,5 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+  <%@ page import="board.model.vo.*, java.util.ArrayList" %>
+<%
+	Board board=(Board)request.getAttribute("board");
+	ArrayList<Attachment> atList=(ArrayList<Attachment>)request.getAttribute("fileList");
+	Attachment titleImg=atList.get(0);
+	ArrayList<Content> conList=(ArrayList<Content>)request.getAttribute("conList");
+	Content titleCon=conList.get(0);
+	int cate = board.getBoard_cate();
+	String[] checkCate = new String[8];
+	switch(cate){
+	case 1 : checkCate[0] = "selected"; break;
+	case 2 : checkCate[1] = "selected"; break;
+	case 3 : checkCate[2] = "selected"; break;
+	case 4 : checkCate[3] = "selected"; break;
+	case 5 : checkCate[4] = "selected"; break;
+	case 6 : checkCate[5] = "selected"; break;
+	case 7 : checkCate[6] = "selected"; break;
+	default : checkCate[7] = "selected"; break;
+	}
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,7 +70,7 @@
 </head>
 <body>
 
- 	<%@ include file="../common/gnb.jsp" %>
+ 	
 
  
  <section>
@@ -65,21 +85,21 @@
  		 <div class="input-group-prepend">
  			   <span class="input-group-text" id="inputGroup-sizing-sm">title</span>
  		 </div>
- 			 <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="title">
+ 			 <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="title" value="<%=board.getBoard_title()%>">
 		</div>			
   			
  
 <div class="select-box select-script">
     <label for="selectbox">선택해 주세요</label>
     <select id="selectbox" title="선택 구분" name="cate">
-        <option selected="selected" value="0">선택해 주세요</option>
-        <option value="1">비건</option>
-        <option value="2">락토</option>
-        <option value="3">오보</option>
-        <option value="4">락토오보</option>
-        <option value="5">페스코</option>
-        <option value="6">폴로</option>
-        <option value="7">플렉</option>
+        <option value="0" <%= checkCate[7]%>>선택해 주세요</option>
+        <option value="1" <%= checkCate[0]%>>비건</option>
+        <option value="2" <%= checkCate[1]%>>락토</option>
+        <option value="3" <%= checkCate[2]%>>오보</option>
+        <option value="4" <%= checkCate[3]%>>락토오보</option>
+        <option value="5" <%= checkCate[4]%>>페스코</option>
+        <option value="6" <%= checkCate[5]%>>폴로</option>
+        <option value="7" <%= checkCate[6]%>>플렉</option>
     </select>
 </div>
 		
@@ -103,171 +123,42 @@
 						<td>
 							<div id="titleImgArea">
 									<div id="tileImgtitle"><b>THUMBNAIL</b></div>
-								<img id="titleImg" class="card" width="500" height="300">	
+								<%if(titleImg != null){%>
+								<img id="titleImg" class="card" width="500" height="300" src="<%= request.getContextPath()%>/thumnail_uploadFiles/<%=titleImg.getAtcName()%>">	
+								
 							</div>
 							<div class="card-body">
-    		  						<textarea class="form-control" name="content" id="content1" aria-label="With textarea" cols="500" rows="9"></textarea>
+    		  						<textarea class="form-control" name="content" id="content1" aria-label="With textarea" cols="500" rows="9"><%=conList.get(0).getContent()%></textarea>
 								</div>
 						</td>
 					</tr>													
 		</table>
-		
-								
- 							<div>
+		<%for(int i = 1; i < 11; i++){%>
+						<div>
  							<br><br><br><div id="contentname"><b>content</b></div><br><br><br>
  							 	 <div class="row no-gutters">
-   			 						<div class="col-md-4" id="titleImgArea0">
-   			 							<img id="contentImg1" class="card-img" width="300" height="300">
+   			 						<div class="col-md-4" id="titleImgArea<%=i-1%>">
+   			 <%if(i <= atList.size()){ %>
+				<%if(atList.get(i) != null){ %>
+								
+ 							
+   			 							<img id="contentImg<%=i%>" class="card-img" width="300" height="300" src="<%= request.getContextPath()%>/thumnail_uploadFiles/<%=atList.get(i).getAtcName()%>">
+    								
+    			<%}%>
+    		<%}else{%>
+    									<img id="contentImg<%=i%>" class="card-img" width="300" height="300" >
+    		<%} %>	
     								</div>
     							     <div class="col-md-8">
     						 			 <div class="card-body">
-    		  								<textarea class="form-control" name="content"  aria-label="With textarea" cols="500" rows="9"></textarea>
+    		  								<textarea class="form-control" name="content"  aria-label="With textarea" cols="500" rows="9"><%=conList.get(i).getContent()%></textarea>
       									</div>
      				   	 		  </div>
   							   </div>
  							 </div>
- 							 
- 							 
- 							 <div>
- 							 	<br><br><br>
- 							 	 <div class="row no-gutters">
-   			 						<div class="col-md-4" id="titleImgArea1">
-   			 							<img id="contentImg2" class="card-img" width="300" height="300">
-    								</div>
-    							     <div class="col-md-8">
-    						 			 <div class="card-body">
-    		  								<textarea class="form-control" name="content"  aria-label="With textarea" cols="500" rows="9"></textarea>
-      									</div>
-     				   	 		  </div>
-  							   </div>
- 							 </div>
-				
-				
-								 <div>
- 							 	<br><br><br>
- 							 	 <div class="row no-gutters">
-   			 						<div class="col-md-4" id="titleImgArea2">
-   			 							<img id="contentImg3" class="card-img" width="300" height="300">
-    								</div>
-    							     <div class="col-md-8">
-    						 			 <div class="card-body">
-    		  								<textarea class="form-control" name="content" aria-label="With textarea" cols="500" rows="9"></textarea>
-      									</div>
-     				   	 		  </div>
-  							   </div>
- 							 </div>
- 							 
- 							 	 <div>
- 							 	<br><br><br>
- 							 	 <div class="row no-gutters">
-   			 						<div class="col-md-4" id="titleImgArea3">
-   			 							<img id="contentImg4" class="card-img" width="300" height="300">
-    								</div>
-    							     <div class="col-md-8">
-    						 			 <div class="card-body">
-    		  								<textarea class="form-control" name="content" aria-label="With textarea" cols="500" rows="9"></textarea>
-      									</div>
-     				   	 		  </div>
-  							   </div>
- 							 </div>
- 							 
- 							 	 <div>
- 							 	<br><br><br>
- 							 	 <div class="row no-gutters">
-   			 						<div class="col-md-4" id="titleImgArea4">
-   			 							<img id="contentImg5" class="card-img" width="300" height="300">
-    								</div>
-    							     <div class="col-md-8">
-    						 			 <div class="card-body">
-    		  								<textarea class="form-control" name="content"  aria-label="With textarea" cols="500" rows="9"></textarea>
-      									</div>
-     				   	 		  </div>
-  							   </div>
- 							 </div>
- 							 
- 							 	 <div>
- 							 	<br><br><br>
- 							 	 <div class="row no-gutters">
-   			 						<div class="col-md-4" id="titleImgArea5">
-   			 							<img id="contentImg6" class="card-img" width="300" height="300">
-    								</div>
-    							     <div class="col-md-8">
-    						 			 <div class="card-body">
-    		  								<textarea class="form-control" name="content"  aria-label="With textarea" cols="500" rows="9"></textarea>
-      									</div>
-     				   	 		  </div>
-  							   </div>
- 							 </div>
- 							 
- 							 	 <div>
- 							 	<br><br><br>
- 							 	 <div class="row no-gutters">
-   			 						<div class="col-md-4" id="titleImgArea6">
-   			 							<img id="contentImg7" class="card-img" width="300" height="300">
-    								</div>
-    							     <div class="col-md-8">
-    						 			 <div class="card-body">
-    		  								<textarea class="form-control" name="content"  aria-label="With textarea" cols="500" rows="9"></textarea>
-      									</div>
-     				   	 		  </div>
-  							   </div>
- 							 </div>
- 							 
- 							 	 <div>
- 							 	<br><br><br>
- 							 	 <div class="row no-gutters">
-   			 						<div class="col-md-4" id="titleImgArea7">
-   			 							<img id="contentImg8" class="card-img" width="300" height="300">
-    								</div>
-    							     <div class="col-md-8">
-    						 			 <div class="card-body">
-    		  								<textarea class="form-control" name="content" aria-label="With textarea" cols="500" rows="9"></textarea>
-      									</div>
-     				   	 		  </div>
-  							   </div>
- 							 </div>
- 							 
- 							 	 <div>
- 							 	<br><br><br>
- 							 	 <div class="row no-gutters">
-   			 						<div class="col-md-4" id="titleImgArea8">
-   			 							<img id="contentImg9" class="card-img" width="300" height="300">
-    								</div>
-    							     <div class="col-md-8">
-    						 			 <div class="card-body">
-    		  								<textarea class="form-control" name="content"  aria-label="With textarea" cols="500" rows="9"></textarea>
-      									</div>
-     				   	 		  </div>
-  							   </div>
- 							 </div>
-						
-							 <div>
- 							 	<br><br><br>
- 							 	 <div class="row no-gutters">
-   			 						<div class="col-md-4" id="titleImgArea9">
-   			 							<img id="contentImg10" class="card-img" width="300" height="300">
-    								</div>
-    							     <div class="col-md-8">
-    						 			 <div class="card-body">
-    		  								<textarea class="form-control" name="content"  aria-label="With textarea" cols="500" rows="9"></textarea>
-      									</div>
-     				   	 		  </div>
-  							   </div>
- 							 </div>
- 							 
- 							  <div>
- 							 	<br><br><br>
- 							 	 <div class="row no-gutters">
-   			 						<div class="col-md-4" id="titleImgArea10">
-   			 							<img id="contentImg11" class="card-img" width="300" height="300">
-    								</div>
-    							     <div class="col-md-8">
-    						 			 <div class="card-body">
-    		  								<textarea class="form-control" name="content"  aria-label="With textarea" cols="500" rows="9"></textarea>
-      									</div>
-     				   	 		  </div>
-  							   </div>
- 							 </div>
+ 					 
+ 		<%} %>	 
+ 
 						
 						
 						

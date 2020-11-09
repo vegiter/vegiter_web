@@ -25,7 +25,11 @@ public class Attachment {
 		this.atcName = atcName;
 		this.boardNo = boardNo;
 	}
-
+	public Attachment(String atcName, int boardNo) {
+		super();
+		this.atcName = atcName;
+		this.boardNo = boardNo;
+	}
 
 
 
@@ -34,8 +38,6 @@ public class Attachment {
 		this.atcNo = atcNo;
 		this.atcName = atcName;
 	}
-
-
 
 
 	public Attachment(int atcNo, String memId, int atcType, String atcOrigin, String atcName, String atcPath,

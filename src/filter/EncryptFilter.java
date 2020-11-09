@@ -46,7 +46,7 @@ public class EncryptFilter implements Filter{
       HttpServletRequest hsr = (HttpServletRequest)request;
       EncryptWrapper ew = new EncryptWrapper(hsr);
       
-      String password = request.getParameter("userPwd1");
+      String password = request.getParameter("userPwd"); 
       String userId = request.getParameter("userId");
       System.out.println("password Filter: " + password);
       System.out.println("id Filter: " + userId);
