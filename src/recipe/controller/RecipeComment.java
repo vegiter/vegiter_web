@@ -9,21 +9,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import board.model.service.BoardService;
-import board.model.vo.Attachment;
-import board.model.vo.Board;
+import board.model.vo.Comments;
 
 /**
- * Servlet implementation class RecipeSelectServlet
+ * Servlet implementation class RecipeComment
  */
-@WebServlet("/search.re")
-public class RecipeSearchServlet extends HttpServlet {
+@WebServlet("/insertComment.recipe")
+public class RecipeComment extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RecipeSearchServlet() {
+    public RecipeComment() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,28 +34,23 @@ public class RecipeSearchServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String writer = request.getParameter("writer");
+		int bId = Integer.parseInt(request.getParameter("bId"));
+		String content = request.getParameter("content");
 		
 		
-		String text=request.getParameter("search");
-		int type=Integer.parseInt(request.getParameter("type"));
+		Comments c = new Comments();
+		c.setBoardNo(bId);
+		c.setMemId(writer);
+		c.setComContent(content);
 		
-		  BoardService service=new BoardService(); 
-		  ArrayList<Board> bList=service.searchTList(1,text,type);
-		  ArrayList<Attachment>tList=service.searchTList(2,text,type);	//thumbnail사진
-		  String page=null;
-		  
-		  if(bList !=null && tList!=null) {
-			  request.setAttribute("bcate", type);
-			  request.setAttribute("bList", bList);
-			  request.setAttribute("tList", tList);
-			  page="WEB-INF/views/recipe/recipelist.jsp";	
-//			  page="WEB-INF/views/common/errorPage.jsp";
-		  }else {
-			  request.setAttribute("msg", "recipe조회에 실패하였습니다");
-			  page="WEB-INF/views/common/errorPage.jsp";
-			 }
+		ArrayList<Comments> list = new BoardService().insertComment(c);
 		
-		 request.getRequestDispatcher(page).forward(request, response);
+		response.setContentType("application/json;");
+		GsonBuilder gb = new GsonBuilder();
+		GsonBuilder dateGb = gb.setDateFormat("yyyy-MM-dd");
+		Gson gson = dateGb.create();
+		gson.toJson(list, response.getWriter());
 	}
 
 	/**

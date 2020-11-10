@@ -12,7 +12,10 @@ import board.model.dao.BoardDAO;
 import board.model.vo.Attachment;
 import board.model.vo.Board;
 import board.model.vo.BookMark;
+import board.model.vo.Comments;
 import board.model.vo.Content;
+import board.model.vo.LikeBoard;
+import vegitalk.model.dao.VegitalkDAO;
 
 public class BoardService {
 
@@ -163,7 +166,6 @@ public class BoardService {
 				rollback(conn);
 			}
 		}
-		
 		close(conn);
 		
 		return bookMark;
@@ -206,24 +208,28 @@ public class BoardService {
 		
 		if(i==1) {
 			list=dao.searchBList(conn, text, type);
-			System.out.println(list+"이거는 뭘까?");
 		}else {
 			list=dao.searchTList(conn,text,type);
-			System.out.println(list+"사진은?");
 		}
 		
 		return list;
 	}
 
 
-	public int updateLike(int num, int bId) {
+	public int updateLike(int num, int bId, String user) {			//좋아요
 
 		Connection conn=getConnection();
 		
-		int result=new BoardDAO().updateLike(conn,num,bId);
-		
-		if(result>0) {
-			commit(conn);
+		int count=new BoardDAO().updateLike_Count(conn,num,bId,user);
+		int result=0;
+		if(count>0) {
+			 result=new BoardDAO().updateLike(conn,num,bId,user);
+			
+			if(result>0) {
+				commit(conn);
+			}else {
+				rollback(conn);
+			}
 		}else {
 			rollback(conn);
 		}
@@ -271,12 +277,60 @@ public class BoardService {
 		return result;
 	}
 
-	
+
+	public int countComment(int bId) {
+		Connection conn = getConnection();
+		int result = new BoardDAO().countComment(conn, bId);
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
 
 
+	public ArrayList<Comments> insertComment(Comments c) {
+		Connection conn = getConnection();
+		
+		BoardDAO dao = new BoardDAO();
+		
+		int result = dao.insertComment(conn, c);
+		
+		ArrayList<Comments> list = null;
+		if(result > 0) {
+			commit(conn);
+			list = dao.selectCommentList(conn, c.getBoardNo());
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return list;
+	}
 
 
+	public LikeBoard selectBoardLike(int bId) {
+		Connection conn=getConnection();
+		
+		int result=new BoardDAO().updateCount(conn,bId);
+		
+		LikeBoard lb=null;
+		
+		if(result>0) {
+			lb=new BoardDAO().selectBoardLike(conn,bId);
+				if(lb!=null){
+					commit(conn);
+				}else {
+					rollback(conn);
+				}		
+		}
+			close(conn);
 
+		return lb;
+	}
 
 
 

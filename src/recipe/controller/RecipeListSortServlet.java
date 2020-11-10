@@ -42,12 +42,6 @@ public class RecipeListSortServlet extends HttpServlet {
 			ArrayList<Board> bList=service.selectTList_sort(1,sortType,type);
 			ArrayList<Attachment> tList=service.selectTList_sort(2,sortType,type);
 			
-			System.out.println(sortType+"sortType입니다!");
-			System.out.println(type+"type입니다!!");
-			
-			System.out.println(bList+"정렬확인용");
-			System.out.println(tList+"정렬확인용입니다");
-			
 			String page=null;
 			
 			if(bList !=null && tList !=null) {

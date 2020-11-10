@@ -13,7 +13,10 @@ import board.model.service.BoardService;
 import board.model.vo.Attachment;
 import board.model.vo.Board;
 import board.model.vo.BookMark;
+import board.model.vo.Comments;
 import board.model.vo.Content;
+import board.model.vo.LikeBoard;
+import vegitalk.model.Service.VegitalkService;
 
 /**
  * Servlet implementation class RecipeDetail
@@ -38,6 +41,9 @@ public class RecipeDetailServlet extends HttpServlet {
 			
 			BoardService service=new BoardService();
 			
+			
+			
+			
 			Board board=service.selectBoard(bId);
 			
 			ArrayList<Attachment> fileList=service.selectThumbnail(bId);
@@ -46,10 +52,17 @@ public class RecipeDetailServlet extends HttpServlet {
 			
 			BookMark bookList=service.selectBookMark(bId);
 			
+//			LikeBoard likeBookList =service.selectBoardLike(bId);
+			
+			ArrayList<Comments> list = new VegitalkService().selectReplyList(bId);
+
+			
 			
 			String page=null;
 			
 			if(fileList != null) {
+//				request.setAttribute("likeBookList", likeBookList);
+				request.setAttribute("list", list);
 				request.setAttribute("bookList", bookList);
 				request.setAttribute("board", board);
 				request.setAttribute("fileList", fileList);
@@ -66,9 +79,6 @@ public class RecipeDetailServlet extends HttpServlet {
 	
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

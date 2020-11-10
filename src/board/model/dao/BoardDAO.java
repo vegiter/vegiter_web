@@ -17,7 +17,9 @@ import java.util.Properties;
 import board.model.vo.Attachment;
 import board.model.vo.Board;
 import board.model.vo.BookMark;
+import board.model.vo.Comments;
 import board.model.vo.Content;
+import board.model.vo.LikeBoard;
 
 public class BoardDAO {
 	private Properties prop = new Properties();
@@ -146,9 +148,7 @@ public class BoardDAO {
 		
 		try {
 			pstmt=conn.prepareStatement(query);
-			System.out.println(text+"text는 뭘까?");
 			pstmt.setString(1, '%'+text+'%');
-			System.out.println(type+"뭘까?");
 			pstmt.setInt(2,type);
 			
 			rset=pstmt.executeQuery();
@@ -181,8 +181,7 @@ public class BoardDAO {
 		PreparedStatement pstmt=null;
 		ResultSet rset=null;
 		ArrayList<Attachment> list =null;
-		
-		String query=prop.getProperty("selectTList_search");	///////////////////////////////검색 쿼리 설정!! 
+		String query=prop.getProperty("selectTList_search");	
 		
 		try {
 			pstmt=conn.prepareStatement(query);
@@ -441,8 +440,10 @@ public class BoardDAO {
 			 query=prop.getProperty("selectBList_RecentSort");
 		}else if(sortType==2) {
 			 query=prop.getProperty("selectBList_LikeSort");
-		}else {
+		}else if(sortType==3){
 			 query=prop.getProperty("selectBList_ComSort");
+		}else {
+			 query=prop.getProperty("selectBList_ViewSort");
 		}
 			try {
 				pstmt=conn.prepareStatement(query);
@@ -483,8 +484,10 @@ public class BoardDAO {
 			 query=prop.getProperty("selectTList_RecentSort");
 		}else if(sortType==2) {
 			 query=prop.getProperty("selectTList_LikeSort");
-		}else {
+		}else if(sortType==3){
 			 query=prop.getProperty("selectTList_ComSort");
+		}else {
+			 query=prop.getProperty("selectTList_ViewSort");
 		}
 			try {
 				pstmt=conn.prepareStatement(query);
@@ -507,7 +510,7 @@ public class BoardDAO {
 
 
 
-	public int updateLike(Connection conn, int num, int bId) {
+	public int updateLike(Connection conn, int num, int bId, String user) {
 		PreparedStatement pstmt=null;
 		int result=0;
 		String query=null;
@@ -579,11 +582,139 @@ public class BoardDAO {
 
 
 
+	public int countComment(Connection conn, int bId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("countComment");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, bId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 
 
 
+	public int insertComment(Connection conn, Comments c) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertComment");
 
-	
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, c.getBoardNo());
+			pstmt.setString(2, c.getMemId());
+			pstmt.setString(3, c.getComContent());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+
+
+	public ArrayList<Comments> selectCommentList(Connection conn, int boardNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Comments> list = null;
+		
+		String query = prop.getProperty("selectCommentList");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, boardNo);
+			
+			rset = pstmt.executeQuery();
+			list = new ArrayList<Comments>();
+			while(rset.next()) {
+				list.add(new Comments(rset.getInt("com_no"),
+									  rset.getString("mem_id"),
+									  rset.getString("com_content"),
+									  rset.getDate("com_date"),
+									  rset.getInt("board_no")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+
+
+	public int updateLike_Count(Connection conn,int num, int bId, String user) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String query=null;
+		if(num==0) {
+			 query=prop.getProperty("insertLikeCount");
+		}else {
+			query=prop.getProperty("updateLikeCount");
+		}
+		
+		try {
+			pstmt=conn.prepareStatement(query);
+			
+			pstmt.setInt(1, bId);
+			pstmt.setString(2, user);
+			
+			result=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+
+
+	public LikeBoard selectBoardLike(Connection conn, int bId) {
+		PreparedStatement pstmt=null;
+		ResultSet rset=null;
+		LikeBoard lb=null;
+		
+		String query=prop.getProperty("selectLikeBoard");
+		
+		try {
+			pstmt=conn.prepareStatement(query);
+			pstmt.setInt(1, bId);
+			rset=pstmt.executeQuery();
+			
+			if(rset.next()) {
+				lb=new LikeBoard(rset.getInt("BOARD_NO"),
+								rset.getString("MEM_ID"),
+								rset.getInt("LIKE_COUNT"));
+			}
+			
+			System.out.println(lb);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return lb;
+	}
+
 
 
 

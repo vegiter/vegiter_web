@@ -22,7 +22,8 @@
 <body>
 	
 		
-		
+			<br>	<br>	<br>	<br>	<br>	<br>	<br>	<br>	
+			
 	
 <div class="card-group">
   <div class="card"	 onclick="location.href='<%=request.getContextPath()%>/recipe.cate?bcate=1'">			<!--RecipeListTypeServlet -->
