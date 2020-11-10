@@ -152,5 +152,63 @@ public class MemberService {
 		close(conn);
 		return mem;
 	}
+	
+	   public int checkPwd(String userId,String userPwd) {
+		      Connection conn = getConnection();
+		      
+		      int result = new MemberDAO().checkPwd(conn, userId, userPwd);
+		      close(conn);
+		      
+		      return result;
+		   }
+		//   public Member selectMember(String loginUserId) {
+//		      Connection conn = getConnection();
+//		      Member member = new MemberDAO().selectMember(conn, loginUserId);
+//		      close(conn);
+//		      return member;
+		//   }
 
+		   public int updateMember(Member mem) {
+		      Connection conn = getConnection();
+		      int result = new MemberDAO().updateMember(conn,mem);
+		      if (result > 0 ) {
+		         commit(conn);
+		      }else {
+		         rollback(conn);
+		      }
+		      close(conn);
+		      System.out.println(result);
+		      return result;
+		   }
+
+		   public int updatePwd(String userId, String newPwd) {
+		      Connection conn = getConnection();
+		      
+		      int result = new MemberDAO().updatePwd(conn, userId, newPwd);
+		      
+		      if(result > 0) {
+		         commit(conn);
+		      } else {
+		         rollback(conn);
+		      }
+		      
+		      close(conn);
+		      return result;
+		   }
+
+		   public int deleteMember(String userId) {
+		      Connection conn = getConnection();
+		      
+		      int result = new MemberDAO().deleteMember(conn, userId);
+		      
+		      if(result > 0) {
+		         commit(conn);
+		      } else {
+		         rollback(conn);
+		      }
+		      
+		      close(conn);
+		      
+		      return result;
+		   }
 }

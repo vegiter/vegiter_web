@@ -72,13 +72,13 @@
 					</ol>
 					<div class="carousel-inner">
 						<div class="carousel-item active">
-							<img src="images/main/메인 1.jpg" class="d-block w-100">
+							<img src="images/main/main1.jpg" class="d-block w-100">
 						</div>
 						<div class="carousel-item">
-							<img src="images/main/메인 2.png" class="d-block w-100">
+							<img src="images/main/main2.png" class="d-block w-100">
 						</div>
 						<div class="carousel-item">
-							<img src="images/main/메인 3.jpg" class="d-block w-100">
+							<img src="images/main/main3.jpg" class="d-block w-100">
 						</div>
 					</div>
 					<a class="carousel-control-prev" href="#carouselExampleIndicators"

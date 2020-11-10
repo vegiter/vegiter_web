@@ -18,18 +18,20 @@
 	body{line-height: 1; font-family: 'Open Sans', sans-serif;}
 	.cardwrap{display:inline-block;margin-left:80px;}
 	article{padding: 100px;	margin: 20px;}
-	#tag_filter{margin-left:220px;border:2px solid lightgray;width:1100px;height:80px;}
+	#tag_filter{margin-left:220px;	border:2px solid lightgray;	width:1100px;height:80px;}
 	.img{display:inline-block;}
 	#menuname{display:fixed;margin-top:100px; }
-	.sort{margin-left:1200px;font-size:10px;}
-	.col{display:inline-block;border: 3px solid black;padding:1px;margin:1px;}
-	.sortType{cursor:pointer;}
-	#write{margin-left:1200px;margin-top:100px;padding-top: 1000px;cursor:pointer;		}
-	.text{margin-top:100px;margin-left:600px;}
+	.sort{margin-left:1200px;font-size:10px; min-width:300px; min-height:30px;}
+	.col{display:inline-block;	border: 3px solid black; padding:1px; margin:1px; }
+	#listwrap{margin-left:130px;}
+	.sortType{cursor:pointer; }
+	#write{margin-left:1500px;margin-top:100px; padding-top: 1000px;cursor:pointer;}
+	.text{margin-top:100px;margin-left:650px;}
 	h2{text-align:center;}
 	.card h-100:hover{cursor:pointer; }
 	.col{max-width:"250px"; max-height:"150px"; min-width:"250px"; min-height:"150px"; border-radius: 10px;}
 	#error{margin-left:550px;}
+	#nomenu{margin-top:10px;margin-left:50px; margin-bottom:35px;}
 </style>
 
 <title>Insert title here</title>
@@ -42,11 +44,9 @@
 	 <div id="menuname"><h3>&nbsp;&nbsp;RECIPE</h3></div>
     <br>
     		<% if(bList.isEmpty()){ %> 
-    				<article class="cardwrap">	
-						<div class="row row-cols-1 row-cols-sm-5">
-							<br><br><br><br>
+    				<article class="cardwrap" id="nomenu">	
+						<div class="row row-cols-1 row-cols-sm-5" >
 							<h2><font color="gray" id="error">등록된 레시피가 없습니다.</font></h2>
-							<br><br><br><br><br><br><br>
 						</div>
 					</article>
 			<%} else{%>
@@ -55,7 +55,8 @@
      		<input type="hidden" name="veguntype" value="<%=bList.get(0).getBoard_cate()%>">
 			<span class="sortType"><input type="hidden" name="cate" value="1"> 최신순 </span>|
 			<span class="sortType"><input type="hidden" name="cate" value="2">좋아요순 </span>|
-			<span class="sortType"><input type="hidden" name="cate" value="3">댓글순</span>
+			<span class="sortType"><input type="hidden" name="cate" value="3">댓글순</span>|
+			<span class="sortType"><input type="hidden" name="cate" value="4">조회순</span>
 		</div>
 			
     
@@ -74,7 +75,7 @@
     
 	<article class="cardwrap">
 	
-	<div class="row row-cols-1 row-cols-sm-5">
+	<div class="row row-cols-1 row-cols-sm-5" id="listwrap">
 	
   	<% if(bList.isEmpty() && tList.isEmpty()){ %> 
 		<h2><font color="gray">등록된 레시피가 없습니다.</font></h2>
@@ -124,6 +125,8 @@
   				
   	<%} %>					
 		
+	</article>	
+		
 		<!-- 글쓰기 버튼 -->
   	 <%if(loginUser == null){ %>
 		<span id="write"><img src="<%=request.getContextPath() %>/images/recipe/write.png" height="50px" width="50px" onclick="alert('로그인 후 이용가능합니다.')"></span>	
@@ -133,7 +136,7 @@
 	
  	
 		
-	</article>
+	
 		
 	<div class="text">
  		<form  id="select" action="<%=request.getContextPath() %>/search.re" method="post">

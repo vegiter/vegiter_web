@@ -7,6 +7,7 @@
 Attachment atc = (Attachment) request.getAttribute("atc");
 ArrayList<Comments> list = (ArrayList) request.getAttribute("list");
 BookMark bmkList = (BookMark) request.getAttribute("bmkList");
+System.out.println("불러왔"+ bmkList);
 %>
 <!DOCTYPE html>
 <html>
@@ -449,46 +450,6 @@ span>i {
 			var bId = $('.user').children().val();
 			var bCode = $('.user').children().eq(1).val();
 			location.href="<%=request.getContextPath()%>/editForm?bId=" + bId + "&bCode=" + bCode;
-		});
-		
-		//북마크
-		$(function(){ 
-			var bId = $('.user').children().val();
-			var userId = $('.comment-input').children().eq(0).val();
-			var bmkStatus = <%= bmkList %>;
-			console.log(bmkStatus);
-			
-			if(bmkStatus != null) {
-				$('#bmkBtn').css('color', 'red');
-			} else {
-				$('#bmkBtn').css('color', 'black');
-			}
-			
-			$('#bmkBtn').on('click', function(){
-				console.log('hi');
-				
-				if($(this).css('color') == 'black') {
-					$.ajax({
-						url:'setBmk.post',
-						data:{bId:bId,user:userId},
-						success: function(data){
-							console.log(data);
-							$('#bmkBtn').css('color', 'green');
-						}
-					});
-				} else {
-					$('#bmkBtn').on('click', function(){
-						$.ajax({
-							url:'delBmk.post',
-							data:{bId:bId,user:userId},
-							success: function(data){
-								console.log(data);
-								$('#bmkBtn').css('color', 'black');
-							}
-						});
-					});
-				}
-			});
 		});
 	</script>
 </body>

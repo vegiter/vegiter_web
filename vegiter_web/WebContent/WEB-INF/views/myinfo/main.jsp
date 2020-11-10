@@ -7,91 +7,66 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	body{
-		background: rgb(246, 246, 246);
-		margin-bottom: -100px;
-	}
-	#profile-all{
-		margin-top: 50px;
-		background: rgb(246, 246, 246);
-	}
-	.btn{
-		margin-top: 20px;
-		width:280px;
-		margin-right: 10px;
-		margin-bottom: 10px;
-		float: right;
-	}
-	.top-btn{
-		background: rgb(45, 115, 102);
-		width: 100px;
-		height: 25px;
-		color: white;
-		font-size: 12px;
-		box-shadow: 0px 1px 1px 1px #21403A;
-		border-radius: 16px;
-	}
-	.top-btn:hover{
-		background: #21403A;
-		cursor: pointer;
-	}
-	.div-name {
-		clear: both;
-		height: 60px;
-		margin-left: 10%;
-		margin-right: 10%;
-		color: white;
-		background: rgb(45, 115, 102);
-		border-radius: 3px;
-	}
-	.div-name h3{
-		display: inline-block;
-		margin-top: 15px;
-		margin-left: 15px;
-		font-weight: normal;
-	}
-	#profile-revise{
-		diplay: inline-block;
-		margin-top: 19px;
-		margin-right: 15px;
-		font-size: 13px;
-		color: lightgray;
-		float: right;
-	}
-	#profile-revise:hover{
-		font-weight:bolder;
-		cursor: pointer;
-	}
-	.content{
-		clear: both;
-		margin-top: 10px;
-		margin-left : 10%;
-		margin-right: 10%;
-		padding: 10px;
-		background: white;
-		border-radius: 3px;
-		box-shadow: 3px 3px 3px 1px lightgray;
+#zeroArea {
+	display: block;
+	height: 70px;
+}
+	.name {
+		
+		text-align: center;
+		font-size: 4.5rem;
+		font-weight: bold;
 	}
 	.title {
-		font-size: 20px;
+		text-align: center;
+		font-size: 2.0rem;
 		font-weight: 400;
-		margin: 15px;
-		padding-bottom: 10px;
-		border-bottom: 1px solid lightgray;
+		margin-top: 60px
 	}
-	#profile{
-		margin: 10px;
-	}
-	#profile tr td,#bookmark tr td{
-		width: 100px;
-		height: 40px;
-		padding-left: 10px;
-	}
-	.profile-header{
-		border-right: 1px solid lightgray;
+	.subtitle{
+		text-align: center;
+		font-size: 0.8rem;
+		font-weight: 300;
 	}
 	
-	#list{
+	.price {
+		text-align: center;
+		margin-top: 50px;	
+		font-size: 16px;
+   		height: 100%;
+    	outline: none;
+    	padding-inline-end: 40px;
+    	padding-inline-start: 52px;
+	}
+	.check {
+		color: #007bff;
+		inquiryBtn: transparent;
+		background-imge: none;
+		border-color: #007bff;
+	}
+	.inquiryBtn{
+		margin-top: 80px;
+		color: #21303A;
+	}
+	.logout{
+		background-color: #21403A;
+		width: 180px;
+		height: 50px;
+		color: white;
+		font-weight: bold;
+		font-size: 1.25rem;
+		border-radius: 16px;
+	}
+	.list{
+		background-color: #21403A;
+		width: 180px;
+		height: 50px;
+		color: white;
+		font-weight: bold;
+		font-size: 1.25rem;
+		border-radius: 16px;
+	}
+	.book{
 		background-color: #21403A;
 		width: 180px;
 		height: 50px;
@@ -104,114 +79,157 @@
 </head>
 <body>
 <%@ include file="../common/gnb.jsp" %>
-	<section id="profile-all">
+
+	<div id="zeroArea"></div>
+		<section id="login">
 		<div class="main">
-			<div class="btn">
-				<button class="top-btn" id="logout" onclick="location.href='<%= request.getContextPath() %>/logout.me'">로그아웃</button>
-				<button class="top-btn" id="book">레시피 북마크</button>
+			<div class="name">
+			My Page
+			</div>		
+			<div class="title">
+			회원 정보 수정
 			</div>
-			<div class="div-name">
-				<h3>My Page</h3>
-				<span id="profile-revise">프로필 수정하기 &gt;</span>
-			</div>
-			<div class="content">
-				<div class="title">회원 프로필</div>
-				<div class="subtitle">
-					<table id="profile">
-						<tr>
-							<td class="profile-header">이름</td>
-							<td class="profile-content"><%= loginUser.getMemName() %></td>
-						</tr>
-						<tr>
-							<td class="profile-header">이메일</td>
-							<td class="profile-content"><%= loginUser.getMemEmail()%></td>
-						</tr>
-						<tr>
-							<td class="profile-header">성별</td>
-							<td class="profile-content">
-								<%if(loginUser.getMemGender() == 'N'){ %> 
-									-- 
-								<%}else if(loginUser.getMemGender() == 'F'){ %>
-									여자 
-								<%}else{ %> 
-									남자
-								<%} %>
-							</td>
-						</tr>
-						<tr>
-							<td class="profile-header">휴대폰번호</td>
-							<td class="profile-content"><%= loginUser.getMemPhone()%></td>
-						</tr>
-						<tr>
-							<td class="profile-header">푸드스타일</td>
-							<td class="profile-content">
-								<% if(loginUser.getMemStyle() == null){ %> 
-									-- 
-								<% }else{%>
-									loginUser.getMemStyle(); 
-								<%} %>
-							</td>
-						</tr>
-					</table>
-				</div>
-			</div>
-				<div class="content">
-				<div class="title">북마크</div>
-				<div class="subtitle">
-					<table id="bookmark">
-						<tr>
-							<td class="profile-header">이름</td>
-							<td class="profile-content"><%= loginUser.getMemName() %></td>
-						</tr>
-						<tr>
-							<td class="profile-header">이메일</td>
-							<td class="profile-content"><%= loginUser.getMemEmail()%></td>
-						</tr>
-						<tr>
-							<td class="profile-header">성별</td>
-							<td class="profile-content">
-								<%if(loginUser.getMemGender() == 'N'){ %> 
-									-- 
-								<%}else if(loginUser.getMemGender() == 'F'){ %>
-									여자 
-								<%}else{ %> 
-									남자
-								<%} %>
-							</td>
-						</tr>
-						<tr>
-							<td class="profile-header">휴대폰번호</td>
-							<td class="profile-content"><%= loginUser.getMemPhone()%></td>
-						</tr>
-						<tr>
-							<td class="profile-header">푸드스타일</td>
-							<td class="profile-content">
-								<% if(loginUser.getMemStyle() == null){ %> 
-									-- 
-								<% }else{%>
-									loginUser.getMemStyle(); 
-								<%} %>
-							</td>
-						</tr>
-					</table>
-				</div>
-			</div>
+			<br><br><br>
+			<div class="subtitle">
+				<label><%= loginUser.getMemName() %>님의 회원정보를 안전하게 보호하기 위해<br><br>
+				비밀번호를 한번 더 확인해 주세요.</label>
+			</div>	
+			
+		</div>
+		
+		<form id="register-form">
+		<div class="price" align="center">
+<%-- 				<input type=text id=userId value=<%= loginUser.getMemId() %> name="userId"> --%>
+				<input class="pwd" type="password" name="userPwd" id="userPwd" placeholder="PASS WORD">
+				<button class="check" id="check">CHECK</button>
+		</div>
+		</form>
+		
+		<div class="inquiryBtn" align="center">
+			<button class="logout" onclick="location.href='<%= request.getContextPath() %>/logout.me'">로그아웃</button>
+			<!-- <button class="book">레시피 북마크</button> -->
 		</div>
 	<script>
+<%--		var PwdCheck = false;--%>
+		
 		function logout(){
 			location.href='<%= request.getContextPath() %>/logout.me';
 		}
-		$('#profile-revise').click(function(){
-			var popupX = (document.body.offsetWidth/2) - (200 / 2);
-			//&nbsp;만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
-
-			var popupY= (window.screen.height / 2) - (300 / 2);
-			//&nbsp;만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
-
-			window.open('checkPwdForm.me','pwdCheckForm', 'status=no, height=150, width=300, left='+ popupX + ', top='+ popupY);
+		
+ 		$(document).ready(function() {
+			$("#check").click(function() {
+				var form_data = {
+						userId: $("#userId").val(),
+						userPwd: $("#userPwd").val()
+					};
+			     $.ajax({
+			    	 url:'/vegiter_web/checkPwd.me', //request 보낼 서버의 경로
+			         type:'get', // 메소드(get, post, put 등)
+			    	 data: form_data, //보낼 데이터
+			    	 success: function(response) {
+			    		 console.log(response);
+			    		 if(response == 'success') {
+			    			 alert("로그인 성공");
+			    			 location.href='<%= request.getContextPath() %>/myPage.me'; 
+			    		 }
+			    		 else {
+			    			 alert("로그인 실패");
+			    		 }
+			    	 }
+			    });
+			    return false;
+			 });
 		});
+ 		
+/*  		function checklication(){
+ 			var sendObject = {
+ 					userPwd : $("#userPwd").val()
+ 			}
+ 		$.ajax({
+ 			contentType: "application/json; charset=utf-8",
+ 			type: "post",
+ 			url:'/vegiter_web/checkPwd.me',
+ 			data: JSON.stringfy(sendObject),
+ 			success: function(result){
+ 				if (result.userPwd == false){
+ 					$("#userPwd").html(result.userPwd + "비밀번호가 틀렸습니다.");
+ 				} else {
+ 					$("#userPwd")
+ 				}
+ 			},
+ 			error: function(){
+ 				alert("failed to communicate");
+ 			}
+ 		});
+ 	} */
+ </script>	
+ <script>
+
+		
+			</script>				
+
+<%-- var aaa = '<%=request.getContextPath()%>/checkPwd.me'; --%>
+<%-- alert(<%=request.getContextPath()%>/checkPwd.me); --%>
+<%-- console.log(<%= request.getContextPath() %>/logout.me); --%>
+
+<%--$.ajax({
+	contentType: "application/json; charset=utf-8",
+	type: "post",
+    url:'/vegiter_web/checkPwd.me', //request 보낼 서버의 경로
+//     type:'get', // 메소드(get, post, put 등)
+    data: JSON.stringify(sendObject),//보낼 데이터
+    success: function(result) {
+		if (result.myPage == false){
+			$("#myPage").html(result.userPwd + "틀렸습니다");
+		} else {
+			$("#myPage").html(result.userPwd + "ㅎㅇ"));
+		}
+		
+/*		if (result.idResult == false){
+//			$("#idResult");
+			$("#idResult").html(result.userPwd + "은(는) 사용 불가능합니다.");
+		} else {
+//			$("#idResult");
+			$("#idResult").html(result.userPwd + "은(는) 사용 가능합니다.");
+		}     */
+	},
+    	alert("???");
+        //서버로부터 정상적으로 응답이 왔을 때 실행
+    },
+    error: function(err) {
+        //서버로부터 응답이 정상적으로 처리되지 못햇을 때 실행
+        alert("비밀번호가 틀립니다.");
+    }
+    
+});
+--%>
+
+
+
+<!-- // 출처: https://dororongju.tistory.com/96 [웹 개발 메모장]
+// 	 	$.ajax({
+//             url: "/vegiter_web/checkPwd.me",
+//             data : {userPwd : userPwd},
+//             success : function(data) {
+				
+//                   if (data == 'success') {
+//                         PwdCheck = true;
+//                         alert("data" + data);
+//                   } else {
+//                         PwdCheck = false;
+//                         alert('비밀번호가 틀렸습니다.');
+                        
+//                   }
+//             }
+
+//        	}); 
+// 		return false;  -->
+		
+			
+			
+			
+		
 	</script>
-	</section>
-	<%@ include file="../common/footer.jsp" %>
+<%@ include file="../common/footer.jsp" %>
 </body>
 </html>

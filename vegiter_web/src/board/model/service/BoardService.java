@@ -12,7 +12,9 @@ import board.model.dao.BoardDAO;
 import board.model.vo.Attachment;
 import board.model.vo.Board;
 import board.model.vo.BookMark;
+import board.model.vo.Comments;
 import board.model.vo.Content;
+import vegitalk.model.dao.VegitalkDAO;
 
 public class BoardService {
 
@@ -269,6 +271,40 @@ public class BoardService {
 		close(conn);
 		
 		return result;
+	}
+
+
+	public int countComment(int bId) {
+		Connection conn = getConnection();
+		int result = new BoardDAO().countComment(conn, bId);
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+
+	public ArrayList<Comments> insertComment(Comments c) {
+		Connection conn = getConnection();
+		
+		BoardDAO dao = new BoardDAO();
+		
+		int result = dao.insertComment(conn, c);
+		
+		ArrayList<Comments> list = null;
+		if(result > 0) {
+			commit(conn);
+			list = dao.selectCommentList(conn, c.getBoardNo());
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return list;
 	}
 
 	

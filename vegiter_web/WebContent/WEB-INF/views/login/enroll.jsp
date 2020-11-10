@@ -213,14 +213,13 @@
 		<article id="social-enroll">
 			<div class="social" id="social">
 				<p>소셜로 간편하게 로그인하세요.</p>
-				<a href="#"><img src="<%= request.getContextPath() %>/images/common/kakao.png" id="kakao"></a>
 				<div id="naverIdLogin"></div>
 			</div>
 			<script type="text/javascript">
 				var naverLogin = new naver.LoginWithNaverId(
 				{
 					clientId: "w3sXDEgZtjtnF9AcUJSw",
-					callbackUrl: "http://127.0.0.1:9981/Vegiter",
+					callbackUrl: "http://localhost:9981/Vegiter/enrollForm.me",
 					isPopup: true, /* 팝업을 통한 연동처리 여부 */
 					loginButton: {color: "white", type:3, height:40} /* 로그인 버튼의 타입을 지정 */
 				}
@@ -299,13 +298,13 @@
 					<div class="input-info">
 						<select name="style">
 							<option selected value=null>-------------</option>
-							<option value="미크">미크</option>
-							<option value="꼬크">꼬크</option>
-							<option value="오크">오크</option>
-							<option value="에크">에크</option>
-							<option value="에그">에그</option>
-							<option value="밀크">밀크</option>
-							<option value="베지">베지</option>
+							<option value="플렉">플렉시터리언</option>
+							<option value="락토">락토</option>
+							<option value="오보">오보</option>
+							<option value="락토">락토</option>
+							<option value="페스코">페스코</option>
+							<option value="폴로">폴로</option>
+							<option value="비건">비건</option>
 						</select>
 					</div>
 					<div class="error" id="style-info">
@@ -378,7 +377,7 @@
 								switch(gender){
 								case 'F': $('#gender-f').attr('selected','selected'); break;
 								case 'M': $('#gender-m').attr('selected','selected'); break;
-								case 'U': $('#gender-n').attr('selected','selected'); break;
+								case 'N': $('#gender-n').attr('selected','selected'); break;
 								}
 								$('#enrollBtn').val('네이버로 회원가입');
 								idCheck = true;
@@ -576,8 +575,8 @@
 				}
 
 				function info() {
-					window.open('foodStyle.html', '푸드스타일이란?',
-							'width=600,height=450');
+					window.open('info.style', '푸드스타일이란?',
+                    'width=600,height=450');
 				}
 				
 			</script>

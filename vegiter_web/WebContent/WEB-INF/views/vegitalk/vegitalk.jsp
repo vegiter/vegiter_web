@@ -77,9 +77,9 @@
 		<div class="option">
 			<div class="opt-type">
 				<span class="opt-type filter" value="0">#All</span>
-				<span class="opt-type filter" value="1">#공지/이벤트</span>
+				<span class="opt-type filter" value="3">#공지/이벤트</span>
 				<span class="opt-type filter" value="2">#도란도란</span>
-				<span class="opt-type filter" value="3">#식단공유</span>
+				<span class="opt-type filter" value="1">#식단공유</span>
 			</div>
 			<div class="opt-search">
 				<input type="text" name="keyword" class="option-search-input">
@@ -89,18 +89,19 @@
 		
 		<ul class="board">
 			<% for(Board p: pList) { %>
-			    <li class="board-list" style="cursor:pointer;">
+			    <li class="board-list" style="cursor : pointer;">
 			    	<input type="hidden" value="<%= p.getBoard_no() %>">
 			    	<input type="hidden" value="<%= p.getBoard_code() %>">
 			    	<div class="board-list-img">
 			    		<% for(Attachment a: aList){
 			    				int pNo = p.getBoard_no();
 			    				int aNo = a.getBoardNo();
+			    				
 			    				if(pNo == aNo) { %>
 			        				<img class="board-list-img-con" src="<%= request.getContextPath() %>/uploaded_Images/<%= a.getAtcName() %>">
 			        				break;
-			        	<% 		}
-			        	   }%>
+			        	<% 		} 
+			        	   } %>
 			        </div>
 			        <div class="board-list-item">
 			            <h1 class="board-list-item-id"><%= p.getMem_id() %></h1>
@@ -116,10 +117,10 @@
 			<div class="paging">
 				<span class="paging-item">&lt;</span>
 				<% for(int p = startPage; p <= endPage; p++){
-				   	 	if(p == currentPage) { %>
-							<span class="paging-item" style="background-color:#41A693;"><%= p %></span>
+				   	 	if(p == currentPage) {%>
+							<span class="paging-item"><%= p %></span>
 					<%  } else { %>
-						<span class="paging-item" onclick="location.href='<%= request.getContextPath() %>/vegiTalk?currentPage=<%= p %>'"><%= p %></span>
+						<span class="paging-item" onclick="location.href='<%= request.getContextPath() %>/filterNSort?currentPage=<%= p %>'"><%= p %></span>
 					<%  } 
 				  } %>	
 				<span class="paging-item">&gt;</span>
@@ -137,7 +138,7 @@
 			var $w = $(window),
 				fHeight = $('footer').outerHeight();
 			
-			$w.on('scroll', function(){
+			$w.on('scroll', function() {
 				var sT = $w.scrollTop();
 				var hVal = $(document).height() - $w.height() - fHeight;
 				
@@ -169,15 +170,19 @@
 		});
 		
 		$('.opt-type').children().eq(1).click(function(){
-			location.href="<%= request.getContextPath() %>/filterNSort?opt=1";
+			location.href="<%= request.getContextPath() %>/filterNSort?opt=3";
 		});
 		
 		$('.opt-type').children().eq(2).click(function(){
-			location.href="<%= request.getContextPath() %>/filterNSort?opt=2";
+			location.href="<%= request.getContextPath() %>/filterNSort?opt=1";
 		});
 		
 		$('.opt-type').children().eq(3).click(function(){
-			location.href="<%= request.getContextPath() %>/filterNSort?opt=3";
+			location.href="<%= request.getContextPath() %>/filterNSort?opt=2";
+		});
+		
+		$(function(){
+			$('.option-search-input').val();
 		});
 		
 		$(function(){ //상세페이지 이동 분기 처리
@@ -188,9 +193,9 @@
 			});
 		});
 		
+		
 		$(function(){ //페이징 효과 처리
-			
-			if(<%= currentPage %> == 1) {
+			if(<%= currentPage %> <= 1) {
 				$('.paging-item').eq(0).css('background-color', '#ACB5BD');
 				$('.paging-item').eq(0).click(function(){
 					$('.paging-item').preventDefault();
@@ -200,8 +205,12 @@
 					location.href="<%= request.getContextPath() %>/vegiTalk?currentPage=<%= currentPage - 1 %>";
 				});
 				
-				$('.paging-item:').last().click(function(){
-					location.href="<%= request.getContextPath() %>/vegiTalk?currentPage=<%= currentPage + 1 %>";
+				$('.paging-item:last').click(function(){
+					if(<%= currentPage %> >= <%= maxPage %>) {
+						$(this).css('background-color', '#ACB5BD').preventDefault();
+					} else {
+						location.href="<%= request.getContextPath() %>/vegiTalk?currentPage=<%= currentPage + 1 %>";
+					}
 				});
 			}
 		});

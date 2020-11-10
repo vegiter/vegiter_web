@@ -21,7 +21,10 @@ import wrapper.EncryptWrapper;
             "LoginServlet", 
             "InsertMemberServlet",
             "InsertOwnerServlet",
-            "ChangePwdServlet"
+            "ChangePwdServlet",
+            "CheckPwdServlet",
+            "UpdatePwdServlet",
+            "MemberDeleteServlet"
       })
 public class EncryptFilter implements Filter{
 

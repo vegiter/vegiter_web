@@ -99,8 +99,8 @@
 			    				if(pNo == aNo) { %>
 			        				<img class="board-list-img-con" src="<%= request.getContextPath() %>/uploaded_Images/<%= a.getAtcName() %>">
 			        				break;
-			        	<% 		}
-			        	   }%>
+			        	<% 		} 
+			        	   } %>
 			        </div>
 			        <div class="board-list-item">
 			            <h1 class="board-list-item-id"><%= p.getMem_id() %></h1>
@@ -189,9 +189,9 @@
 			
 		});
 		
-		$(function() { //페이징 효과 처리
+		$(function(){ //페이징 효과 처리
 			if(<%= currentPage %> <= 1) {
-				$('.paging-item').eq(0).css('background-color', 'darkgray');
+				$('.paging-item').eq(0).css('background-color', '#ACB5BD');
 				$('.paging-item').eq(0).click(function(){
 					$('.paging-item').preventDefault();
 				});
@@ -199,9 +199,13 @@
 				$('.paging-item').eq(0).click(function(){
 					location.href="<%= request.getContextPath() %>/vegiTalk?currentPage=<%= currentPage - 1 %>";
 				});
-			}	
-				$('.paging-item').last().click(function(){
-					location.href="<%= request.getContextPath() %>/vegiTalk?currentPage=<%= currentPage + 1 %>";
+				
+				$('.paging-item:last').click(function(){
+					if(<%= currentPage %> >= <%= maxPage %>) {
+						$(this).css('background-color', '#ACB5BD').preventDefault();
+					} else {
+						location.href="<%= request.getContextPath() %>/vegiTalk?currentPage=<%= currentPage + 1 %>";
+					}
 				});
 			}
 		});

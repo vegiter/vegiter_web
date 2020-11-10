@@ -1,19 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ page import = "java.sql.*" %>
+<%@ page import = "java.sql.*" %>
 
 <!DOCTYPE html>
 <html>
 <head>
    <meta charset="UTF-8">
    <title>다음 지도 API</title>
+   <style>
+   		.map-box{
+   			display: flex;
+   		}
+   </style>
 </head>
 <body>
 	<%@ include file="../common/gnb.jsp"%>
-<div id="map" style="width:1600px;height:700px;"></div>
-
+	<div class="map-box" >
+		<div id="map" style="margin-left : 150px; margin-right: 200px; margin-top :100px;width:1600px;height:700px;"></div>
+	</div>
+	<%@ include file="../common/footer.jsp"%>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6dff5015989a59ffc86e086a9b96831c&libraries=services"></script>
-<div id="map" style="width:100%;height:350px;"></div>
 <script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
     mapOption = { 
@@ -245,6 +251,5 @@ function makeOverListener(map, marker, infowindow) {
 
 }
 </script>
-   	<%@ include file="../common/footer.jsp"%>
 </body>
 </html>

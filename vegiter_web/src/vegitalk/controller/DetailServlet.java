@@ -30,6 +30,7 @@ public class DetailServlet extends HttpServlet {
 		Attachment atc = new VegitalkService().selectAtc(bId);
 		ArrayList<Comments> list = new VegitalkService().selectReplyList(bId);
 		BookMark bmkList = new BoardService().selectBookMark(bId);
+		System.out.println("디텔 서블릿 확인 :" + bmkList);
 		
 		if (post != null) {
 			request.setAttribute("list", list);
