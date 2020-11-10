@@ -575,7 +575,7 @@
 				}
 
 				function info() {
-					window.open('foodStyle.html', '푸드스타일이란?',
+					window.open('info.style', '푸드스타일이란?',
 							'width=600,height=450');
 				}
 				
