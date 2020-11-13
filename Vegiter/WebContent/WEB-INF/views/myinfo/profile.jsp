@@ -99,6 +99,7 @@
 	#boardCode-span{
 		font-weight: bolder;
 		color: rgb(45, 115, 102);
+		margin-right: 5px;
 	}
 	#list{
 		background-color: #21403A;
@@ -109,6 +110,19 @@
 		font-size: 1.25rem;
 		border-radius: 16px;
 	}
+	#fList-td img{
+		width: 80px; 
+		height: 80px;
+		background: darkgray;
+	}
+	#bookmark .profile-content{
+		width: 500px;
+	}
+	#bookmark .profile-header{
+		border-right: none;
+		border-right: none;
+	}	
+/* 	*{border: 1px solid green;} */
 </style>
 </head>
 <body>
@@ -174,31 +188,33 @@
 				<div class="title">북마크</div>
 				<div class="subtitle">
 					<table id="bookmark">
-					<%if(bList == null){ %>
+					<%if(bList.isEmpty()){ %>
 						<tr>북마크가 없습니다.</tr>
 					<%}else{ %>
 						<%for(int i = 0; i < bList.size(); i++){ %>
-						<% int code = bList.get(i).getBoard_code(); %>
-						<% String codeName = ""; %>
-							<tr class="thumnail-tr">
-								<td class="profile-header">
-								
-								</td>
-								<td class="profile-content">
-									<%
-									switch(code){
-									case 0: codeName = "레시피"; break;
-									case 1: codeName = "도란도란"; break;
-									case 2: codeName = "식단"; break;
-									case 3: codeName = "공지사항"; break;
-									} 
-									%>
-									<span id="boardCode-span"><%= codeName %></span>
-									<%= bList.get(i).getBoard_title() %>
-								</td>
-							</tr>
+							<% int code = bList.get(i).getBoard_code(); %>
+							<% String codeName = ""; %>
+								<tr class="thumnail-tr">
+									<td class="profile-header" id="fList-td">
+									<%if(fList.get(i) != null){ %>
+										<img src="<%=request.getContextPath()%>/thumnail_uploadFiles/<%= fList.get(i).getAtcName()%>">
+									<%} %>
+									</td>
+									<td class="profile-content">
+										<%
+										switch(code){
+										case 0: codeName = "레시피"; break;
+										case 1: codeName = "도란도란"; break;
+										case 2: codeName = "식단"; break;
+										case 3: codeName = "공지사항"; break;
+										} 
+										%>
+										<span id="boardCode-span"><%= codeName %></span>
+										<%= bList.get(i).getBoard_title() %>
+									</td>
+								</tr>
+							<%} %>
 						<%} %>
-					<%} %>
 					</table>
 				</div> 
 			</div>
