@@ -57,17 +57,17 @@
 	.write-img-btn {padding: 50px;border: 2px dotted #858E96;border-radius: 20px;color: #858E96;}
 
 	#post-img {width: 100%;height: 100%;}
-	#wirte-area {width: 470px;min-height: 100px;height: auto;padding: 15px;line-height: 1.5;resize: none;}
+	#wirte-area {width: 470px;min-height: 150px;overflow:visible;padding: 15px;line-height: 1.5;resize: none;}
 	
 	.social {width: 500px;display: flex;justify-content: flex-end;margin: 10px 0;}
 	span>i {font-size: 18px;vertical-align: middle;}
 	.social>span {padding: 3px;padding-left: 8px;padding-right: 8px;}
 	
 	.checked {color: #41A693;font-weight: bold;}
-	.user {padding: 1rem;color: #333B3F;font-weight: bold;font-size: 19px;display: flex;justify-content: space-between;align-items: center;}
+	.user {padding: 1rem;color: #333B3F;font-size: 19px;display: flex;justify-content: space-between;align-items: center;}
 	.user-info {width: 95%;display: flex;justify-content: space-between;}
 	
-	#userId {font-size: 20px;}
+	#userId {font-size: 20px; font-weight:bold;}
 	.fa-bookmark {font-size: 20px;cursor: pointer;}
 	.fa-bookmark:hover {cursor: pointer;color: #41A693;}
 	.comment {box-sizing: border-box;width: 500px;background-color: #F0F3F5;height: auto;padding: 14px;margin-top: 8px;}
@@ -260,6 +260,10 @@
 			var bId = $('.user').children().val();
 			var bCode = $('.user').children().eq(1).val();
 			location.href="<%=request.getContextPath()%>/editForm?bId=" + bId + "&bCode=" + bCode;
+		});
+		
+		$('#wirte-area').on('keydown keyup', function () {
+			 $(this).height(1).height( $(this).prop('scrollHeight')+ 12 );	
 		});
 	</script>
 </body>

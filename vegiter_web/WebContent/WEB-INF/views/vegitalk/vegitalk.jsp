@@ -51,8 +51,8 @@
 
 	.board-list-item{background-color: #DEE2E5; height: 130px; text-align: left;}
 	.board-list-item h1{font-size: 20px; padding: 10px; font-weight: bold; color: #21403A;}
-	.board-list-item>p{padding: 0 15px; height: 50px; width: 260px; color: #485056; line-height: 1.5rem;}
-	.board-list-item-con>p{text-overflow: ellipsis; overflow: hidden;}
+	.board-list-item>p{padding: 0 15px; text-overflow: ellipsis; height: 50px; width: 260px; color: #485056; line-height: 1.5rem;}
+	.board-list-item-con{text-overflow: ellipsis; overflow: hidden;}
 	.board-list-item-social{text-align: right; color: #485056; padding: 10px 15px;}
 	.board-list-item-social span{margin-left: 5px;}
 	.board-list-item-social>i{color: #485056;}
@@ -139,7 +139,7 @@
 	
 	<%@ include file="../common/footer.jsp" %>
 	<script>
-		$(function() { //글쓰기 버튼 푸터 상단 배치
+		$(function() { //글쓰기 버튼 배치
 			var $w = $(window),
 		    footerHei = $('footer').outerHeight(),
 		    $btn = $('.writeBtn');
@@ -170,27 +170,6 @@
 		});
 		
 		
-		$(function(){ //페이징 효과 처리
-			if(<%= currentPage %> <= 1) {
-				$('.paging-item').eq(0).css('background-color', '#ACB5BD');
-				$('.paging-item').eq(0).click(function(){
-					$('.paging-item').preventDefault();
-				});
-			} else {
-				$('.paging-item').eq(0).click(function(){
-					location.href="<%= request.getContextPath() %>/vegiTalk?currentPage=<%= currentPage - 1 %>";
-				});
-				
-				$('.paging-item:last').click(function(){
-					if(<%= currentPage %> <= <%= maxPage %>) {
-						$(this).css('background-color', '#ACB5BD').preventDefault();
-					} else {
-						location.href="<%= request.getContextPath() %>/vegiTalk?currentPage=<%= currentPage + 1 %>";
-					}
-				});
-			}
-		});
-		
 		$(function() { //sort 옵션 버튼 클릭 이벤트
 			var opt = <%= opt %>;
 			
@@ -211,6 +190,32 @@
 			$('.opt-type').children().eq(3).click(function(){
 				location.href="<%= request.getContextPath() %>/vegiTalk?opt=3";
 			});
+		});
+		
+		$(function() { //페이징
+			var opt = <%= opt %>;
+			if(<%= currentPage %> <= 1) {
+				$('.paging-item').eq(0).css('background-color', '#ACB5BD');
+				$('.paging-item').eq(0).click(function(){
+					$('.paging-item').preventDefault();
+				});
+			} else {
+				$('.paging-item').eq(0).click(function(){
+					location.href="<%= request.getContextPath() %>/vegiTalk?opt=" + opt + "&currentPage=<%= currentPage - 1 %>";
+				});
+			}
+			
+			if(<%= currentPage %> >= <%= maxPage %>) {
+				$('.paging-item:last').css('background-color', '#ACB5BD');
+				$('.paging-item:last').click(function(){
+						$(this).preventDefault();
+				});
+			} else {
+				$('.paging-item:last').click(function(){
+					location.href="<%= request.getContextPath() %>/vegiTalk?opt=" + opt + "&currentPage=<%= currentPage + 1 %>";
+			
+				});
+			}
 		});
 	</script>
 </body>
