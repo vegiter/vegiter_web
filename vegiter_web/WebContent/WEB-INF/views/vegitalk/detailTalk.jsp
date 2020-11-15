@@ -61,8 +61,6 @@
 	.social {width: 500px;display: flex;justify-content: flex-end;margin: 10px 0;}
 	span>i {font-size: 18px;vertical-align: middle;}
 	.social>span {padding: 3px;padding-left: 8px;padding-right: 8px;}
-	.social>span:nth-child(1):hover {cursor: default;}
-	.social>span:nth-child(2):hover {cursor: pointer;background-color: #41A693;color: #fff;border-radius: 15px;}
 	
 	.checked {color: #41A693;font-weight: bold;}
 	.user {padding: 1rem;color: #333B3F;font-weight: bold;font-size: 19px;display: flex;justify-content: space-between;align-items: center;}
@@ -76,7 +74,7 @@
 	.comment-input {display: flex;justify-content: space-between;margin-top: 20px;vertical-align: middle;}
 	#comUserId {width: 15%; bold;overflow: hidden;font-size: 14px;font-weight: bold !important;height: 20px !important;}
 	#comContent {width: 50%;font-size: 14px;height: 20px !important;}
-	#comDelBtn {width: 5%;text-align: right;font-size: 14px;height: 20px;important;font-size:10px;cursor:pointer;}
+	#comDelBtn {width: 5%;text-align: right;font-size: 14px;height: 20px;important;font-size: 10px;cursor: pointer;}
 	#comDate {width: 30%;font-size: 12px;height: 20px;important;font-size:12px;}
 	.commentRow {padding-top: 12px;}
 	.comment-input-field {width: 85%;border-style: none;padding: 8px;outline: none;}
@@ -127,8 +125,7 @@
 		<textarea name="write" id="wirte-area" readonly><%=post.getBoard_content()%></textarea>
 
 		<div class="social">
-			<span><i class="far fa-comment-dots"></i><%=post.getBoard_com()%></span>
-			<span class="social-item checked"><i class="far fa-heart"></i><%=post.getBoard_like()%></span>
+			<span><i class="far fa-comment-dots" id="comCnt"></i><%=post.getBoard_com()%></span>
 		</div>
 
 		<div class="comment">
@@ -145,13 +142,13 @@
 				<%
 					for (int i = 0; i < list.size(); i++) {
 				%>
-				<div class="row commentRow">
-					<input type="hidden" value="<%= list.get(i).getComNo() %>">
-					<div class="col-2 commentCol" id="comUserId"><%= list.get(i).getMemId() %></div>
-					<div class="col-7 commentCol" id="comContent"><%= list.get(i).getComContent() %></div>
-					<i class="fas fa-times" id="comDelBtn"></i>
-					<div class="col-3 commentCol" id="comDate"><%= list.get(i).getComDate() %></div>
-				</div>
+					<div class="row commentRow">
+						<input type="hidden" value="<%= list.get(i).getComNo() %>">
+						<span class="col-2 commentCol" id="comUserId"><%= list.get(i).getMemId() %></span>
+						<span class="col-7 commentCol" id="comContent"><%= list.get(i).getComContent() %></span>
+						<span class="comDelBtn"><i class="fas fa-times comDelBt" id="comDelBtn"></i></span>
+						<span class="col-3 commentCol" id="comDate"><%= list.get(i).getComDate() %></span>
+					</div>
 				<%
 					}
 				%>
@@ -163,10 +160,8 @@
 				if (loginUser != null) {
 			%>
 			<div class="comment-input">
-				<input type="hidden" name="user" id="lo"
-					value="<%=loginUser.getMemId()%>"> <input type="text"
-					class="comment-input-field" placeholder="댓글을 입력하세요"
-					id="commentContent">
+				<input type="hidden" name="user" id="lo" value="<%=loginUser.getMemId()%>">
+				<input type="text" class="comment-input-field" placeholder="댓글을 입력하세요" id="commentContent">
 				<button type="submit" class="comment-input-submit" id="addComment">등록</button>
 			</div>
 			<%
@@ -194,9 +189,7 @@
 				$.ajax({
 					url:'<%= request.getContextPath() %>/countComment.bo',
 					data:{bId:bId},
-					success: function(data){
-						console.log(data);
-					}
+					success: function(data){}
 				});
 			
 				$.ajax({
@@ -209,32 +202,31 @@
 							var commentResult = "";
 							
 							for(var i=0 in data){
-								commentResult += "<div class='col-2' id='comUserId'>" + data[i].memId + "</div>"
+								commentResult += "<div class='row commentRow'><input type='hidden' value=''><div class='col-2' id='comUserId'>" + data[i].memId + "</div>"
 													+ "<div class='col-7' id='comContent'>" + data[i].comContent + "</div>"
-													+ "<i class='fas fa-times' id='comDelBtn'></i>"
-													+ "<div class='col-3' id='comDate'>" + data[i].comDate + "</div>";
+													+ "<span class='comDelBtn'><i class='fas fa-times' id='comDelBtn'></i></span>"
+													+ "<div class='col-3' id='comDate'>" + data[i].comDate + "</div></div>";
 							}
-						
-						$('#commentSelect').html('<div class="row commentRow">' + commentResult + '</div>');
+						$('#commentSelect').html(commentResult).trigger("create");
 					}
 				});	
 			}
 		});
 		
-		$('#comDelBtn').click(function(){
-			var comNo = $('.commentRow').children().val();
+		$('.comDelBtn').click(function(){
+			var comNo = $(this).parents().children().val();
 			var bId =  '<%=post.getBoard_no()%>';
-			var bool = confirm('정말 삭제하시겠어요?');
+			var bool = confirm('댓글을 정말 삭제하시겠어요?');
 			
 			if(bool) {
 				$.ajax({
-					url:'<%= request.getContextPath() %>/deleteCom',
-					data:{bId:bId, comNo:comNo},
+					url: '<%= request.getContextPath() %>/deleteCom',
+					data: {bId:bId, comNo:comNo},
 					success: function(data){
-						console.log(data);
-						$('.commentRow').remove();
+						$(this).parents().rimove();
 					}
 				});
+				location.reload();
 			}
 		});
 		 
@@ -242,7 +234,7 @@
 		$('#delete').click(function(){
 			var bId = $('.user').children().val();
 			var bCode = $('.user').children().eq(1).val();
-			var bool = confirm('정말 삭제하시겠어요?');
+			var bool = confirm('게시글을 정말 삭제하시겠어요?');
 			if(bool) {
 				location.href = "<%= request.getContextPath() %>/delete?bId=" + bId + "&bCode=" + bCode;
 			}

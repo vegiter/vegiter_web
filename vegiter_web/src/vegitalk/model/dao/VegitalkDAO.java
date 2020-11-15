@@ -157,7 +157,29 @@ public class VegitalkDAO {
 		return postCount;
 	}
 	
-	public int getPostCount(Connection conn, int boardCode) {
+	public int getPostCountAll(Connection conn, int bCode) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int postCount = 0;
+		String query = prop.getProperty("getPostCount");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				postCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return postCount;
+	}
+	
+	public int getPostCount(Connection conn, int opt) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		int postCount = 0;
@@ -165,7 +187,7 @@ public class VegitalkDAO {
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, boardCode);
+			pstmt.setInt(1, opt);
 			rset = pstmt.executeQuery(query);
 			
 			if(rset.next()) {

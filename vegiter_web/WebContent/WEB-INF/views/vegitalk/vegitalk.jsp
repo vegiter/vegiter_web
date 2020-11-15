@@ -10,6 +10,8 @@
 	int maxPage = pi.getMaxPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
+/* 	int opt = Integer.parseInt((String)request.getAttribute("opt"));
+	System.out.println(opt); */
 %>
 <!DOCTYPE html>
 <html>
@@ -78,9 +80,9 @@
 		<div class="option">
 			<div class="opt-type">
 				<span class="opt-type filter" value="0">#All</span>
-				<span class="opt-type filter" value="3">#공지/이벤트</span>
-				<span class="opt-type filter" value="2">#도란도란</span>
-				<span class="opt-type filter" value="1">#식단공유</span>
+				<span class="opt-type filter" value="3">#도란도란</span>
+				<span class="opt-type filter" value="2">#식단공유</span>
+				<span class="opt-type filter" value="1">#공지/이벤트</span>
 			</div>
 			<div class="opt-search">
 				<input type="text" name="keyword" class="option-search-input">
@@ -122,10 +124,10 @@
 			<div class="paging">
 				<span class="paging-item">&lt;</span>
 				<% for(int p = startPage; p <= endPage; p++){
-				   	 	if(p == currentPage) {%>
+				   	 	if(p == currentPage) { %>
 							<span class="paging-item"><%= p %></span>
 					<%  } else { %>
-						<span class="paging-item" onclick="location.href='<%= request.getContextPath() %>/vegiTalk?currentPage=<%= p %>'"><%= p %></span>
+						<span class="paging-item" onclick="goPage()'"><%= p %></span>
 					<%  } 
 				  } %>	
 				<span class="paging-item">&gt;</span>
@@ -152,38 +154,6 @@
 				else
 					$('.writeBtn').removeClass('onHeight');
 			});
-		});
-		
-		$(function() { //sort 옵션 버튼 클릭 이벤트
-			$('.opt-type>span.filter:first').css('color', '#41A693');
-			
-			$('.opt-type>span.filter').on('click', function(){
-				$('.opt-type>span.filter').css('color', '#ACB5BD');
-				$(this).css('color', '#41A693');
-			});
-			
-			$('.opt-type>span.sort:first').css('color', '#41A693');
-			
-			$('.opt-type>span.sort').on('click', function(){
-				$('.opt-type>span.sort').css('color', '#ACB5BD');
-				$(this).css('color', '#41A693');
-			});
-		});
-		
-		$('.opt-type').children().eq(0).click(function(){
-			location.href="<%= request.getContextPath() %>/vegiTalk?opt=0";
-		});
-		
-		$('.opt-type').children().eq(1).click(function(){
-			location.href="<%= request.getContextPath() %>/vegiTalk?opt=3";
-		});
-		
-		$('.opt-type').children().eq(2).click(function(){
-			location.href="<%= request.getContextPath() %>/vegiTalk?opt=1";
-		});
-		
-		$('.opt-type').children().eq(3).click(function(){
-			location.href="<%= request.getContextPath() %>/vegiTalk?opt=2";
 		});
 		
 		$(function(){
@@ -219,6 +189,33 @@
 				});
 			}
 		});
+		
+		$(function() { //sort 옵션 버튼 클릭 이벤트
+			var opt = 3;
+			
+			$('.opt-type').children().eq(opt).css('color', '#41A693');
+		
+			$('.opt-type').children().eq(0).click(function(){
+				location.href="<%= request.getContextPath() %>/vegiTalk?opt=0";
+			});
+			
+			$('.opt-type').children().eq(1).click(function(){
+				location.href="<%= request.getContextPath() %>/vegiTalk?opt=1";
+			});
+			
+			$('.opt-type').children().eq(2).click(function(){
+				location.href="<%= request.getContextPath() %>/vegiTalk?opt=2";
+			});
+			
+			$('.opt-type').children().eq(3).click(function(){
+				location.href="<%= request.getContextPath() %>/vegiTalk?opt=3";
+			});
+		});
+			
+		<%-- function goPage() {
+			var opt1 = $('.opt-type>span.filter').css("color");
+			var opt1 = $('.opt-type>span.filter').css("color");
+			location.href='<%= request.getContextPath() %>/vegiTalk?opt='+ +'&currentPage=<%= p %>'; --%>
 	</script>
 </body>
 </html>

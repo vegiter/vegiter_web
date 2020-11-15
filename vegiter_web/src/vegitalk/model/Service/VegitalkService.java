@@ -50,9 +50,15 @@ public class VegitalkService {
 		return pResult;
 	}
 	
-	public int getPostCountAll() {
+	public int getPostCountAll(int opt) {
 		Connection conn = getConnection();
-		int postCount = new VegitalkDAO().getPostCountAll(conn);
+		int postCount = 0;
+		
+		if(opt == 0) {
+			postCount = new VegitalkDAO().getPostCountAll(conn);
+		} else {
+			postCount = new VegitalkDAO().getPostCount(conn, opt);
+		}
 		close(conn);
 		return postCount;
 	}
@@ -190,7 +196,6 @@ public class VegitalkService {
 		close(conn);
 		return dList;
 	}
-
 	
 	public ArrayList<Board> getPList(PageInfo pi, int opt) {
 		Connection conn = getConnection();

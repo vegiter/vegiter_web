@@ -23,16 +23,15 @@ public class GoVegitalkServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int opt = Integer.parseInt(request.getParameter("opt"));
 		VegitalkService vs = new VegitalkService();
-		int postCount = vs.getPostCountAll();
+		int postCount = vs.getPostCountAll(opt);
 		int currentPage = 1;
 		int pageLimit = 5;
 		int postLimit = 12;
 		int maxPage = (int)Math.ceil((double)postCount/postLimit);
 		int startPage = ((currentPage - 1) / pageLimit) * pageLimit + 1;
 		int endPage = 0;
-		int opt = 0;
-		opt = Integer.parseInt(request.getParameter("opt"));
 		
 		if(maxPage < pageLimit) {
 			endPage = maxPage;
@@ -45,10 +44,11 @@ public class GoVegitalkServlet extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(postCount, currentPage, pageLimit, postLimit, maxPage, startPage, endPage);
 		ArrayList<Board> pList = vs.getPList(pi, opt);
-		System.out.println(pList);
 		ArrayList<Attachment> aList = vs.getAList();
 		
 		if(pList != null && aList != null) {
+			request.setAttribute("opt", opt);
+			System.out.println(opt);
 			request.setAttribute("pi", pi);
 			request.setAttribute("pList", pList);
 			request.setAttribute("aList", aList);
