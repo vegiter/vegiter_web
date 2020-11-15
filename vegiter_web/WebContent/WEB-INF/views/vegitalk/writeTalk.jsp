@@ -66,7 +66,7 @@
 	<script>
 		$(function(){
 			$('#type-two').click(function(){
-				$('body').load("writeDiet");
+				$('body').load('writeDiet');
 			});
 		});
 		

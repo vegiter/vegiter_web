@@ -33,7 +33,7 @@
 				<li class="gnb-nav-list" onclick="location.href='<%= request.getContextPath() %>/aboutPage.me'">About</li>
 				<li class="gnb-nav-list" onclick="location.href='<%= request.getContextPath() %>/search.map'">식당검색</li>
 				<li class="gnb-nav-list" onclick="location.href='<%= request.getContextPath() %>/recipe'">레시피</li>
-				<li class="gnb-nav-list" onclick="location.href='<%= request.getContextPath() %>/vegiTalk'">VegiTalk</li>
+				<li class="gnb-nav-list" onclick="location.href='<%= request.getContextPath() %>/vegiTalk?opt=0'">VegiTalk</li>
 				<%if(loginUser == null){ %>
 				<li class="gnb-nav-list" onclick="location.href='<%= request.getContextPath() %>/login.me'">Login</li>
 				<%}else{ %>

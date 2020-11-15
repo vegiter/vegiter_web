@@ -43,6 +43,7 @@
 
 	.board {margin-top: 50px; display: flex; flex-wrap: wrap; justify-content: space-around;}
 	.board li {padding: 10px;}
+	.board li:hover{opacity: 50px;}
 
 	.board-list-img{width: 300px; height: 280px; text-align: center; background-color: #485056; overflow: hidden;}
 	.board-list-img img{width: 100%; height: 100%;}
@@ -88,31 +89,35 @@
 		</div>
 		
 		<ul class="board">
-			<% for(Board p: pList) { %>
-			    <li class="board-list" style="cursor : pointer;">
-			    	<input type="hidden" value="<%= p.getBoard_no() %>">
-			    	<input type="hidden" value="<%= p.getBoard_code() %>">
-			    	<div class="board-list-img">
-			    		<% for(Attachment a: aList){
-			    				int pNo = p.getBoard_no();
-			    				int aNo = a.getBoardNo();
-			    				
-			    				if(pNo == aNo) { %>
-			        				<img class="board-list-img-con" src="<%= request.getContextPath() %>/uploaded_Images/<%= a.getAtcName() %>">
-			        				break;
-			        	<% 		} 
-			        	   } %>
-			        </div>
-			        <div class="board-list-item">
-			            <h1 class="board-list-item-id"><%= p.getMem_id() %></h1>
-			            <p class="board-list-item-con"><%= p.getBoard_content() %></p>
-			            <div class="board-list-item-social">
-			                <span><i class="far fa-comment-dots"></i><%= p.getBoard_com() %></span>
-			                <span><i class="far fa-heart"></i><%= p.getBoard_like() %></span>
-			            </div>
-				    </div>
-				</li>
-			<% } %>
+			<% for(Board p: pList) { 
+				if(p.getBoard_code() > 0) {%>
+				    <li class="board-list" style="cursor : pointer;">
+				    	<input type="hidden" value="<%= p.getBoard_no() %>">
+				    	<input type="hidden" value="<%= p.getBoard_code() %>">
+				    	<div class="board-list-img">
+				    		<% for(Attachment a: aList) {
+				    				
+				    				if(p.getBoard_code() == 1 || p.getBoard_code() == 3) {
+				    				
+				    					if(p.getBoard_no() == a.getBoardNo()) { %>
+				        					<img class="board-list-img-con" src="<%= request.getContextPath() %>/uploaded_Images/<%= a.getAtcName() %>">
+				        	<%			}
+				    				} else { %>
+				    					<img class="board-list-img-con" src="<%= request.getContextPath() %>/images/vegitalk/dietList.png">
+				    		<%		}
+				        	   } %>
+				        </div>
+				        <div class="board-list-item">
+				            <h1 class="board-list-item-id"><%= p.getMem_id() %></h1>
+				            <p class="board-list-item-con"><%= p.getBoard_content() %></p>
+				            <div class="board-list-item-social">
+				                <span><i class="far fa-comment-dots"></i><%= p.getBoard_com() %></span>
+				                <span><i class="far fa-heart"></i><%= p.getBoard_like() %></span>
+				            </div>
+					    </div>
+					</li>
+			<% } 
+			} %>
 		</ul>
 			<div class="paging">
 				<span class="paging-item">&lt;</span>
@@ -120,7 +125,7 @@
 				   	 	if(p == currentPage) {%>
 							<span class="paging-item"><%= p %></span>
 					<%  } else { %>
-						<span class="paging-item" onclick="location.href='<%= request.getContextPath() %>/filterNSort?currentPage=<%= p %>'"><%= p %></span>
+						<span class="paging-item" onclick="location.href='<%= request.getContextPath() %>/vegiTalk?currentPage=<%= p %>'"><%= p %></span>
 					<%  } 
 				  } %>	
 				<span class="paging-item">&gt;</span>
@@ -166,19 +171,19 @@
 		});
 		
 		$('.opt-type').children().eq(0).click(function(){
-			location.href="<%= request.getContextPath() %>/vegiTalk";
+			location.href="<%= request.getContextPath() %>/vegiTalk?opt=0";
 		});
 		
 		$('.opt-type').children().eq(1).click(function(){
-			location.href="<%= request.getContextPath() %>/filterNSort?opt=3";
+			location.href="<%= request.getContextPath() %>/vegiTalk?opt=3";
 		});
 		
 		$('.opt-type').children().eq(2).click(function(){
-			location.href="<%= request.getContextPath() %>/filterNSort?opt=1";
+			location.href="<%= request.getContextPath() %>/vegiTalk?opt=1";
 		});
 		
 		$('.opt-type').children().eq(3).click(function(){
-			location.href="<%= request.getContextPath() %>/filterNSort?opt=2";
+			location.href="<%= request.getContextPath() %>/vegiTalk?opt=2";
 		});
 		
 		$(function(){
@@ -206,7 +211,7 @@
 				});
 				
 				$('.paging-item:last').click(function(){
-					if(<%= currentPage %> >= <%= maxPage %>) {
+					if(<%= currentPage %> <= <%= maxPage %>) {
 						$(this).css('background-color', '#ACB5BD').preventDefault();
 					} else {
 						location.href="<%= request.getContextPath() %>/vegiTalk?currentPage=<%= currentPage + 1 %>";

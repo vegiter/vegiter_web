@@ -14,7 +14,7 @@ import board.model.vo.Board;
 import board.model.vo.PageInfo;
 import vegitalk.model.Service.VegitalkService;
 
-@WebServlet("/filterNsort")
+@WebServlet("/vegiTalk")
 public class GoVegitalkServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -31,6 +31,8 @@ public class GoVegitalkServlet extends HttpServlet {
 		int maxPage = (int)Math.ceil((double)postCount/postLimit);
 		int startPage = ((currentPage - 1) / pageLimit) * pageLimit + 1;
 		int endPage = 0;
+		int opt = 0;
+		opt = Integer.parseInt(request.getParameter("opt"));
 		
 		if(maxPage < pageLimit) {
 			endPage = maxPage;
@@ -42,7 +44,8 @@ public class GoVegitalkServlet extends HttpServlet {
 		}
 		
 		PageInfo pi = new PageInfo(postCount, currentPage, pageLimit, postLimit, maxPage, startPage, endPage);
-		ArrayList<Board> pList = vs.getPListAll(pi);
+		ArrayList<Board> pList = vs.getPList(pi, opt);
+		System.out.println(pList);
 		ArrayList<Attachment> aList = vs.getAList();
 		
 		if(pList != null && aList != null) {
@@ -59,5 +62,4 @@ public class GoVegitalkServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
-
 }

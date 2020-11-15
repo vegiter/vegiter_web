@@ -4,10 +4,9 @@
 	import="board.model.vo.*, board.model.vo.Attachment, java.util.ArrayList"%>
 <%
 	Board post = (Board) request.getAttribute("post");
-Attachment atc = (Attachment) request.getAttribute("atc");
-ArrayList<Comments> list = (ArrayList) request.getAttribute("list");
-BookMark bmkList = (BookMark) request.getAttribute("bmkList");
-System.out.println("불러왔"+ bmkList);
+	Attachment atc = (Attachment) request.getAttribute("atc");
+	ArrayList<Comments> list = (ArrayList) request.getAttribute("list");
+	BookMark bmkList = (BookMark) request.getAttribute("bmkList");
 %>
 <!DOCTYPE html>
 <html>
@@ -31,269 +30,60 @@ System.out.println("불러왔"+ bmkList);
 	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
 	crossorigin="anonymous">
 <style>
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
-	blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn,
-	em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var,
-	b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend,
-	table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas,
-	details, embed, figure, figcaption, footer, header, hgroup, menu, nav,
-	output, ruby, section, summary, time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
-	text-decoration: none;
-	border-style: none;
-	color: #000000;
-}
+	html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var,
+	b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav,
+	output, ruby, section, summary, time, mark, audio, video {margin: 0;padding: 0;border: 0;font-size: 100%;font: inherit;vertical-align: baseline;text-decoration: none;border-style: none;color: #000000;}
+	article, aside, details, figcaption, figure, footer, header, hgroup,
+	menu, nav, section {display: block;}
+	ody {line-height: 1;font-family: 'Open Sans', sans-serif;}
+	ol, ul {list-style: none;}
+	blockquote, q {quotes: none;}
+	blockquote:before, blockquote:after, q:before, q:after {content: '';content: none;}
+	table {border-collapse: collapse;border-spacing: 0;}
+	button {outline: none;background-color: white;border-style: none;}
 
-article, aside, details, figcaption, figure, footer, header, hgroup,
-	menu, nav, section {
-	display: block;
-}
+	textarea {outline: none;padding: 1rem;border-style: none;}
+	.wrapper {width: 500px;min-width: 500px;margin: auto;margin-top: 150px;margin-bottom: 100px;overflow: hidden;}
+	
+	#wirte-area {resize: vertical;}
+	.write-my {display: flex;justify-content: flex-end;}
+	.write-my button {margin-bottom: 10px;margin-right: 2px;color: #333B3F;font-weight: bold;left: 0;}
+	.write-my button:hover {background-color: #F0F3F5;border-radius: 5px;}
+	.write-my button:active {background-color: #41A693;color: #FFF;}
 
-body {
-	line-height: 1;
-	font-family: 'Open Sans', sans-serif;
-}
+	.selected {color: #41A693;font-weight: bold;}
+	.write-img {margin: 0 auto;width: 500px;height: 450px;overflow: hidden;background-color: #F0F3F5;text-align: center;line-height: 550px;}
+	.write-img-btn {padding: 50px;border: 2px dotted #858E96;border-radius: 20px;color: #858E96;}
 
-ol, ul {
-	list-style: none;
-}
-
-blockquote, q {
-	quotes: none;
-}
-
-blockquote:before, blockquote:after, q:before, q:after {
-	content: '';
-	content: none;
-}
-
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
-}
-
-button {
-	outline: none;
-	background-color: white;
-	border-style: none;
-}
-
-textarea {
-	outline: none;
-	padding: 1rem;
-	border-style: none;
-}
-
-.wrapper {
-	width: 500px;
-	min-width: 500px;
-	margin: auto;
-	margin-top: 150px;
-	margin-bottom: 100px;
-	overflow: hidden;
-}
-
-#wirte-area {
-	resize: vertical;
-}
-
-.write-my {
-	display: flex;
-	justify-content: flex-end;
-}
-
-.write-my button {
-	margin-bottom: 10px;
-	margin-right: 2px;
-	color: #333B3F;
-	font-weight: bold;
-	left: 0;
-}
-
-.write-my button:hover {
-	background-color: #F0F3F5;
-	border-radius: 5px;
-}
-
-.write-my button:active {
-	background-color: #41A693;
-	color: #FFF;
-}
-
-.selected {
-	color: #41A693;
-	font-weight: bold;
-}
-
-.write-img {
-	margin: 0 auto;
-	width: 500px;
-	height: 450px;
-	overflow: hidden;
-	background-color: #F0F3F5;
-	text-align: center;
-	line-height: 550px;
-}
-
-.write-img-btn {
-	padding: 50px;
-	border: 2px dotted #858E96;
-	border-radius: 20px;
-	color: #858E96;
-}
-
-#post-img {
-	width: 100%;
-	height: 100%;
-}
-
-#wirte-area {
-	width: 470px;
-	min-height: 100px;
-	height: auto;
-	padding: 15px;
-	line-height: 1.5;
-	resize: none;
-}
-
-.social {
-	width: 500px;
-	display: flex;
-	justify-content: flex-end;
-	margin: 10px 0;
-}
-
-span>i {
-	font-size: 18px;
-	vertical-align: middle;
-}
-
-.social>span {
-	padding: 3px;
-	padding-left: 8px;
-	padding-right: 8px;
-}
-
-.social>span:nth-child(1):hover {
-	cursor: default;
-}
-
-.social>span:nth-child(2):hover {
-	cursor: pointer;
-	background-color: #41A693;
-	color: #fff;
-	border-radius: 15px;
-}
-
-.checked {
-	color: #41A693;
-	font-weight: bold;
-}
-
-.user {
-	padding: 1rem;
-	color: #333B3F;
-	font-weight: bold;
-	font-size: 19px;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-
-.user-info {
-	width: 95%;
-	display: flex;
-	justify-content: space-between;
-}
-
-#userId {
-	font-size: 20px;
-}
-
-.fa-bookmark {
-	font-size: 20px;
-	cursor: pointer;
-}
-
-.fa-bookmark:hover {
-	cursor: pointer;
-	color: #41A693;
-}
-
-.comment {
-	box-sizing: border-box;
-	width: 500px;
-	background-color: #F0F3F5;
-	height: auto;
-	padding: 14px;
-	margin-top: 8px;
-}
-
-.comment-list {
-	width: 100%;
-	padding: 0;
-	display: inline-block;
-	margin-top: 8px;
-}
-
-.comment-input {
-	display: flex;
-	justify-content: space-between;
-	margin-top: 20px;
-	vertical-align: middle;
-}
-
-#comUserId {
-	display: inline-block;
-	width: 15%; bold;
-	overflow: hidden;
-	font-size: 14px;
-	font-weight: bold !important;
-	height: 20px !important;
-}
-
-#comContent {
-	display: inline-block;
-	width: 60%;
-	font-size: 14px;
-	height: 20px !important;
-}
-
-#comDate {
-	display: inline-block;
-	width: 20%;
-	text-align: right;
-	font-size: 14px;
-	height: 20px !important;
-}
-
-.commentRow {
-	padding-top: 12px;
-}
-
-.comment-input-field {
-	width: 85%;
-	border-style: none;
-	padding: 8px;
-	outline: none;
-}
-
-.comment-input-submit {
-	width: 50px;
-}
-
-.comment-input-submit:hover {
-	background-color: #41A693;
-	color: #fff;
-}
+	#post-img {width: 100%;height: 100%;}
+	#wirte-area {width: 470px;min-height: 100px;height: auto;padding: 15px;line-height: 1.5;resize: none;}
+	
+	.social {width: 500px;display: flex;justify-content: flex-end;margin: 10px 0;}
+	span>i {font-size: 18px;vertical-align: middle;}
+	.social>span {padding: 3px;padding-left: 8px;padding-right: 8px;}
+	.social>span:nth-child(1):hover {cursor: default;}
+	.social>span:nth-child(2):hover {cursor: pointer;background-color: #41A693;color: #fff;border-radius: 15px;}
+	
+	.checked {color: #41A693;font-weight: bold;}
+	.user {padding: 1rem;color: #333B3F;font-weight: bold;font-size: 19px;display: flex;justify-content: space-between;align-items: center;}
+	.user-info {width: 95%;display: flex;justify-content: space-between;}
+	
+	#userId {font-size: 20px;}
+	.fa-bookmark {font-size: 20px;cursor: pointer;}
+	.fa-bookmark:hover {cursor: pointer;color: #41A693;}
+	.comment {box-sizing: border-box;width: 500px;background-color: #F0F3F5;height: auto;padding: 14px;margin-top: 8px;}
+	.comment-list {width: 100%;padding: 0;display: inline-block;margin-top: 8px;}
+	.comment-input {display: flex;justify-content: space-between;margin-top: 20px;vertical-align: middle;}
+	#comUserId {width: 15%; bold;overflow: hidden;font-size: 14px;font-weight: bold !important;height: 20px !important;}
+	#comContent {width: 50%;font-size: 14px;height: 20px !important;}
+	#comDelBtn {width: 5%;text-align: right;font-size: 14px;height: 20px;important;font-size:10px;cursor:pointer;}
+	#comDate {width: 30%;font-size: 12px;height: 20px;important;font-size:12px;}
+	.commentRow {padding-top: 12px;}
+	.comment-input-field {width: 85%;border-style: none;padding: 8px;outline: none;}
+	.comment-input-submit {width: 50px;}
+	.comment-input-submit:hover {background-color: #41A693;color: #fff;}
 </style>
-<script src="https://kit.fontawesome.com/34238d14b4.js"
-	crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/34238d14b4.js" crossorigin="anonymous"></script>
 <script src="<%=request.getContextPath()%>/js/jquery-3.5.1.min.js"></script>
 </head>
 </head>
@@ -356,9 +146,11 @@ span>i {
 					for (int i = 0; i < list.size(); i++) {
 				%>
 				<div class="row commentRow">
-					<div class="col-2 commentCol" id='comUserId'><%=list.get(i).getMemId()%></div>
-					<div class="col-7 commentCol" id='comContent'><%=list.get(i).getComContent()%></div>
-					<div class="col-3 commentCol" id='comDate'><%=list.get(i).getComDate()%></div>
+					<input type="hidden" value="<%= list.get(i).getComNo() %>">
+					<div class="col-2 commentCol" id="comUserId"><%= list.get(i).getMemId() %></div>
+					<div class="col-7 commentCol" id="comContent"><%= list.get(i).getComContent() %></div>
+					<i class="fas fa-times" id="comDelBtn"></i>
+					<div class="col-3 commentCol" id="comDate"><%= list.get(i).getComDate() %></div>
 				</div>
 				<%
 					}
@@ -384,8 +176,8 @@ span>i {
 	</div>
 
 	<script>
+		//댓글 관련
 		 $('#addComment').click(function(){
-			console.log('hi');
 			var loginUserId = $('.comment-input').children().eq(0).val();
 			
 			if(loginUserId != null) {
@@ -400,32 +192,49 @@ span>i {
 				alert("댓글을 입력해주세요");
 			} else {
 				$.ajax({
-					url:'countComment.bo',
+					url:'<%= request.getContextPath() %>/countComment.bo',
 					data:{bId:bId},
 					success: function(data){
 						console.log(data);
 					}
 				});
 			
-			$.ajax({
-				url: 'insertComment.bo',
-				data: {writer:writer, bId:bId, content:content},
-				success: function(data){
-					console.log(data);
-					
-					$('#commentSelect').html('');
-					$('#commentContent').val('');	// 댓글 입력 후 기존 내용 삭제
+				$.ajax({
+					url: '<%= request.getContextPath() %>/insertComment.bo',
+					data: {writer:writer, bId:bId, content:content},
+					success: function(data){
+						$('#commentSelect').html('');
+						$('#commentContent').val('');	// 댓글 입력 후 기존 내용 삭제
+								
+							var commentResult = "";
 							
-					var commentResult = "";
-					
-					for(var i=0 in data){
-						commentResult += "<div class='col-2' id='comUserId'>" + data[i].memId + "</div>"
-											+ "<div class='col-7' id='comContent'>" + data[i].comContent + "</div>"
-											+ "<div class='col-3' id='comDate'>" + data[i].comDate + "</div>";
-					}
-					$('#commentSelect').html('<div class="row commentRow">' + commentResult + '</div>');
+							for(var i=0 in data){
+								commentResult += "<div class='col-2' id='comUserId'>" + data[i].memId + "</div>"
+													+ "<div class='col-7' id='comContent'>" + data[i].comContent + "</div>"
+													+ "<i class='fas fa-times' id='comDelBtn'></i>"
+													+ "<div class='col-3' id='comDate'>" + data[i].comDate + "</div>";
+							}
+						
+						$('#commentSelect').html('<div class="row commentRow">' + commentResult + '</div>');
 					}
 				});	
+			}
+		});
+		
+		$('#comDelBtn').click(function(){
+			var comNo = $('.commentRow').children().val();
+			var bId =  '<%=post.getBoard_no()%>';
+			var bool = confirm('정말 삭제하시겠어요?');
+			
+			if(bool) {
+				$.ajax({
+					url:'<%= request.getContextPath() %>/deleteCom',
+					data:{bId:bId, comNo:comNo},
+					success: function(data){
+						console.log(data);
+						$('.commentRow').remove();
+					}
+				});
 			}
 		});
 		 
@@ -435,7 +244,7 @@ span>i {
 			var bCode = $('.user').children().eq(1).val();
 			var bool = confirm('정말 삭제하시겠어요?');
 			if(bool) {
-				location.href = "<%=request.getContextPath()%>/delete?bId=" + bId + "&bCode=" + bCode;
+				location.href = "<%= request.getContextPath() %>/delete?bId=" + bId + "&bCode=" + bCode;
 			}
 		});
 		

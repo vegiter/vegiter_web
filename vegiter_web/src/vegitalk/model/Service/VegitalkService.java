@@ -64,12 +64,12 @@ public class VegitalkService {
 		return postCount;
 	}
 
-	public ArrayList<Board> getPListAll(PageInfo pi) {
-		Connection conn = getConnection();
-		ArrayList<Board> pList = new VegitalkDAO().getPListAll(conn , pi);
-		close(conn);
-		return pList;
-	}
+//	public ArrayList<Board> getPListAll(PageInfo pi) {
+//		Connection conn = getConnection();
+//		ArrayList<Board> pList = new VegitalkDAO().getPListAll(conn , pi);
+//		close(conn);
+//		return pList;
+//	}
 	
 	public ArrayList<Attachment> getAList() {
 		Connection conn = getConnection();
@@ -201,5 +201,20 @@ public class VegitalkService {
 
 	public ArrayList<BookMark> selectBookMarkList(int bId) {
 		return null;
+	}
+
+	public int delComment(int bId, int comNo) {
+		Connection conn = getConnection();
+		int delConResult = new VegitalkDAO().delComment(conn, comNo);
+		int delConCntResult = new VegitalkDAO().delCntComment(conn, bId);
+		
+		if(delConResult > 0 && delConCntResult > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return delConResult;
 	}
 }
