@@ -62,13 +62,6 @@ public class VegitalkService {
 		close(conn);
 		return postCount;
 	}
-	
-	public int getPostCount(int boardCode) {
-		Connection conn = getConnection();
-		int postCount = new VegitalkDAO().getPostCount(conn, boardCode);
-		close(conn);
-		return postCount;
-	}
 
 //	public ArrayList<Board> getPListAll(PageInfo pi) {
 //		Connection conn = getConnection();

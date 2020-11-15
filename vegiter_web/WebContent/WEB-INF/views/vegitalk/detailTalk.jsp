@@ -7,6 +7,7 @@
 	Attachment atc = (Attachment) request.getAttribute("atc");
 	ArrayList<Comments> list = (ArrayList) request.getAttribute("list");
 	BookMark bmkList = (BookMark) request.getAttribute("bmkList");
+	System.out.println(post);
 %>
 <!DOCTYPE html>
 <html>
@@ -72,7 +73,7 @@
 	.comment {box-sizing: border-box;width: 500px;background-color: #F0F3F5;height: auto;padding: 14px;margin-top: 8px;}
 	.comment-list {width: 100%;padding: 0;display: inline-block;margin-top: 8px;}
 	.comment-input {display: flex;justify-content: space-between;margin-top: 20px;vertical-align: middle;}
-	#comUserId {width: 15%; bold;overflow: hidden;font-size: 14px;font-weight: bold !important;height: 20px !important;}
+	#comUserId {width: 15%;font-weight: bold;overflow: hidden;font-size: 14px;font-weight: bold !important;height: 20px !important;}
 	#comContent {width: 50%;font-size: 14px;height: 20px !important;}
 	#comDelBtn {width: 5%;text-align: right;font-size: 14px;height: 20px;important;font-size: 10px;cursor: pointer;}
 	#comDate {width: 30%;font-size: 12px;height: 20px;important;font-size:12px;}
@@ -119,7 +120,7 @@
 			<div class="user-info">
 				<span id="userId"><%=post.getMem_id()%></span> <span id="date"><%=post.getBoard_date()%></span>
 			</div>
-			<i class="far fa-bookmark" id="bmkBtn" value="<%=bmkList%>"></i>
+			<%-- <i class="far fa-bookmark" id="bmkBtn" value="<%=bmkList%>"></i> --%>
 		</div>
 
 		<textarea name="write" id="wirte-area" readonly><%=post.getBoard_content()%></textarea>
@@ -142,13 +143,15 @@
 				<%
 					for (int i = 0; i < list.size(); i++) {
 				%>
-					<div class="row commentRow">
+					<li class="row commentRow">
 						<input type="hidden" value="<%= list.get(i).getComNo() %>">
-						<span class="col-2 commentCol" id="comUserId"><%= list.get(i).getMemId() %></span>
+						<span class="col-2 commentCol" class="comUserId" id="comUserId"><%= list.get(i).getMemId() %></span>
 						<span class="col-7 commentCol" id="comContent"><%= list.get(i).getComContent() %></span>
-						<span class="comDelBtn"><i class="fas fa-times comDelBt" id="comDelBtn"></i></span>
+						<% if(loginUser != null) { %>
+							<span class="comDelBtn"><i class="fas fa-times comDelBt" id="comDelBtn"></i></span>
+						<% } %>
 						<span class="col-3 commentCol" id="comDate"><%= list.get(i).getComDate() %></span>
-					</div>
+					</li>
 				<%
 					}
 				%>
@@ -202,10 +205,9 @@
 							var commentResult = "";
 							
 							for(var i=0 in data){
-								commentResult += "<div class='row commentRow'><input type='hidden' value=''><div class='col-2' id='comUserId'>" + data[i].memId + "</div>"
+								commentResult += "<li class='row commentRow'><input type='hidden' value=''><div class='col-2' id='comUserId'>" + data[i].memId + "</div>"
 													+ "<div class='col-7' id='comContent'>" + data[i].comContent + "</div>"
-													+ "<span class='comDelBtn'><i class='fas fa-times' id='comDelBtn'></i></span>"
-													+ "<div class='col-3' id='comDate'>" + data[i].comDate + "</div></div>";
+													+ "<div class='col-3' id='comDate'>" + data[i].comDate + "</div></li>";
 							}
 						$('#commentSelect').html(commentResult).trigger("create");
 					}
@@ -216,17 +218,24 @@
 		$('.comDelBtn').click(function(){
 			var comNo = $(this).parents().children().val();
 			var bId =  '<%=post.getBoard_no()%>';
+			var user = '<%= loginUser.getMemId() %>';
+			var writer = $(this).prev().prev().text();
 			var bool = confirm('댓글을 정말 삭제하시겠어요?');
-			
+			console.log(user);
+			console.log(writer);
 			if(bool) {
-				$.ajax({
-					url: '<%= request.getContextPath() %>/deleteCom',
-					data: {bId:bId, comNo:comNo},
-					success: function(data){
-						$(this).parents().rimove();
-					}
-				});
-				location.reload();
+				if(writer !== user) {
+					alert('본인의 댓글만 삭제할 수 있습니다.');
+				} else {
+					$.ajax({
+						url: '<%= request.getContextPath() %>/deleteCom',
+						data: {bId:bId, comNo:comNo},
+						success: function(data){
+							$(this).parents().rimove();
+						}
+					});
+					location.reload();
+				}
 			}
 		});
 		 

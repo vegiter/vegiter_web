@@ -157,38 +157,16 @@ public class VegitalkDAO {
 		return postCount;
 	}
 	
-	public int getPostCountAll(Connection conn, int bCode) {
-		Statement stmt = null;
+	public int getPostCount(Connection conn, int opt) {
+		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		int postCount = 0;
 		String query = prop.getProperty("getPostCount");
 		
 		try {
-			stmt = conn.createStatement();
-			rset = stmt.executeQuery(query);
-			
-			if(rset.next()) {
-				postCount = rset.getInt(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(stmt);
-		}
-		return postCount;
-	}
-	
-	public int getPostCount(Connection conn, int opt) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		int postCount = 0;
-		String query = prop.getProperty("getPostCountAll");
-		
-		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, opt);
-			rset = pstmt.executeQuery(query);
+			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
 				postCount = rset.getInt(1);
@@ -543,7 +521,6 @@ public class VegitalkDAO {
 		case 3: query = prop.getProperty("plist_notice_new"); break;
 		default: query = prop.getProperty("getPListAll");
 		}
-		
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, startRow);

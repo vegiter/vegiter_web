@@ -12,7 +12,6 @@
 	String[] eF = dList.geteFood();
 	String[] eU = dList.geteUrl();
 	BookMark bmkList=(BookMark)request.getAttribute("bmkList");
-	
 %>
 <!DOCTYPE html>
 <html>
@@ -53,20 +52,21 @@
 	.checked{color: #41A693;font-weight: bold;}
 	.user{padding: 1rem;color: #333B3F;font-weight: bold;font-size: 19px;display: flex;justify-content: space-between;align-items: center;}
 	.user-info{width: 95%;display: flex;justify-content: space-between;}
-	#userId{font-size: 20px;}
-	.fa-bookmark{font-size: 20px;cursor: pointer;}
-	.fa-bookmark:hover{cursor: pointer;color: #41A693;}
-	.comment{box-sizing:border-box;width: 600px;background-color: #F0F3F5; height: auto;padding: 14px; margin-top: 8px;}
-	.comment-list{width: 100%; padding: 0; display: inline-block; margin-top: 8px;}
-	.comment-input{display: flex; justify-content: space-between; margin-top: 20px; vertical-align: middle;}
-	#comUserId{display: inline-block; width: 15%; bold; overflow: hidden; font-size: 14px; font-weight: bold !important; height: 20px !important;}
-	#comContent{display: inline-block; width: 60%; font-size: 14px; height: 20px !important;}
-	#comDate{display: inline-block; width: 20%; text-align: right; font-size: 14px;
-			 height: 20px !important;}
-	.commentRow{padding-top: 12px;}
-	.comment-input-field{width: 85%;border-style: none; padding: 8px; outline:none;}
-	.comment-input-submit{width: 50px;}
-	.comment-input-submit:hover{background-color: #41A693;color: #fff;}
+	
+	#userId {font-size: 20px;}
+	.fa-bookmark {font-size: 20px;cursor: pointer;}
+	.fa-bookmark:hover {cursor: pointer;color: #41A693;}
+	.comment {box-sizing: border-box;width: 600px;background-color: #F0F3F5;height: auto;padding: 14px;margin-top: 8px;}
+	.comment-list {width: 100%;padding: 0;display: inline-block;margin-top: 8px;}
+	.comment-input {display: flex;justify-content: space-between;margin-top: 20px;vertical-align: middle;}
+	#comUserId {width: 15%;font-weight: bold;overflow: hidden;font-size: 14px;font-weight: bold !important;height: 20px !important;}
+	#comContent {width: 50%;font-size: 14px;height: 20px !important;}
+	#comDelBtn {width: 5%;text-align: right;font-size: 14px;height: 20px;important;font-size: 10px;cursor: pointer;}
+	#comDate {width: 30%;font-size: 12px;height: 20px;important;font-size:12px;}
+	.commentRow {padding-top: 12px;}
+	.comment-input-field {width: 85%;border-style: none;padding: 8px;outline: none;}
+	.comment-input-submit {width: 50px;}
+	.comment-input-submit:hover {background-color: #41A693;color: #fff;}
 </style>
 </head>
 <body>
@@ -77,7 +77,7 @@
 	<% if(loginUser != null && (loginUser.getMemId()).equals(post.getMem_id())){ %>
 		<div class="write-my">
 			<button id="delete" onclick="location.href='<%= request.getContextPath() %>/delete?bId=<%= post.getBoard_no() %>&bCode=<%= post.getBoard_code() %>'">삭제</button>
-			<button id="modify">수정</button>
+			<!-- <button id="modify">수정</button> -->
 		</div>
 	<% } %>
 
@@ -101,80 +101,126 @@
 		<span id="userId"><%= post.getMem_id() %></span>
 			<span id="date"><%= post.getBoard_date() %></span>
 		</div>
-		<i class="far fa-bookmark"></i>
+		<!-- <i class="far fa-bookmark"></i> -->
 	</div>
 	
 	<textarea name="write" id="wirte-area" readonly><%= post.getBoard_content() %></textarea>
 	
-	<div class="social">
+		<div class="social">
 			<span><i class="far fa-comment-dots"></i><%= post.getBoard_com() %></span>
 			<span class="social-item checked"><i class="far fa-heart"></i><%= post.getBoard_like() %></span>
 		</div>
 
 		<div class="comment">
 			<ul class="comment-list" id="commentSelect">
-			<% if(list.isEmpty()) {%>
-				<span style="color: gray; font-size: 14px;"><%= post.getMem_id() %>님과 가장 먼저 댓글로 이야기해보세요!</span>
-			<% } else { %>
-			<% 		for(int i = 0; i < list.size(); i++) { %>
-				<div class="row commentRow">
-				<div class="col-2 commentCol" id='comUserId'><%=  list.get(i).getMemId()  %></div>
-				<div class="col-7 commentCol" id='comContent'><%=  list.get(i).getComContent()  %></div>
-				<div class="col-3 commentCol" id='comDate'><%=  list.get(i).getComDate()  %></div>
-			</div>
-			  <% } %>
-		<% } %>
+
+				<%
+					if (list.isEmpty()) {
+				%>
+				<span style="color: gray; font-size: 14px;"><%=post.getMem_id()%>님과
+					가장 먼저 댓글로 이야기해보세요!</span>
+				<%
+					} else {
+				%>
+				<%
+					for (int i = 0; i < list.size(); i++) {
+				%>
+					<li class="row commentRow">
+						<input type="hidden" value="<%= list.get(i).getComNo() %>">
+						<span class="col-2 commentCol" class="comUserId" id="comUserId"><%= list.get(i).getMemId() %></span>
+						<span class="col-7 commentCol" id="comContent"><%= list.get(i).getComContent() %></span>
+						<% if(loginUser != null) { %>
+							<span class="comDelBtn"><i class="fas fa-times comDelBt" id="comDelBtn"></i></span>
+						<% } %>
+						<span class="col-3 commentCol" id="comDate"><%= list.get(i).getComDate() %></span>
+					</li>
+				<%
+					}
+				%>
+				<%
+					}
+				%>
 			</ul>
+			<%
+				if (loginUser != null) {
+			%>
 			<div class="comment-input">
+				<input type="hidden" name="user" id="lo" value="<%=loginUser.getMemId()%>">
 				<input type="text" class="comment-input-field" placeholder="댓글을 입력하세요" id="commentContent">
 				<button type="submit" class="comment-input-submit" id="addComment">등록</button>
 			</div>
+			<%
+				}
+			%>
 		</div>
 	</div>
 
 	<script>
-		 $('#addComment').click(function(){
-			var loginUserId = $('.comment-input')children().eq(0).val();
-			if(loginUserId != null) {
-				var writer = loginUserId;
-			}
-			var bId =  '<%= post.getBoard_no() %>';
-			var content = $('#commentContent').val();
-			
-			// 댓글 수 추가
-			if(content == null || content == '') {
-				alert("댓글을 입력해주세요");
-			} else {
-				$.ajax({
-					url: 'countComment.bo',
-					data: {bId:bId},
-					success: function(data){
-						console.log(data);
-					}
-				});
-			
+	//댓글 관련
+		$('#addComment').click(function(){
+		var loginUserId = $('.comment-input').children().eq(0).val();
+		
+		if(loginUserId != null) {
+			var writer = loginUserId;
+		}
+		
+		var bId =  '<%=post.getBoard_no()%>';
+		var content = $('#commentContent').val();
+		
+		// 댓글 수 추가
+		if(content == null || content == '') {
+			alert("댓글을 입력해주세요");
+		} else {
 			$.ajax({
-				url: 'insertComment.bo',
+				url:'<%= request.getContextPath() %>/countComment.bo',
+				data:{bId:bId},
+				success: function(data){}
+			});
+		
+			$.ajax({
+				url: '<%= request.getContextPath() %>/insertComment.bo',
 				data: {writer:writer, bId:bId, content:content},
 				success: function(data){
-					console.log(data);
-					
 					$('#commentSelect').html('');
 					$('#commentContent').val('');	// 댓글 입력 후 기존 내용 삭제
-					
-					var commentResult = "";
-					
-					for(var i=0 in data){
-						commentResult += "<div class='col-2' id='comUserId'>" + data[i].memId + "</div>"
-											+ "<div class='col-7' id='comContent'>" + data[i].comContent + "</div>"
-											+ "<div class='col-3' id='comDate'>" + data[i].comDate + "</div>";
-					}
-					$('#commentSelect').html('<div class="row commentRow">' + commentResult + '</div>');
+							
+						var commentResult = "";
+						
+						for(var i=0 in data){
+							commentResult += "<li class='row commentRow'><input type='hidden' value=''><span class='col-2' id='comUserId'>" + data[i].memId + "</span>"
+												+ "<span class='col-7' id='comContent'>" + data[i].comContent + "</span>"
+												+ "<span class='col-3' id='comDate'>" + data[i].comDate + "</span></li>";
+						}
+					$('#commentSelect').html(commentResult).trigger("create");
 				}
-			});
+			});	
+		}
+	});
+	
+	$('.comDelBtn').click(function(){
+		var comNo = $(this).parents().children().val();
+		var bId =  '<%=post.getBoard_no()%>';
+		var user = '<%= loginUser.getMemId() %>';
+		var writer = $(this).prev().prev().text();
+		var bool = confirm('댓글을 정말 삭제하시겠어요?');
+		console.log(user);
+		console.log(writer);
+		if(bool) {
+			if(writer !== user) {
+				alert('본인의 댓글만 삭제할 수 있습니다.');
+			} else {
+				$.ajax({
+					url: '<%= request.getContextPath() %>/deleteCom',
+					data: {bId:bId, comNo:comNo},
+					success: function(data){
+						$(this).parents().rimove();
+					}
+				});
+				location.reload();
 			}
-		});
-		
+		}
+	});
+	
 		$('#modify').click(function(){
 			var bId = $('.user').children().val();
 			location.href="<%= request.getContextPath() %>/editForm?bId=" + bId;

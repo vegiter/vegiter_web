@@ -13,9 +13,9 @@
 	.f_div1 {text-align: center; margin: 20px 0; min-width: 600px;}
 	.f_div1 span{font-size: 16px; text-align: center; color : white; padding: 2px;}
 	.f_div1 p{font-size: 12px;margin: auto; color: white;}
-	.f_div1 a{text-decoration: none;}
+	.f_div1 a{text-decoration: none; color:white}
 	.f_div1>p{margin: 8px 0;}
-	.f_div1 a{color: #ACB5BD;}
+	#gitUrl{color: #ACB5BD;}
 </style>
 </head>
 <body>
@@ -23,12 +23,10 @@
 		<div class="f_div1">
 			<a href="#" onclick="aboutPage();"><span>About</span></a>
 			<span> | </span>
-			<span>Privacy</span>
-			<span> | </span>
-			<span>Feedback</span>
+			<span><a href="https://github.com/vegiter/vegiter_web/issues">Feedback</a></span>
 			<span> | </span>
 			<a href="#"><span>Top</span></a>
-			<p><a href="https://github.com/vegiter/vegiter_web">채채식 팀 GitHub</a></p>
+			<p><a href="https://github.com/vegiter/vegiter_web" id="gitUrl">채채식 팀 GitHub</a></p>
 		</div>
 	</footer>
 	

@@ -10,8 +10,7 @@
 	int maxPage = pi.getMaxPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
-/* 	int opt = Integer.parseInt((String)request.getAttribute("opt"));
-	System.out.println(opt); */
+	int opt = (int)request.getAttribute("opt");
 %>
 <!DOCTYPE html>
 <html>
@@ -31,7 +30,7 @@
 	button{outline: none; background-color: white;border-style: none;}
 	textarea{outline: none; padding: 1rem;border-style: none;}
 	input:focus{outline: none;}
-	.wrapper{width: 80%; min-width: 600px; max-width: 1300px; margin: auto; margin-top: 150px; margin-bottom: 40px; overflow: hidden;}
+	.wrapper{width: 80%; min-width: 600px; max-width: 1300px; min-height: 700px; margin: auto; margin-top: 150px; margin-bottom: 40px; overflow: hidden;}
 	#noBoard{margin: 160px auto;}
 	.option{padding: 10px; display: flex; justify-content: space-between; margin: 10px 0; align-items: center;}
 	.opt-type{width: 270px;}
@@ -53,7 +52,7 @@
 	.board-list-item{background-color: #DEE2E5; height: 130px; text-align: left;}
 	.board-list-item h1{font-size: 20px; padding: 10px; font-weight: bold; color: #21403A;}
 	.board-list-item>p{padding: 0 15px; height: 50px; width: 260px; color: #485056; line-height: 1.5rem;}
-	.board-list-item-con>p{text-overflow: ellipsis;}
+	.board-list-item-con>p{text-overflow: ellipsis; overflow: hidden;}
 	.board-list-item-social{text-align: right; color: #485056; padding: 10px 15px;}
 	.board-list-item-social span{margin-left: 5px;}
 	.board-list-item-social>i{color: #485056;}
@@ -64,7 +63,7 @@
 	
 	.writeBtn{position: fixed; bottom: 50px; right: 10%;color: #fff; cursor: pointer; border-radius: 50%; background-color: #41A693; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;}
 	.writeBtn i{color: #fff;}
-	.writeBtn.onHeight{position: absolute; bottom: -40px;}
+	.writeBtn.on{position: absolute;bottom: 125px;}
 </style>
 <script src="https://kit.fontawesome.com/34238d14b4.js" crossorigin="anonymous"></script>
 <script src="<%= request.getContextPath()%>/js/jquery-3.5.1.min.js"></script>
@@ -84,10 +83,10 @@
 				<span class="opt-type filter" value="2">#식단공유</span>
 				<span class="opt-type filter" value="1">#공지/이벤트</span>
 			</div>
-			<div class="opt-search">
+			<!-- <div class="opt-search">
 				<input type="text" name="keyword" class="option-search-input">
 				<button class="option-search-Btn"><i class="fas fa-search"></i></button>
-			</div>
+			</div> -->
 		</div>
 		
 		<ul class="board">
@@ -114,7 +113,6 @@
 				            <p class="board-list-item-con"><%= p.getBoard_content() %></p>
 				            <div class="board-list-item-social">
 				                <span><i class="far fa-comment-dots"></i><%= p.getBoard_com() %></span>
-				                <span><i class="far fa-heart"></i><%= p.getBoard_like() %></span>
 				            </div>
 					    </div>
 					</li>
@@ -127,7 +125,7 @@
 				   	 	if(p == currentPage) { %>
 							<span class="paging-item"><%= p %></span>
 					<%  } else { %>
-						<span class="paging-item" onclick="goPage()'"><%= p %></span>
+						<span class="paging-item" onclick="location.href='<%= request.getContextPath() %>/vegiTalk?opt=<%= opt %>&currentPage=<%= p %>'"><%= p %></span>
 					<%  } 
 				  } %>	
 				<span class="paging-item">&gt;</span>
@@ -136,24 +134,27 @@
 	</div>
 	
 	<% if(loginUser != null) { %>
-	<div class="writeBtn" onclick="location.href='writePost'"><i class="fas fa-pen"></i></div>
+		<div class="writeBtn" onclick="location.href='writePost'"><i class="fas fa-pen"></i></div>
 	<% } %>
 	
 	<%@ include file="../common/footer.jsp" %>
 	<script>
 		$(function() { //글쓰기 버튼 푸터 상단 배치
 			var $w = $(window),
-				fHeight = $('footer').outerHeight();
-			
-			$w.on('scroll', function() {
-				var sT = $w.scrollTop();
-				var hVal = $(document).height() - $w.height() - fHeight;
-				
-				if(sT >= hVal)
-					$('.writeBtn').addClass('onHeight');
-				else
-					$('.writeBtn').removeClass('onHeight');
-			});
+		    footerHei = $('footer').outerHeight(),
+		    $btn = $('.writeBtn');
+
+		  	$w.on('scroll', function() {
+
+		    var sT = $w.scrollTop();
+		    var val = $(document).height() - $w.height() - footerHei;
+
+		    if (sT >= val)
+		        $btn.addClass('on')
+		    else
+		    	$btn.removeClass('on')
+
+		  	});
 		});
 		
 		$(function(){
@@ -191,11 +192,11 @@
 		});
 		
 		$(function() { //sort 옵션 버튼 클릭 이벤트
-			var opt = 3;
+			var opt = <%= opt %>;
 			
 			$('.opt-type').children().eq(opt).css('color', '#41A693');
 		
-			$('.opt-type').children().eq(0).click(function(){
+			$('.opt-type').children().click(function(){
 				location.href="<%= request.getContextPath() %>/vegiTalk?opt=0";
 			});
 			
@@ -211,11 +212,6 @@
 				location.href="<%= request.getContextPath() %>/vegiTalk?opt=3";
 			});
 		});
-			
-		<%-- function goPage() {
-			var opt1 = $('.opt-type>span.filter').css("color");
-			var opt1 = $('.opt-type>span.filter').css("color");
-			location.href='<%= request.getContextPath() %>/vegiTalk?opt='+ +'&currentPage=<%= p %>'; --%>
 	</script>
 </body>
 </html>

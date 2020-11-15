@@ -48,7 +48,6 @@ public class GoVegitalkServlet extends HttpServlet {
 		
 		if(pList != null && aList != null) {
 			request.setAttribute("opt", opt);
-			System.out.println(opt);
 			request.setAttribute("pi", pi);
 			request.setAttribute("pList", pList);
 			request.setAttribute("aList", aList);
