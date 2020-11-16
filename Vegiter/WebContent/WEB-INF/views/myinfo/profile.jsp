@@ -4,6 +4,8 @@
 <%
 	ArrayList<Board> bList = (ArrayList<Board>)request.getAttribute("bList");
 	ArrayList<Attachment> fList = (ArrayList<Attachment>)request.getAttribute("fList");
+	ArrayList<Board> writeList = (ArrayList<Board>)request.getAttribute("writeList");
+	ArrayList<Attachment> writefList = (ArrayList<Attachment>)request.getAttribute("writefList");
 %>
 
 <!DOCTYPE html>
@@ -115,13 +117,12 @@
 		height: 80px;
 		background: darkgray;
 	}
-	#bookmark .profile-content{
+	#bookmark .profile-content,  #writeBoard .profile-content{
 		width: 500px;
 	}
-	#bookmark .profile-header{
+	#bookmark .profile-header, #writeBoard .profile-header{
 		border-right: none;
-		border-right: none;
-	}	
+	}
 /* 	*{border: 1px solid green;} */
 </style>
 </head>
@@ -184,7 +185,7 @@
 					</table>
 				</div>
 			</div>
-				<div class="content">
+			<div class="content">
 				<div class="title">북마크</div>
 				<div class="subtitle">
 					<table id="bookmark">
@@ -197,7 +198,8 @@
 								<tr class="thumnail-tr">
 									<td class="profile-header" id="fList-td">
 									<%if(fList.get(i) != null){ %>
-										<img src="<%=request.getContextPath()%>/thumnail_uploadFiles/<%= fList.get(i).getAtcName()%>">
+										<img src="<%=request.getContextPath()%>/thumnail_uploadFiles/<%= fList.get(i+1).getAtcName()%>">
+										<input type="hidden" name="bNo" id="no<%=i %>" value="<%=bList.get(i).getBoard_no()%>">
 									<%} %>
 									</td>
 									<td class="profile-content">
@@ -212,6 +214,8 @@
 										<span id="boardCode-span"><%= codeName %></span>
 										<%= bList.get(i).getBoard_title() %>
 									</td>
+									<td><%= writeList.get(i).getBoard_date() %></td>
+									<td><%= bList.get(i).getMem_id() %></td>
 								</tr>
 							<%} %>
 						<%} %>
@@ -227,8 +231,6 @@
 
 			window.location.href='<%= request.getContextPath() %>/UpdateForm.me';	
 		});
-	</script>
-	<script>
 		function deleteMember(){
 			var bool = confirm("정말 탈퇴하시겠습니까?");
 			
@@ -236,7 +238,68 @@
 				location.href='delete.me';
 			}
 		}
+		/* 상세조회 */
+		$(function(){
+			$('#bookmark td').mouseover(function(){
+				$(this).parent().css({'font-weight':'bolder','cursor':'pointer'})
+			}).mouseout(function(){
+				$(this).parent().css('font-weight','normal');
+			}).click(function(){
+				var num = $(this).parent().find('input').val();
+				location.href = '<%=request.getContextPath()%>/detail.recipe?bId='+num;
+			});
+		})
+		
 	</script>
+	<div class="content">
+				<div class="title">Recipe 게시글 확인하기</div>
+				<div class="subtitle">
+					<table id="writeBoard">
+					<%if(writeList.isEmpty()){ %>
+						<tr>게시한 목록이 없습니다.</tr>
+					<%}else{ %>
+						<%for(int i = 0; i < writeList.size(); i++){ %>
+							<% int code = writeList.get(i).getBoard_code(); %>
+							<% String codeName = ""; %>
+								<tr class="thumnail-tr">
+									<td class="profile-header" id="fList-td">
+									<%if(writefList.get(i) != null){ %>
+										<img src="<%=request.getContextPath()%>/thumnail_uploadFiles/<%= writefList.get(i+1).getAtcName()%>">
+										<input type="hidden" name="bNo" id="no<%=i %>" value="<%=writeList.get(i).getBoard_no()%>">
+									<%} %>
+									</td>
+									<td class="profile-content">
+										<%
+										switch(code){
+										case 0: codeName = "레시피"; break;
+										case 1: codeName = "도란도란"; break;
+										case 2: codeName = "식단"; break;
+										case 3: codeName = "공지사항"; break;
+										} 
+										%>
+										<span id="boardCode-span"><%= codeName %></span>
+										<%= writeList.get(i).getBoard_title() %>
+									</td>
+									<td><%= writeList.get(i).getBoard_date() %></td>
+								</tr>
+							<%} %>
+						<%} %>
+					</table>
+				</div> 
+			</div>
+			<script>
+				$(function(){
+					$('#writeBoard td').mouseover(function(){
+						$(this).parent().css({'font-weight':'bolder','cursor':'pointer'})
+						
+					}).mouseout(function(){
+						$(this).parent().css('font-weight','normal');
+					}).click(function(){
+						var num = $(this).parent().find('input').val();
+						location.href = "<%=request.getContextPath()%>/detail.recipe?bId="+num;
+					});
+				});
+			</script>
 	</section>
 	<%@ include file="../common/footer.jsp" %>
 	

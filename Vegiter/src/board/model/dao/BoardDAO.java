@@ -278,7 +278,6 @@ public class BoardDAO {
 			result=pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
@@ -768,6 +767,76 @@ public class BoardDAO {
 
 
 
+	public ArrayList<Board> selectBoardByMem(Connection conn, String userId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Board> writeList = null;
+		String query = prop.getProperty("selectBoardByMem");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userId);
+			
+			writeList = new ArrayList<Board>();
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				writeList.add(new Board(rset.getInt("board_no"),
+										rset.getInt("board_code"),
+										rset.getString("mem_id"),
+										rset.getString("board_title"),
+										rset.getDate("board_date"),
+										rset.getString("board_content"),
+										rset.getInt("board_count"),
+										rset.getInt("board_like"),
+										rset.getInt("board_com"),
+										rset.getString("board_status")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+			
+		}
+		return writeList;
+	}
+
+
+
+	public ArrayList<Attachment> selectThumbnailByMem(Connection conn, String userId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Attachment> writefList = null;
+		String query = prop.getProperty("selectThumbnailByMem");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			writefList = new ArrayList<Attachment>();
+			while(rset.next()) {
+				writefList.add(new Attachment(rset.getInt("atc_no"),
+										rset.getString("mem_id"),
+										rset.getInt("atc_type"),
+										rset.getString("atc_origin"),
+										rset.getString("atc_name"),
+										rset.getString("atc_path"),
+										rset.getDate("atc_date"),
+										rset.getInt("atc_level"),
+										rset.getString("atc_status").charAt(0),
+										rset.getInt("board_no")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return writefList;
+	}
 
 	
 }

@@ -333,4 +333,20 @@ public class BoardService {
 		return fList;
 	}
 
+
+	public ArrayList<Board> selectBoardByMem(String userId) {
+		Connection conn = getConnection();
+		ArrayList<Board> writeList = new BoardDAO().selectBoardByMem(conn, userId);
+		close(conn);
+		return writeList;
+	}
+
+
+	public ArrayList<Attachment> selectThumbnailByMem(String userId) {
+		Connection conn = getConnection();
+		ArrayList<Attachment> writefList = new BoardDAO().selectThumbnailByMem(conn, userId);
+		close(conn);
+		return writefList;
+	}
+
 }

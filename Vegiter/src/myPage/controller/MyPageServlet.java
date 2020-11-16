@@ -42,10 +42,14 @@ public class MyPageServlet extends HttpServlet {
 		if(bookList != null) {
 			ArrayList<Board> bList = bService.selectBoardByBook(bookList);
 			ArrayList<Attachment> fList = bService.selectOnlyThumbnail(bookList);
+			ArrayList<Board> writeList = bService.selectBoardByMem(userId);
+			ArrayList<Attachment> writefList = bService.selectThumbnailByMem(userId);
 			
-			if(bList != null) {
+			if(bList != null && writeList != null) {
 				request.setAttribute("bList", bList);
 				request.setAttribute("fList", fList);
+				request.setAttribute("writeList", writeList);
+				request.setAttribute("writefList", writefList);
 				page = "WEB-INF/views/myinfo/profile.jsp";
 			}
 			
