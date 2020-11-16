@@ -198,7 +198,7 @@
 								<tr class="thumnail-tr">
 									<td class="profile-header" id="fList-td">
 									<%if(fList.get(i) != null){ %>
-										<img src="<%=request.getContextPath()%>/thumnail_uploadFiles/<%= fList.get(i+1).getAtcName()%>">
+										<img src="<%=request.getContextPath()%>/thumnail_uploadFiles/<%= fList.get(i).getAtcName()%>">
 										<input type="hidden" name="bNo" id="no<%=i %>" value="<%=bList.get(i).getBoard_no()%>">
 									<%} %>
 									</td>
@@ -263,8 +263,10 @@
 							<% String codeName = ""; %>
 								<tr class="thumnail-tr">
 									<td class="profile-header" id="fList-td">
-									<%if(writefList.get(i) != null){ %>
-										<img src="<%=request.getContextPath()%>/thumnail_uploadFiles/<%= writefList.get(i+1).getAtcName()%>">
+									<%if(writefList.get(i) != null ){ %>
+										<%if(writeList.get(i).getBoard_no() == writeList.get(i).getBoard_no()) {%>
+										<img src="<%=request.getContextPath()%>/thumnail_uploadFiles/<%= writefList.get(i).getAtcName()%>">
+										<%} %>
 										<input type="hidden" name="bNo" id="no<%=i %>" value="<%=writeList.get(i).getBoard_no()%>">
 									<%} %>
 									</td>
