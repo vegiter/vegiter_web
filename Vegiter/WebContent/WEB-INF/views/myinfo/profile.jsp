@@ -214,7 +214,7 @@
 										<span id="boardCode-span"><%= codeName %></span>
 										<%= bList.get(i).getBoard_title() %>
 									</td>
-									<td><%= writeList.get(i).getBoard_date() %></td>
+									<td><%= bList.get(i).getBoard_date() %></td>
 									<td><%= bList.get(i).getMem_id() %></td>
 								</tr>
 							<%} %>
