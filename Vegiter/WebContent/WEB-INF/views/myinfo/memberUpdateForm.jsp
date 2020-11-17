@@ -7,16 +7,17 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>	
-	/* *{border: 2px solid green;} */
-	#zeroArea {
-		display: block;
-		height: 70px;
-	}
+	*{border: 2px solid green;} 
 	.name{
+		display: inline-block;
 		text-align: center;
-		font-size: 4.5rem;
+		font-size: 30px;
 		font-weight: bold;
-		}
+		margin-top: 80px;
+		background: pink;
+		width: 200px;
+		height: 50px;
+	}
 	.outer{
 		width: 48%; height: 450px; background-color: rgba(255, 255, 255, 0.4); border: 5px solid white;
 		margin-left: auto; margin-right: auto; margin-top: 5%;
@@ -26,7 +27,6 @@
 	margin-left: 150px;
 	}
 	.table{
-/*   		border: 1px solid #ccc; */
     	padding: 0 5px;
     	margin-bottom: 0px; 
     	width: 350px;
@@ -44,36 +44,33 @@
 </head>
 <body>
 <%@ include file="../common/gnb.jsp" %>
-	<div id="zeroArea"></div>
 	<div class="name">
 		My Page
 	</div>		
 	<div class="outer">
-		
 		<form action="<%= request.getContextPath() %>/update.me" method="post" id="updateForm" name="updateForm">
 			<table class="table">
 				<tr>
 					<td width="center">아이디</td>
 					 <td width="center">
-					 <%= loginUser.getMemId() %>
-					<%--  <input type="text" maxlength="13" name="myId" required vlaue= "<%= loginUser.getMemId() %>"> --%>
+					 	<%= loginUser.getMemId() %>
 					 </td>
 				</tr>
 				<tr>
 					<td>이름</td>
-					<td><input type="text" name="myName" required vlaue="<%= loginUser.getMemName() %>"></td>
+					<td><input type="text" name="myName" required value="<%= loginUser.getMemName() %>"></td>
 				</tr>
 				<tr>
 					<td>연락처</td>
 					<td>
 						<input type="tel" maxlength="11" name="myPhone" placeholder="(-없이)01012345678" 
-						vlaue="<%= loginUser.getMemPhone() == null ? "" : loginUser.getMemPhone() %>">
+						value="<%= loginUser.getMemPhone() == null ? "" : loginUser.getMemPhone() %>">
 					</td>
 				</tr>
 				<tr>
 					<td>이메일</td>
 					<td><input type="email" name="myEmail" placeholder="joker@naver.com" required
-					vlaue="<%= loginUser.getMemEmail() == null ? "" : loginUser.getMemEmail() %>">
+					value="<%= loginUser.getMemEmail() == null ? "" : loginUser.getMemEmail() %>">
 					</td>
 				</tr>
 			</table>

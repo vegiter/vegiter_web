@@ -98,7 +98,7 @@
 	.profile-header{
 		border-right: 1px solid lightgray;
 	}
-	#boardCode-span{
+	#boardCode-span, #write-boardCode-span{
 		font-weight: bolder;
 		color: rgb(45, 115, 102);
 		margin-right: 5px;
@@ -112,7 +112,7 @@
 		font-size: 1.25rem;
 		border-radius: 16px;
 	}
-	#fList-td img{
+	#fList-td img, #wList-td img{
 		width: 80px; 
 		height: 80px;
 		background: darkgray;
@@ -262,7 +262,7 @@
 							<% int code = writeList.get(i).getBoard_code(); %>
 							<% String codeName = ""; %>
 								<tr class="thumnail-tr">
-									<td class="profile-header" id="fList-td">
+									<td class="profile-header" id="wList-td">
 									<%if(writefList.get(i) != null ){ %>
 										<%if(writeList.get(i).getBoard_no() == writeList.get(i).getBoard_no()) {%>
 										<img src="<%=request.getContextPath()%>/thumnail_uploadFiles/<%= writefList.get(i).getAtcName()%>">
@@ -279,7 +279,7 @@
 										case 3: codeName = "공지사항"; break;
 										} 
 										%>
-										<span id="boardCode-span"><%= codeName %></span>
+										<span id="write-boardCode-span"><%= codeName %></span>
 										<%= writeList.get(i).getBoard_title() %>
 									</td>
 									<td><%= writeList.get(i).getBoard_date() %></td>
