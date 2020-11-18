@@ -267,8 +267,8 @@
 					<div class="input-info">
 						<select name="gender">
 							<option selected value="N">성별</option>
-							<option value="F" id="gender-m">남자</option>
-							<option value="M" id="gender-f">여자</option>
+							<option value="M" id="gender-m">남자</option>
+							<option value="F" id="gender-f">여자</option>
 							<option value="N" id="gender-n">선택 안함</option>
 						</select>
 					</div>

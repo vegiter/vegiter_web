@@ -116,7 +116,7 @@
 				<tr>
 					<td class="input-header">성별</td>
 					<td>
-						<select>
+						<select name="gender">
 							<option value="N">--</option>
 							<option value="F" <%= gen[1]%>>여자</option>
 							<option value="M" <%= gen[2]%>>남자</option>
@@ -127,7 +127,7 @@
 				<tr>
 					<td class="input-header">푸드 스타일</td>
 					<td>
-						<select>
+						<select name="style">
 							<option selected value=null>-------------</option>
 							<option value="플렉시터리언" <%= styleArr[0] %>>플렉시터리언</option>
 							<option value="락토" <%= styleArr[1] %>>락토</option>
