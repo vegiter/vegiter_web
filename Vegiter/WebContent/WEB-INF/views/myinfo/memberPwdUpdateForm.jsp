@@ -48,16 +48,19 @@
 		<table>
 				<tr>
 					<td><input class="password" type="password" name="userPwd1" id="userPwd1" placeholder="현재 비밀번호" 
-					style="width:335px; height:50px"></td>
+					style="width:335px; height:40px"></td>
 				</tr>
 				<tr>
 
 					<td><input class="newPwd" type="password" name="newPwd" id="newPwd" placeholder="새 비밀번호"
-					style="width:335px; height:50px"></td>
+					style="width:335px; height:40px"></td>
 				</tr>
 				<tr>
 					<td><input class="newPwd2" type="password" name="newPwd2" id="newPwd2" placeholder="새 비밀번호 확인"
-					style="width:335px; height:50px"></td>
+					style="width:335px; height:40px"></td>
+				</tr>
+				<tr>
+					<td><div id="error" class="error"></div></td>
 				</tr>
 		</table>
 			
@@ -71,6 +74,22 @@
 	</div>
 	
 	<script>
+		
+		$(function(){
+			$('input').focusin(function(){
+				$(this).css({'border':'2px soild green', 'box-shadow': '0x 0px 5px green'});
+			}).focusout(function(){
+				$(this).css({'border':'2px solid lightgray','box-shadow':'none'});
+			});
+		});
+		var checkPwd = false;
+		
+		var regExp1 = /\d/; //숫자
+		var regExp2 = /\S/; //띄어쓰기 제외
+		var regExp3 = /[a-z]|[A-Z]/; //영어 사용/ 대소문자 구분
+		var regExp4 = /~!@#$%^&*()_+|\-,.=`/; //특수 문자 사용 여부
+		
+		$('#newPwd2')
 		function send(){
 			var newPwd = $("input[name='newPwd']");
 			var newPwd2 = $("input[name='newPwd2']");
@@ -84,6 +103,8 @@
 			} else if(newPwd.val().trim() == '' || newPwd2.val().trim() == ''){
 				alert('비밀번호를 입력해주세요');
 				return false;
+			}else if(checkPwd){
+				$('#error').text('비밀번호는 6자리 이상 영문, 특수문자, 숫자 1개 이상입력해야 합니다.');
 			}
 			  return true;
 		}

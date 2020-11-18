@@ -157,16 +157,16 @@ public class VegitalkDAO {
 		return postCount;
 	}
 	
-	public int getPostCount(Connection conn, int opt) {
+	public int getPostCount(Connection conn, int boardCode) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		int postCount = 0;
-		String query = prop.getProperty("getPostCount");
+		String query = prop.getProperty("getPostCountAll");
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, opt);
-			rset = pstmt.executeQuery();
+			pstmt.setInt(1, boardCode);
+			rset = pstmt.executeQuery(query);
 			
 			if(rset.next()) {
 				postCount = rset.getInt(1);
@@ -180,7 +180,7 @@ public class VegitalkDAO {
 		return postCount;
 	}
 
-	public ArrayList<Board> getPList(Connection conn, PageInfo pi) {
+	public ArrayList<Board> getPListAll(Connection conn, PageInfo pi) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Board> pList = new ArrayList();
@@ -510,23 +510,26 @@ public class VegitalkDAO {
 	public ArrayList<Board> getPList(Connection conn, PageInfo pi, int opt) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		ArrayList<Board> pList = new ArrayList<>();;
+		ArrayList<Board> pList = null;
 		String query = "";
 		int startRow = (pi.getCurrentPage() - 1) * pi.getPostLimit() + 1;
 		int endRow = (startRow + pi.getPostLimit()) - 1;
 		
-		switch(opt) {
-		case 1: query = prop.getProperty("plist_talk_new"); break;
-		case 2: query = prop.getProperty("plist_diet_new"); break;
-		case 3: query = prop.getProperty("plist_notice_new"); break;
-		default: query = prop.getProperty("getPListAll");
+		if(opt == 1) {
+			query = prop.getProperty("plist_talk_new");
+		} else if(opt == 2) {
+			query = prop.getProperty("plist_diet_new");
+		} else {
+			query = prop.getProperty("plist_notice_new");
 		}
+		
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
 			rset = pstmt.executeQuery();
 			
+			pList = new ArrayList<>();
 			while(rset.next()) {
 				Board post = new Board(rset.getInt("board_no"),
 								   rset.getInt("board_code"),
@@ -547,39 +550,5 @@ public class VegitalkDAO {
 			close(rset);
 		}
 		return pList;
-	}
-
-	public int delCntComment(Connection conn, int bId) {
-		PreparedStatement pstmt = null;
-		int result = 0;
-		String query = prop.getProperty("delCntComment");
-		
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, bId);
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		return result;
-	}
-	
-	public int delComment(Connection conn, int comNo) {
-		PreparedStatement pstmt = null;
-		int result = 0;
-		String query = prop.getProperty("delComment");
-		
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, comNo);
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		return result;
 	}
 }

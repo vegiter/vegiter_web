@@ -215,20 +215,6 @@
 				<p>소셜로 간편하게 로그인하세요.</p>
 				<div id="naverIdLogin"></div>
 			</div>
-			<script type="text/javascript">
-				var naverLogin = new naver.LoginWithNaverId(
-				{
-					clientId: "w3sXDEgZtjtnF9AcUJSw",
-					callbackUrl: "http://localhost:9981/Vegiter/enrollForm.me",
-					isPopup: true, /* 팝업을 통한 연동처리 여부 */
-					loginButton: {color: "white", type:3, height:40} /* 로그인 버튼의 타입을 지정 */
-				}
-				);
-	
-				/* 설정정보를 초기화하고 연동을 준비 */
-				naverLogin.init();
-	
-			</script>
 		</article>
 		<article>
 			<form method="post" id="insertMember"
@@ -281,8 +267,8 @@
 					<div class="input-info">
 						<select name="gender">
 							<option selected value="N">성별</option>
-							<option value="F" id="gender-m">남자</option>
-							<option value="M" id="gender-f">여자</option>
+							<option value="M" id="gender-m">남자</option>
+							<option value="F" id="gender-f">여자</option>
 							<option value="N" id="gender-n">선택 안함</option>
 						</select>
 					</div>

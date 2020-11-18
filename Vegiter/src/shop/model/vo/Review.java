@@ -1,3 +1,4 @@
+
 package shop.model.vo;
 
 import java.sql.Date;

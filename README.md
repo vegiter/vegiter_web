@@ -12,6 +12,7 @@
 		<td>프로젝트 주제</td>
 		<td>채식주의자를 위한 식당 정보와 레시피 공유</td>
 	</tr>
+<<<<<<< HEAD
 	<tr>
 		<td>서비스 카테고리</td>
 		<td>메인/About/식당찾기/레시피게시판/식단&소통공유게시판/MyPage</td>
@@ -68,3 +69,27 @@
 	<li><a href="https://github.com/vegiter/vegiter_web/issues/20">데이터 테이블</a></li>
 	<li><a href="https://github.com/vegiter/vegiter_web/issues/21">화면 설계</a></li>
 </ul>
+=======
+</table>
+
+<h3>프로젝트 일정</h3>
+<table>
+	<tr>
+		<td>기획</td>
+		<td>2020. 09. 18 - 2020. 09. 22</td>
+	</tr>
+	<tr>
+		<td>UI 설계</td>
+		<td>2020. 09. 22 - 2020. 09. 28</td>
+	</tr>
+	<tr>
+		<td>DB 설계</td>
+		<td>2020. 09. 29 - 2020. 10. 02</td>
+	</tr>
+	<tr>
+		<td>기능구현</td>
+		<td>2020. 10. 19 - 2020. 10. 30</td>
+	</tr>
+</table>
+
+>>>>>>> refs/heads/myPage01

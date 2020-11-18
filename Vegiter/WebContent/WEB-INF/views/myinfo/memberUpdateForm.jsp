@@ -1,38 +1,57 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>	
-	/* *{border: 2px solid green;} */
-	#zeroArea {
-		display: block;
-		height: 70px;
+/*  	*{border: 2px solid green;}   */
+	body{
+		background: rgb(246, 246, 246);
 	}
 	.name{
-		text-align: center;
-		font-size: 4.5rem;
+		font-size: 30px;
 		font-weight: bold;
-		}
+		margin-top: 80px;
+	}
+	.name h3{
+		width: 500px;
+		height: 50px;
+		margin: auto;
+		text-align: center;
+		background: darkgray;
+		color: white;
+		border-radius: 5px;
+		box-shadow: 2px 2px 3px 2px lightgray;
+	}
 	.outer{
-		width: 48%; height: 450px; background-color: rgba(255, 255, 255, 0.4); border: 5px solid white;
-		margin-left: auto; margin-right: auto; margin-top: 5%;
+		margin-top: 10px;
 	}
 	#updateForm{
-	width: 500px;
-	margin-left: 150px;
 	}
 	.table{
-/*   		border: 1px solid #ccc; */
-    	padding: 0 5px;
-    	margin-bottom: 0px; 
-    	width: 350px;
-		height: 70px;
     	margin: auto;
-    	
+    	border-radius: 5px;
+    	background: white;
+    	box-shadow: 2px 2px 3px 2px lightgray;
+    	padding: 10px;
+    	width: 500px;
+	}
+	.table td{
+		height: 40px;
+	}
+	.input-header{
+		width: 150px;
+		text-align: center;
+	}
+	input, select{
+		border: 1px solid gray;
+		height: 25px;
+		margin-left: 20px;
+	}
+	#userId-td{
+		padding-left: 20px;
 	}
 	#myForm td {text-align: center;}
 	#myForm>table{margin: auto;}
@@ -44,40 +63,84 @@
 </head>
 <body>
 <%@ include file="../common/gnb.jsp" %>
-	<div id="zeroArea"></div>
+<%
+	char gender = loginUser.getMemGender();
+	String gen[] = new String[3];
+	switch(gender){
+	case 'N' : gen[0] = "selected"; break;
+	case 'F' : gen[1] = "selected"; break;
+	case 'M' : gen[2] = "selected"; break;
+	}
+	
+	String style = loginUser.getMemStyle();
+	String styleArr[] = new String[7];
+	switch(style){
+	case "플렉": styleArr[0] = "selected"; break;
+	case "락토": styleArr[1] = "selected"; break;
+	case "오보": styleArr[2] = "selected"; break;
+	case "락토오보": styleArr[3] = "selected"; break;
+	case "페스코": styleArr[4] = "selected"; break;
+	case "폴로": styleArr[5] = "selected"; break;
+	case "비건": styleArr[6] = "selected"; break;
+	}
+%>
 	<div class="name">
-		My Page
+		<h3>My Page</h3>
 	</div>		
 	<div class="outer">
-		
 		<form action="<%= request.getContextPath() %>/update.me" method="post" id="updateForm" name="updateForm">
 			<table class="table">
 				<tr>
-					<td width="center">아이디</td>
-					 <td width="center">
-					 <%= loginUser.getMemId() %>
-					<%--  <input type="text" maxlength="13" name="myId" required vlaue= "<%= loginUser.getMemId() %>"> --%>
+					<td class="input-header">아이디</td>
+					 <td width="center" id="userId-td">
+					 	<%= loginUser.getMemId() %>
 					 </td>
 				</tr>
 				<tr>
-					<td>이름</td>
-					<td><input type="text" name="myName" required vlaue="<%= loginUser.getMemName() %>"></td>
+					<td class="input-header">이름</td>
+					<td><input type="text" name="myName" required value="<%= loginUser.getMemName() %>"></td>
 				</tr>
 				<tr>
-					<td>연락처</td>
+					<td class="input-header">연락처</td>
 					<td>
 						<input type="tel" maxlength="11" name="myPhone" placeholder="(-없이)01012345678" 
-						vlaue="<%= loginUser.getMemPhone() == null ? "" : loginUser.getMemPhone() %>">
+						value="<%= loginUser.getMemPhone() == null ? "" : loginUser.getMemPhone() %>">
 					</td>
 				</tr>
 				<tr>
-					<td>이메일</td>
+					<td class="input-header">이메일</td>
 					<td><input type="email" name="myEmail" placeholder="joker@naver.com" required
-					vlaue="<%= loginUser.getMemEmail() == null ? "" : loginUser.getMemEmail() %>">
+					value="<%= loginUser.getMemEmail() == null ? "" : loginUser.getMemEmail() %>">
+					</td>
+				</tr>
+				<tr>
+					<td class="input-header">성별</td>
+					<td>
+						<select name="gender">
+							<option value="N">--</option>
+							<option value="F" <%= gen[1]%>>여자</option>
+							<option value="M" <%= gen[2]%>>남자</option>
+							<option value="N" <%= gen[0]%>>선택안함</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td class="input-header">푸드 스타일</td>
+					<td>
+						<select name="style">
+							<option selected value=null>-------------</option>
+							<option value="플렉시터리언" <%= styleArr[0] %>>플렉시터리언</option>
+							<option value="락토" <%= styleArr[1] %>>락토</option>
+							<option value="오보" <%= styleArr[2] %>>오보</option>
+							<option value="락토오보" <%= styleArr[3] %>>락토오보</option>
+							<option value="페스코" <%= styleArr[4] %>>페스코</option>
+							<option value="폴로" <%= styleArr[5] %>>폴로</option>
+							<option value="비건" <%= styleArr[6] %>>비건</option>
+						</select>
 					</td>
 				</tr>
 			</table>
-			
+			<!-- 성별/ 푸드스타일 -->
 			<br>
 							
 			<div class="btns" align="center">

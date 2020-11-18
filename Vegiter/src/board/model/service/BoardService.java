@@ -1,6 +1,8 @@
 package board.model.service;
 
 import static common.JDBCTemplate.close;
+
+
 import static common.JDBCTemplate.commit;
 import static common.JDBCTemplate.getConnection;
 import static common.JDBCTemplate.rollback;
@@ -14,6 +16,8 @@ import board.model.vo.Board;
 import board.model.vo.BookMark;
 import board.model.vo.Comments;
 import board.model.vo.Content;
+import login.model.vo.Owner;
+import myPage.model.vo.Bookmark;
 import vegitalk.model.dao.VegitalkDAO;
 
 public class BoardService {
@@ -307,13 +311,44 @@ public class BoardService {
 		return list;
 	}
 
-	
+	// Mypage에서 북마크리스트 가져오기
+	public ArrayList<Bookmark> selectBookMarkById(String userId) {
+		Connection conn = getConnection();
+		ArrayList<Bookmark> bookList = new BoardDAO().selectBookMarkById(conn, userId);
+		
+		close(conn);
+		return bookList;
+	}
+
+	// Bookmark
+	public ArrayList<Board> selectBoardByBook(ArrayList<Bookmark> bookList) {
+		Connection conn = getConnection();
+		ArrayList<Board> bList = new BoardDAO().selectBoardByBook(conn, bookList);
+		close(conn);
+		return bList;
+	}
+
+	public ArrayList<Attachment> selectOnlyThumbnail(ArrayList<Bookmark> bookList) {
+		Connection conn = getConnection();
+		ArrayList<Attachment> fList = new BoardDAO().selectOnlyThumbnail(conn, bookList);
+		close(conn);
+		return fList;
+	}
 
 
+	public ArrayList<Board> selectBoardByMem(String userId) {
+		Connection conn = getConnection();
+		ArrayList<Board> writeList = new BoardDAO().selectBoardByMem(conn, userId);
+		close(conn);
+		return writeList;
+	}
 
 
-
-
-
+	public ArrayList<Attachment> selectThumbnailByMem(String userId) {
+		Connection conn = getConnection();
+		ArrayList<Attachment> writefList = new BoardDAO().selectThumbnailByMem(conn, userId);
+		close(conn);
+		return writefList;
+	}
 
 }

@@ -1,15 +1,19 @@
+
 package myPage.model.vo;
 
 public class Bookmark {
-	private String bmkNo;
+	private int bmkNo;
 	private String memId;
 	private String shopId;
-	private String boardNo;
+	private int boardNo;
 	
-	Bookmark() {}
-
 	
-	public Bookmark(String bmkNo, String memId, String shopId, String boardNo) {
+	
+	public Bookmark() {}
+	
+	
+	
+	public Bookmark(int bmkNo, String memId, String shopId, int boardNo) {
 		super();
 		this.bmkNo = bmkNo;
 		this.memId = memId;
@@ -17,11 +21,13 @@ public class Bookmark {
 		this.boardNo = boardNo;
 	}
 
-	public String getBmkNo() {
+
+
+	public int getBmkNo() {
 		return bmkNo;
 	}
 
-	public void setBmkNo(String bmkNo) {
+	public void setBmkNo(int bmkNo) {
 		this.bmkNo = bmkNo;
 	}
 
@@ -41,16 +47,19 @@ public class Bookmark {
 		this.shopId = shopId;
 	}
 
-	public String getBoardNo() {
+	public int getBoardNo() {
 		return boardNo;
 	}
 
-	public void setBoardNo(String boardNo) {
+	public void setBoardNo(int boardNo) {
 		this.boardNo = boardNo;
 	}
+
+
 
 	@Override
 	public String toString() {
 		return "Bookmark [bmkNo=" + bmkNo + ", memId=" + memId + ", shopId=" + shopId + ", boardNo=" + boardNo + "]";
 	}
+
 }

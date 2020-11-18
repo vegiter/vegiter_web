@@ -33,6 +33,8 @@ public class MemberUpdateServlet extends HttpServlet {
 		String name = request.getParameter("myName");
 		String phone = request.getParameter("myPhone");
 		String email = request.getParameter("myEmail");
+		char gender = request.getParameter("gender").charAt(0);
+		String style = request.getParameter("style");
 		
 		Member loginUser =((Member)request.getSession().getAttribute("loginUser"));
 
@@ -43,6 +45,8 @@ public class MemberUpdateServlet extends HttpServlet {
 		mem.setMemName(name);
 		mem.setMemPhone(phone);
 		mem.setMemEmail(email);
+		mem.setMemGender(gender);
+		mem.setMemStyle(style);
 		
 		int result = new MemberService().updateMember(mem);
 		String page = null;
@@ -51,6 +55,8 @@ public class MemberUpdateServlet extends HttpServlet {
 			loginUser.setMemName(name);
 			loginUser.setMemPhone(phone);
 			loginUser.setMemEmail(email);
+			loginUser.setMemGender(gender);
+			loginUser.setMemStyle(style);
 			page = "/myPage.me";
 		} else {
 			page = "WEB-INF/views/common/errorPage.jsp";

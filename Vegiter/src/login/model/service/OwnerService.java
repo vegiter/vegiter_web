@@ -22,4 +22,11 @@ public class OwnerService {
 		return o;
 	}
 
+	public Owner selectOwner(String userId) {
+		Connection conn = getConnection();
+		Owner owner = new OwnerDAO().selectOwner(conn, userId);
+		close(conn);
+		return owner;
+	}
+
 }

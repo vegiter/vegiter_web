@@ -53,4 +53,30 @@ public class OwnerDAO {
 		return o;
 	}
 
+	public Owner selectOwner(Connection conn, String userId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Owner owner = null;
+		String query = prop.getProperty("selectOwner");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				owner = new Owner(rset.getString("own_no"),
+								  rset.getString("own_name"),
+								  rset.getString("mem_id"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+				
+		return owner;
+	}
+
 }
