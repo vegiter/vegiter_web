@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="login.model.vo.Member,java.util.ArrayList,myPage.model.vo.Bookmark, board.model.vo.*" %>
+<%@ page import="login.model.vo.Member,java.util.ArrayList,myPage.model.vo.Bookmark, board.model.vo.*, shop.model.vo.*" %>
 <%
 	ArrayList<Board> bList = (ArrayList<Board>)request.getAttribute("bList");
 	ArrayList<Attachment> fList = (ArrayList<Attachment>)request.getAttribute("fList");
 	ArrayList<Board> writeList = (ArrayList<Board>)request.getAttribute("writeList");
 	ArrayList<Attachment> writefList = (ArrayList<Attachment>)request.getAttribute("writefList");
+
 %>
 
 <!DOCTYPE html>
@@ -90,7 +91,7 @@
 	#profile{
 		margin: 10px;
 	}
-	#profile tr td,#bookmark tr td{
+	#profile tr td,#bookmark tr td, #shopList tr td{
 		width: 100px;
 		height: 40px;
 		padding-left: 10px;
@@ -185,6 +186,48 @@
 					</table>
 				</div>
 			</div>
+			
+			
+			<%if(loginUser.getMemCode() == 2){ %>
+			<%	ArrayList<Shop> shopList = (ArrayList<Shop>)request.getAttribute("shopList"); %>
+				<div class="content">
+				<div class="title">가게정보</div>
+				<div class="subtitle">
+					<table id="shopList">
+					<%if(shopList != null){ %>
+						<%for(int i = 0; i < shopList.size(); i++){ %>
+								<tr class="thumnail-tr">
+									<td class="profile-header">
+										업체명
+									</td>
+									<td class="profile-content">
+										<%= shopList.get(i).getShopName() %>
+									</td>
+								</tr>
+								<tr class="thumnail-tr">
+									<td class="profile-header">
+										주소
+									</td>
+									<td class="profile-content">
+										<%= shopList.get(i).getShopAddress() %>
+									</td>
+								</tr>
+								<tr class="thumnail-tr">
+									<td class="profile-header">
+										홈페이지
+									</td>
+									<td class="profile-content">
+										<%= shopList.get(i).getShopPage() %>
+									</td>
+								</tr>
+								<%} %>
+							<%} %>
+						<%} %>
+					</table>
+				</div> 
+			</div>
+			
+			
 			<div class="content">
 				<div class="title">북마크</div>
 				<div class="subtitle">
@@ -252,11 +295,11 @@
 		
 	</script>
 	<div class="content">
-				<div class="title">Recipe 게시글 확인하기</div>
+				<div class="title">게시글 확인하기</div>
 				<div class="subtitle">
 					<table id="writeBoard">
 					<%if(writeList.isEmpty()){ %>
-						<tr>게시한 목록이 없습니다.</tr>
+						<tr class="none-list">게시한 목록이 없습니다.</tr>
 					<%}else{ %>
 						<%for(int i = 0; i < writeList.size(); i++){ %>
 							<% int code = writeList.get(i).getBoard_code(); %>
@@ -302,6 +345,7 @@
 					});
 				});
 			</script>
+
 	</section>
 	<%@ include file="../common/footer.jsp" %>
 	

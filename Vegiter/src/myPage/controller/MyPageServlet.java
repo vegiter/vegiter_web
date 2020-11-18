@@ -12,8 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import board.model.service.BoardService;
 import board.model.vo.Attachment;
 import board.model.vo.Board;
+import login.model.service.OwnerService;
 import login.model.vo.Member;
+import login.model.vo.Owner;
 import myPage.model.vo.Bookmark;
+import shop.model.service.ShopService;
+import shop.model.vo.Shop;
 
 /**
  * Servlet implementation class MyPageServlet
@@ -35,7 +39,20 @@ public class MyPageServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId = ((Member)request.getSession().getAttribute("loginUser")).getMemId();
+		int memCode = ((Member)request.getSession().getAttribute("loginUser")).getMemCode();
+		
 		BoardService bService = new BoardService();
+		
+		Owner owner = null;
+		ArrayList<Shop> shopList = null;
+		if(memCode == 2) {
+			// owner와 shop정보 가져오기
+			owner = new OwnerService().selectOwner(userId);
+			if(owner != null) {
+				shopList = new ShopService().selectShop(owner.getOwnNo());
+				request.setAttribute("shopList", shopList);
+			}
+		}
 		ArrayList<Bookmark> bookList = bService.selectBookMarkById(userId);
 		
 		String page = null;

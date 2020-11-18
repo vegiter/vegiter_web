@@ -15,6 +15,7 @@ import board.model.vo.Board;
 import board.model.vo.BookMark;
 import board.model.vo.Comments;
 import board.model.vo.Content;
+import login.model.vo.Owner;
 import myPage.model.vo.Bookmark;
 import vegitalk.model.dao.VegitalkDAO;
 
