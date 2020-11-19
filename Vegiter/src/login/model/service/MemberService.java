@@ -47,7 +47,7 @@ public class MemberService {
 	public int insertMember(ArrayList<Attachment> fileList) {
 		Connection conn = getConnection();
 
-		int result = new BoardDAO().insertAttachment(conn, fileList);
+		int result = new BoardDAO().insertAttachmentForEnroll(conn, fileList);
 
 		if (result > 0) {
 			commit(conn);

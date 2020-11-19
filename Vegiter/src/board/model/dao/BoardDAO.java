@@ -837,5 +837,36 @@ public class BoardDAO {
 		
 		return writefList;
 	}
+
+
+
+	public int insertAttachmentForEnroll(Connection conn, ArrayList<Attachment> fileList) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("insertAttachment");
+		
+		try {
+			for(int i = 0; i < fileList.size(); i++) {
+				Attachment at = fileList.get(i);
+				
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, at.getMemId());
+				pstmt.setInt(2, at.getBoardNo());
+				pstmt.setInt(3, at.getAtcType());
+				pstmt.setString(4, at.getAtcOrigin());
+				pstmt.setString(5, at.getAtcName());
+				pstmt.setString(6, at.getAtcPath());
+				pstmt.setInt(7,  at.getAtcLevel());;
+			
+				result += pstmt.executeUpdate();
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
 }

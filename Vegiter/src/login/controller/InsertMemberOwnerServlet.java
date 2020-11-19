@@ -71,9 +71,6 @@ public class InsertMemberOwnerServlet extends HttpServlet {
 					originFiles.add(multiRequest.getOriginalFileName(fName));
 				}
 				
-				System.out.println(saveFiles);
-				System.out.println(originFiles);
-				
 			}
 			
 			ArrayList<Attachment> fileList = new ArrayList<Attachment>();
