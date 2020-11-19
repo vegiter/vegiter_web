@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -867,6 +868,39 @@ public class BoardDAO {
 			close(pstmt);
 		}
 		return result;
+	}
+
+
+
+	public ArrayList<Board> selectNotice(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("selectNotice");
+		ArrayList<Board> noticeList = null;
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			noticeList = new ArrayList<Board>();
+			while(rset.next()) {
+				noticeList.add(new Board(rset.getInt("board_no"),
+										rset.getInt("board_code"),
+										rset.getString("mem_id"),
+										rset.getString("board_title"),
+										rset.getDate("board_date"),
+										rset.getString("board_content"),
+										rset.getInt("board_count"),
+										rset.getInt("board_like"),
+										rset.getInt("board_com"),
+										rset.getInt("board_cate"),
+										rset.getString("board_status")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+		return noticeList;
 	}
 	
 }

@@ -351,4 +351,12 @@ public class BoardService {
 		return writefList;
 	}
 
+
+	public ArrayList<Board> selectNotice() {
+		Connection conn = getConnection();
+		ArrayList<Board> noticeList = new BoardDAO().selectNotice(conn);
+		close(conn);
+		return noticeList;
+	}
+
 }
