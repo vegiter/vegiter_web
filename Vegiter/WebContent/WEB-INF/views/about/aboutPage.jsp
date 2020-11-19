@@ -49,7 +49,7 @@
 }
 
 #main_div1 {
-	width: 90%;
+	width: 800px;
 	margin: 10px auto;
 }
 
@@ -101,16 +101,22 @@ body {
 	line-height: 1.4 !important;	<!--!important  가장 우선임-->
 	font-family: 'Open Sans', sans-serif;
 }
+#about-article{
+	margin-left: 10%;
+}
+
 </style>
 
 </head>
 <body>
 	<%@ include file="../common/gnb.jsp"%>
+	<%@ include file="subNavi.jsp"%>
 
 	<div id="zeroArea"></div>
 
 	<section>
-		<article>
+		
+		<article id="about-article">
 			<div id="main_div1">
 				<br>
 

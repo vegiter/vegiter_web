@@ -210,6 +210,9 @@
 									</td>
 									<td class="profile-content">
 										<%= shopList.get(i).getShopAddress() %>
+										<%if(shopList.get(i).getShopCoord() != null){ %>
+										<%= shopList.get(i).getShopCoord() %>
+										<%} %>
 									</td>
 								</tr>
 								<tr class="thumnail-tr">
@@ -217,7 +220,11 @@
 										홈페이지
 									</td>
 									<td class="profile-content">
+									<%if(shopList.get(i).getShopPage() == null){ %>
+										--
+									<%}else{ %>
 										<%= shopList.get(i).getShopPage() %>
+									<%} %>
 									</td>
 								</tr>
 								<%} %>
@@ -307,8 +314,10 @@
 								<tr class="thumnail-tr">
 									<td class="profile-header" id="wList-td">
 									<%if(writefList.get(i) != null ){ %>
-										<%if(writeList.get(i).getBoard_no() == writeList.get(i).getBoard_no()) {%>
-										<img src="<%=request.getContextPath()%>/thumnail_uploadFiles/<%= writefList.get(i).getAtcName()%>">
+									
+										<%if(writeList.get(i).getBoard_no() == writefList.get(i+1).getBoardNo()) {%>
+										<!-- -1이 있음! -->
+										<img src="<%=request.getContextPath()%>/thumnail_uploadFiles/<%= writefList.get(i+1).getAtcName()%>">
 										<%} %>
 										<input type="hidden" name="bNo" id="no<%=i %>" value="<%=writeList.get(i).getBoard_no()%>">
 									<%} %>

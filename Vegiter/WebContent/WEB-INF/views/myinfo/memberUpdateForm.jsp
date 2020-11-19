@@ -24,6 +24,7 @@
 		color: white;
 		border-radius: 5px;
 		box-shadow: 2px 2px 3px 2px lightgray;
+		text-shadow: 0px 5px 4px gray;
 	}
 	.outer{
 		margin-top: 10px;
@@ -74,14 +75,16 @@
 	
 	String style = loginUser.getMemStyle();
 	String styleArr[] = new String[7];
-	switch(style){
-	case "플렉": styleArr[0] = "selected"; break;
-	case "락토": styleArr[1] = "selected"; break;
-	case "오보": styleArr[2] = "selected"; break;
-	case "락토오보": styleArr[3] = "selected"; break;
-	case "페스코": styleArr[4] = "selected"; break;
-	case "폴로": styleArr[5] = "selected"; break;
-	case "비건": styleArr[6] = "selected"; break;
+	if(style != null){
+		switch(style){
+		case "플렉": styleArr[0] = "selected"; break;
+		case "락토": styleArr[1] = "selected"; break;
+		case "오보": styleArr[2] = "selected"; break;
+		case "락토오보": styleArr[3] = "selected"; break;
+		case "페스코": styleArr[4] = "selected"; break;
+		case "폴로": styleArr[5] = "selected"; break;
+		case "비건": styleArr[6] = "selected"; break;
+		}
 	}
 %>
 	<div class="name">
