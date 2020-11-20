@@ -36,7 +36,9 @@
 				<li class="gnb-nav-list" onclick="location.href='<%= request.getContextPath() %>/vegiTalk?opt=0'">VegiTalk</li>
 				<%if(loginUser == null){ %>
 				<li class="gnb-nav-list" onclick="location.href='<%= request.getContextPath() %>/login.me'">Login</li>
-				<%}else{ %>
+				<%}else if(loginUser.getMemId().equals("admin")){ %>
+				<li class="gnb-nav-list" onclick="location.href='<%=request.getContextPath()%>/admin'">회원관리</li>
+				<% }else{ %>
 				<li class="gnb-nav-list" onclick="location.href='<%= request.getContextPath() %>/myPage.me'">My Info</li>
 				<%} %>
 			</ul>

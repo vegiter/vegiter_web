@@ -50,16 +50,12 @@ public class RecipeInsertServlet extends HttpServlet {
 			String[] content=multiRequest.getParameterValues("content");
 	   		int cates=Integer.parseInt(multiRequest.getParameter("cate")); 
 	   		
-	   		System.out.println(""+title);
-	   			   					
-			
 			
 			ArrayList<String> saveFiles= new ArrayList<String>();			//바뀐 파일저장
 			ArrayList<String> originFiles =new ArrayList<String>();			//원본파일저장
 																
 			
 			Enumeration<String> files=multiRequest.getFileNames();	//폼에서 전송된 파일 리스트의 이름 반환
-			System.out.println("확인용!!!");
 			while(files.hasMoreElements()) {
 				String name=files.nextElement();
 			
@@ -67,7 +63,6 @@ public class RecipeInsertServlet extends HttpServlet {
 					saveFiles.add(multiRequest.getFilesystemName(name));
 					originFiles.add(multiRequest.getOriginalFileName(name));
 					
-					System.out.println(multiRequest.getFilesystemName(name));
 				}
 			}
 			
@@ -76,13 +71,11 @@ public class RecipeInsertServlet extends HttpServlet {
 			b.setMem_id(bWriter);
 			b.setBoard_cate(cates);
 			b.setBoard_code(0);
-			System.out.println(b.getMem_id());
 			
 			ArrayList<Content> con=new ArrayList<Content>();
 			for(int i=0; i<content.length; i++) {
 				if((content[i].trim())!="") {
 					Content c=new Content();
-					System.out.println(i+","+content[i]);
 					c.setContent(content[i]);				
 					con.add(c);
 				}
@@ -107,8 +100,6 @@ public class RecipeInsertServlet extends HttpServlet {
 				
 				fileList.add(at);
 			}
-			
-			System.out.println(fileList+"연습입니다.");
 			
 			
 			

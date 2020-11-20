@@ -24,6 +24,7 @@ public class EncryptWrapper extends HttpServletRequestWrapper{
 
 			value = getSha512(super.getParameter(name));
 			
+			
 		}else {
 			value = super.getParameter(name);
 		}
