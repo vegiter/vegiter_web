@@ -211,4 +211,12 @@ public class MemberService {
 		      
 		      return result;
 		   }
+
+		public ArrayList<Member> selectMemberAll() {
+			Connection conn = getConnection();
+			ArrayList<Member> memList = new MemberDAO().selectMemberAll(conn);
+			close(conn);
+			return memList;
+		}
+
 }

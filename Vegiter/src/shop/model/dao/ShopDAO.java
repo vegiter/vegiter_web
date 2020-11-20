@@ -1,4 +1,6 @@
 package shop.model.dao;
+import static common.JDBCTemplate.close;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -6,11 +8,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
 import shop.model.vo.Shop;
-import static common.JDBCTemplate.close;
 public class ShopDAO {
 	Properties prop = new Properties();
 	
@@ -53,6 +55,36 @@ public class ShopDAO {
 			close(rset);
 			close(pstmt);
 		}
+		return shopList;
+	}
+
+	public ArrayList<Shop> selectShopAll(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("selectShopAll");
+		ArrayList<Shop> shopList = new ArrayList<Shop>();
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			shopList = new ArrayList<Shop>();
+			while(rset.next()) {
+				shopList.add(new Shop(rset.getString("shop_id"),
+									  rset.getString("shop_name"),
+									  rset.getString("shop_address"),
+									  rset.getString("shop_page"),
+									  rset.getString("shop_coord"),
+									  rset.getString("shop_link"),
+									  rset.getInt("shop_style"),
+									  rset.getInt("shop_rating"),
+									  rset.getString("own_no")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+		
 		return shopList;
 	}
 

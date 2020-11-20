@@ -17,5 +17,12 @@ public class ShopService {
 		
 		return shopList;
 	}
+
+	public ArrayList<Shop> selectShopAll() {
+		Connection conn = getConnection();
+		ArrayList<Shop> shopList = new ShopDAO().selectShopAll(conn);
+		close(conn);
+		return shopList;
+	}
 	
 }

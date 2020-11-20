@@ -9,10 +9,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import board.model.vo.Attachment;
 import login.model.vo.Member;
 import login.model.vo.Owner;
 import shop.model.vo.Shop;
@@ -461,4 +461,35 @@ public class MemberDAO {
       }
       return result;
    }
+
+public ArrayList<Member> selectMemberAll(Connection conn) {
+	Statement stmt = null;
+	ResultSet rset = null;
+	ArrayList<Member> memList = null;
+	String query = prop.getProperty("selectMemberAll");
+	try {
+		stmt = conn.createStatement();
+		rset = stmt.executeQuery(query);
+		memList = new ArrayList<Member>();
+		while(rset.next()) {
+			memList.add(new Member(rset.getString("mem_id"), 
+									rset.getString("mem_pwd"), 
+									rset.getInt("mem_code"),
+									rset.getString("mem_name"), 
+									rset.getString("mem_gender").charAt(0), 
+									rset.getString("mem_phone"),
+									rset.getString("mem_email"),
+									rset.getString("mem_style"), 
+									rset.getString("mem_status"),
+									rset.getDate("mem_deldate")));
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}finally {
+		close(rset);
+		close(stmt);
+	}
+	
+	return memList;
+}
 }

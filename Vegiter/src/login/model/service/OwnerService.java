@@ -6,6 +6,7 @@ import static common.JDBCTemplate.getConnection;
 import static common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import login.model.dao.OwnerDAO;
 import login.model.vo.Owner;
@@ -27,6 +28,13 @@ public class OwnerService {
 		Owner owner = new OwnerDAO().selectOwner(conn, userId);
 		close(conn);
 		return owner;
+	}
+
+	public ArrayList<Owner> selectOwnerAll() {
+		Connection conn = getConnection();
+		ArrayList<Owner> ownList = new OwnerDAO().selectOwnerAll(conn);
+		close(conn);
+		return ownList;
 	}
 
 }

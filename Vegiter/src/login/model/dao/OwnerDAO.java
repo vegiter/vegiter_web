@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import login.model.vo.Owner;
@@ -77,6 +79,29 @@ public class OwnerDAO {
 		}
 				
 		return owner;
+	}
+
+	public ArrayList<Owner> selectOwnerAll(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Owner> ownList = null;
+		String query = prop.getProperty("selectOwnerAll");
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			ownList = new ArrayList<Owner>();
+			while(rset.next()) {
+				ownList.add(new Owner(rset.getString("own_no"),
+									rset.getString("own_name"),
+									rset.getString("mem_id")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+		return ownList;
 	}
 
 }
