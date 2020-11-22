@@ -134,7 +134,7 @@
 							<% Member m = memList.get(i); %>
 							<%if(m.getMemCode() == 1){ %>
 								<tr>
-									<td><input type="checkbox" name="delete-mem"></td>
+									<td><input type="checkbox" name="delete-mem" class="delete-mem"></td>
 									<%if(isNumber(m.getMemId())){ %>
 											<td>소셜로그인</td>
 									<%}else{ %>
@@ -179,7 +179,7 @@
 								<% Shop shop = shopList.get(i); %>
 								<%if(own.getOwnNo().equals(shop.getOwnNo())){ %>
 									<tr>
-										<td><input type="checkbox" name="delete-own"></td>
+										<td><input type="checkbox" name="delete-own" class="delete-own"></td>
 										<td><%=own.getMemId()%></td>
 										<td><%=own.getOwnName()%></td>
 										<td><%=own.getOwnNo()%></td>
@@ -194,29 +194,46 @@
 					</table>
 					</div>
 					<script>
+						var memCheck = false;
+						var ownCheck = false;
 						$('#del-mem-all').click(function(){
 							var isChecked = $(this).is(':checked');
 							if(isChecked){
-								$("input[name='delete-mem']").prop('checked',true);
+								$(".delete-mem").prop('checked',true);
 							}else{
-								$("input[name='delete-mem']").prop('checked',false);
+								$(".delete-mem").prop('checked',false);
 							}
-							
 						});
 						
-						$("input[name='delete-mem']").click(function(){
+						$(".delete-mem").click(function(){
 							var isCheck = $(this).is(':checked');
-							console.log(isCheck);
+							if(!isCheck){
+								$('#del-mem-all').prop('checked',false);
+							}else if(isCheck && memCheck){
+								$('#del-mem-all').prop('checked',true);
+							}
 						});
-						
 						
 						$('#del-own-all').click(function(){
 							var isChecked = $(this).is(':checked');
+							$('#delete-mem-all').prop('checked',false);
 							if(isChecked){
 								$("input[name='delete-own']").prop('checked',true);
 							}else{
 								$("input[name='delete-own']").prop('checked',false);
 							}
+						});
+						
+						$("input[name='delete-own']").click(function(){
+							var isCheck = $(this).is(':checked');
+							if(!isCheck){
+								$('#del-own-all').prop('checked',false);
+							}else if(isCheck && ownCheck){
+								$('#del-own-all').prop('checked',true);
+							}
+						});
+						$(function(){
+							console.log($('.delete-mem'));
 							
 						});
 					</script>
