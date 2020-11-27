@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import board.model.vo.PageInfo;
 import login.model.vo.Member;
 import login.model.vo.Owner;
 import shop.model.vo.Shop;
@@ -462,15 +463,74 @@ public class MemberDAO {
       return result;
    }
 
-public ArrayList<Member> selectMemberAll(Connection conn) {
-	Statement stmt = null;
-	ResultSet rset = null;
-	ArrayList<Member> memList = null;
-	String query = prop.getProperty("selectMemberAll");
-	try {
-		stmt = conn.createStatement();
-		rset = stmt.executeQuery(query);
-		memList = new ArrayList<Member>();
+   public ArrayList<Member> selectMemberAll(Connection conn) {
+	   Statement stmt = null;
+	   ResultSet rset = null;
+		ArrayList<Member> memList = null;
+		String query = prop.getProperty("selectMemberAll");
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			memList = new ArrayList<Member>();
+			while(rset.next()) {
+				memList.add(new Member(rset.getString("mem_id"), 
+									rset.getString("mem_pwd"), 
+									rset.getInt("mem_code"),
+									rset.getString("mem_name"), 
+									rset.getString("mem_gender").charAt(0), 
+									rset.getString("mem_phone"),
+									rset.getString("mem_email"),
+									rset.getString("mem_style"), 
+									rset.getString("mem_status"),
+									rset.getDate("mem_deldate")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+	
+		return memList;
+   }
+
+   public int getListCount(Connection conn, int num) {
+	   PreparedStatement pstmt = null;
+	   ResultSet rset = null;
+	   int result = 0;
+	   String query = prop.getProperty("getListCount");
+	   try {
+		   pstmt = conn.prepareStatement(query);
+		   pstmt.setInt(1, num);
+		   rset = pstmt.executeQuery();
+		   if(rset.next()) {
+			   result = rset.getInt(1);
+		   }
+		   
+	   } catch (SQLException e) {
+		   e.printStackTrace();
+	   }finally {
+		   close(rset);
+		   close(pstmt);
+	   }
+	   return result;
+   }
+
+   public ArrayList<Member> selectMemList(Connection conn, PageInfo pi) {
+	   PreparedStatement pstmt = null;
+	   ResultSet rset = null;
+	   ArrayList<Member> memList = new ArrayList<Member>();
+	   String query = prop.getProperty("selectMemList");
+	   
+	   int startRow = (pi.getCurrentPage()-1) * pi.getPostLimit() + 1;
+	   int endRow = startRow + pi.getPostLimit() - 1;
+	   
+	   try {
+		pstmt  = conn.prepareStatement(query);
+		pstmt.setInt(1, startRow);
+		pstmt.setInt(2, endRow);
+		
+		rset = pstmt.executeQuery();
 		while(rset.next()) {
 			memList.add(new Member(rset.getString("mem_id"), 
 									rset.getString("mem_pwd"), 
@@ -487,9 +547,8 @@ public ArrayList<Member> selectMemberAll(Connection conn) {
 		e.printStackTrace();
 	}finally {
 		close(rset);
-		close(stmt);
+		close(pstmt);
 	}
-	
-	return memList;
-}
+	   return memList;
+   }
 }

@@ -1,11 +1,19 @@
+<%@page import="oracle.jdbc.oracore.PickleContext"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, login.model.vo.*,shop.model.vo.*,java.lang.String" %>
+<%@ page import="java.util.ArrayList, login.model.vo.*,shop.model.vo.*,java.lang.String, board.model.vo.*" %>
 <%
 	ArrayList<Member> memList = (ArrayList<Member>)request.getAttribute("memList");
 	ArrayList<Owner> ownList = (ArrayList<Owner>)request.getAttribute("ownList");
 	ArrayList<Shop> shopList = (ArrayList<Shop>)request.getAttribute("shopList");
 	ArrayList<Member> idList = new ArrayList<Member>();
+	
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	int listCount = pi.getPostCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int endPage = pi.getEndPage();
+	int startPage = pi.getStartPage();
 %>
 <%! 	
 	public boolean isNumber(String str){
@@ -99,6 +107,15 @@
 		height: 20px;
 		border-bottom: 1px solid lightgray; 
 	}
+	.pagingArea button{
+		background: lightgray;
+		border: 1px solid lightgray;
+		border-radius: 3px;
+	}
+	.pagingArea button:hover{
+		cursor:pointer;
+		color: white;
+	}
 </style>
 </head>
 <body>
@@ -147,12 +164,44 @@
 										<td><%=m.getMemStyle()%></td>
 										<td><%=m.getMemStatus()%></td>
 								</tr>
-							<%}else if(m.getMemCode() == 2){ %>
-								<%idList.add(m); %>
 							<%} %>
 						<%} %>
 					<%} %>
 				</table>
+				<div class="pagingArea" align="center">
+					<!-- 맨 처음으로 -->
+					<button onclick="location.href='<%=request.getContextPath() %>/admin?currentPage=1'">&lt;&lt;</button>
+					<!-- 이전 페이지 -->
+					<button onclick="location.href='<%=request.getContextPath() %>/admin?currentPage=<%=currentPage - 1%>'" id="beforeBtn">&lt;</button>
+					<script>
+						// 1페이지 시 비활성화
+						if(<%= currentPage %> <= 1){
+							var before = $('#beforeBtn');
+							before.attr('disabled',true);
+						}
+					</script>
+					<!-- 숫자 목록 버튼 -->
+					<%for(int p = startPage; p <= endPage; p++){ %>
+						<!-- 현재 페이지 버튼 다르게 -->
+						<% if(p == currentPage){ %>
+							<button class="choosen" disabled><%=p %></button>
+						<%}else{ %>
+							<button class="numBtn" onclick="location.href='<%=request.getContextPath() %>/admin?currentPage=<%=p %>'">
+								<%=p %>
+							</button>
+						<%} %>
+					<%} %>
+					<!-- 다음 페이지로 -->
+					<button onclick="location.href='<%=request.getContextPath() %>/admin?currentPage=<%=currentPage + 1 %>'" id="afterBtn">&gt;</button>
+					<script>
+						if(<%=currentPage%> >= <%=maxPage%>){
+							var after = $('#afterBtn');
+							after.attr('disabled', true);
+						}
+					</script>
+					
+					<button onclick="location.href='<%=request.getContextPath() %>/admin?currentPage=<%=maxPage %>'">&gt;&gt;</button>
+				</div>
 			</div>
 		</div>
 		<div class="member-li-div">
@@ -186,7 +235,7 @@
 										<td><%=shop.getShopName() %></td>
 										<td><%=shop.getShopAddress() %></td>
 										<td><%=shop.getShopPage() %></td>
-										<td><%=idList.get(i).getMemStatus() %></td>
+<%-- 										<td><%=idList.get(i).getMemStatus() %></td><!--  --> --%>
 									</tr>
 								<%} %>
 							<%} %>
@@ -194,47 +243,55 @@
 					</table>
 					</div>
 					<script>
-						var memCheck = false;
-						var ownCheck = false;
+						var memlist = $('.delete-mem');
+						var ownlist = $('.delete-own');
+					
+					
 						$('#del-mem-all').click(function(){
 							var isChecked = $(this).is(':checked');
 							if(isChecked){
-								$(".delete-mem").prop('checked',true);
+								memlist.prop('checked',true);
 							}else{
-								$(".delete-mem").prop('checked',false);
+								memlist.prop('checked',false);
 							}
 						});
 						
 						$(".delete-mem").click(function(){
-							var isCheck = $(this).is(':checked');
-							if(!isCheck){
+							var count = 0;
+							for(var i = 0; i < memlist.length; i++){
+								if(memlist[i].checked){
+									count++;
+								}
+							}
+							if(count != memlist.length){
 								$('#del-mem-all').prop('checked',false);
-							}else if(isCheck && memCheck){
+							}else{
 								$('#del-mem-all').prop('checked',true);
 							}
+							
 						});
 						
 						$('#del-own-all').click(function(){
 							var isChecked = $(this).is(':checked');
-							$('#delete-mem-all').prop('checked',false);
 							if(isChecked){
-								$("input[name='delete-own']").prop('checked',true);
+								ownlist.prop('checked',true);
 							}else{
-								$("input[name='delete-own']").prop('checked',false);
+								ownlist.prop('checked',false);
 							}
 						});
 						
-						$("input[name='delete-own']").click(function(){
-							var isCheck = $(this).is(':checked');
-							if(!isCheck){
+						$(".delete-own").click(function(){
+							var count = 0;
+							for(var i = 0; i < ownlist.length; i++){
+								if(ownlist[i].checked){
+									count++;
+								}
+							}
+							if(count != ownlist.length){
 								$('#del-own-all').prop('checked',false);
-							}else if(isCheck && ownCheck){
+							}else{
 								$('#del-own-all').prop('checked',true);
 							}
-						});
-						$(function(){
-							console.log($('.delete-mem'));
-							
 						});
 					</script>
 		</div>

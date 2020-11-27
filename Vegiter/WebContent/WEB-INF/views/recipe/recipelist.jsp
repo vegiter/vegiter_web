@@ -21,12 +21,17 @@
 	#tag_filter{margin-left:220px;	border:2px solid lightgray;	width:1100px;height:80px;}
 	.img{display:inline-block;}
 	#menuname{display:fixed;margin-top:100px; }
-	.sort{margin-left:1200px;font-size:10px; min-width:300px; min-height:30px;}
+	.sort{margin-left:80%;font-size:10px; min-width:300px; min-height:30px;}
 	.col{display:inline-block;	border: 3px solid black; padding:1px; margin:1px; }
 	#listwrap{margin-left:130px;}
 	.sortType{cursor:pointer; }
-	#write{margin-left:1500px;margin-top:100px; padding-top: 1000px;cursor:pointer;}
-	.text{margin-top:100px;margin-left:650px;}
+	#write{
+		margin-left:90%;
+		margin-top: 80%;
+		cursor:pointer;
+		border: 1px solid white;
+	}
+	.text{width: 450px; height: 50px; margin: auto;}
 	h2{text-align:center;}
 	.card h-100:hover{cursor:pointer; }
 	.col{max-width:"250px"; max-height:"150px"; min-width:"250px"; min-height:"150px"; border-radius: 10px;}

@@ -45,6 +45,7 @@
 	}
 	section{
 		border: 1px solid rgb(246, 246, 246);
+		min-height: 800px;
 	}
 	.notice-div{
 		width: 700px;
@@ -71,10 +72,9 @@
 		border-bottom: 1px solid #41A693;
 	}
 	#write{
-		margin-left:1500px;
-		margin-top:100px; 
-		padding-top: 1000px;
+		margin-left:90%;
 		cursor:pointer;
+		position: fixed;
 	}
 </style>
 <body>
@@ -116,7 +116,7 @@
 	</section>
 			<!-- 글쓰기 버튼 -->
   	 <%if(loginUser != null && loginUser.getMemId().equals("admin")){ %>
-		<span id="write"><img src="<%=request.getContextPath() %>/images/recipe/write.png" height="50px" width="50px" onclick="location.href='<%=request.getContextPath()%>/write'"></span>	
+		<span id="write"><img src="<%=request.getContextPath() %>/images/recipe/write.png" height="50px" width="50px" onclick="location.href='<%=request.getContextPath()%>/write.no'"></span>	
 	<%} %>   
 	<%@ include file="../common/footer.jsp" %>
 </body>

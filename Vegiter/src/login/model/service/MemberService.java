@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import board.model.dao.BoardDAO;
 import board.model.vo.Attachment;
+import board.model.vo.PageInfo;
 import login.model.dao.MemberDAO;
 import login.model.vo.Member;
 import login.model.vo.Owner;
@@ -215,6 +216,19 @@ public class MemberService {
 		public ArrayList<Member> selectMemberAll() {
 			Connection conn = getConnection();
 			ArrayList<Member> memList = new MemberDAO().selectMemberAll(conn);
+			close(conn);
+			return memList;
+		}
+
+		public int getListCount(int num) {
+			Connection conn = getConnection();
+			int result = new MemberDAO().getListCount(conn, num);
+			return result;
+		}
+
+		public ArrayList<Member> selectMemList(PageInfo pi) {
+			Connection conn = getConnection();
+			ArrayList<Member> memList = new MemberDAO().selectMemList(conn, pi);
 			close(conn);
 			return memList;
 		}
