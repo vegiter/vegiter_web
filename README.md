@@ -9,16 +9,16 @@ Vegiter web site project
 서비스 카테고리|메인/About/식당찾기/레시피게시판/식단&소통공유게시판/MyPage
 
 ### 개발 환경
->**Server:** Apache Tomcat 9.0
->**Database:** Oracle11g<br />
->**Development Tool:** Eclipse 4.16.0, sqlDeveloper version 20.2.0.175<br />
->**Development Language:** JAVA , HTML5, CSS3, JavaScript, jQuery, SQL, JSP, Servlet<br />
->**Team Coop:** ithub, ERDCloud, Figma, Google Docs<br />
+>**Server:** Apache Tomcat 9.0<br/>
+>**Database:** Oracle11g<br/>
+>**Development Tool:** Eclipse 4.16.0, sqlDeveloper version 20.2.0.175<br/>
+>**Development Language:** JAVA , HTML5, CSS3, JavaScript, jQuery, SQL, JSP, Servlet<br/>
+>**Team Coop:** ithub, ERDCloud, Figma, Google Docs<br/>
 >**Open API:**
->로그인_Naver API<br />
->지도_KakaoMap API<br />
->화면_Boostrap, font-Awsome, Google-fonts<br />
->기타_Google Charts<br />
+>로그인_Naver API<br/>
+>지도_KakaoMap API<br/>
+>화면_Boostrap, font-Awsome, Google-fonts<br/>
+>기타_Google Charts<br/>
 
 ### 프로젝트 일정
 |항목|내용|
