@@ -1,5 +1,5 @@
-# vegiter
-Vegiter website project
+# 🌱vegiter
+Vegiter Website Project
 
 <br/>
 <br/>
@@ -53,7 +53,7 @@ Vegiter website project
 <br/>
 
 ### 화면
-<sup>[Vegitalk 화면 이미지 원본 보기.zip](https://github.com/vegiter/vegiter_web/files/5792963/Vegitalk.zip)</sup>
+<sup>[Vegiter 화면 이미지 원본 보기.zip](https://github.com/vegiter/vegiter_web/files/5792995/Vegiter.zip)</sup>
 
 **1. 메인**  
 메인화면  
