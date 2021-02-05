@@ -112,7 +112,7 @@ var positions = [
     },
         {
         title: ' 아승지', 
-        latlng: new kakao.maps.LatLng(37.507806,1W26.9111939),
+        latlng: new kakao.maps.LatLng(37.507806,126.9111939),
     },
     {
         title: ' 오세계향', 

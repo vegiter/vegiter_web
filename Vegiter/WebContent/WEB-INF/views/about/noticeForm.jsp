@@ -84,7 +84,6 @@
 		<ul id="sub-navi">
 			<li class="navi-title" id="li-about" onclick="location.href='<%=request.getContextPath()%>/aboutPage.me'">Vegiter소개</li>
 			<li class="navi-title" id="li-notice">공지사항</li>
-			<li class="navi-title" id="li-qn" onclick="location.href='<%=request.getContextPath()%>/faq'">문의사항</li>
 		</ul>
 	</div>
 	<section>
